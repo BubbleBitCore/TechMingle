@@ -11,6 +11,7 @@ This repository contains the frontend codebase for TechMingle, a platform that i
   - [Constants](#3-constants)
   - [Components](#4-components)
   - [Pages](#5-pages)
+  - [Api](#5-apis)
 - [Contributing](#contributing)
 - [License](#license)
 
@@ -97,6 +98,10 @@ src/
 ### 5. Pages
    - Contains page-level components, each representing a different section of the application.
    - Example pages include `Home/`, `Article/`, etc.
+
+### 6. Apis
+   - Contains all apis regarding pages.
+
 
 ## Contributing
 
