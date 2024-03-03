@@ -12,7 +12,6 @@ import Podcasts from "../pages/Podcasts";
 import Workshops from "../pages/Workshops";
 import Jobs from "../pages/Jobs";
 import PageNotFound from "../pages/PageNotFound";
-
 import { navigation } from "../constants/navigation";
 
 const AppWrapper = () => {

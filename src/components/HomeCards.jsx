@@ -1,5 +1,5 @@
 import React from "react";
-import gift from "../assets/christmas gift.png";
+import gift from "../assets/images/christmas gift.png";
 import { useNavigate } from "react-router-dom";
 
 const HomeCards = ({
@@ -13,12 +13,12 @@ const HomeCards = ({
   const navigate = useNavigate();
   return (
     <>
-      <div className="flex flex-col gap-12 col-span-1 items-center">
+      <div className="flex flex-col gap-8 col-span-1 items-center">
         <img className=" w-96 h-64" src={image}></img>
         <div className="flex flex-col gap-3 items-center ">
           <p className="tracking-tight">{heading}</p>
           <span className="flex items-center gap-2">
-            <p className="font-bold text-3xl tracking-tight ">{cardtitle}</p>
+            <p className="font-bold text-2xl tracking-tight ">{cardtitle}</p>
 
             {isAvailable ? (
               <></>
