@@ -55,9 +55,8 @@ src/
 | |-- other_assets/
 |-- components/
 | |-- Podcast/
-| |-- GenreSelection.js
-| |-- PodcastLanding.js
-| |-- ...
+| |  |-- GenreSelection.js
+| |  |-- PodcastLanding.js
 | |-- AppWrapper.jsx
 | |-- HomeCards.jsx
 | |-- Navigation.jsx
