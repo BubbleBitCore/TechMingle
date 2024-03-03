@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import {Routes, Route } from "react-router-dom";
 import Navigation from "./Navigation";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
@@ -16,7 +16,7 @@ import { navigation } from "../constants/navigation";
 
 const AppWrapper = () => {
   return (
-    <Router>
+    <>
       <div className="flex flex-col w-full p-8 px-10">
         <Navigation navigation={navigation} />
         <div className="flex w-full  py-2 h-auto max-sm:px-0">
@@ -37,7 +37,7 @@ const AppWrapper = () => {
           </Routes>
         </div>
       </div>
-    </Router>
+    </>
   );
 };
 
