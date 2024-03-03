@@ -1,4 +1,4 @@
-# TechMingle React Frontend Project
+# TechMingle 
 
 This repository contains the frontend codebase for TechMingle, a platform that includes features like podcasts, articles, books, jobs, etc.
 
