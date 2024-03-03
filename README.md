@@ -32,7 +32,7 @@ npm install
 npm start
 ```
 
-``Note:`` Environment variables are stored in <span style="font-weight:bold;color:deepskyblue;">.env</span> file. Ask the administrator to furnish the contents of the .env file.
+``Note:`` Environment variables in future will be stored in <span style="font-weight:bold;color:deepskyblue;">.env</span> file. Ask the administrator to furnish the contents of the .env file.
 
 ## Folder Structure
 
