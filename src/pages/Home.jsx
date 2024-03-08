@@ -3,33 +3,21 @@ import HomeCards from "../components/HomeCards";
 import homeSection from "../constants/homeSection";
 import poopicon from "../assets/images/mdi_emoji-poop.png";
 import poopright from "../assets/images/mdi_emoji-poop opp.png";
+import MobileSidebar from "../components/MobileSidebar";
 
 const Home = () => {
-  
   return (
-    <div className="flex flex-col w-full pt-6 gap-10">
-      <div className="flex items-center w-full justify-center">
-        <img className="w-16 h-16" src={poopicon}></img>
-        <p className="text-3xl tracking-wide font-thin">
-          Where tech enthusiasts and fresh minds unite to innovate thrive
+    <div className="flex flex-col h-full w-full pr-4 max-sm:px-4">
+      <div className="flex w-full justify-between items-center font-extrabold pb-2">
+        <div className="flex max-sm:text-2xl text-3xl gap-3 select-none">
+          <MobileSidebar />
+          Techmingle
+        </div>
+        <p className="flex h-12 w-12  rounded-full border border-black text-black items-center justify-center">
+          <i className="ri-user-line text-2xl"></i>
         </p>
-        <img className="w-16 h-16" src={poopright}></img>
       </div>
-
-      <div className="grid grid-cols-3 gap-12 text-2xl pt-12">
-        {homeSection?.map((item, idx) => (
-          <HomeCards
-            key={idx}
-            image={item.image}
-            heading={item.heading}
-            cardtitle={item.cardtitle}
-            isAvailable={item.isAvailable}
-            btnColor={item.btnColor}
-            btnHoverColor={item.btnHoverColor}
-            link={item.link}
-          />
-        ))}
-      </div>
+      <div className="mt-1 mb-2 h-full w-full bg-white">content</div>
     </div>
   );
 };

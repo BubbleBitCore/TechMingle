@@ -1,4 +1,4 @@
-import {Routes, Route } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Navigation from "./Navigation";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
@@ -17,9 +17,12 @@ import { navigation } from "../constants/navigation";
 const AppWrapper = () => {
   return (
     <>
-      <div className="flex flex-col w-full p-8 px-10">
-        <Navigation navigation={navigation} />
-        <div className="flex w-full  py-2 h-auto max-sm:px-0">
+      <div className="flex w-full h-full pt-6 pb-2">
+        <div className="flex h-full  md:w-[15%] lg:w-[10%] xl:w-[8%] 2xl:w-[7%] max-sm:px-0 max-sm:hidden">
+          <Navigation navigation={navigation} />
+        </div>
+
+        <div className="flex h-full w-full max-sm:px-0">
           {/* Everything will render/change here */}
           <Routes>
             <Route exact path="/" element={<Home />} />
