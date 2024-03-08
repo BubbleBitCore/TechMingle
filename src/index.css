@@ -24,6 +24,10 @@ html {
   height: 100%;
 }
 
+.monsterrat {
+  font-family: "Montserrat", sans-serif;
+}
+/* Here we have defined custom variables for colors */
 :root {
   --primary-color: #44a2f4;
   --icon-gray-color: #656666;

@@ -14,7 +14,7 @@ export const navigation = [
     link: "/tech-frenzy",
     icon: "fa-solid fa-laptop",
   },
-  { name: "Podcasts", link: "/podcasts", icon: "fa-solid fa-podcast" },
+  { name: "Podcasts", link: "/podcasts/landing", icon: "fa-solid fa-podcast" },
   { name: "Workshops", link: "/workshops", icon: "fa-solid fa-lightbulb" },
   { name: "Books", link: "/books", icon: "fa-solid fa-book" },
   { name: "Jobs", link: "/jobs", icon: "fa-solid fa-briefcase" },
