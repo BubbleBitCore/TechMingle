@@ -1,5 +1,3 @@
-import React from 'react';
-import MobileSidebar from "../components/MobileSidebar";
 
 const Clubs = ({Header}) => {
   return (

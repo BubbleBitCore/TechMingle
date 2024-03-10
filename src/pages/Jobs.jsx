@@ -1,6 +1,3 @@
-import React from 'react';
-import MobileSidebar from "../components/MobileSidebar";
-
 const Jobs = ({Header}) => {
   return (
     <div className="flex flex-col h-full w-full pr-4 max-sm:px-4">
