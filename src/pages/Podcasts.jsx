@@ -1,7 +1,7 @@
 import React from "react";
 import MobileSidebar from "../components/MobileSidebar";
 
-const Podcasts = ({Header}) => {
+const Podcasts = ({ Header }) => {
   const trendingThisWeek = {
     title: "Good Life project",
     artist: "Elizabeth",
@@ -142,7 +142,7 @@ const Podcasts = ({Header}) => {
   ];
   return (
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 select-none ">
-      <Header urlName="Podcast"/>
+      <Header urlName="Podcast" />
       <div className="flex h-full w-full px-4 bg-gray-50 rounded-xl overflow-y-auto">
         <div className="flex  max-xl:flex-col h-full w-full xl:gap-12 gap-6 p-4  rounded-xl">
           {/* left section */}
@@ -203,7 +203,7 @@ const Podcasts = ({Header}) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex w-full gap-6 rounded-md justify-between px-2 overflow-x-hidden cursor-grab hover:overflow-x-scroll snap-mandatory">
+                <div className="flex w-full gap-6 rounded-md justify-between px-2 overflow-x-hidden cursor-grab max-sm:hover:overflow-x-scroll">
                   {trendingPodcasts?.map((item, idx) => (
                     <div
                       className="flex flex-col gap-1 w-1/3 max-sm:min-w-full"
@@ -235,8 +235,8 @@ const Podcasts = ({Header}) => {
             <div className="flex flex-col sm:px-6 p-4 sm:h-3/5 w-full rounded-xl shadow-lg bg-white">
               {/* Popular podcasts section */}
               <div className="flex flex-col gap-2 h-1/2 max-lg:h-fit w-full pb-2">
-                <div className="flex w-full justify-between items-center">
-                  <div className="flex sm:gap-4 max-sm:justify-between w-full">
+                <div className="flex w-full items-center justify-between">
+                  <div className="flex sm:gap-4 max-sm:justify-between max-sm:w-full">
                     <p className="text-md font-bold select-none">
                       Popular podcasts
                     </p>
@@ -269,15 +269,15 @@ const Podcasts = ({Header}) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex h-full w-full gap-4 rounded-md justify-evenly items-center">
+                <div className="flex h-full w-full  gap-4 rounded-md justify-evenly items-center cursor-grab max-sm:overflow-x-hidden max-sm:hover:overflow-x-scroll">
                   {PopularPodcasts?.map((item, idx) => (
                     <div
-                      className="flex max-lg:flex-col w-full justify-evenly lg:items-center gap-3"
+                      className="flex max-lg:flex-col w-full justify-evenly lg:items-center gap-3 max-sm:min-w-full"
                       key={idx}
                     >
                       <div className="max-lg:w-full max-lg:pr-4">
                         <img
-                          className="w-20 h-20 max-lg:w-full object-cover rounded-xl"
+                          className="w-20 h-20 max-sm:h-40 max-lg:w-full object-cover rounded-xl"
                           src={item.thumbnail}
                           alt={item.name}
                         />
