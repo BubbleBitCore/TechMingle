@@ -1,7 +1,7 @@
 import React from "react";
 import MobileSidebar from "../components/MobileSidebar";
 
-const Podcasts = () => {
+const Podcasts = ({Header}) => {
   const trendingThisWeek = {
     title: "Good Life project",
     artist: "Elizabeth",
@@ -142,15 +142,7 @@ const Podcasts = () => {
   ];
   return (
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 select-none ">
-      <div className="flex w-full justify-between items-center font-extrabold pb-4">
-        <div className="flex max-sm:text-2xl text-3xl gap-3 select-none">
-          <MobileSidebar />
-          Podcast
-        </div>
-        <p className="flex h-12 w-12  rounded-full border border-black text-black items-center justify-center">
-          <i className="ri-user-line text-2xl"></i>
-        </p>
-      </div>
+      <Header urlName="Podcast"/>
       <div className="flex h-full w-full px-4 bg-gray-50 rounded-xl overflow-y-auto">
         <div className="flex  max-xl:flex-col h-full w-full xl:gap-12 gap-6 p-4  rounded-xl">
           {/* left section */}

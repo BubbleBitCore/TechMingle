@@ -14,6 +14,8 @@ import Jobs from "../pages/Jobs";
 import PageNotFound from "../pages/PageNotFound";
 import PodcastLanding from "../pages/PodcastLanding";
 import { navigation } from "../constants/navigation";
+import Settings from "../pages/Settings";
+import Header from "./Header";
 
 const AppWrapper = () => {
   return (
@@ -26,22 +28,23 @@ const AppWrapper = () => {
         <div className="flex h-full w-full max-sm:px-0">
           {/* Everything will render/change here */}
           <Routes>
-            <Route exact path="/" element={<Home />} />
+            <Route exact path="/" element={<Home Header={Header}/>} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
-            <Route exact path="/articles" element={<Articles />} />
-            <Route exact path="/books" element={<Books />} />
-            <Route exact path="/gaming" element={<Gaming />} />
-            <Route exact path="/tech-frenzy" element={<TechFrenzy />} />
+            <Route exact path="/articles" element={<Articles Header={Header}/>} />
+            <Route exact path="/books" element={<Books Header={Header}/>} />
+            <Route exact path="/gaming" element={<Gaming Header={Header}/>} />
+            <Route exact path="/tech-frenzy" element={<TechFrenzy Header={Header}/>} />
             <Route
               exact
               path="/podcasts/landing"
-              element={<PodcastLanding />}
+              element={<PodcastLanding Header={Header}/>}
             />
-            <Route exact path="/podcasts" element={<Podcasts />} />
-            <Route exact path="/workshops" element={<Workshops />} />
-            <Route exact path="/jobs" element={<Jobs />} />
-            <Route exact path="/clubs" element={<Clubs />} />
+            <Route exact path="/podcasts" element={<Podcasts Header={Header}/>} />
+            <Route exact path="/workshops" element={<Workshops Header={Header}/>} />
+            <Route exact path="/jobs" element={<Jobs Header={Header}/>} />
+            <Route exact path="/clubs" element={<Clubs Header={Header}/>} />
+            <Route exact path="/settings" element={<Settings Header={Header} />} />
             <Route exact path="*" element={<PageNotFound />} />
           </Routes>
         </div>

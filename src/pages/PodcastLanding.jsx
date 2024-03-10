@@ -5,22 +5,15 @@ import MobileSidebar from "../components/MobileSidebar";
 import { Link } from "react-router-dom";
 import audio from "../assets/gifs/audio.gif";
 
-const PodcastLanding = () => {
+const PodcastLanding = ({Header}) => {
   const podcastCount = 500;
   const subscriberCount = 27;
   const listenerCount = 398;
   const viewerCount = 909;
   return (
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 ">
-      <div className="flex w-full justify-between items-center font-extrabold pb-2">
-        <div className="flex max-sm:text-2xl text-3xl gap-3 select-none">
-          <MobileSidebar />
-          Podcast
-        </div>
-        <p className="flex h-12 w-12  rounded-full border border-black text-black items-center justify-center">
-          <i className="ri-user-line text-2xl"></i>
-        </p>
-      </div>
+      <Header urlName="Podcast"/>
+      // content
       <div className="flex flex-col-reverse gap-6  lg:flex-row overflow-y-auto h-full sm:pl-10 sm:pt-10 ">
         <div className="flex flex-col w-1/4 gap-5 max-lg:w-full lg:h-[90%]">
           <div className="flex justify-end sm:h-[80%] max-lg:pt-10">

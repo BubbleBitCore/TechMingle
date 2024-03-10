@@ -53,26 +53,28 @@ const MobileSidebar = () => {
             <div className="flex flex-col gap-1 text-black text-lg px-2">
               {navigation
                 ? navigation.length > 0 &&
-                  navigation.map((item, idx) => (
-                    <div
-                      key={idx}
-                      onClick={() => {
-                        navigate(item.link);
-                      }}
-                      className={`flex gap-3 p-2 px-5 items-center ${
-                        item.name.toLowerCase() !== selectedItem
-                          ? "hover:bg-[color:var(--hover-gray-color)]"
-                          : "   "
-                      } transition-all rounded-xl cursor-pointer ${
-                        item.name.toLowerCase() === selectedItem
-                          ? "bg-[color:var(--primary-color)] text-white"
-                          : ""
-                      }`}
-                    >
-                      <i className={`${item.icon}`}></i>
-                      <p>{item.name === "" ? "home" : item.name}</p>
-                    </div>
-                  ))
+                  navigation.map((item, idx) =>
+                    item.name !== "Settings" ? (
+                      <div
+                        key={idx}
+                        onClick={() => {
+                          navigate(item.link);
+                        }}
+                        className={`flex gap-3 p-2 px-5 items-center ${
+                          item.name.toLowerCase() !== selectedItem
+                            ? "hover:bg-[color:var(--hover-gray-color)]"
+                            : "   "
+                        } transition-all rounded-xl cursor-pointer ${
+                          item.name.toLowerCase() === selectedItem
+                            ? "bg-[color:var(--primary-color)] text-white"
+                            : ""
+                        }`}
+                      >
+                        <i className={`${item.icon}`}></i>
+                        <p>{item.name === "" ? "home" : item.name}</p>
+                      </div>
+                    ) : null
+                  )
                 : null}
             </div>
           </div>
