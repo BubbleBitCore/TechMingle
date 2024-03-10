@@ -2,7 +2,7 @@ export const navigation = [
   {
     name: "Home", // this is blank as it is handled differently then the rest
     link: "/",
-    icon: "fa-solid fa-house-chimney",
+    icon: "ri-home-5-line",
   },
   {
     name: "Gaming",
@@ -10,15 +10,15 @@ export const navigation = [
     icon: "ri-discord-fill",
   },
   {
-    name: "Tech-frenzy",
-    link: "/tech-frenzy",
-    icon: "fa-solid fa-laptop",
+    name: "TechFrenzy",
+    link: "/techfrenzy",
+    icon: "ri-macbook-line",
   },
-  { name: "Podcasts", link: "/podcasts/landing", icon: "fa-solid fa-podcast" },
-  { name: "Workshops", link: "/workshops", icon: "fa-solid fa-lightbulb" },
-  { name: "Books", link: "/books", icon: "fa-solid fa-book" },
-  { name: "Jobs", link: "/jobs", icon: "fa-solid fa-briefcase" },
-  { name: "Articles", link: "/articles", icon: "fa-regular fa-newspaper" },
-  { name: "Clubs", link: "/clubs", icon: "fa-solid fa-people-group" },
-  { name: "Settings", link: "/settings", icon: "fa-solid fa-people-group" },
+  { name: "Podcasts", link: "/podcasts/landing", icon: "ri-soundcloud-line" },
+  { name: "Workshops", link: "/workshops", icon: "ri-lightbulb-flash-line" },
+  { name: "Books", link: "/books", icon: "ri-book-marked-fill" },
+  { name: "Jobs", link: "/jobs", icon: "ri-briefcase-fill" },
+  { name: "Articles", link: "/articles", icon: "ri-article-line" },
+  { name: "Clubs", link: "/clubs", icon: "ri-team-line" },
+  { name: "Settings", link: "/settings", icon: "ri-settings-4-line" },
 ];
