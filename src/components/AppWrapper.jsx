@@ -18,7 +18,7 @@ import { navigation } from "../constants/navigation";
 const AppWrapper = () => {
   return (
     <>
-      <div className="flex w-full h-full pt-6 pb-2">
+      <div className="flex w-full h-full pt-4 pb-2">
         <div className="flex h-full sm:w-[20%] md:w-[15%] lg:w-[10%] xl:w-[8%] 2xl:w-[7%] max-sm:px-0 max-sm:hidden">
           <Navigation navigation={navigation} />
         </div>
@@ -33,7 +33,11 @@ const AppWrapper = () => {
             <Route exact path="/books" element={<Books />} />
             <Route exact path="/gaming" element={<Gaming />} />
             <Route exact path="/tech-frenzy" element={<TechFrenzy />} />
-            <Route exact path="/podcasts/landing" element={<PodcastLanding />} />
+            <Route
+              exact
+              path="/podcasts/landing"
+              element={<PodcastLanding />}
+            />
             <Route exact path="/podcasts" element={<Podcasts />} />
             <Route exact path="/workshops" element={<Workshops />} />
             <Route exact path="/jobs" element={<Jobs />} />
