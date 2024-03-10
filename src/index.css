@@ -32,5 +32,24 @@ html {
   --primary-color: #44a2f4;
   --icon-gray-color: #656666;
   --hover-gray-color: #e1ecf6;
-  --popular-podcast-category-icon: #CFFAFE ;
+  --popular-podcast-category-icon: #cffafe;
+}
+
+/* Animated gradient */
+.animate-gradient {
+  background-size: 200%;
+  -webkit-animation: animatedgradient 6s ease infinite alternate;
+  -moz-animation: animatedgradient 6s ease infinite alternate;
+  animation: animatedgradient 6s ease infinite alternate;
+}
+@keyframes animatedgradient {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
 }
