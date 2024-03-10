@@ -18,30 +18,32 @@ const Navigation = ({ navigation }) => {
         </div>
         {navigation
           ? navigation.length > 0 &&
-            navigation.map((item, idx) => (
-              <div
-                key={idx}
-                onClick={() => {
-                  navigate(item.link);
-                }}
-                className={`flex p-2 items-center justify-center select-none ${
-                  item.name.toLowerCase() !== selectedItem
-                    ? "hover:bg-gray-100  border-l-4 border-transparent"
-                    : " border-l-4 border-[color:var(--primary-color)]"
-                } transition-all rounded-r-md cursor-pointer ${
-                  item.name.toLowerCase() === selectedItem
-                    ? "text-[color:var(--primary-color)]"
-                    : "text-[color:var(--icon-gray-color)]"
-                }`}
-              >
-                <div className="flex sm:flex-col items-center">
-                  <i className={`${item.icon} text-2xl`}></i>
-                  <p className="tracking-narrow text-gray-700 ">
-                    {item.name === "" ? "Home" : item.name}
-                  </p>
+            navigation.map((item, idx) =>
+              item.name !== "Settings" ? (
+                <div
+                  key={idx}
+                  onClick={() => {
+                    navigate(item.link);
+                  }}
+                  className={`flex p-2 items-center justify-center select-none ${
+                    item.name.toLowerCase() !== selectedItem
+                      ? "hover:bg-gray-100  border-l-4 border-transparent"
+                      : " border-l-4 border-[color:var(--primary-color)]"
+                  } transition-all rounded-r-md cursor-pointer ${
+                    item.name.toLowerCase() === selectedItem
+                      ? "text-[color:var(--primary-color)]"
+                      : "text-[color:var(--icon-gray-color)]"
+                  }`}
+                >
+                  <div className="flex sm:flex-col items-center">
+                    <i className={`${item.icon} text-2xl`}></i>
+                    <p className="tracking-narrow text-gray-700 ">
+                      {item.name === "" ? "Home" : item.name}
+                    </p>
+                  </div>
                 </div>
-              </div>
-            ))
+              ) : null
+            )
           : null}
       </div>
     </>

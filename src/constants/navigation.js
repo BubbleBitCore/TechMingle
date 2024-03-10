@@ -20,4 +20,5 @@ export const navigation = [
   { name: "Jobs", link: "/jobs", icon: "fa-solid fa-briefcase" },
   { name: "Articles", link: "/articles", icon: "fa-regular fa-newspaper" },
   { name: "Clubs", link: "/clubs", icon: "fa-solid fa-people-group" },
+  { name: "Settings", link: "/settings", icon: "fa-solid fa-people-group" },
 ];
