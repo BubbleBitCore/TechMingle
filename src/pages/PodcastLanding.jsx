@@ -103,7 +103,7 @@ const PodcastLanding = ({ Header }) => {
             <span
               className={`monsterrat text-6xl max-sm:text-4xl max-md:text-5xl font-extrabold tracking-wide leading-tight ${
                 mode ? "text-purple-600" : "text-zinc-900"
-              } transition-all`}
+              } transition-all select-none`}
             >
               A New Era of{" "}
               <span className=" text-orange-500 text-justify monsterrat ">
