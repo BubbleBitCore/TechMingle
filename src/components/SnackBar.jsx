@@ -15,7 +15,7 @@ const SnackBar = () => {
           animate={{ y: "0", scale: 1 }}
           transition={{ duration: 0.1, type: "tween" }}
           className={`${mode ? "bg-[#282828]" : "bg-gray-300 border"} ${
-            mode ? "text-[#6f6f6f]" : "text-black"
+            mode ? "text-[#bbbbbb]" : "text-black"
           }  m-2 px-4 max-w-72 overflow-hidden fixed max-sm:left-2 left-10 bottom-10 max-sm:bottom-2 rounded-md min-w-[25%] min-h-[3rem] flex  items-center z-50 justify-between transition-all duration-500 shadow-sm max-sm:min-w-[75%]`}
         >
           <div className="w-[90%]  flex gap-2 justify-center items-center">
