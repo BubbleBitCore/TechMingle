@@ -27,10 +27,56 @@ html {
 .monsterrat {
   font-family: "Montserrat", sans-serif;
 }
+.paytone {
+  font-family: "Paytone One", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.orbitron {
+  font-family: "Orbitron", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+}
+
 /* Here we have defined custom variables for colors */
 :root {
   --primary-color: #44a2f4;
   --icon-gray-color: #656666;
   --hover-gray-color: #e1ecf6;
-  --popular-podcast-category-icon: #CFFAFE ;
+  --popular-podcast-category-icon: #cffafe;
+  /* Set neon color */
+  --neon-text-color: #3096a6;
+  --neon-border-color: #08f;
+}
+
+.flickerNeonText {
+  color: #fff;
+  animation: flicker 1.5s infinite alternate;
+}
+
+
+
+/* Animate neon flicker */
+@keyframes flicker {
+  0%,
+  19%,
+  21%,
+  23%,
+  25%,
+  54%,
+  56%,
+  100% {
+    text-shadow: -0.2rem -0.2rem 1rem #fff, 0.2rem 0.2rem 1rem #fff,
+      0 0 2rem var(--neon-text-color), 0 0 4rem var(--neon-text-color),
+      0 0 6rem var(--neon-text-color), 0 0 8rem var(--neon-text-color),
+      0 0 10rem var(--neon-text-color);
+  }
+
+  20%,
+  24%,
+  55% {
+    text-shadow: none;
+    box-shadow: none;
+  }
 }
