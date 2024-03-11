@@ -15,7 +15,7 @@ const PodcastLanding = ({ Header }) => {
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 ">
       <Header urlName="Podcast" />
       {/*content */}
-      <div className="flex flex-col-reverse gap-6  lg:flex-row overflow-y-auto h-full sm:pl-10 sm:pt-10 max-sm:py-7">
+      <div className="flex flex-col-reverse sm:gap-6  lg:flex-row overflow-y-auto h-full sm:pl-10 sm:pt-10 max-sm:py-7">
         <div className="flex flex-col w-1/4 gap-5 max-lg:w-full lg:h-[90%]">
           <div className="flex justify-end sm:h-[80%] max-lg:pt-10">
             <div
@@ -49,17 +49,17 @@ const PodcastLanding = ({ Header }) => {
           </div>
         </div>
         <div className="flex w-1/4 max-lg:w-full lg:h-[90%] ">
-          <div className="flex flex-col gap-5 w-[95%] max-lg:w-[80%] max-sm:w-full">
+          <div className="flex flex-col sm:gap-5 w-[95%] max-lg:w-[80%] max-sm:w-full">
             <div className="flex gap-2 h-[12%] max-lg:h-[6%] max-md:h-[8%] max-sm:h-[10%] max-sm:p-4 rounded-full items-center justify-center max-sm:w-full max-sm:mb-10">
-              <div className="flex bg-[#FD0B00] rounded-full items-center justify-center ">
+              <div className="flex bg-[#FD0B00] rounded-full items-center justify-center  ">
                 <i className="ri-play-fill text-white text-3xl max-sm:text-4xl  p-1 px-2 rounded-full"></i>
               </div>
-              <img className="w-56  max-sm:w-[85%]" src={audio}></img>
+              <img className="w-56  max-sm:w-[85%] " src={audio}></img>
             </div>
             <div
               className={`${
                 mode ? "bg-purple-500 " : "bg-purple-300 "
-              } transition-all sm:h-[83%]`}
+              } transition-all sm:h-[83%] max-sm:w-full`}
             >
               <img
                 src={podcastgirl2}
@@ -70,9 +70,9 @@ const PodcastLanding = ({ Header }) => {
           <div
             className={`flex ${
               mode ? "bg-[#0B0D10]" : "bg-white"
-            } transition-all duration-500 h-[135px] w-[145px] max-sm:h-[90px] max-sm:w-[95px] items-center justify-center self-end mb-[-30px] max-sm:mb-[-30px] ml-[-100px] max-sm:ml-[-70px] rounded-full`}
+            } transition-all duration-500 h-[135px] w-[145px] max-sm:h-[100px] max-sm:w-[105px] items-center justify-center self-end mb-[-30px] max-sm:mb-[85px] ml-[-95px] max-sm:ml-[-155px] rounded-full`}
           >
-            <div className="flex flex-col bg-blue-600 h-[115px] w-[120px] max-sm:h-[80px] max-sm:w-[85px] rounded-full items-center justify-center select-none">
+            <div className="flex flex-col bg-blue-600 h-[115px] w-[120px] max-sm:h-[90px] max-sm:w-[95px] rounded-full items-center justify-center select-none">
               <p className="text-3xl max-sm:text-xl text-white font-bold">
                 {podcastCount}+
               </p>
@@ -80,17 +80,19 @@ const PodcastLanding = ({ Header }) => {
             </div>
           </div>
           <div
-            className={`self-end after:content-[''] mb-[-15px] ml-[-5px] after:block after:border-t-4 ${
+            className={`self-end after:content-[''] mb-[-15px] max-sm:mb-[85px] ml-[-5px] max-sm:ml-[7px] after:block after:border-t-4 ${
               mode ? "after:border-lime-400" : "after:border-black"
             } transition-all after:w-8 after:h-9 after:transform after:rotate-30 after:transform-origin-bottom`}
           ></div>
           <div
-            className={`self-end after:content-[''] mb-[-45px] ml-[-60px] ml after:block after:border-t-4 ${
-              mode ? "after:border-purple-500" : "after:border-black"
+            className={`self-end after:content-[''] mb-[-45px] max-sm:mb-[55px] ml-[-60px] max-sm:ml-[-58px] after:block after:border-t-4 ${
+              mode
+                ? "after:border-red-500 sm:after:border-purple-500"
+                : "after:border-black"
             } transition-all after:w-9 after:h-9 after:transform after:rotate-45 after:transform-origin-0`}
           ></div>
           <div
-            className={`self-end after:content-[''] mb-[-55px] ml-[-65px] ml after:block after:border-t-4 ${
+            className={`self-end after:content-[''] mb-[-55px] max-sm:mb-[45px] ml-[-65px] ml after:block after:border-t-4 ${
               mode ? "after:border-orange-500" : "after:border-black"
             } transition-all after:w-7 after:h-9 after:transform after:rotate-[75deg] after:transform-origin-bottom`}
           ></div>

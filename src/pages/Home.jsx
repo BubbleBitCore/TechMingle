@@ -1,8 +1,4 @@
 import React from "react";
-import HomeCards from "../components/HomeCards";
-import homeSection from "../constants/homeSection";
-import poopicon from "../assets/images/mdi_emoji-poop.png";
-import poopright from "../assets/images/mdi_emoji-poop opp.png";
 
 const Home = ({Header}) => {
   return (
