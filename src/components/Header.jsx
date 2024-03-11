@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import MobileSidebar from "./MobileSidebar";
 import { useDispatch, useSelector } from "react-redux";
 import ClickMenu from "./ClickMenu";
-import { changeMode, changeSnackBarState } from "../slices/commonSlice";
+import { changeMode } from "../slices/commonSlice";
 
 const Header = ({ urlName }) => {
   // Mode is handled here
@@ -115,7 +115,6 @@ const Header = ({ urlName }) => {
               e.stopPropagation();
               removeClickMenus();
               setNotiVisibility(true);
-              dispatch(changeSnackBarState({ message: "Hello guys,I'm back",visible:true }));
             }}
           >
             <i className="hover:opacity-100 opacity-65 transition-all ri-notification-3-line text-2xl"></i>
