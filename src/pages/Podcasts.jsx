@@ -218,7 +218,7 @@ const Podcasts = ({ Header }) => {
       <Header urlName="Podcast" />
       <div
         className={`flex h-full w-full sm:px-4 ${
-          mode ? "bg-zinc-900" : "bg-gray-50"
+          mode ? "bg-zinc-950" : "bg-gray-50"
         } rounded-xl overflow-y-auto`}
       >
         <div className="flex  max-xl:flex-col h-full w-full xl:gap-12 gap-6 p-4 max-sm:p-2 rounded-xl overflow-y-auto ">
