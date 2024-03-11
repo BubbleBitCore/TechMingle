@@ -6,6 +6,11 @@ const initialState = {
   mode:
     window.matchMedia &&
     window.matchMedia("(prefers-color-scheme: dark)").matches, // false means Light mode , true means Dark Mode
+  snackBar: {
+    message: "",
+    icon: "",
+    visible: false,
+  },
 };
 
 export const commonSlice = createSlice({
@@ -16,9 +21,12 @@ export const commonSlice = createSlice({
     changeMode: (state, action) => {
       state.mode = action.payload;
     },
+    changeSnackBarState: (state, action) => {
+      state.snackBar = action.payload;
+    },
   },
 });
 
-export const { changeMode } = commonSlice.actions;
+export const { changeMode, changeSnackBarState } = commonSlice.actions;
 
 export default commonSlice.reducer;

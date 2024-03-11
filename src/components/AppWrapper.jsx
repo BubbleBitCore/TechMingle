@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, useLocation } from "react-router-dom";
 import Navigation from "./Navigation";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
+  const location = useLocation();
   return (
     <>
       <div
@@ -31,7 +32,7 @@ const AppWrapper = () => {
 
         <div className="flex h-full w-full max-sm:px-0">
           {/* Everything will render/change here */}
-          <Routes>
+          <Routes location={location} key={location.key}>
             <Route exact path="/" element={<Home Header={Header} />} />
             <Route exact path="/login" element={<Login />} />
             <Route exact path="/signup" element={<Signup />} />
