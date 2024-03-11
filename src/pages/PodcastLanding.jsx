@@ -15,7 +15,7 @@ const PodcastLanding = ({ Header }) => {
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 ">
       <Header urlName="Podcast" />
       {/*content */}
-      <div className="flex flex-col-reverse gap-6  lg:flex-row overflow-y-auto h-full sm:pl-10 sm:pt-10 ">
+      <div className="flex flex-col-reverse gap-6  lg:flex-row overflow-y-auto h-full sm:pl-10 sm:pt-10 max-sm:py-7">
         <div className="flex flex-col w-1/4 gap-5 max-lg:w-full lg:h-[90%]">
           <div className="flex justify-end sm:h-[80%] max-lg:pt-10">
             <div
@@ -48,13 +48,13 @@ const PodcastLanding = ({ Header }) => {
             </div>
           </div>
         </div>
-        <div className="flex w-1/4 max-lg:w-full lg:h-[90%]">
-          <div className="flex flex-col gap-5 w-[95%] max-lg:w-[80%]">
-            <div className="flex gap-2 h-[12%] max-lg:h-[6%] max-md:h-[8%] max-sm:h-[10%] max-sm:p-4 rounded-full items-center justify-center">
-              <div className="flex bg-[#FD0B00] rounded-full items-center justify-center">
-                <i className="ri-play-fill text-white text-3xl max-sm:text-xl p-1 px-2 rounded-full"></i>
+        <div className="flex w-1/4 max-lg:w-full lg:h-[90%] ">
+          <div className="flex flex-col gap-5 w-[95%] max-lg:w-[80%] max-sm:w-full">
+            <div className="flex gap-2 h-[12%] max-lg:h-[6%] max-md:h-[8%] max-sm:h-[10%] max-sm:p-4 rounded-full items-center justify-center max-sm:w-full max-sm:mb-10">
+              <div className="flex bg-[#FD0B00] rounded-full items-center justify-center ">
+                <i className="ri-play-fill text-white text-3xl max-sm:text-4xl  p-1 px-2 rounded-full"></i>
               </div>
-              <img className="w-56 max-sm:w-48" src={audio}></img>
+              <img className="w-56  max-sm:w-[85%]" src={audio}></img>
             </div>
             <div
               className={`${
@@ -121,7 +121,7 @@ const PodcastLanding = ({ Header }) => {
               to discover.
             </p>
           </div>
-          <div>
+          <div className="max-sm:mb-10">
             <Link
               to="/podcasts"
               className="bg-orange-500 rounded-full p-2 px-6 font-bold text-white hover:bg-orange-600"
