@@ -64,7 +64,7 @@ const Login = () => {
               className="rounded-md h-[70%] w-full"
             >
               <h1 className="select-none poppins text-3xl font-bold w-[60%] mb-8">
-                Unite & Innovate Crafting Tomorrow's Legacy
+                Unite & Innovate, Crafting Tomorrow's Legacy
               </h1>
               <div className="w-4/5 rounded-md mb-3  bg-[#f7eaf6]">
                 <input
