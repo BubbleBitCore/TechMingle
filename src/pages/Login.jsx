@@ -57,11 +57,11 @@ const Login = () => {
               </div>
             </div>
             <Animated3DGrid />
-            <div className="z-50 absolute top-0 left-0 w-full h-full">
+            {/* <div className="z-50 absolute top-0 left-0 w-full h-full">
               <video className="bg-blend-color" autoplay muted loop>
                 <source src={video}  />
               </video>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
