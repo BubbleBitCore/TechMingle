@@ -139,3 +139,75 @@ html {
 .rhap_container .dark {
   background-color: black !important;
 }
+
+/* Login page */
+
+.outerborder::before {
+  position: absolute;
+  bottom: -50%;
+  left: -30%;
+  content: "";
+  background-color: #e9cbeb;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 1.5rem;
+}
+
+.outerborder::after {
+  position: absolute;
+  bottom: 0%;
+  left: 0%;
+  content: "";
+  background-color: #fefefe;
+  height: 5rem;
+  width: 5rem;
+  border-radius: 1.5rem;
+}
+
+/* Animated 3D Grid */
+
+.gridContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+}
+
+.grid3D {
+  width: 200%;
+  height: 800px;
+  overflow: hidden;
+  perspective: 450px;
+}
+
+.grid3D-fade {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  z-index: 1;
+}
+
+.grid3D-lines {
+  width: 100%;
+  height: 200%;
+  background-image: linear-gradient(
+      to right,
+      rgba(0, 0, 0, 0.1) 1px,
+      transparent 0
+    ),
+    linear-gradient(to bottom, rgba(0, 0, 0, 0.1) 1px, transparent 0);
+  background-size: 45px 30px;
+  background-repeat: repeat;
+  transform-origin: 100% 0 0;
+  animation: play 120s linear infinite;
+}
+
+@keyframes play {
+  0% {
+    transform: rotateX(45deg) translateY(-50%);
+  }
+  100% {
+    transform: rotateX(45deg) translateY(0);
+  }
+}
