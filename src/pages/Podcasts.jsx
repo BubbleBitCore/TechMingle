@@ -586,7 +586,7 @@ const Podcasts = ({ Header }) => {
                   {PopularPodcasts?.length > 0 ? (
                     popularPodcastIdx.map((idx) => (
                       <div
-                        className="flex-none h-full  max-lg:flex-col w-full justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden snap-center "
+                        className="flex h-full  max-lg:flex-col w-full justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden snap-center "
                         key={idx}
                       >
                         <div className="max-lg:w-full max-lg:pr-4  max-sm:pr-0">
