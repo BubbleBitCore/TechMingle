@@ -2,7 +2,6 @@ import { createSlice } from "@reduxjs/toolkit";
 
 // This slice contain all app related slices which are coomonn to whole app
 const checkSystemMode = () => {
-  console.log(localStorage.getItem("mode"));
   if (localStorage.getItem("mode") === null) {
     localStorage.setItem(
       "mode",
