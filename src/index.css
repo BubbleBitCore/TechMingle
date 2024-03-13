@@ -140,6 +140,17 @@ html {
   background-color: black !important;
 }
 
+.rhap_current-time {
+  width: 2rem;
+  color: red;
+}
+#rhap_current-time {
+  color: gray;
+}
+.rhap_total-time {
+  color: gray !important;
+}
+
 /* Login page */
 
 .outerborder::before {

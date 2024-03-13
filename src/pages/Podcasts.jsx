@@ -317,7 +317,7 @@ const Podcasts = ({ Header }) => {
                       >
                         <div className="flex w-full h-2/3 max-sm:h-full relative">
                           <img
-                            className="w-full h-full rounded-xl"
+                            className="w-full h-full rounded-xl object-cover"
                             src={item.thumbnail}
                             alt={item.title}
                           />
@@ -555,7 +555,7 @@ const Podcasts = ({ Header }) => {
               <p className="font-bold">Now playing</p>
               <div className="w-2/3 h-1/3 mt-1">
                 <img
-                  className="w-full h-full rounded-lg"
+                  className="w-full h-full rounded-lg object-cover"
                   src={nowPlaying.thumbnail}
                   alt={nowPlaying.name}
                 ></img>
@@ -565,7 +565,6 @@ const Podcasts = ({ Header }) => {
               <p className="text-xs">{nowPlaying.artist}</p>
               <div className="w-full">
                 <AudioPlayer
-                  autoPlay
                   src={nowPlaying.audio}
                   className={"shadow-none"}
                   style={containerStyle}
@@ -598,7 +597,7 @@ const Podcasts = ({ Header }) => {
                         : `${
                             mode ? "hover:bg-zinc-600" : "hover:bg-gray-200 "
                           } `
-                    } py-2 rounded-md w-1/2 text-center  text-blck `}
+                    } py-2 rounded-md w-1/2 text-center  text-black `}
                   >
                     Recently Played
                   </p>
