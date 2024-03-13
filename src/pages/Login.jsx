@@ -153,7 +153,7 @@ const Login = () => {
             <div className="w-full relative">
               {/* Avatar 1 */}
               <div
-                className={`absolute w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
+                className={`hover:z-50 transition-all hover:scale-105 cursor-pointer absolute w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
               >
                 <div
                   className={`bg-[#F3815D] h-full w-full rounded-full overflow-hidden`}
@@ -167,7 +167,7 @@ const Login = () => {
               </div>
               {/* Avatar 2 */}
               <div
-                className={`absolute z-10 left-5 w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
+                className={`hover:z-50 transition-all hover:scale-105 cursor-pointer absolute z-10 left-5 w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
               >
                 <div
                   className={`bg-[#AEDA82] h-full w-full rounded-full overflow-hidden`}
@@ -181,7 +181,7 @@ const Login = () => {
               </div>
               {/* Avatar 3 */}
               <div
-                className={`absolute z-20 left-10 w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
+                className={`hover:z-50 transition-all hover:scale-105 cursor-pointer absolute z-20 left-10 w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
               >
                 <div
                   className={`bg-[#B787F4] h-full w-full rounded-full overflow-hidden`}
@@ -195,7 +195,7 @@ const Login = () => {
               </div>
               {/* Avatar 4 */}
               <div
-                className={`absolute z-30 left-[3.75rem] w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
+                className={`hover:z-50 transition-all hover:scale-105 cursor-pointer absolute z-30 left-[3.75rem] w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
               >
                 <div
                   className={`bg-[#7750E9] h-full w-full rounded-full overflow-hidden`}
