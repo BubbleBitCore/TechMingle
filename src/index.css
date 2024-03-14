@@ -50,9 +50,9 @@ html {
   --neon-border-color: #08f;
 
   /* fancy buttton */
-  --color-main: #a474ff;
+  --color-main: #ff7b00;
   --color-main-second: #17f1d1;
-  --color-main-third: #ffab70;
+  --color-main-third: #8044DF;
 }
 
 .flickerNeonText {
@@ -256,7 +256,7 @@ html {
   height: 100%;
 }
 .btn {
-  display: inline-block;
+  display: inline-glowBlock;
   width: 100%;
   height: 100%;
   position: relative;
@@ -265,6 +265,7 @@ html {
   cursor: pointer;
   overflow: hidden;
   background-color: transparent;
+  color: white;
 }
 .btn:hover .btn__bg {
   scale: 0.94;
@@ -324,7 +325,7 @@ html {
 }
 .btn__bg__layer {
   position: absolute;
-  display: block;
+  display: glowBlock;
   bottom: 0;
   left: 50%;
   translate: -50%;
@@ -347,8 +348,47 @@ html {
 
 .outlinedText {
   text-shadow: 2px 0 0 #211442, /*right */ 0 2px 0 #211442, /*top */ -2px 0 0 #211442,
-    /*left */ 0 -2px 0 #211442; /*bottom */
+    /*left */ 0 -2px 0 #190e36; /*bottom */
   /* -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color:#221445; */
-  color: #1d1036;
+  color: #1a102e;
+}
+
+
+/* Glowing border */
+.glowBlock {
+	position: relative;
+}
+
+.glowBlock:before, .glowBlock:after {
+	content: '';
+	position: absolute;
+	left: 0px;
+	top: 0px;
+	background: linear-gradient(45deg, #4b4193, #6fc7d8, #e94090,#eb5f35, #4b4193, #6fc7d8, 
+		#e94090, #eb5f35,#4b4193, #6fc7d8);
+	background-size: 400%;
+	width: calc(100%);
+	height: calc(100%);
+	z-index: -1;
+	animation: steam 20s linear infinite;
+  border-radius:1.2rem;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+@keyframes steam {
+	0% {
+		background-position: 0 0;
+	}
+	50% {
+		background-position: 400% 0;
+	}
+	100% {
+		background-position: 0 0;
+	}
+}
+
+.glowBlock:after {
+	filter: blur(10px);
 }
