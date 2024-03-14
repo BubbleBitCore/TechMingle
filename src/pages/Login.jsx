@@ -61,7 +61,7 @@ const Login = () => {
             {/* Form */}
             <form
               onSubmit={handleSubmit(handleRegistration)}
-              className="rounded-md h-[70%]max-sm:h-auto w-full"
+              className="rounded-md h-[70%]max-sm:h-auto w-full "
             >
               <h1 className="select-none poppins text-3xl font-bold w-[60%] max-sm:w-full mb-8">
                 Unite & Innovate, Crafting Tomorrow's Legacy
