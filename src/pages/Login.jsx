@@ -8,6 +8,7 @@ import zap from "../assets/images/zap.png";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const navigate = useNavigate();
@@ -33,16 +34,15 @@ const Login = () => {
   return (
     <>
       <div
-        className={`fixed top-0 left-0 w-full h-full flex justify-between items-center ${
-          mode ? "bg-[#0B0D10]" : "bg-[#E9CBEB]"
-        } p-10 px-14`}
+        className={`fixed top-0 left-0 w-full h-full flex justify-between items-center bg-[#E9CBEB]
+        p-10 px-14 max-sm:p-0 max-sm:px-0`}
       >
         <div
-          className={`relative w-full h-full rounded-[2rem] bg-white flex overflow-hidden p-2`}
+          className={`relative w-full h-full rounded-[2rem] max-sm:rounded-none bg-white flex overflow-hidden p-2`}
         >
           {/* Section 1 login form */}
           <div
-            className={`flex flex-grow w-full h-full items-start p-8 flex-col gap-5`}
+            className={`flex flex-grow w-full h-full items-start p-8 max-sm:p-5 flex-col gap-5`}
           >
             {/* Eyes icon */}
             <div className="flex justify-center items-center">
@@ -61,12 +61,12 @@ const Login = () => {
             {/* Form */}
             <form
               onSubmit={handleSubmit(handleRegistration)}
-              className="rounded-md h-[70%] w-full"
+              className="rounded-md h-[70%]max-sm:h-auto w-full"
             >
-              <h1 className="select-none poppins text-3xl font-bold w-[60%] mb-8">
+              <h1 className="select-none poppins text-3xl font-bold w-[60%] max-sm:w-full mb-8">
                 Unite & Innovate, Crafting Tomorrow's Legacy
               </h1>
-              <div className="w-4/5 rounded-md mb-3  bg-[#f7eaf6]">
+              <div className="w-4/5 max-sm:w-full rounded-md mb-3  bg-[#f7eaf6]">
                 <input
                   className="text-black w-full rounded-md text-sm p-3  bg-transparent outline-none"
                   type="text"
@@ -81,11 +81,11 @@ const Login = () => {
                 />
               </div>
               {errors.email && (
-                <p className="rounded-md w-4/5  pb-2 mt-2 text-[0.65rem] font-medium text-red-500 ">
+                <p className="rounded-md w-4/5 max-sm:w-full  pb-2 mt-2 text-[0.65rem] font-medium text-red-500 ">
                   {errors.email.message}
                 </p>
               )}
-              <div className="relative w-4/5 rounded-md mb-3  bg-[#f7eaf6]">
+              <div className="relative w-4/5 max-sm:w-full rounded-md mb-3  bg-[#f7eaf6]">
                 <input
                   className="w-full text-sm rounded-md p-3 bg-transparent pr-10 text-black outline-none"
                   type={showPass ? "text" : "password"}
@@ -114,19 +114,19 @@ const Login = () => {
                 )}
               </div>
               {errors.password && (
-                <p className=" rounded-md w-4/5  mt-2 text-[0.65rem] font-medium text-red-500 ">
+                <p className=" rounded-md w-4/5 max-sm:w-full  mt-2 text-[0.65rem] font-medium text-red-500 ">
                   {errors.password.message}
                 </p>
               )}
 
-              <button className="group  hover:bg-violet-600 mt-3 transition-all cursor-pointer rounded-full bg-violet-500 px-4 py-3 flex justify-center items-center gap-2">
+              <button className="group max-sm:w-full max-sm:mt-5 hover:bg-violet-600 mt-3 transition-all cursor-pointer rounded-full max-sm:rounded-md bg-violet-500 px-4 py-3 flex justify-center items-center gap-2">
                 <p className="text-white text-xs select-none">Get started</p>
                 <i className="text-sm text-white group-hover:translate-x-1/2 ri-arrow-right-line transition-all"></i>
               </button>
             </form>
 
             {/* infomation */}
-            <div className="flex w-full  flex-col">
+            <div className="flex w-full  flex-col max-sm:mt-6">
               {/* Stats */}
               <div className="w-full flex  gap-10">
                 <div className=" flex flex-col ">
@@ -145,7 +145,7 @@ const Login = () => {
                 </div>
               </div>
               {/* Range */}
-              <div className="mt-5 w-1/2 h-2  rounded-full bg-[#F1EAF2] overflow-hidden">
+              <div className="mt-5 w-1/2 max-sm:w-full h-2  rounded-full bg-[#F1EAF2] overflow-hidden">
                 <div className="h-full w-1/3 rounded-full bg-[#774EE9]"></div>
               </div>
             </div>
@@ -208,11 +208,18 @@ const Login = () => {
                 </div>
               </div>
             </div>
+
+            {/* Signup link for smallscreens  */}
+            <div className="hidden fixed max-sm:flex bottom-5 left-1/2 -translate-x-1/2 w-full justify-center items-center">
+              <p className="text-sm ">
+                Don't have an account ? <Link className="text-violet-500 hover:underline underline-offset-2 cursor-pointer" to="/signup">Signup</Link>
+              </p>
+            </div>
           </div>
 
           {/* Section 2 */}
           <div
-            className={`flex flex-grow w-full h-full  rounded-[2rem] flex-col relative overflow-hidden`}
+            className={`flex max-sm:hidden flex-grow w-full h-full  rounded-[2rem] flex-col relative overflow-hidden`}
           >
             {/* Upper segment */}
             <div
@@ -226,9 +233,13 @@ const Login = () => {
               >
                 <div
                   onClick={() => navigate("/signup")}
-                  className={`relative z-30 rounded-3xl bg-violet-500 w-full h-full  flex justify-center items-center cursor-pointer`}
+                  className={`relative z-30 rounded-3xl  bg-violet-500 w-full h-full  flex justify-center items-center cursor-pointer`}
                 >
-                  <p className={`text-white text-xs select-none`}>Sign Up</p>
+                  <p
+                    className={`text-white text-xs text-center w-[60%] overflow-hidden text-ellipsis select-none`}
+                  >
+                    Sign Up
+                  </p>
                 </div>
               </div>
             </div>
