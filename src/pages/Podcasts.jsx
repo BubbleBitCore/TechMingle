@@ -9,6 +9,7 @@ import { useSelector } from "react-redux";
 import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { useState, useEffect, useRef } from "react";
+import { formatNumber } from "../utils/conversion";
 
 const Podcasts = ({ Header }) => {
   const mode = useSelector((state) => state.common.mode);
@@ -17,6 +18,8 @@ const Podcasts = ({ Header }) => {
   const player = useRef();
   let [playerPaused, setPlayerPaused] = useState(false);
 
+  const [selectedPopularPodcastCategory, setSelectedPopularPodcastCategory] =
+    useState("All");
   // dummy song which currently being played
   const [nowPlaying, setNowPlaying] = useState({
     title: "Spiritual Awakening",
@@ -102,6 +105,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 11 min",
       thumbnail: img1,
       audio: despacito,
+      category: "Exclusive",
     },
     {
       title: "How to face big decisions 2",
@@ -109,6 +113,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 12 min",
       thumbnail: img2,
       audio: believer,
+      category: "Exclusive",
     },
     {
       title: "How to face big decisions 3",
@@ -116,6 +121,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 13 min",
       thumbnail: img3,
       audio: carnival,
+      category: "News&Politics",
     },
     {
       title: "How to face big decisions 4",
@@ -123,6 +129,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 14 min",
       thumbnail: img1,
       audio: despacito,
+      category: "Music",
     },
     {
       title: "How to face big decisions 5",
@@ -130,6 +137,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 15 min",
       thumbnail: img2,
       audio: believer,
+      category: "other",
     },
     {
       title: "How to face big decisions 6",
@@ -137,6 +145,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 16 min",
       thumbnail: img3,
       audio: carnival,
+      category: "Music",
     },
   ];
 
@@ -365,6 +374,7 @@ const Podcasts = ({ Header }) => {
                             }
                           } else {
                             setNowPlaying(trendingThisWeek);
+                            player.current.audio.current.play();
                             setPlayerPaused(false);
                           }
                         }}
@@ -474,6 +484,7 @@ const Podcasts = ({ Header }) => {
                                 }
                               } else {
                                 setNowPlaying(trendingPodcasts[idx]);
+                                player.current.audio.current.play();
                                 setPlayerPaused(false);
                               }
                             }}
@@ -537,11 +548,18 @@ const Podcasts = ({ Header }) => {
                       popularPodcastcategory.slice(0, 5).map((item, idx) => (
                         <p
                           className={`${
-                            mode
-                              ? "hover:text-zinc-300 text-zinc-500"
-                              : "hover:text-black"
-                          } select-none cursor-pointer `}
+                            selectedPopularPodcastCategory === item
+                              ? mode
+                                ? "text-zinc-200 border-b-2 border-zinc-200 hover:text-zinc-200 "
+                                : "text-gray-900 border-b-2 border-gray-900 hover:text-gray-900"
+                              : mode
+                              ? " hover:text-zinc-400 text-zinc-600 "
+                              : "hover:text-gray-800 text-gray-500"
+                          } select-none cursor-pointer transition-all duration-200`}
                           key={idx}
+                          onClick={() => {
+                            setSelectedPopularPodcastCategory(item);
+                          }}
                         >
                           {item}
                         </p>
@@ -636,6 +654,7 @@ const Podcasts = ({ Header }) => {
                                   }
                                 } else {
                                   setNowPlaying(PopularPodcasts[idx]);
+                                  player.current.audio.current.play();
                                   setPlayerPaused(false);
                                 }
                               }}
@@ -662,13 +681,13 @@ const Podcasts = ({ Header }) => {
                     Popular categories
                   </p>
                   <div
-                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-6 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto`}
+                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-8 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
                   >
                     {popularcategories ? (
                       popularcategories.length > 6 ? (
                         popularcategories.slice(0, 5).map((item, idx) => (
                           <div
-                            className={`max-sm:hidden flex flex-col items-center justify-center gap-1`}
+                            className={`max-sm:hidden relative flex flex-col items-center justify-center gap-2`}
                             key={idx}
                           >
                             <div
@@ -676,24 +695,35 @@ const Podcasts = ({ Header }) => {
                                 mode
                                   ? "bg-zinc-900 hover:bg-zinc-800"
                                   : "bg-cyan-50 hover:bg-cyan-100"
-                              }  p-2 px-4 rounded-md select-none transition-all duration-500`}
+                              }  p-2 rounded-md select-none transition-all duration-500`}
                             >
                               <i
                                 className={`${item.icon} ${
                                   mode
                                     ? "text-zinc-300 font-bold hover:text-zinc-100 "
-                                    : "text-black bg-white "
-                                } px-1 rounded-md text-lg cursor-pointer transition-all duration-500`}
+                                    : "text-black bg-cyan-50 hover:bg-cyan-100"
+                                } px-2 rounded-md text-3xl cursor-pointer transition-all duration-500`}
                               ></i>
                             </div>
+                            <div
+                              className={`${
+                                mode
+                                  ? "bg-blue-400 border-blue-500"
+                                  : "bg-red-400 border-red-500"
+                              }  border  flex items-center justify-center rounded-full h-7 w-9 absolute mt-[-80px] mr-[-60px]`}
+                            >
+                              <p className={` text-xs font-bold`}>
+                                {formatNumber(item.count)}
+                              </p>
+                            </div>
                             <p className="text-xs font-bold">{item.name}</p>
-                            <p
+                            {/* <p
                               className={`${
                                 mode ? "text-zinc-700" : "text-gray-400"
                               } text-xs font-bold  `}
                             >
                               {item.count} Podcats
-                            </p>
+                            </p> */}
                           </div>
                         ))
                       ) : (
@@ -782,11 +812,13 @@ const Podcasts = ({ Header }) => {
                   <p className="text-sm font-bold select-none">
                     Popular Podcasters
                   </p>
-                  <div className="w-full h-full flex flex-col gap-3 lg:justify-center">
+                  <div className="w-full h-full flex flex-col lg:justify-center">
                     {popularPodcasters?.length > 0 ? (
                       popularPodcasters.slice(0, 2).map((item, idx) => (
                         <div
-                          className="flex w-full justify-between lg:items-center select-none"
+                          className={`${
+                            mode ? "hover:bg-zinc-900" : "hover:bg-gray-100"
+                          } flex w-full justify-between lg:items-center select-none p-2 pr-3 rounded-md`}
                           key={idx}
                         >
                           <div className="flex gap-2 items-center ">
@@ -818,7 +850,7 @@ const Podcasts = ({ Header }) => {
                         mode
                           ? "bg-zinc-900 hover:bg-zinc-800"
                           : "bg-[color:var(--popular-podcast-category-icon)] hover:bg-[#b9f2f8]"
-                      }  flex gap-2 items-center px-6 p-1 text-xs w-fit self-center rounded-md cursor-pointer transition-all duration-500`}
+                      }  flex gap-2 items-center px-6 p-1 mt-1 text-xs w-fit self-center rounded-md cursor-pointer transition-all duration-500`}
                     >
                       <p>View More</p>{" "}
                       <i className="fa-solid fa-angle-down"></i>
@@ -911,15 +943,19 @@ const Podcasts = ({ Header }) => {
                     My favourites
                   </p>
                 </div>
-                <div className="flex flex-col w-full gap-4 py-2 px-2">
+                <div className="flex flex-col w-full py-1">
                   {tabList && tabList.length > 0 ? (
                     selectedtab === "myFavourites" && tabList.length > 3 ? (
                       tabList.slice(0, 3).map((item, idx) => (
                         <div
-                          className="flex gap-4 items-center w-full"
+                          className={`${
+                            mode ? "hover:bg-zinc-900" : "hover:bg-gray-100"
+                          } flex gap-4 items-center w-full p-2 rounded-md`}
                           key={idx}
                           onClick={() => {
                             setNowPlaying(item);
+                            player.current.audio.current.play();
+                            setPlayerPaused(false);
                           }}
                         >
                           <img
@@ -943,7 +979,9 @@ const Podcasts = ({ Header }) => {
                     ) : (
                       tabList.slice(0, 4).map((item, idx) => (
                         <div
-                          className="flex gap-4 items-center w-full"
+                          className={`${
+                            mode ? "hover:bg-zinc-900" : "hover:bg-gray-100"
+                          } flex gap-4 p-2 items-center w-full rounded-md`}
                           key={idx}
                           onClick={() => {
                             setNowPlaying(item);
