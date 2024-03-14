@@ -582,7 +582,7 @@ const Podcasts = ({ Header }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex h-full w-full  gap-4 rounded-md justify-between items-center cursor-grab max-sm:overflow-x-hidden max-sm:hover:overflow-x-scroll snap-mandatory snap-x ">
+                <div className="flex h-full w-full  gap-4 rounded-md justify-between items-center cursor-grab max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto snap-mandatory snap-x ">
                   {PopularPodcasts?.length > 0 ? (
                     popularPodcastIdx.map((idx) => (
                       <div
