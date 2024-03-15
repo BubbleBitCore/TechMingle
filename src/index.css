@@ -52,7 +52,7 @@ html {
   /* fancy buttton */
   --color-main: #ff7b00;
   --color-main-second: #17f1d1;
-  --color-main-third: #8044DF;
+  --color-main-third: #8044df;
 }
 
 .flickerNeonText {
@@ -239,7 +239,11 @@ html {
 
 .bgGradient {
   background-color: rgba(0, 0, 0, 1);
-  background-image: radial-gradient(at 0% 100%, rgb(0, 0, 0) 0, transparent 100%),
+  background-image: radial-gradient(
+      at 0% 100%,
+      rgb(0, 0, 0) 0,
+      transparent 100%
+    ),
     radial-gradient(at 32% 39%, #220f3a 0, transparent 100%),
     radial-gradient(at 24% 25%, rgb(0, 0, 0) 0, transparent 100%),
     radial-gradient(at 12% 22%, rgb(0, 0, 0) 0, transparent 100%),
@@ -347,50 +351,61 @@ html {
 }
 
 .outlinedText {
-  text-shadow: 2px 0 0 #211442, /*right */ 0 2px 0 #211442, /*top */ -2px 0 0 #211442,
-    /*left */ 0 -2px 0 #190e36; /*bottom */
+  text-shadow: 2px 0 0 #211442, /*right */ 0 2px 0 #211442,
+    /*top */ -2px 0 0 #211442, /*left */ 0 -2px 0 #190e36; /*bottom */
   /* -webkit-text-stroke-width: 3px;
   -webkit-text-stroke-color:#221445; */
   color: #1a102e;
 }
 
-
 /* Glowing border */
 .glowBlock {
-	position: relative;
+  position: relative;
 }
 
-.glowBlock:before, .glowBlock:after {
-	content: '';
-	position: absolute;
-	left: 0px;
-	top: 0px;
-	background: linear-gradient(45deg, #4b4193, #6fc7d8, #e94090,#eb5f35, #4b4193, #6fc7d8, 
-		#e94090, #eb5f35,#4b4193, #6fc7d8);
-	background-size: 400%;
-	width: calc(100%);
-	height: calc(100%);
-	z-index: -1;
-	animation: steam 20s linear infinite;
-  border-radius:1.2rem;
+.glowBlock:before,
+.glowBlock:after {
+  content: "";
+  position: absolute;
+  left: 0px;
+  top: 0px;
+  background: linear-gradient(
+    45deg,
+    #4b4193,
+    #6fc7d8,
+    #e94090,
+    #eb5f35,
+    #4b4193,
+    #6fc7d8,
+    #e94090,
+    #eb5f35,
+    #4b4193,
+    #6fc7d8
+  );
+  background-size: 400%;
+  width: calc(100%);
+  height: calc(100%);
+  z-index: -1;
+  animation: steam 20s linear infinite;
+  border-radius: 1.2rem;
   border-top-right-radius: 0;
   border-bottom-right-radius: 0;
 }
 
 @keyframes steam {
-	0% {
-		background-position: 0 0;
-	}
-	50% {
-		background-position: 400% 0;
-	}
-	100% {
-		background-position: 0 0;
-	}
+  0% {
+    background-position: 0 0;
+  }
+  50% {
+    background-position: 400% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
 }
 
 .glowBlock:after {
-	filter: blur(10px);
+  filter: blur(10px);
 }
 
 /* google Style Spinner */
@@ -409,10 +424,10 @@ html {
   background: transparent;
   transition: all;
 }
-.spinnerDarkStroke{
+.spinnerDarkStroke {
   stroke: #4285f4;
 }
-.spinnerLightStroke{
+.spinnerLightStroke {
   stroke: #000000;
 }
 @keyframes goog-te-spinner-rotator {
@@ -434,5 +449,44 @@ html {
   100% {
     stroke-dashoffset: 187;
     transform: rotate(450deg);
+  }
+}
+
+/* Cart Skeleton CSS */
+
+.skeleton {
+  background-color: #edf0f2;
+  background-image: linear-gradient(
+    90deg,
+    rgba(253, 252, 252, 0),
+    rgba(248, 248, 248, 0.5),
+    rgba(253, 253, 253, 0)
+  );
+  background-size: 40px 100%;
+  background-repeat: repeat;
+  background-position: left -40px top 0;
+  -webkit-animation: shine 1s ease infinite;
+  animation: shine 1s ease infinite;
+}
+
+.dark {
+  background-color: #595b5c;
+  background-image: linear-gradient(
+    90deg,
+    rgba(70, 66, 66, 0),
+    rgba(77, 74, 74, 0.5),
+    rgba(77, 74, 74, 0)
+  );
+}
+
+@-webkit-keyframes shine {
+  to {
+    background-position: right -40px top 0;
+  }
+}
+
+@keyframes shine {
+  to {
+    background-position: right -40px top 0;
   }
 }

@@ -10,8 +10,16 @@ import AudioPlayer from "react-h5-audio-player";
 import "react-h5-audio-player/lib/styles.css";
 import { useState, useEffect, useRef } from "react";
 import { formatNumber } from "../utils/conversion";
+import SkeletonPopularPodcast from "../components/Podcast/SkeletonPopularPodcast";
+import SkeletonTrendingPodcast from "../components/Podcast/SkeletonTrendingPodcast";
+import SkeletonPopularCategory from "../components/Podcast/SkeletonPopularCategory";
 
 const Podcasts = ({ Header }) => {
+  const popularPodcastStatus = "loading";
+  const trendingPodcastStatus = "loading";
+  const nowPlayingStatus = "loading";
+  const trendingthisWeekStatus = "loading";
+  const popularPodcastcategoryStatus = "loading";
   const mode = useSelector((state) => state.common.mode);
   const [trendingPodcastIdx, setTrendingPodcastIdx] = useState([0, 1, 2]);
   const [popularPodcastIdx, setPopularPodcastIdx] = useState([0, 1, 2]);
@@ -431,50 +439,58 @@ const Podcasts = ({ Header }) => {
                   Trending this week
                 </p>
                 <div className="h-full w-full flex items-center rounded-xl">
-                  <div className="flex flex-col gap-1 max-sm:w-full">
-                    <div className="flex w-full h-[95%] relative ">
-                      <img
-                        className="w-full h-full rounded-xl object-cover"
-                        src={trendingThisWeek.thumbnail}
-                        alt={trendingThisWeek.title}
-                      />
-                      <div className="flex absolute  bg-gray-50 right-2 sm:text-xs rounded-md px-2 top-2">
-                        {trendingThisWeek.duration} min
-                      </div>
-                      <i
-                        className={` ${
-                          JSON.stringify(nowPlaying) ==
-                            JSON.stringify(trendingThisWeek) && !playerPaused
-                            ? "ri-pause-mini-line font-bold"
-                            : "ri-play-fill "
-                        } flex   text-black absolute text-xl bg-white px-2 p-1 rounded-full right-4 bottom-2 cursor-pointer`}
-                        onClick={() => {
-                          if (
+                  {trendingthisWeekStatus === "loading" ? (
+                    <div className="w-full h-full flex">
+                      {new Array(1).fill(0).map((_, key) => (
+                        <SkeletonTrendingPodcast key={key} />
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="flex flex-col gap-1 max-sm:w-full">
+                      <div className="flex w-full h-[95%] relative ">
+                        <img
+                          className="w-full h-full rounded-xl object-cover"
+                          src={trendingThisWeek.thumbnail}
+                          alt={trendingThisWeek.title}
+                        />
+                        <div className="flex absolute  bg-gray-50 right-2 sm:text-xs rounded-md px-2 top-2">
+                          {trendingThisWeek.duration} min
+                        </div>
+                        <i
+                          className={` ${
                             JSON.stringify(nowPlaying) ==
-                            JSON.stringify(trendingThisWeek)
-                          ) {
-                            if (playerPaused) {
+                              JSON.stringify(trendingThisWeek) && !playerPaused
+                              ? "ri-pause-mini-line font-bold"
+                              : "ri-play-fill "
+                          } flex   text-black absolute text-xl bg-white px-2 p-1 rounded-full right-4 bottom-2 cursor-pointer`}
+                          onClick={() => {
+                            if (
+                              JSON.stringify(nowPlaying) ==
+                              JSON.stringify(trendingThisWeek)
+                            ) {
+                              if (playerPaused) {
+                                player.current.audio.current.play();
+                                setPlayerPaused(false);
+                              } else {
+                                player.current.audio.current.pause();
+                                setPlayerPaused(true);
+                              }
+                            } else {
+                              setNowPlaying(trendingThisWeek);
                               player.current.audio.current.play();
                               setPlayerPaused(false);
-                            } else {
-                              player.current.audio.current.pause();
-                              setPlayerPaused(true);
                             }
-                          } else {
-                            setNowPlaying(trendingThisWeek);
-                            player.current.audio.current.play();
-                            setPlayerPaused(false);
-                          }
-                        }}
-                      ></i>
-                      <div className="flex flex-col absolute bottom-2 left-2 sm:text-xs text-white">
-                        <p className="font-bold text-sm">
-                          {trendingThisWeek.title}
-                        </p>
-                        <p>{trendingThisWeek.artist}</p>
+                          }}
+                        ></i>
+                        <div className="flex flex-col absolute bottom-2 left-2 sm:text-xs text-white">
+                          <p className="font-bold text-sm">
+                            {trendingThisWeek.title}
+                          </p>
+                          <p>{trendingThisWeek.artist}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
+                  )}
                 </div>
               </div>
               {/* Trending podcast category wise */}
@@ -541,8 +557,14 @@ const Podcasts = ({ Header }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md  px-2 overflow-x-hidden cursor-grab max-sm:hover:overflow-x-scroll snap-mandatory snap-x">
-                  {selectedTrendingPodcastList?.length > 0 ? (
+                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md px-2 max-sm:px-0 overflow-x-hidden cursor-grab max-sm:hover:overflow-x-scroll snap-mandatory snap-x">
+                  {trendingPodcastStatus === "loading" ? (
+                    <div className="max-sm:hidden w-full h-full gap-8 py-1 flex justify-between items-center">
+                      {new Array(3).fill(0).map((_, key) => (
+                        <SkeletonTrendingPodcast key={key} />
+                      ))}
+                    </div>
+                  ) : selectedTrendingPodcastList?.length > 0 ? (
                     trendingPodcastIdx?.map((idx) => (
                       <div
                         className=" max-sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
@@ -621,7 +643,13 @@ const Podcasts = ({ Header }) => {
                     </div>
                   )}
                   {/* for mobile version we will display all podcast cards of particular category  */}
-                  {selectedTrendingPodcastList?.length > 0 ? (
+                  {trendingPodcastStatus === "loading" ? (
+                    <div className="sm:hidden w-full h-full">
+                      {new Array(1).fill(0).map((_, key) => (
+                        <SkeletonTrendingPodcast key={key} />
+                      ))}
+                    </div>
+                  ) : selectedTrendingPodcastList?.length > 0 ? (
                     selectedTrendingPodcastList.map((item, idx) => (
                       <div
                         className="sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
@@ -837,7 +865,13 @@ const Podcasts = ({ Header }) => {
                   </div>
                 </div>
                 <div className="flex h-full w-full  gap-4 rounded-md justify-start items-center cursor-grab max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto snap-mandatory snap-x">
-                  {selectedPopularPodcastList?.length > 0 ? (
+                  {popularPodcastStatus === "loading" ? (
+                    <div className="max-sm:hidden w-full h-full flex justify-between items-center">
+                      {new Array(3).fill(0).map((_, key) => (
+                        <SkeletonPopularPodcast key={key} />
+                      ))}
+                    </div>
+                  ) : selectedPopularPodcastList?.length > 0 ? (
                     popularPodcastIdx.map((idx) => (
                       <div
                         className="max-sm:hidden flex h-full  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden "
@@ -916,7 +950,13 @@ const Podcasts = ({ Header }) => {
                   )}
 
                   {/* for mobile version we will display all podcast cards of particular category  */}
-                  {selectedPopularPodcastList?.length > 0 ? (
+                  {popularPodcastStatus === "loading" ? (
+                    <div className="w-full h-full sm:hidden">
+                      {new Array(1).fill(0).map((_, key) => (
+                        <SkeletonPopularPodcast key={key} />
+                      ))}
+                    </div>
+                  ) : selectedPopularPodcastList?.length > 0 ? (
                     selectedPopularPodcastList.map((item, idx) => (
                       <div
                         className="sm:hidden flex h-full  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden snap-center "
@@ -1001,7 +1041,11 @@ const Podcasts = ({ Header }) => {
                   <div
                     className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-10 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
                   >
-                    {popularcategories ? (
+                    {popularPodcastStatus === "loading" ? (
+                      new Array(4)
+                        .fill(0)
+                        .map((_, key) => <SkeletonPopularCategory key={key} />)
+                    ) : popularcategories ? (
                       popularcategories.length > 6 ? (
                         popularcategories.slice(0, 5).map((item, idx) => (
                           <div
@@ -1110,19 +1154,25 @@ const Podcasts = ({ Header }) => {
                         </p>
                       </div>
                     ))}
-                    <div
-                      className={`${
-                        mode
-                          ? "bg-zinc-900 hover:bg-zinc-800"
-                          : "bg-gray-800 hover:bg-gray-700"
-                      } ${
-                        popularcategories.length > 6 ? "" : "hidden"
-                      } max-sm:hidden flex flex-col  p-3 px-5 rounded-xl text-white font-bold text-xs items-center justify-center cursor-pointer transition-all duration-500`}
-                    >
-                      <p>show</p>
-                      <p>all</p>
-                      <i className="fa-solid fa-arrow-right-long"></i>
-                    </div>
+                    {popularPodcastStatus === "loading" ? (
+                      new Array(1)
+                        .fill(0)
+                        .map((_, key) => <SkeletonPopularCategory key={key} />)
+                    ) : (
+                      <div
+                        className={`${
+                          mode
+                            ? "bg-zinc-900 hover:bg-zinc-800"
+                            : "bg-gray-800 hover:bg-gray-700"
+                        } ${
+                          popularcategories.length > 6 ? "" : "hidden"
+                        } max-sm:hidden flex flex-col  p-3 px-5 rounded-xl text-white font-bold text-xs items-center justify-center cursor-pointer transition-all duration-500`}
+                      >
+                        <p>show</p>
+                        <p>all</p>
+                        <i className="fa-solid fa-arrow-right-long"></i>
+                      </div>
+                    )}
                   </div>
                 </div>
                 {/* Popular podcasters section */}
@@ -1181,37 +1231,50 @@ const Podcasts = ({ Header }) => {
           {/* right section */}
           <div className="flex xl:flex-col max-sm:flex-col gap-6 w-1/4 max-xl:w-full ">
             {/* Now playing podcast section */}
-            <div
-              className={`${
-                mode ? "bg-black text-white" : "bg-white"
-              } flex flex-col xl:h-1/2 max-xl:w-1/2 max-sm:w-full gap-2 rounded-xl shadow-lg p-2 justify-center items-center transition-all duration-500`}
-            >
-              <p className="font-bold">Now playing</p>
-              <div className="w-2/3 h-1/3 mt-1">
-                <img
-                  className="w-full h-full rounded-lg object-cover"
-                  src={nowPlaying.thumbnail}
-                  alt={nowPlaying.name}
-                ></img>
+            {nowPlayingStatus === "loading" ? (
+              <div
+                className={`${
+                  mode ? "bg-black text-white" : "bg-white"
+                } flex xl:h-1/2 max-xl:w-1/2 max-sm:w-full gap-2 rounded-xl shadow-lg p-4 transition-all duration-500`}
+              >
+                {new Array(1).fill(0).map((_, key) => (
+                  <SkeletonTrendingPodcast key={key} />
+                ))}
               </div>
+            ) : (
+              <div
+                className={`${
+                  mode ? "bg-black text-white" : "bg-white"
+                } flex flex-col xl:h-1/2 max-xl:w-1/2 max-sm:w-full gap-2 rounded-xl shadow-lg p-2 justify-center items-center transition-all duration-500`}
+              >
+                <p className="font-bold">Now playing</p>
+                <div className="w-2/3 h-1/3 mt-1">
+                  <img
+                    className="w-full h-full rounded-lg object-cover"
+                    src={nowPlaying.thumbnail}
+                    alt={nowPlaying.name}
+                  ></img>
+                </div>
 
-              <p className="text-sm font-bold">{nowPlaying.title}</p>
-              <p className="text-xs">{nowPlaying.artist}</p>
-              <div className="w-full">
-                <AudioPlayer
-                  src={nowPlaying.audio}
-                  className={"shadow-none transition-all duration-500"}
-                  style={containerStyle}
-                  ref={player}
-                  onPlay={() => {
-                    setPlayerPaused(false);
-                  }}
-                  onPause={() => {
-                    setPlayerPaused(true);
-                  }}
-                />
+                <p className="text-sm font-bold">{nowPlaying.title}</p>
+                <p className="text-xs">{nowPlaying.artist}</p>
+                <div className="w-full">
+                  <AudioPlayer
+                    src={nowPlaying.audio}
+                    className={"shadow-none transition-all duration-500"}
+                    style={containerStyle}
+                    ref={player}
+                    onPlay={() => {
+                      setPlayerPaused(false);
+                    }}
+                    onPause={() => {
+                      setPlayerPaused(true);
+                    }}
+                  />
+                </div>
               </div>
-            </div>
+            )}
+
             {/* Recently played and wishlist section */}
             <div
               className={`${
