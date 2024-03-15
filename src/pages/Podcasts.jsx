@@ -15,11 +15,12 @@ const Podcasts = ({ Header }) => {
   const mode = useSelector((state) => state.common.mode);
   const [trendingPodcastIdx, setTrendingPodcastIdx] = useState([0, 1, 2]);
   const [popularPodcastIdx, setPopularPodcastIdx] = useState([0, 1, 2]);
+  const [popularPodcastcategoryIdx, setPopularPodcastcategoryIdx] = useState([
+    0, 1, 2, 3, 4,
+  ]);
   const player = useRef();
   let [playerPaused, setPlayerPaused] = useState(false);
 
-  const [selectedPopularPodcastCategory, setSelectedPopularPodcastCategory] =
-    useState("All");
   // dummy song which currently being played
   const [nowPlaying, setNowPlaying] = useState({
     title: "Spiritual Awakening",
@@ -45,6 +46,7 @@ const Podcasts = ({ Header }) => {
     "Music",
     "Buisness",
     "health",
+    "Exclusive",
   ];
 
   const popularcategories = [
@@ -121,7 +123,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 13 min",
       thumbnail: img3,
       audio: carnival,
-      category: "News&Politics",
+      category: "News & Politics",
     },
     {
       title: "How to face big decisions 4",
@@ -225,6 +227,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 20 min",
       thumbnail: img1,
       audio: carnival,
+      category: "Inspiration",
     },
     {
       title: "How to face big decisions2",
@@ -232,6 +235,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 20 min",
       thumbnail: img2,
       audio: despacito,
+      category: "Teach",
     },
     {
       title: "How to face big decisions3",
@@ -239,6 +243,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 20 min",
       thumbnail: img3,
       audio: believer,
+      category: "Culture",
     },
     {
       title: "How to face big decisions4",
@@ -246,6 +251,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 20 min",
       thumbnail: img1,
       audio: carnival,
+      category: "Teach",
     },
     {
       title: "How to face big decisions5",
@@ -253,6 +259,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 20 min",
       thumbnail: img2,
       audio: despacito,
+      category: "Teach",
     },
     {
       title: "How to face big decisions6",
@@ -260,6 +267,7 @@ const Podcasts = ({ Header }) => {
       duration: " 1hr 20 min",
       thumbnail: img3,
       audio: believer,
+      category: "Teach",
     },
   ];
 
@@ -284,6 +292,18 @@ const Podcasts = ({ Header }) => {
     "fashion",
   ];
 
+  // user category selection in popular podcast & trending podcast
+  const [selectedPopularPodcastCategory, setSelectedPopularPodcastCategory] =
+    useState(popularPodcastcategory[0]);
+  const [selectedTrendingPodcastCategory, setSelectedTrendingPodcastCategory] =
+    useState(trendingPodcastCategory[0]);
+
+  // created list based on user selection in popular podcast & trending podcast
+  const [selectedPopularPodcastList, setSelectedPopularPodcastList] =
+    useState(PopularPodcasts);
+  const [selectedTrendingPodcastList, setSelectedTrendingPodcastList] =
+    useState(trendingPodcasts);
+
   const containerStyle = mode
     ? { backgroundColor: "black", transition: "all 0.5s ease" }
     : {};
@@ -291,31 +311,99 @@ const Podcasts = ({ Header }) => {
   // functions for carousel
   const updateIdxLeft = (arr, list) => {
     let updatedIdx = arr;
-    if (arr[0] === 0) {
-      return;
-    } else {
-      updatedIdx = arr.map((idx) => idx - 1);
-    }
+    if (list.length > 2) {
+      if (arr[0] === 0) {
+        return;
+      } else {
+        updatedIdx = arr.map((idx) => idx - 1);
+      }
 
-    if (JSON.stringify(list) === JSON.stringify(trendingPodcasts)) {
-      setTrendingPodcastIdx(updatedIdx);
-    } else {
-      setPopularPodcastIdx(updatedIdx);
+      if (
+        JSON.stringify(list) === JSON.stringify(selectedTrendingPodcastList)
+      ) {
+        setTrendingPodcastIdx(updatedIdx);
+      } else if (
+        JSON.stringify(list) === JSON.stringify(selectedPopularPodcastList)
+      ) {
+        setPopularPodcastIdx(updatedIdx);
+      } else if (
+        JSON.stringify(list) === JSON.stringify(popularPodcastcategory)
+      ) {
+        setPopularPodcastcategoryIdx(updatedIdx);
+      }
     }
   };
   const updateIdxRight = (arr, list) => {
     let updatedIdx = arr;
-    if (arr[2] === list.length - 1) {
-      return;
-    } else {
-      updatedIdx = arr.map((idx) => idx + 1);
-    }
-    if (JSON.stringify(list) === JSON.stringify(trendingPodcasts)) {
-      setTrendingPodcastIdx(updatedIdx);
-    } else {
-      setPopularPodcastIdx(updatedIdx);
+    if (list.length > 2) {
+      if (arr[arr.length - 1] === list.length - 1) {
+        return;
+      } else {
+        updatedIdx = arr.map((idx) => idx + 1);
+      }
+      if (
+        JSON.stringify(list) === JSON.stringify(selectedTrendingPodcastList)
+      ) {
+        setTrendingPodcastIdx(updatedIdx);
+      } else if (
+        JSON.stringify(list) === JSON.stringify(selectedPopularPodcastList)
+      ) {
+        setPopularPodcastIdx(updatedIdx);
+      } else if (
+        JSON.stringify(list) === JSON.stringify(popularPodcastcategory)
+      ) {
+        setPopularPodcastcategoryIdx(updatedIdx);
+      }
     }
   };
+
+  useEffect(() => {
+    let list;
+    if (selectedPopularPodcastCategory === "All") {
+      list = PopularPodcasts;
+    } else {
+      list = PopularPodcasts.filter(
+        (prev) => prev.category === selectedPopularPodcastCategory
+      );
+    }
+
+    setSelectedPopularPodcastList(list);
+  }, [selectedPopularPodcastCategory]);
+
+  useEffect(() => {
+    if (selectedPopularPodcastList) {
+      let idxArray = [];
+      if (selectedPopularPodcastList.length === 1) {
+        idxArray = [0];
+      } else if (selectedPopularPodcastList.length === 2) {
+        idxArray = [0, 1];
+      } else {
+        idxArray = [0, 1, 2];
+      }
+      setPopularPodcastIdx(idxArray);
+    }
+  }, [selectedPopularPodcastList]);
+
+  useEffect(() => {
+    let list = trendingPodcasts.filter(
+      (prev) => prev.category === selectedTrendingPodcastCategory
+    );
+    setSelectedTrendingPodcastList(list);
+  }, [selectedTrendingPodcastCategory]);
+
+  useEffect(() => {
+    if (selectedTrendingPodcastList.length > 0) {
+      let idxArray = [];
+      if (selectedTrendingPodcastList.length === 1) {
+        idxArray = [0];
+      } else if (selectedTrendingPodcastList.length === 2) {
+        idxArray = [0, 1];
+      } else {
+        idxArray = [0, 1, 2];
+      }
+      setTrendingPodcastIdx(idxArray);
+    }
+  }, [selectedTrendingPodcastList]);
 
   return (
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-2 select-none ">
@@ -405,6 +493,9 @@ const Podcasts = ({ Header }) => {
                         mode ? "bg-black" : "bg-white"
                       }  border-none outline-none text-sm cursor-pointer transition-all duration-500`}
                       name="category"
+                      onClick={(e) => {
+                        setSelectedTrendingPodcastCategory(e.target.value);
+                      }}
                     >
                       {trendingPodcastCategory?.map((item, idx) => (
                         <option value={item} key={idx}>
@@ -424,7 +515,10 @@ const Podcasts = ({ Header }) => {
                       <i
                         className={` ri-arrow-drop-left-line text-3xl cursor-pointer `}
                         onClick={() => {
-                          updateIdxLeft(trendingPodcastIdx, trendingPodcasts);
+                          updateIdxLeft(
+                            trendingPodcastIdx,
+                            selectedTrendingPodcastList
+                          );
                         }}
                       ></i>
                     </div>
@@ -438,76 +532,164 @@ const Podcasts = ({ Header }) => {
                       <i
                         className="ri-arrow-drop-right-line text-3xl cursor-pointer"
                         onClick={() => {
-                          updateIdxRight(trendingPodcastIdx, trendingPodcasts);
+                          updateIdxRight(
+                            trendingPodcastIdx,
+                            selectedTrendingPodcastList
+                          );
                         }}
                       ></i>
                     </div>
                   </div>
                 </div>
-                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md justify-between px-2 overflow-x-hidden cursor-grab max-sm:hover:overflow-x-scroll snap-mandatory snap-x">
-                  {trendingPodcasts?.length > 0 ? (
+                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md  px-2 overflow-x-hidden cursor-grab max-sm:hover:overflow-x-scroll snap-mandatory snap-x">
+                  {selectedTrendingPodcastList?.length > 0 ? (
                     trendingPodcastIdx?.map((idx) => (
                       <div
-                        className="flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
+                        className=" max-sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
                         key={idx}
                       >
-                        <div className="flex w-full h-2/3 max-sm:h-full relative">
-                          <img
-                            className="w-full h-full rounded-xl object-cover"
-                            src={trendingPodcasts[idx].thumbnail}
-                            alt={trendingPodcasts[idx].title}
-                          />
-                          <i
-                            className={`${
-                              mode ? "text-black " : "bg-gray-50 "
-                            } flex ri-heart-line absolute  rounded-full px-1 right-2 top-2 hover:bg-red-400 cursor-pointer transition-all duration-500`}
-                          ></i>
-                          <i
-                            className={`${
-                              JSON.stringify(nowPlaying) ==
-                                JSON.stringify(trendingPodcasts[idx]) &&
-                              !playerPaused
-                                ? "ri-pause-mini-line font-bold"
-                                : "ri-play-fill "
-                            } flex text-white absolute lg:text-xl md:text-xs  bg-black px-2 p-1 rounded-full right-2 bottom-2 cursor-pointer`}
-                            onClick={() => {
-                              if (
+                        {selectedTrendingPodcastList[idx] && (
+                          <div className="flex w-full h-2/3 max-sm:h-full relative">
+                            <img
+                              className="w-full h-full rounded-xl object-cover"
+                              src={selectedTrendingPodcastList[idx].thumbnail}
+                              alt={selectedTrendingPodcastList[idx].title}
+                            />
+                            <i
+                              className={`${
+                                mode ? "text-black " : "bg-gray-50 "
+                              } flex ri-heart-line absolute  rounded-full px-1 right-2 top-2 hover:bg-red-400 cursor-pointer transition-all duration-500`}
+                            ></i>
+                            <i
+                              className={`${
                                 JSON.stringify(nowPlaying) ==
-                                JSON.stringify(trendingPodcasts[idx])
-                              ) {
-                                if (playerPaused) {
+                                  JSON.stringify(
+                                    selectedTrendingPodcastList[idx]
+                                  ) && !playerPaused
+                                  ? "ri-pause-mini-line font-bold"
+                                  : "ri-play-fill "
+                              } flex text-white absolute lg:text-xl md:text-xs  bg-black px-2 p-1 rounded-full right-2 bottom-2 cursor-pointer`}
+                              onClick={() => {
+                                if (
+                                  JSON.stringify(nowPlaying) ==
+                                  JSON.stringify(
+                                    selectedTrendingPodcastList[idx]
+                                  )
+                                ) {
+                                  if (playerPaused) {
+                                    player.current.audio.current.play();
+                                    setPlayerPaused(false);
+                                  } else {
+                                    player.current.audio.current.pause();
+                                    setPlayerPaused(true);
+                                  }
+                                } else {
+                                  setNowPlaying(
+                                    selectedTrendingPodcastList[idx]
+                                  );
                                   player.current.audio.current.play();
                                   setPlayerPaused(false);
-                                } else {
-                                  player.current.audio.current.pause();
-                                  setPlayerPaused(true);
                                 }
-                              } else {
-                                setNowPlaying(trendingPodcasts[idx]);
-                                player.current.audio.current.play();
-                                setPlayerPaused(false);
-                              }
-                            }}
-                          ></i>
-                        </div>
-                        <p className="text-xs font-bold ">
-                          {trendingPodcasts[idx].title}
-                        </p>
-                        <div
-                          className={`  ${
-                            mode ? "text-zinc-600" : "text-gray-500"
-                          } flex justify-between items-center text-xs font-bold `}
-                        >
-                          <p>{trendingPodcasts[idx].artist}</p>
-                          <span>
-                            <i className="ri-time-fill"></i>
-                            {trendingPodcasts[idx].duration}
-                          </span>
-                        </div>
+                              }}
+                            ></i>
+                          </div>
+                        )}
+                        {selectedTrendingPodcastList[idx] && (
+                          <p className="text-xs font-bold ">
+                            {selectedTrendingPodcastList[idx].title}
+                          </p>
+                        )}
+
+                        {selectedTrendingPodcastList[idx] && (
+                          <div
+                            className={`  ${
+                              mode ? "text-zinc-600" : "text-gray-500"
+                            } flex justify-between items-center text-xs font-bold `}
+                          >
+                            <p>{selectedTrendingPodcastList[idx].artist}</p>
+                            <span>
+                              <i className="ri-time-fill"></i>
+                              {selectedTrendingPodcastList[idx].duration}
+                            </span>
+                          </div>
+                        )}
                       </div>
                     ))
                   ) : (
-                    <p></p>
+                    <div className="max-sm:hidden flex h-full w-full  p-10 justify-center items-center">
+                      <p className="text-sm ">No podcasts available</p>
+                    </div>
+                  )}
+                  {/* for mobile version we will display all podcast cards of particular category  */}
+                  {selectedTrendingPodcastList?.length > 0 ? (
+                    selectedTrendingPodcastList.map((item, idx) => (
+                      <div
+                        className="sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
+                        key={idx}
+                      >
+                        {item && (
+                          <div className="flex w-full h-2/3 max-sm:h-full relative">
+                            <img
+                              className="w-full h-full rounded-xl object-cover"
+                              src={item.thumbnail}
+                              alt={item.title}
+                            />
+                            <i
+                              className={`${
+                                mode ? "text-black " : "bg-gray-50 "
+                              } flex ri-heart-line absolute  rounded-full px-1 right-2 top-2 hover:bg-red-400 cursor-pointer transition-all duration-500`}
+                            ></i>
+                            <i
+                              className={`${
+                                JSON.stringify(nowPlaying) ==
+                                  JSON.stringify(item) && !playerPaused
+                                  ? "ri-pause-mini-line font-bold"
+                                  : "ri-play-fill "
+                              } flex text-white absolute lg:text-xl md:text-xs  bg-black px-2 p-1 rounded-full right-2 bottom-2 cursor-pointer`}
+                              onClick={() => {
+                                if (
+                                  JSON.stringify(nowPlaying) ==
+                                  JSON.stringify(item)
+                                ) {
+                                  if (playerPaused) {
+                                    player.current.audio.current.play();
+                                    setPlayerPaused(false);
+                                  } else {
+                                    player.current.audio.current.pause();
+                                    setPlayerPaused(true);
+                                  }
+                                } else {
+                                  setNowPlaying(item);
+                                  player.current.audio.current.play();
+                                  setPlayerPaused(false);
+                                }
+                              }}
+                            ></i>
+                          </div>
+                        )}
+                        {item && (
+                          <p className="text-xs font-bold ">{item.title}</p>
+                        )}
+
+                        {item && (
+                          <div
+                            className={`  ${
+                              mode ? "text-zinc-600" : "text-gray-500"
+                            } flex justify-between items-center text-xs font-bold `}
+                          >
+                            <p>{item.artist}</p>
+                            <span>
+                              <i className="ri-time-fill"></i>
+                              {item.duration}
+                            </span>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="sm:hidden flex h-full w-full  p-16 justify-center items-center">
+                      <p className="text-sm ">No podcasts available</p>
+                    </div>
                   )}
                 </div>
               </div>
@@ -526,6 +708,9 @@ const Podcasts = ({ Header }) => {
                       Popular podcasts
                     </p>
                     <select
+                      onChange={(e) => {
+                        setSelectedPopularPodcastCategory(e.target.value);
+                      }}
                       className={` ${
                         mode ? "bg-black text-white " : "bg-white text-gray-500"
                       }  text-xs outline-none lg:hidden  font-bold transition-all duration-500`}
@@ -543,30 +728,75 @@ const Podcasts = ({ Header }) => {
                     </select>
                   </div>
 
-                  <div className="flex max-lg:hidden gap-6 text-sm text-gray-500 font-bold ">
-                    {popularPodcastcategory?.length > 0 ? (
-                      popularPodcastcategory.slice(0, 5).map((item, idx) => (
-                        <p
-                          className={`${
-                            selectedPopularPodcastCategory === item
-                              ? mode
-                                ? "text-zinc-200 border-b-2 border-zinc-200 hover:text-zinc-200 "
-                                : "text-gray-900 border-b-2 border-gray-900 hover:text-gray-900"
-                              : mode
-                              ? " hover:text-zinc-400 text-zinc-600 "
-                              : "hover:text-gray-800 text-gray-500"
-                          } select-none cursor-pointer transition-all duration-200`}
-                          key={idx}
+                  <div className="flex max-lg:hidden gap-4 justify-between text-sm text-gray-500 font-bold w-[45%]">
+                    {popularPodcastcategoryIdx[0] > 0 ? (
+                      <div
+                        className={`${
+                          mode
+                            ? "bg-black hover:bg-zinc-900"
+                            : "hover:bg-gray-200"
+                        } rounded-md h-5 w-5 ml-[-30px] flex items-center justify-center transition-all duration-500`}
+                      >
+                        <i
+                          className="ri-arrow-drop-left-line text-2xl cursor-pointer"
                           onClick={() => {
-                            setSelectedPopularPodcastCategory(item);
+                            updateIdxLeft(
+                              popularPodcastcategoryIdx,
+                              popularPodcastcategory
+                            );
                           }}
-                        >
-                          {item}
-                        </p>
-                      ))
-                    ) : (
-                      <p>No categories found</p>
-                    )}
+                        ></i>
+                      </div>
+                    ) : null}
+                    <div className="flex min-w-full justify-between ">
+                      {popularPodcastcategory?.length > 0 ? (
+                        popularPodcastcategoryIdx.slice(0, 5).map((idx) => (
+                          <p
+                            className={`${
+                              selectedPopularPodcastCategory ===
+                              popularPodcastcategory[idx]
+                                ? mode
+                                  ? "text-zinc-200 border-zinc-200 hover:text-zinc-200 "
+                                  : "text-gray-900 border-gray-900 hover:text-gray-900"
+                                : mode
+                                ? " hover:text-zinc-400 border-transparent text-zinc-600 "
+                                : "hover:text-gray-800 border-transparent text-gray-500"
+                            } select-none cursor-pointer border-b-2 transition-all duration-200`}
+                            key={idx}
+                            onClick={() => {
+                              setSelectedPopularPodcastCategory(
+                                popularPodcastcategory[idx]
+                              );
+                            }}
+                          >
+                            {popularPodcastcategory[idx]}
+                          </p>
+                        ))
+                      ) : (
+                        <p>No categories found</p>
+                      )}
+                    </div>
+
+                    {popularPodcastcategoryIdx[4] <
+                    popularPodcastcategory.length - 1 ? (
+                      <div
+                        className={`${
+                          mode
+                            ? "bg-black hover:bg-zinc-900"
+                            : " hover:bg-gray-200"
+                        } rounded-md h-5 w-5 flex items-center justify-center cursor-pointer transition-all duration-500 `}
+                      >
+                        <i
+                          className="ri-arrow-drop-right-line text-2xl"
+                          onClick={() => {
+                            updateIdxRight(
+                              popularPodcastcategoryIdx,
+                              popularPodcastcategory
+                            );
+                          }}
+                        ></i>
+                      </div>
+                    ) : null}
                   </div>
 
                   <div className="max-sm:hidden flex gap-2 items-center">
@@ -580,7 +810,10 @@ const Podcasts = ({ Header }) => {
                       <i
                         className="ri-arrow-drop-left-line text-3xl cursor-pointer"
                         onClick={() => {
-                          updateIdxLeft(popularPodcastIdx, PopularPodcasts);
+                          updateIdxLeft(
+                            popularPodcastIdx,
+                            selectedPopularPodcastList
+                          );
                         }}
                       ></i>
                     </div>
@@ -594,78 +827,163 @@ const Podcasts = ({ Header }) => {
                       <i
                         className="ri-arrow-drop-right-line text-3xl"
                         onClick={() => {
-                          updateIdxRight(popularPodcastIdx, PopularPodcasts);
+                          updateIdxRight(
+                            popularPodcastIdx,
+                            selectedPopularPodcastList
+                          );
                         }}
                       ></i>
                     </div>
                   </div>
                 </div>
-                <div className="flex h-full w-full  gap-4 rounded-md justify-between items-center cursor-grab max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto snap-mandatory snap-x ">
-                  {PopularPodcasts?.length > 0 ? (
+                <div className="flex h-full w-full  gap-4 rounded-md justify-start items-center cursor-grab max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto snap-mandatory snap-x">
+                  {selectedPopularPodcastList?.length > 0 ? (
                     popularPodcastIdx.map((idx) => (
                       <div
-                        className="flex h-full  max-lg:flex-col w-full justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden snap-center "
+                        className="max-sm:hidden flex h-full  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden "
                         key={idx}
                       >
                         <div className="max-lg:w-full max-lg:pr-4  max-sm:pr-0">
-                          <img
-                            className=" w-20 h-20 max-sm:h-40 max-lg:w-full object-cover rounded-xl"
-                            src={PopularPodcasts[idx].thumbnail}
-                            alt={PopularPodcasts[idx].title}
-                          />
+                          {selectedPopularPodcastList[idx] && ( // Check if selectedPopularPodcastList[idx] is defined
+                            <img
+                              className=" w-20 h-20 max-sm:h-40 max-lg:w-full object-cover rounded-xl"
+                              src={selectedPopularPodcastList[idx].thumbnail}
+                              alt={selectedPopularPodcastList[idx].title}
+                            />
+                          )}
                         </div>
-                        <div className="flex flex-col pt-2 gap-2">
-                          <p className="text-xs font-bold">
-                            {PopularPodcasts[idx].title}
-                          </p>
-                          <p
-                            className={`${
-                              mode ? "text-zinc-600" : "text-gray-400"
-                            } text-xs font-bold`}
-                          >
-                            {PopularPodcasts[idx].artist}
-                          </p>
-                          <div
-                            className={`${
-                              mode
-                                ? "bg-zinc-900 hover:bg-zinc-800"
-                                : "bg-gray-100 hover:bg-gray-200"
-                            } flex justify-center items-center px-2 gap-2 rounded-md mb-2 text-xs w-fit transition-all duration-500`}
-                          >
-                            <i
+                        {selectedPopularPodcastList[idx] && ( // Check if selectedPopularPodcastList[idx] is defined
+                          <div className="flex flex-col pt-2 gap-2">
+                            <p className="text-xs font-bold">
+                              {selectedPopularPodcastList[idx].title}
+                            </p>
+                            <p
                               className={`${
-                                JSON.stringify(nowPlaying) ==
-                                  JSON.stringify(PopularPodcasts[idx]) &&
-                                !playerPaused
-                                  ? " ri-pause-circle-line "
-                                  : " ri-play-circle-line "
-                              } text-2xl cursor-pointer`}
-                              onClick={() => {
-                                if (
-                                  JSON.stringify(nowPlaying) ==
-                                  JSON.stringify(PopularPodcasts[idx])
-                                ) {
-                                  if (playerPaused) {
+                                mode ? "text-zinc-600" : "text-gray-400"
+                              } text-xs font-bold`}
+                            >
+                              {selectedPopularPodcastList[idx].artist}
+                            </p>
+                            <div
+                              className={`${
+                                mode
+                                  ? "bg-zinc-900 hover:bg-zinc-800"
+                                  : "bg-gray-100 hover:bg-gray-200"
+                              } flex justify-center items-center px-2 gap-2 rounded-md mb-2 text-xs w-fit transition-all duration-500`}
+                            >
+                              <i
+                                className={`${
+                                  JSON.stringify(nowPlaying) ===
+                                    JSON.stringify(
+                                      selectedPopularPodcastList[idx]
+                                    ) && !playerPaused
+                                    ? " ri-pause-circle-line "
+                                    : " ri-play-circle-line "
+                                } text-2xl cursor-pointer`}
+                                onClick={() => {
+                                  if (
+                                    JSON.stringify(nowPlaying) ===
+                                    JSON.stringify(
+                                      selectedPopularPodcastList[idx]
+                                    )
+                                  ) {
+                                    if (playerPaused) {
+                                      player.current.audio.current.play();
+                                      setPlayerPaused(false);
+                                    } else {
+                                      player.current.audio.current.pause();
+                                      setPlayerPaused(true);
+                                    }
+                                  } else {
+                                    setNowPlaying(
+                                      selectedPopularPodcastList[idx]
+                                    );
                                     player.current.audio.current.play();
                                     setPlayerPaused(false);
-                                  } else {
-                                    player.current.audio.current.pause();
-                                    setPlayerPaused(true);
                                   }
-                                } else {
-                                  setNowPlaying(PopularPodcasts[idx]);
-                                  player.current.audio.current.play();
-                                  setPlayerPaused(false);
-                                }
-                              }}
-                            ></i>
-                            {PopularPodcasts[idx].duration}
+                                }}
+                              ></i>
+                              {selectedPopularPodcastList[idx].duration}
+                            </div>
                           </div>
-                        </div>
+                        )}
                       </div>
                     ))
                   ) : (
-                    <p></p>
+                    <div className="max-sm:hidden flex h-full w-full  p-10 justify-center items-center">
+                      <p className="text-sm ">No podcasts available</p>
+                    </div>
+                  )}
+
+                  {/* for mobile version we will display all podcast cards of particular category  */}
+                  {selectedPopularPodcastList?.length > 0 ? (
+                    selectedPopularPodcastList.map((item, idx) => (
+                      <div
+                        className="sm:hidden flex h-full  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden snap-center "
+                        key={idx}
+                      >
+                        <div className="max-lg:w-full max-lg:pr-4  max-sm:pr-0">
+                          {item && ( // Check if selectedPopularPodcastList[idx] is defined
+                            <img
+                              className=" w-20 h-20 max-sm:h-40 max-lg:w-full object-cover rounded-xl"
+                              src={item.thumbnail}
+                              alt={item.title}
+                            />
+                          )}
+                        </div>
+                        {item && ( // Check if selectedPopularPodcastList[idx] is defined
+                          <div className="flex flex-col pt-2 gap-2">
+                            <p className="text-xs font-bold">{item.title}</p>
+                            <p
+                              className={`${
+                                mode ? "text-zinc-600" : "text-gray-400"
+                              } text-xs font-bold`}
+                            >
+                              {item.artist}
+                            </p>
+                            <div
+                              className={`${
+                                mode
+                                  ? "bg-zinc-900 hover:bg-zinc-800"
+                                  : "bg-gray-100 hover:bg-gray-200"
+                              } flex justify-center items-center px-2 gap-2 rounded-md mb-2 text-xs w-fit transition-all duration-500`}
+                            >
+                              <i
+                                className={`${
+                                  JSON.stringify(nowPlaying) ===
+                                    JSON.stringify(item) && !playerPaused
+                                    ? " ri-pause-circle-line "
+                                    : " ri-play-circle-line "
+                                } text-2xl cursor-pointer`}
+                                onClick={() => {
+                                  if (
+                                    JSON.stringify(nowPlaying) ===
+                                    JSON.stringify(item)
+                                  ) {
+                                    if (playerPaused) {
+                                      player.current.audio.current.play();
+                                      setPlayerPaused(false);
+                                    } else {
+                                      player.current.audio.current.pause();
+                                      setPlayerPaused(true);
+                                    }
+                                  } else {
+                                    setNowPlaying(item);
+                                    player.current.audio.current.play();
+                                    setPlayerPaused(false);
+                                  }
+                                }}
+                              ></i>
+                              {item.duration}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+                    ))
+                  ) : (
+                    <div className="sm:hidden flex h-full w-full  p-16 justify-center items-center">
+                      <p className="text-sm ">No podcasts available</p>
+                    </div>
                   )}
                 </div>
               </div>
@@ -708,11 +1026,11 @@ const Podcasts = ({ Header }) => {
                             <div
                               className={`${
                                 mode
-                                  ? "bg-blue-400 border-blue-500"
+                                  ? "bg-blue-500 border-blue-600"
                                   : "bg-red-400 border-red-500"
-                              }  border  flex items-center justify-center rounded-full h-7 w-9 absolute mt-[-80px] mr-[-60px]`}
+                              }  border  flex items-center justify-center rounded-full p-1 px-[5px] absolute mt-[-80px] mr-[-60px]`}
                             >
-                              <p className={` text-xs font-bold`}>
+                              <p className={` text-[11px] font-bold`}>
                                 {formatNumber(item.count)}
                               </p>
                             </div>
@@ -985,6 +1303,8 @@ const Podcasts = ({ Header }) => {
                           key={idx}
                           onClick={() => {
                             setNowPlaying(item);
+                            player.current.audio.current.play();
+                            setPlayerPaused(false);
                           }}
                         >
                           <img
