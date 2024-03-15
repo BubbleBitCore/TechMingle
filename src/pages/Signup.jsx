@@ -1,15 +1,21 @@
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import man2 from "../assets/images/man2.png";
 import FancyButton from "../components/FancyButton";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import OTPDrawer from "../components/OTPDrawer";
 
 const Signup = () => {
   const [openOTPDrawer, setOpenOTPDrawer] = useState(false);
   const [passType, setPassType] = useState("password");
   const [eyeClass, setEyeClass] = useState("ri-eye-off-line");
-  const [showOTPButton, setShowOTPButton] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  useEffect(() => {
+    if (searchParams.get("otp")) {
+      setOpenOTPDrawer(true);
+    }
+  }, []);
+
   const togglePass = () => {
     if (eyeClass === "ri-eye-line") {
       setEyeClass("ri-eye-off-line");
@@ -28,8 +34,7 @@ const Signup = () => {
       password,
     };
     console.log(sanitizedObject);
-    setOpenOTPDrawer(true);
-    setShowOTPButton(true);
+    setSearchParams({ otp: email });
   };
 
   const {
@@ -191,14 +196,6 @@ const Signup = () => {
                   {new Date().toLocaleString()}
                 </p>
               </div>
-              {showOTPButton && (
-                <p
-                  onClick={() => setOpenOTPDrawer(true)}
-                  className="max-sm:fixed max-sm:bottom-3  max-sm:left-1/2 max-sm:-translate-x-1/2 text-sm w-full px-3  mt-2 select-none cursor-pointer font-bold text-violet-400 hover:text-violet-500 transition-all"
-                >
-                  Send OTP
-                </p>
-              )}
               <div className="max-sm:fixed max-sm:bottom-10 max-sm:left-1/2 max-sm:-translate-x-1/2  w-full max-sm:w-[90%] h-[10%] mt-10 max-sm:h-[8%]">
                 <FancyButton text1="Create" text2="Journey" />
               </div>
