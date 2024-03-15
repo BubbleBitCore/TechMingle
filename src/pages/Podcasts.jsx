@@ -616,7 +616,7 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="max-sm:hidden flex h-full w-full  p-10 justify-center items-center">
+                    <div className="max-sm:hidden flex h-full w-full p-20 justify-center items-center">
                       <p className="text-sm ">No podcasts available</p>
                     </div>
                   )}
@@ -687,7 +687,7 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="sm:hidden flex h-full w-full  p-16 justify-center items-center">
+                    <div className="sm:hidden flex h-full w-full  p-[103px] justify-center items-center">
                       <p className="text-sm ">No podcasts available</p>
                     </div>
                   )}
@@ -910,7 +910,7 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="max-sm:hidden flex h-full w-full  p-10 justify-center items-center">
+                    <div className="max-sm:hidden flex h-full w-full p-[38px] justify-center items-center">
                       <p className="text-sm ">No podcasts available</p>
                     </div>
                   )}
@@ -981,7 +981,7 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="sm:hidden flex h-full w-full  p-16 justify-center items-center">
+                    <div className="sm:hidden flex h-full w-full  p-[111px] justify-center items-center">
                       <p className="text-sm ">No podcasts available</p>
                     </div>
                   )}
