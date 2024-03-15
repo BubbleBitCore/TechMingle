@@ -44,7 +44,7 @@ const Signup = () => {
   } = useForm();
   return (
     <>
-      <div className="fixed top-0 left-0 w-full h-full flex justify-center  items-center  bgGradient">
+      <div className="fixed top-0 left-0  w-full h-full flex justify-center  items-center  bgGradient">
         <div className="w-[70%] h-[75vh] max-sm:h-full max-sm:w-full rounded-2xl flex justify-center items-center">
           {/* section 1 */}
           <div className="glowBlock w-[60%] h-full rounded-2xl p-[0.2rem] pr-0 max-sm:hidden">
