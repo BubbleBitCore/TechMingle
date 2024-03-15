@@ -1,12 +1,14 @@
-const TechFrenzy = ({Header}) => {
+import Spinner from "../components/Spinner";
+
+const TechFrenzy = ({ Header }) => {
   return (
     <div className="flex flex-col h-full w-full pr-4 max-sm:px-4">
-      <Header urlName="TechFrenzy"/>
+      <Header urlName="TechFrenzy" />
       <div className="mt-1 mb-2 h-full w-full">
-        content
+        <Spinner />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default TechFrenzy
+export default TechFrenzy;
