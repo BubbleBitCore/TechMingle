@@ -17,6 +17,8 @@ import { navigation } from "../constants/navigation";
 import Settings from "../pages/Settings";
 import Header from "./Header";
 import { useSelector } from "react-redux";
+import ResetPassword from "../pages/ResetPassword";
+import ForgotPassword from "../pages/ForgotPassword";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -65,6 +67,8 @@ const AppWrapper = () => {
             />
             <Route exact path="/jobs" element={<Jobs Header={Header} />} />
             <Route exact path="/clubs" element={<Clubs Header={Header} />} />
+            <Route exact path="/resetpassword" element={<ResetPassword />} />
+            <Route exact path="/forgotpassword" element={<ForgotPassword/>} />
             <Route
               exact
               path="/settings"
