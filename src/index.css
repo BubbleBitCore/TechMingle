@@ -238,8 +238,8 @@ html {
 /* Signup */
 
 .bgGradient {
-  background-color: rgba(0, 0, 0, 0);
-  background-image: radial-gradient(at 0% 100%, rgb(0, 0, 0) 0, transparent 28%),
+  background-color: rgba(0, 0, 0, 1);
+  background-image: radial-gradient(at 0% 100%, rgb(0, 0, 0) 0, transparent 100%),
     radial-gradient(at 32% 39%, #220f3a 0, transparent 100%),
     radial-gradient(at 24% 25%, rgb(0, 0, 0) 0, transparent 100%),
     radial-gradient(at 12% 22%, rgb(0, 0, 0) 0, transparent 100%),
