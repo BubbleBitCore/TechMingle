@@ -3,10 +3,13 @@ import man2 from "../assets/images/man2.png";
 import FancyButton from "../components/FancyButton";
 import { useForm } from "react-hook-form";
 import { useState } from "react";
+import OTPDrawer from "../components/OTPDrawer";
 
 const Signup = () => {
+  const [openOTPDrawer, setOpenOTPDrawer] = useState(false);
   const [passType, setPassType] = useState("password");
   const [eyeClass, setEyeClass] = useState("ri-eye-off-line");
+  const [showOTPButton, setShowOTPButton] = useState(false);
   const togglePass = () => {
     if (eyeClass === "ri-eye-line") {
       setEyeClass("ri-eye-off-line");
@@ -25,6 +28,8 @@ const Signup = () => {
       password,
     };
     console.log(sanitizedObject);
+    setOpenOTPDrawer(true);
+    setShowOTPButton(true);
   };
 
   const {
@@ -62,7 +67,7 @@ const Signup = () => {
             {/* form */}
             <form
               onSubmit={handleSubmit(handleRegistration)}
-              className="w-[75%] max-sm:w-full h-full bg-white flex flex-col p-5 pt-8 max-sm:pt-5"
+              className="w-[75%] max-sm:w-full h-full bg-white flex flex-col p-5 pr-1 pt-8 pb-1 max-sm:pt-5"
             >
               {/* Mobile titles */}
               <div className="sm:hidden w-full flex mb-5 gap-2">
@@ -86,7 +91,7 @@ const Signup = () => {
                 </div>
                 <div className="w-full overflow-hidden ">
                   <input
-                    className="select-none border-none outline-none text-3xl poppins font-bold"
+                    className="w-full select-none border-none outline-none text-3xl poppins font-bold"
                     type="text"
                     placeholder="Name"
                     {...register("name", {
@@ -186,6 +191,14 @@ const Signup = () => {
                   {new Date().toLocaleString()}
                 </p>
               </div>
+              {showOTPButton && (
+                <p
+                  onClick={() => setOpenOTPDrawer(true)}
+                  className="max-sm:fixed max-sm:bottom-3  max-sm:left-1/2 max-sm:-translate-x-1/2 text-sm w-full px-3  mt-2 select-none cursor-pointer font-bold text-violet-400 hover:text-violet-500 transition-all"
+                >
+                  Send OTP
+                </p>
+              )}
               <div className="max-sm:fixed max-sm:bottom-10 max-sm:left-1/2 max-sm:-translate-x-1/2  w-full max-sm:w-[90%] h-[10%] mt-10 max-sm:h-[8%]">
                 <FancyButton text1="Create" text2="Journey" />
               </div>
@@ -253,6 +266,9 @@ const Signup = () => {
           )}
         </div>
       </div>
+
+      {/* OTP Drawer */}
+      <OTPDrawer open={openOTPDrawer} setOpen={setOpenOTPDrawer} />
     </>
   );
 };
