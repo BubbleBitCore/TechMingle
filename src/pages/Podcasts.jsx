@@ -999,7 +999,7 @@ const Podcasts = ({ Header }) => {
                     Popular categories
                   </p>
                   <div
-                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-8 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
+                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-10 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
                   >
                     {popularcategories ? (
                       popularcategories.length > 6 ? (
@@ -1020,7 +1020,7 @@ const Podcasts = ({ Header }) => {
                                   mode
                                     ? "text-zinc-300 font-bold hover:text-zinc-100 "
                                     : "text-black bg-cyan-50 hover:bg-cyan-100"
-                                } px-2 rounded-md text-3xl cursor-pointer transition-all duration-500`}
+                                } px-2 rounded-md text-2xl cursor-pointer transition-all duration-500`}
                               ></i>
                             </div>
                             <div
