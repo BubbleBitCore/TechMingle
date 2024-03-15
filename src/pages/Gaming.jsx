@@ -1,12 +1,14 @@
-const Gaming = ({Header}) => {
+import Spinner from "../components/Spinner";
+
+const Gaming = ({ Header }) => {
   return (
     <div className="flex flex-col h-full w-full pr-4 max-sm:px-4">
-      <Header urlName="Gaming"/>
+      <Header urlName="Gaming" />
       <div className="mt-1 mb-2 h-full w-full">
-        content
+        <Spinner />
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Gaming
+export default Gaming;
