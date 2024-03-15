@@ -72,7 +72,7 @@ const Signup = () => {
             {/* form */}
             <form
               onSubmit={handleSubmit(handleRegistration)}
-              className="w-[75%] max-sm:w-full h-full bg-white flex flex-col p-5 pr-1 pt-8 pb-1 max-sm:pt-5"
+              className="w-[75%] max-sm:w-full h-full bg-white flex flex-col p-5 pr-1 max-sm:pr-5 pt-8 pb-1 max-sm:pt-5"
             >
               {/* Mobile titles */}
               <div className="sm:hidden w-full flex mb-5 gap-2">
