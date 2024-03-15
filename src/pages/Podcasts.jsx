@@ -738,7 +738,7 @@ const Podcasts = ({ Header }) => {
                         } rounded-md h-5 w-5 ml-[-30px] flex items-center justify-center transition-all duration-500`}
                       >
                         <i
-                          className="ri-arrow-drop-left-line text-2xl cursor-pointer"
+                          className="ri-arrow-drop-left-fill  text-xl cursor-pointer"
                           onClick={() => {
                             updateIdxLeft(
                               popularPodcastcategoryIdx,
@@ -759,7 +759,7 @@ const Podcasts = ({ Header }) => {
                                   ? "text-zinc-200 border-zinc-200 hover:text-zinc-200 "
                                   : "text-gray-900 border-gray-900 hover:text-gray-900"
                                 : mode
-                                ? " hover:text-zinc-400 border-transparent text-zinc-600 "
+                                ? " hover:text-zinc-300 border-transparent text-zinc-500 "
                                 : "hover:text-gray-800 border-transparent text-gray-500"
                             } select-none cursor-pointer border-b-2 transition-all duration-200`}
                             key={idx}
@@ -787,7 +787,7 @@ const Podcasts = ({ Header }) => {
                         } rounded-md h-5 w-5 flex items-center justify-center cursor-pointer transition-all duration-500 `}
                       >
                         <i
-                          className="ri-arrow-drop-right-line text-2xl"
+                          className="ri-arrow-drop-right-fill text-xl"
                           onClick={() => {
                             updateIdxRight(
                               popularPodcastcategoryIdx,
