@@ -126,7 +126,7 @@ const Login = () => {
             </form>
 
             {/* infomation */}
-            <div className="flex w-full  flex-col max-sm:mt-6">
+            <div className="flex w-full  flex-col max-sm:mt-0">
               {/* Stats */}
               <div className="w-full flex  gap-10">
                 <div className=" flex flex-col ">
@@ -150,7 +150,7 @@ const Login = () => {
               </div>
             </div>
             {/* Avtars */}
-            <div className="w-full relative">
+            <div className="w-4/5 max-sm:w-1/2 relative">
               {/* Avatar 1 */}
               <div
                 className={`hover:z-50 transition-all hover:scale-105 cursor-pointer absolute w-8 h-8 rounded-full bg-white  overflow-hidden p-[0.2rem]`}
@@ -208,11 +208,21 @@ const Login = () => {
                 </div>
               </div>
             </div>
+            {/* Forgot password */}
+            <Link to="/forgotpassword" className="text-purple-500 mt-5 text-xs">
+              Forgot Password ?
+            </Link>
 
             {/* Signup link for smallscreens  */}
-            <div className="hidden fixed max-sm:flex bottom-5 left-1/2 -translate-x-1/2 w-full justify-center items-center">
+            <div className="hidden fixed max-sm:flex bottom-3 left-1/2 -translate-x-1/2 w-full justify-center items-center">
               <p className="text-sm ">
-                Don't have an account ? <Link className="text-violet-500 hover:underline underline-offset-2 cursor-pointer" to="/signup">Signup</Link>
+                Don't have an account ?{" "}
+                <Link
+                  className="text-violet-500 hover:underline underline-offset-2 cursor-pointer"
+                  to="/signup"
+                >
+                  Signup
+                </Link>
               </p>
             </div>
           </div>
