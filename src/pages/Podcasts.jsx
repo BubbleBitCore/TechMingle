@@ -13,6 +13,7 @@ import { formatNumber } from "../utils/conversion";
 import SkeletonPopularPodcast from "../components/Podcast/SkeletonPopularPodcast";
 import SkeletonTrendingPodcast from "../components/Podcast/SkeletonTrendingPodcast";
 import SkeletonPopularCategory from "../components/Podcast/SkeletonPopularCategory";
+import SkeletonList from "../components/Podcast/SkeletonList";
 
 const Podcasts = ({ Header }) => {
   const popularPodcastStatus = "loading";
@@ -20,6 +21,8 @@ const Podcasts = ({ Header }) => {
   const nowPlayingStatus = "loading";
   const trendingthisWeekStatus = "loading";
   const popularPodcastcategoryStatus = "loading";
+  const popularPodcastersStatus = "loading";
+  const recentFavouriteStatus = "loading";
   const mode = useSelector((state) => state.common.mode);
   const [trendingPodcastIdx, setTrendingPodcastIdx] = useState([0, 1, 2]);
   const [popularPodcastIdx, setPopularPodcastIdx] = useState([0, 1, 2]);
@@ -52,7 +55,7 @@ const Podcasts = ({ Header }) => {
     "Exclusive",
     "News & Politics",
     "Music",
-    "Buisness",
+    "Business",
     "health",
     "Exclusive",
   ];
@@ -1039,12 +1042,14 @@ const Podcasts = ({ Header }) => {
                     Popular categories
                   </p>
                   <div
-                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-10 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
+                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-3 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
                   >
-                    {popularPodcastStatus === "loading" ? (
-                      new Array(4)
-                        .fill(0)
-                        .map((_, key) => <SkeletonPopularCategory key={key} />)
+                    {popularPodcastcategoryStatus === "loading" ? (
+                      <div className="flex gap-8 h-full w-full max-sm:hidden overflow-x-auto justify-between items-center">
+                        {new Array(5).fill(0).map((_, key) => (
+                          <SkeletonPopularCategory key={key} />
+                        ))}
+                      </div>
                     ) : popularcategories ? (
                       popularcategories.length > 6 ? (
                         popularcategories.slice(0, 5).map((item, idx) => (
@@ -1124,36 +1129,44 @@ const Podcasts = ({ Header }) => {
                       <p>No popular category</p>
                     )}
 
-                    {popularcategories?.map((item, idx) => (
-                      <div
-                        className={`sm:hidden flex flex-col items-center justify-center gap-1`}
-                        key={idx}
-                      >
-                        <div
-                          className={`${
-                            mode
-                              ? "bg-zinc-900 hover:bg-zinc-800"
-                              : "bg-cyan-50 hover:bg-cyan-100"
-                          }  p-2 px-4 rounded-md select-none transition-all duration-500`}
-                        >
-                          <i
-                            className={`${item.icon} ${
-                              mode
-                                ? "text-zinc-300 font-bold hover:text-zinc-100 "
-                                : "text-black bg-white "
-                            } px-1 rounded-md text-lg cursor-pointer transition-all duration-500`}
-                          ></i>
-                        </div>
-                        <p className="text-xs font-bold">{item.name}</p>
-                        <p
-                          className={`${
-                            mode ? "text-zinc-700" : "text-gray-400"
-                          } text-xs font-bold  `}
-                        >
-                          {item.count} Podcats
-                        </p>
+                    {popularPodcastcategoryStatus === "loading" ? (
+                      <div className="flex justify-between gap-2 h-full w-full sm:hidden ">
+                        {new Array(3).fill(0).map((_, key) => (
+                          <SkeletonPopularCategory key={key} />
+                        ))}
                       </div>
-                    ))}
+                    ) : (
+                      popularcategories?.map((item, idx) => (
+                        <div
+                          className={`sm:hidden flex flex-col items-center justify-center gap-1`}
+                          key={idx}
+                        >
+                          <div
+                            className={`${
+                              mode
+                                ? "bg-zinc-900 hover:bg-zinc-800"
+                                : "bg-cyan-50 hover:bg-cyan-100"
+                            }  p-2 px-4 rounded-md select-none transition-all duration-500`}
+                          >
+                            <i
+                              className={`${item.icon} ${
+                                mode
+                                  ? "text-zinc-300 font-bold hover:text-zinc-100 "
+                                  : "text-black bg-white "
+                              } px-1 rounded-md text-lg cursor-pointer transition-all duration-500`}
+                            ></i>
+                          </div>
+                          <p className="text-xs font-bold">{item.name}</p>
+                          <p
+                            className={`${
+                              mode ? "text-zinc-700" : "text-gray-400"
+                            } text-xs font-bold  `}
+                          >
+                            {item.count} Podcats
+                          </p>
+                        </div>
+                      ))
+                    )}
                     {popularPodcastStatus === "loading" ? (
                       new Array(1)
                         .fill(0)
@@ -1181,12 +1194,16 @@ const Podcasts = ({ Header }) => {
                     Popular Podcasters
                   </p>
                   <div className="w-full h-full flex flex-col lg:justify-center">
-                    {popularPodcasters?.length > 0 ? (
+                    {popularPodcastersStatus === "loading" ? (
+                      new Array(2)
+                        .fill(0)
+                        .map((_, key) => <SkeletonList key={key} />)
+                    ) : popularPodcasters?.length > 0 ? (
                       popularPodcasters.slice(0, 2).map((item, idx) => (
                         <div
                           className={`${
                             mode ? "hover:bg-zinc-900" : "hover:bg-gray-100"
-                          } flex w-full justify-between lg:items-center select-none p-2 pr-3 rounded-md`}
+                          } flex w-full justify-between lg:items-center select-none p-2 pr-3 rounded-md cursor-pointer`}
                           key={idx}
                         >
                           <div className="flex gap-2 items-center ">
@@ -1325,13 +1342,17 @@ const Podcasts = ({ Header }) => {
                   </p>
                 </div>
                 <div className="flex flex-col w-full py-1">
-                  {tabList && tabList.length > 0 ? (
+                  {recentFavouriteStatus === "loading" ? (
+                    new Array(4)
+                      .fill(0)
+                      .map((_, key) => <SkeletonList key={key} />)
+                  ) : tabList && tabList.length > 0 ? (
                     selectedtab === "myFavourites" && tabList.length > 3 ? (
                       tabList.slice(0, 3).map((item, idx) => (
                         <div
                           className={`${
                             mode ? "hover:bg-zinc-900" : "hover:bg-gray-100"
-                          } flex gap-4 items-center w-full p-2 rounded-md`}
+                          } flex gap-4 items-center w-full p-2 rounded-md cursor-pointer`}
                           key={idx}
                           onClick={() => {
                             setNowPlaying(item);
@@ -1362,7 +1383,7 @@ const Podcasts = ({ Header }) => {
                         <div
                           className={`${
                             mode ? "hover:bg-zinc-900" : "hover:bg-gray-100"
-                          } flex gap-4 p-2 items-center w-full rounded-md`}
+                          } flex gap-4 p-2 items-center w-full rounded-md cursor-pointer`}
                           key={idx}
                           onClick={() => {
                             setNowPlaying(item);
@@ -1393,19 +1414,23 @@ const Podcasts = ({ Header }) => {
                     <p>Nothing played</p>
                   )}
                 </div>
-                <div
-                  className={`${
-                    mode
-                      ? "bg-zinc-900 hover:bg-zinc-800"
-                      : "bg-[color:var(--popular-podcast-category-icon)] hover:bg-[#aeebf2]"
-                  } ${
-                    selectedtab === "recentlyPlayed" || favourites.length < 5
-                      ? "hidden"
-                      : ""
-                  } flex gap-2 items-center px-6 py-1 text-xs w-fit self-center rounded-md cursor-pointer transition-all duration-500`}
-                >
-                  <p>View More</p> <i className="fa-solid fa-angle-down"></i>
-                </div>
+                {recentFavouriteStatus === "loading" ? (
+                  <div></div>
+                ) : (
+                  <div
+                    className={`${
+                      mode
+                        ? "bg-zinc-900 hover:bg-zinc-800"
+                        : "bg-[color:var(--popular-podcast-category-icon)] hover:bg-[#aeebf2]"
+                    } ${
+                      selectedtab === "recentlyPlayed" || favourites.length < 5
+                        ? "hidden"
+                        : ""
+                    } flex gap-2 items-center px-6 py-1 text-xs w-fit self-center rounded-md cursor-pointer transition-all duration-500`}
+                  >
+                    <p>View More</p> <i className="fa-solid fa-angle-down"></i>
+                  </div>
+                )}
               </div>
             </div>
           </div>
