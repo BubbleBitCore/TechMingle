@@ -62,8 +62,13 @@ const Signup = () => {
             {/* form */}
             <form
               onSubmit={handleSubmit(handleRegistration)}
-              className="w-[75%] max-sm:w-full h-full bg-white flex flex-col p-5 pt-8 max-sm:pt-10"
+              className="w-[75%] max-sm:w-full h-full bg-white flex flex-col p-5 pt-8 max-sm:pt-5"
             >
+              {/* Mobile titles */}
+              <div className="sm:hidden w-full flex mb-5 gap-2">
+                <i className="select-none text-4xl ri-vip-crown-2-fill mr-1 text-yellow-500"></i>
+                <h1 className="text-4xl font-bold monsterrat">TechMingle</h1>
+              </div>
               <div className="w-full flex flex-col gap-2">
                 <div className="w-full flex justify-between">
                   {/* avtar */}
