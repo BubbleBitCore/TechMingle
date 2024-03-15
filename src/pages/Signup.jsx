@@ -186,7 +186,7 @@ const Signup = () => {
                   {new Date().toLocaleString()}
                 </p>
               </div>
-              <div className="max-sm:fixed max-sm:bottom-10 max-sm:left-1/2 max-sm:-translate-x-1/2  w-full max-sm:w-[90%] h-[10%] mt-5 max-sm:h-[8%]">
+              <div className="max-sm:fixed max-sm:bottom-10 max-sm:left-1/2 max-sm:-translate-x-1/2  w-full max-sm:w-[90%] h-[10%] mt-10 max-sm:h-[8%]">
                 <FancyButton text1="Create" text2="Journey" />
               </div>
               <p className="max-sm:fixed max-sm:bottom-3  max-sm:left-1/2 max-sm:-translate-x-1/2 text-sm w-full text-center mt-2 select-none">
