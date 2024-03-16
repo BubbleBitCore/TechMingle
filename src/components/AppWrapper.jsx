@@ -67,7 +67,7 @@ const AppWrapper = () => {
             />
             <Route exact path="/jobs" element={<Jobs Header={Header} />} />
             <Route exact path="/clubs" element={<Clubs Header={Header} />} />
-            <Route exact path="/resetpassword" element={<ResetPassword />} />
+            <Route exact path="/resetpassword/:id/:token" element={<ResetPassword />} />
             <Route exact path="/forgotpassword" element={<ForgotPassword/>} />
             <Route
               exact

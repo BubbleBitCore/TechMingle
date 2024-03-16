@@ -465,8 +465,8 @@ html {
   background-size: 100%;
   background-repeat: repeat;
   background-position: left -40px top 0;
-  -webkit-animation: shine 6s  infinite linear forwards;
-  animation: shine 6s  infinite linear forwards;
+  -webkit-animation: shine 6s infinite linear forwards;
+  animation: shine 6s infinite linear forwards;
 }
 
 .dark {
@@ -481,18 +481,61 @@ html {
 
 @-webkit-keyframes shine {
   0% {
-    background-position: -400px 0
+    background-position: -400px 0;
   }
   100% {
-    background-position: 400px 0
+    background-position: 400px 0;
   }
 }
 
 @keyframes shine {
   0% {
-    background-position: -400px 0
+    background-position: -400px 0;
   }
   100% {
-    background-position: 400px 0
+    background-position: 400px 0;
+  }
+}
+
+/* reset password */
+
+.blob {
+  border-radius: 50%;
+  background: #9f5ceb;
+  animation: blobanimate 10s infinite linear forwards;
+  position: absolute;
+  cursor: pointer;
+  pointer-events: none;
+  z-index: -2;
+  transition: 750ms linear;
+}
+.overlay {
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  position: absolute;
+  z-index: -1;
+  backdrop-filter: blur(100px);
+}
+@keyframes blobanimate {
+  0% {
+    transform: rotate(0deg) scaley(100%);
+    background-color: #9f5ceb;
+    transform: translate(90px, -50px);
+  }
+  50% {
+    transform: rotate(180deg) scaley(70%);
+    background-color: #e7553e;
+    transform: translate(80px, -60px);
+  }
+  75% {
+    transform: rotate(360deg) scaley(100%);
+    background-color: #1ce8a7;
+    transform: translate(100px, -40px);
+  }
+  100% {
+    transform: rotate(0deg) scaley(100%);
+    background-color: #9f5ceb;
+    transform: translate(90px, -50px);
   }
 }
