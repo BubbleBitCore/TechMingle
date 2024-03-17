@@ -107,9 +107,14 @@ src/
 We Encourage you to contribute to our project. Following are the guidelines to contribute.
 
 1. Fork the project
-2. Commit your changes (`git commit -m 'Added some AmazingFeature'`)
-3. Push to the main branch (`git push `)
-4. Open a pull request
+2. Create New Branch (`git branch -b new_feature`)
+3. Write/Edit Code
+4. Stage Changes (`git add filepath`)
+5. Commit your changes (`git commit -m 'Added some AmazingFeature'`)
+6. Push to the feature branch (`git push origin new_feature`)
+7. Open a pull request
+8. Wait for review and code merge
+9. After Successfull merge , always pull the latest updates/changes from the original repo (`git pull`)
 
 ## License
 
