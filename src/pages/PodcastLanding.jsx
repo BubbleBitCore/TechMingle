@@ -115,7 +115,7 @@ const PodcastLanding = ({ Header }) => {
                   mode ? "text-[#39FF14]" : "text-zinc-900"
                 } transition-all`}
               >
-                Enterpreneurs
+                Entrepreneurs
               </span>
             </span>
             <p className="text-zinc-400 monsterrat tracking-wide font-bold">

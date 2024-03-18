@@ -16,13 +16,13 @@ import SkeletonPopularCategory from "../components/Podcast/SkeletonPopularCatego
 import SkeletonList from "../components/Podcast/SkeletonList";
 
 const Podcasts = ({ Header }) => {
-  const popularPodcastStatus = "loading";
-  const trendingPodcastStatus = "loading";
-  const nowPlayingStatus = "loading";
-  const trendingthisWeekStatus = "loading";
-  const popularPodcastcategoryStatus = "loading";
-  const popularPodcastersStatus = "loading";
-  const recentFavouriteStatus = "loading";
+  const popularPodcastStatus = "";
+  const trendingPodcastStatus = "";
+  const nowPlayingStatus = "";
+  const trendingthisWeekStatus = "";
+  const popularPodcastcategoryStatus = "";
+  const popularPodcastersStatus = "";
+  const recentFavouriteStatus = "";
   const mode = useSelector((state) => state.common.mode);
   const [trendingPodcastIdx, setTrendingPodcastIdx] = useState([0, 1, 2]);
   const [popularPodcastIdx, setPopularPodcastIdx] = useState([0, 1, 2]);
@@ -69,7 +69,7 @@ const Podcasts = ({ Header }) => {
     {
       name: "Music",
       icon: "fa-solid fa-headphones",
-      count: 190,
+      count: 1900,
     },
     {
       name: "Education",
@@ -449,14 +449,14 @@ const Podcasts = ({ Header }) => {
                       ))}
                     </div>
                   ) : (
-                    <div className="flex flex-col gap-1 max-sm:w-full">
+                    <div className="flex flex-col gap-1 max-sm:w-full cursor-pointer">
                       <div className="flex w-full h-[95%] relative ">
                         <img
                           className="w-full h-full rounded-xl object-cover"
                           src={trendingThisWeek.thumbnail}
                           alt={trendingThisWeek.title}
                         />
-                        <div className="flex absolute  bg-gray-50 right-2 sm:text-xs rounded-md px-2 top-2">
+                        <div className="flex absolute  bg-gray-50 right-2 text-xs rounded-md px-2 top-2">
                           {trendingThisWeek.duration} min
                         </div>
                         <i
@@ -465,7 +465,7 @@ const Podcasts = ({ Header }) => {
                               JSON.stringify(trendingThisWeek) && !playerPaused
                               ? "ri-pause-mini-line font-bold"
                               : "ri-play-fill "
-                          } flex   text-black absolute text-xl bg-white px-2 p-1 rounded-full right-4 bottom-2 cursor-pointer`}
+                          } flex   text-black absolute text-xl bg-white hover:bg-gray-200 transition-all px-2 p-1 rounded-full right-4 bottom-2 cursor-pointer`}
                           onClick={() => {
                             if (
                               JSON.stringify(nowPlaying) ==
@@ -517,7 +517,7 @@ const Podcasts = ({ Header }) => {
                       }}
                     >
                       {trendingPodcastCategory?.map((item, idx) => (
-                        <option value={item} key={idx}>
+                        <option value={item} key={idx} className="capitalize">
                           {item}
                         </option>
                       ))}
@@ -560,7 +560,7 @@ const Podcasts = ({ Header }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md px-2 max-sm:px-0 overflow-x-hidden cursor-grab max-sm:hover:overflow-x-scroll snap-mandatory snap-x">
+                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md px-2 max-sm:px-0 overflow-x-hidden max-sm:hover:overflow-x-scroll snap-mandatory snap-x">
                   {trendingPodcastStatus === "loading" ? (
                     <div className="max-sm:hidden w-full h-full gap-8 py-1 flex justify-between items-center">
                       {new Array(3).fill(0).map((_, key) => (
@@ -570,7 +570,7 @@ const Podcasts = ({ Header }) => {
                   ) : selectedTrendingPodcastList?.length > 0 ? (
                     trendingPodcastIdx?.map((idx) => (
                       <div
-                        className=" max-sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
+                        className=" cursor-pointer max-sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full"
                         key={idx}
                       >
                         {selectedTrendingPodcastList[idx] && (
@@ -593,7 +593,7 @@ const Podcasts = ({ Header }) => {
                                   ) && !playerPaused
                                   ? "ri-pause-mini-line font-bold"
                                   : "ri-play-fill "
-                              } flex text-white absolute lg:text-xl md:text-xs  bg-black px-2 p-1 rounded-full right-2 bottom-2 cursor-pointer`}
+                              } flex text-white absolute hover:bg-zinc-800 lg:text-xl md:text-xs  bg-black px-2 p-1 rounded-full right-2 bottom-2 cursor-pointer`}
                               onClick={() => {
                                 if (
                                   JSON.stringify(nowPlaying) ==
@@ -642,7 +642,13 @@ const Podcasts = ({ Header }) => {
                     ))
                   ) : (
                     <div className="max-sm:hidden flex h-full w-full p-20 justify-center items-center">
-                      <p className="text-sm ">No podcasts available</p>
+                      <p
+                        className={`${
+                          mode ? "text-zinc-500" : "text-gray-500"
+                        } text-xs text-zinc-500`}
+                      >
+                        No podcasts available
+                      </p>
                     </div>
                   )}
                   {/* for mobile version we will display all podcast cards of particular category  */}
@@ -718,8 +724,14 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="sm:hidden flex h-full w-full  p-[103px] justify-center items-center">
-                      <p className="text-sm ">No podcasts available</p>
+                    <div className="sm:hidden flex h-full w-full  py-[100px] justify-center items-center">
+                      <p
+                        className={`${
+                          mode ? "text-zinc-500" : "text-gray-500"
+                        } text-xs text-zinc-500`}
+                      >
+                        No podcasts available
+                      </p>
                     </div>
                   )}
                 </div>
@@ -749,7 +761,7 @@ const Podcasts = ({ Header }) => {
                     >
                       {popularPodcastcategory?.length > 0 ? (
                         popularPodcastcategory.slice(0, 6).map((item, idx) => (
-                          <option value={item} key={idx}>
+                          <option value={item} key={idx} className="capitalize">
                             {item}
                           </option>
                         ))
@@ -792,7 +804,7 @@ const Podcasts = ({ Header }) => {
                                 : mode
                                 ? " hover:text-zinc-300 border-transparent text-zinc-500 "
                                 : "hover:text-gray-800 border-transparent text-gray-500"
-                            } select-none cursor-pointer border-b-2 transition-all duration-200`}
+                            } select-none cursor-pointer border-b-2 transition-all duration-200 capitalize`}
                             key={idx}
                             onClick={() => {
                               setSelectedPopularPodcastCategory(
@@ -867,7 +879,7 @@ const Podcasts = ({ Header }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex h-full w-full  gap-4 rounded-md justify-start items-center cursor-grab max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto snap-mandatory snap-x">
+                <div className="flex h-full w-full  gap-4 rounded-md justify-start items-center max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto snap-mandatory snap-x">
                   {popularPodcastStatus === "loading" ? (
                     <div className="max-sm:hidden w-full h-full flex justify-between items-center">
                       {new Array(3).fill(0).map((_, key) => (
@@ -877,7 +889,7 @@ const Podcasts = ({ Header }) => {
                   ) : selectedPopularPodcastList?.length > 0 ? (
                     popularPodcastIdx.map((idx) => (
                       <div
-                        className="max-sm:hidden flex h-full  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden "
+                        className=" cursor-pointer max-sm:hidden flex h-full  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden "
                         key={idx}
                       >
                         <div className="max-lg:w-full max-lg:pr-4  max-sm:pr-0">
@@ -948,7 +960,13 @@ const Podcasts = ({ Header }) => {
                     ))
                   ) : (
                     <div className="max-sm:hidden flex h-full w-full p-[38px] justify-center items-center">
-                      <p className="text-sm ">No podcasts available</p>
+                      <p
+                        className={`${
+                          mode ? "text-zinc-500" : "text-gray-500"
+                        } text-xs text-zinc-500`}
+                      >
+                        No podcasts available
+                      </p>
                     </div>
                   )}
 
@@ -1024,8 +1042,14 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="sm:hidden flex h-full w-full  p-[111px] justify-center items-center">
-                      <p className="text-sm ">No podcasts available</p>
+                    <div className="sm:hidden flex h-full w-full  py-[100px] justify-center items-center">
+                      <p
+                        className={`${
+                          mode ? "text-zinc-500" : "text-gray-500"
+                        } text-xs text-zinc-500`}
+                      >
+                        No podcasts available
+                      </p>
                     </div>
                   )}
                 </div>
@@ -1036,17 +1060,17 @@ const Podcasts = ({ Header }) => {
                 } border transition-all duration-500`}
               ></hr>
               {/* Popular podcasts category section */}
-              <div className="flex max-sm:flex-col h-1/2 max-lg:h-auto max-sm:gap-12 lg:gap-12 w-full p-4">
+              <div className="flex max-sm:flex-col h-1/2 max-lg:h-auto gap-12 w-full sm:p-4 max-sm:py-4">
                 <div className="flex flex-col w-2/3 max-lg:w-1/2 max-sm:w-full gap-4 max-lg:h-auto">
                   <p className="text-sm font-bold  select-none ">
                     Popular categories
                   </p>
                   <div
-                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-3 items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
+                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-3 max-sm:gap-8 sm:justify-between items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
                   >
                     {popularPodcastcategoryStatus === "loading" ? (
                       <div className="flex gap-8 h-full w-full max-sm:hidden overflow-x-auto justify-between items-center">
-                        {new Array(5).fill(0).map((_, key) => (
+                        {new Array(6).fill(0).map((_, key) => (
                           <SkeletonPopularCategory key={key} />
                         ))}
                       </div>
@@ -1075,11 +1099,11 @@ const Podcasts = ({ Header }) => {
                             <div
                               className={`${
                                 mode
-                                  ? "bg-blue-500 border-blue-600"
-                                  : "bg-red-400 border-red-500"
-                              }  border  flex items-center justify-center rounded-full p-1 px-[5px] absolute mt-[-80px] mr-[-60px]`}
+                                  ? "bg-blue-700 border-blue-600"
+                                  : "bg-red-500 border-red-500 text-white"
+                              }  border flex items-center justify-center rounded-full p-[0.18rem] absolute mt-[-70px] mr-[-55px]`}
                             >
-                              <p className={` text-[11px] font-bold`}>
+                              <p className={` text-[8px]`}>
                                 {formatNumber(item.count)}
                               </p>
                             </div>
@@ -1138,7 +1162,7 @@ const Podcasts = ({ Header }) => {
                     ) : (
                       popularcategories?.map((item, idx) => (
                         <div
-                          className={`sm:hidden flex flex-col items-center justify-center gap-1`}
+                          className={`sm:hidden relative flex flex-col pt-3 items-center justify-center gap-1`}
                           key={idx}
                         >
                           <div
@@ -1146,31 +1170,33 @@ const Podcasts = ({ Header }) => {
                               mode
                                 ? "bg-zinc-900 hover:bg-zinc-800"
                                 : "bg-cyan-50 hover:bg-cyan-100"
-                            }  p-2 px-4 rounded-md select-none transition-all duration-500`}
+                            }  p-3 rounded-md select-none transition-all duration-500`}
                           >
                             <i
                               className={`${item.icon} ${
                                 mode
                                   ? "text-zinc-300 font-bold hover:text-zinc-100 "
                                   : "text-black bg-white "
-                              } px-1 rounded-md text-lg cursor-pointer transition-all duration-500`}
+                              } px-1 rounded-md text-2xl cursor-pointer transition-all duration-500`}
                             ></i>
                           </div>
-                          <p className="text-xs font-bold">{item.name}</p>
-                          <p
+                          <div
                             className={`${
-                              mode ? "text-zinc-700" : "text-gray-400"
-                            } text-xs font-bold  `}
+                              mode
+                                ? "bg-blue-500 border-blue-600"
+                                : "bg-red-500 border-red-500 text-white"
+                            }  border flex items-center justify-center rounded-full p-1 absolute mt-[-72px] mr-[-50px]`}
                           >
-                            {item.count} Podcats
-                          </p>
+                            <p className={` text-[8px]`}>
+                              {formatNumber(item.count)}
+                            </p>
+                          </div>
+                          <p className="text-xs font-bold">{item.name}</p>
                         </div>
                       ))
                     )}
-                    {popularPodcastStatus === "loading" ? (
-                      new Array(1)
-                        .fill(0)
-                        .map((_, key) => <SkeletonPopularCategory key={key} />)
+                    {popularPodcastcategoryStatus === "loading" ? (
+                      <></>
                     ) : (
                       <div
                         className={`${
@@ -1265,7 +1291,7 @@ const Podcasts = ({ Header }) => {
                 } flex flex-col xl:h-1/2 max-xl:w-1/2 max-sm:w-full gap-2 rounded-xl shadow-lg p-2 justify-center items-center transition-all duration-500`}
               >
                 <p className="font-bold">Now playing</p>
-                <div className="w-2/3 h-1/3 mt-1">
+                <div className="w-2/3 h-1/3 mt-1 cursor-pointer">
                   <img
                     className="w-full h-full rounded-lg object-cover"
                     src={nowPlaying.thumbnail}
@@ -1366,11 +1392,11 @@ const Podcasts = ({ Header }) => {
                             alt="thumbnail"
                           />
                           <div className="flex flex-col text-xs w-full max-sm:gap-1">
-                            <p className="font-bold capitalize">{item.title}</p>
+                            <p className="capitalize">{item.title}</p>
                             <div
                               className={`${
                                 mode ? "text-zinc-600" : "text-gray-400"
-                              } flex justify-between font-bold`}
+                              } flex justify-between`}
                             >
                               <p>{item.artist}</p>
                               <p>{item.duration}</p>
@@ -1397,11 +1423,11 @@ const Podcasts = ({ Header }) => {
                             alt="thumbnail"
                           />
                           <div className="flex flex-col text-xs w-full max-sm:gap-1">
-                            <p className="font-bold capitalize">{item.title}</p>
+                            <p className="capitalize">{item.title}</p>
                             <div
                               className={`${
                                 mode ? "text-zinc-600" : "text-gray-400"
-                              } flex justify-between font-bold`}
+                              } flex justify-between`}
                             >
                               <p>{item.artist}</p>
                               <p>{item.duration}</p>
