@@ -3,10 +3,12 @@ import MobileSidebar from "./MobileSidebar";
 import { useDispatch, useSelector } from "react-redux";
 import ClickMenu from "./ClickMenu";
 import { changeMode } from "../slices/commonSlice";
+import { useNavigate } from "react-router-dom";
 
 const Header = ({ urlName }) => {
   // Mode is handled here
   const mode = useSelector((state) => state.common.mode);
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   // Notifications menu is handled here
   const [notiVisiblity, setNotiVisibility] = useState(false);
@@ -64,13 +66,17 @@ const Header = ({ urlName }) => {
       value: "Profile",
       icon: "ri-star-smile-line",
       classes: "",
-      function: () => {},
+      function: () => {
+        navigate("/profile");
+      },
     },
     {
       value: "Settings",
       icon: "ri-settings-4-line",
       classes: "",
-      function: () => {},
+      function: () => {
+        navigate("/settings");
+      },
     },
     {
       value: "Logout",
