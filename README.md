@@ -45,40 +45,41 @@ TechMingle/
 ├── App.jsx
 │
 src/
-|-- api/
-| |-- auth.js
-| |-- podcast.js
-|-- app/
-| |-- store.js
-|-- assets/
-| |-- images/
-| |-- other_assets/
-|-- components/
-| |-- Podcast/
-| |  |-- GenreSelection.js
-| |  |-- PodcastLanding.js
-| |-- AppWrapper.jsx
-| |-- HomeCards.jsx
-| |-- Navigation.jsx
-|-- constants/
-| |-- homeSection.js
-| |-- navigation.js
-|-- pages/
-| |-- Articles.jsx/
-| |-- Books.jsx/
-| |-- Clubs.jsx/
-| |-- Gaming.jsx/
-| |-- Home.jsx/
-| |-- Jobs.jsx/
-| |-- Login.jsx/
-| |-- PageNotFound.jsx/
-| |-- Podcasts.jsx/
-| |-- Signup.jsx/
-| |-- TechFrenzy.jsx/
-| |-- Workshops.jsx/
-|-- slices/
-| |-- auth.js/
-| |-- podcast.js/
+├── api/
+| ├── auth.js
+| ├── podcast.js
+├── app/
+| ├── store.js
+├── assets/
+| ├── images/
+| ├── other_assets/
+  .
+├── components/
+| ├── Podcast/
+| |  ├── SkeletonList.js
+| ├── AppWrapper.jsx
+| ├── MobileSidebar.jsx
+| ├── Navigation.jsx
+  .
+  .
+├── constants/
+| ├── homeSection.js
+| ├── navigation.js
+  .
+  .
+├── pages/
+| ├── Articles.jsx
+| ├── Books.jsx
+| ├── Clubs.jsx
+| ├── Gaming.jsx
+| ├── Home.jsx
+| ├── Jobs.jsx
+| ├── Podcasts.jsx
+  .
+  .
+├── slices/
+| ├── auth.js/
+| ├── podcast.js/
 ```
 
 ### 1. Assets
