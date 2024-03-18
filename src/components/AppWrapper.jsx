@@ -19,6 +19,7 @@ import Header from "./Header";
 import { useSelector } from "react-redux";
 import ResetPassword from "../pages/ResetPassword";
 import ForgotPassword from "../pages/ForgotPassword";
+import Podcast from "../pages/Podcast";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -26,7 +27,9 @@ const AppWrapper = () => {
   return (
     <>
       <div
-        className={`flex w-full h-full pt-4 pb-2 ${mode ? "bg-[#0B0D10]" : "bg-white"} transition-all duration-500`}
+        className={`flex w-full h-full pt-4 pb-2 ${
+          mode ? "bg-[#0B0D10]" : "bg-white"
+        } transition-all duration-500`}
       >
         <div className="flex h-full sm:w-[20%] md:w-[15%] lg:w-[10%] xl:w-[8%] 2xl:w-[7%] max-sm:px-0 max-sm:hidden">
           <Navigation navigation={navigation} />
@@ -62,13 +65,22 @@ const AppWrapper = () => {
             />
             <Route
               exact
+              path="/podcast/:id"
+              element={<Podcast Header={Header} />}
+            />
+            <Route
+              exact
               path="/workshops"
               element={<Workshops Header={Header} />}
             />
             <Route exact path="/jobs" element={<Jobs Header={Header} />} />
             <Route exact path="/clubs" element={<Clubs Header={Header} />} />
-            <Route exact path="/resetpassword/:id/:token" element={<ResetPassword />} />
-            <Route exact path="/forgotpassword" element={<ForgotPassword/>} />
+            <Route
+              exact
+              path="/resetpassword/:id/:token"
+              element={<ResetPassword />}
+            />
+            <Route exact path="/forgotpassword" element={<ForgotPassword />} />
             <Route
               exact
               path="/settings"
