@@ -57,8 +57,6 @@ src/
 |-- components/
 | |-- Podcast/
 | |  |-- SkeletonList.js
-  .
-  .
 | |-- AppWrapper.jsx
 | |-- MobileSidebar.jsx
 | |-- Navigation.jsx
@@ -76,12 +74,7 @@ src/
 | |-- Gaming.jsx
 | |-- Home.jsx
 | |-- Jobs.jsx
-| |-- Login.jsx
-| |-- PodcastLanding.jsx
 | |-- Podcasts.jsx
-| |-- Signup.jsx
-| |-- TechFrenzy.jsx
-| |-- Workshops.jsx
   .
   .
 |-- slices/
