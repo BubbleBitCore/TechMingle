@@ -28,7 +28,7 @@ const AppWrapper = () => {
   return (
     <>
       <div
-        className={`flex w-full h-full pt-4 pb-2 ${
+        className={`flex w-full h-full overflow-y-auto pt-4 pb-2 ${
           mode ? "bg-[#0B0D10]" : "bg-white"
         } transition-all duration-500`}
       >
