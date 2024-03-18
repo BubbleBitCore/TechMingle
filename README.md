@@ -45,41 +45,41 @@ TechMingle/
 ├── App.jsx
 │
 src/
-|-- api/
-| |-- auth.js
-| |-- podcast.js
-|-- app/
-| |-- store.js
-|-- assets/
-| |-- images/
-| |-- other_assets/
+├── api/
+| ├── auth.js
+| ├── podcast.js
+├── app/
+| ├── store.js
+├── assets/
+| ├── images/
+| ├── other_assets/
   .
-|-- components/
-| |-- Podcast/
-| |  |-- SkeletonList.js
-| |-- AppWrapper.jsx
-| |-- MobileSidebar.jsx
-| |-- Navigation.jsx
-  .
-  .
-|-- constants/
-| |-- homeSection.js
-| |-- navigation.js
+├── components/
+| ├── Podcast/
+| |  ├── SkeletonList.js
+| ├── AppWrapper.jsx
+| ├── MobileSidebar.jsx
+| ├── Navigation.jsx
   .
   .
-|-- pages/
-| |-- Articles.jsx
-| |-- Books.jsx
-| |-- Clubs.jsx
-| |-- Gaming.jsx
-| |-- Home.jsx
-| |-- Jobs.jsx
-| |-- Podcasts.jsx
+├── constants/
+| ├── homeSection.js
+| ├── navigation.js
   .
   .
-|-- slices/
-| |-- auth.js/
-| |-- podcast.js/
+├── pages/
+| ├── Articles.jsx
+| ├── Books.jsx
+| ├── Clubs.jsx
+| ├── Gaming.jsx
+| ├── Home.jsx
+| ├── Jobs.jsx
+| ├── Podcasts.jsx
+  .
+  .
+├── slices/
+| ├── auth.js/
+| ├── podcast.js/
 ```
 
 ### 1. Assets
