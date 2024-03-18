@@ -53,29 +53,37 @@ src/
 |-- assets/
 | |-- images/
 | |-- other_assets/
+  .
 |-- components/
 | |-- Podcast/
-| |  |-- GenreSelection.js
-| |  |-- PodcastLanding.js
+| |  |-- SkeletonList.js
+  .
+  .
 | |-- AppWrapper.jsx
-| |-- HomeCards.jsx
+| |-- MobileSidebar.jsx
 | |-- Navigation.jsx
+  .
+  .
 |-- constants/
 | |-- homeSection.js
 | |-- navigation.js
+  .
+  .
 |-- pages/
-| |-- Articles.jsx/
-| |-- Books.jsx/
-| |-- Clubs.jsx/
-| |-- Gaming.jsx/
-| |-- Home.jsx/
-| |-- Jobs.jsx/
-| |-- Login.jsx/
-| |-- PageNotFound.jsx/
-| |-- Podcasts.jsx/
-| |-- Signup.jsx/
-| |-- TechFrenzy.jsx/
-| |-- Workshops.jsx/
+| |-- Articles.jsx
+| |-- Books.jsx
+| |-- Clubs.jsx
+| |-- Gaming.jsx
+| |-- Home.jsx
+| |-- Jobs.jsx
+| |-- Login.jsx
+| |-- PodcastLanding.jsx
+| |-- Podcasts.jsx
+| |-- Signup.jsx
+| |-- TechFrenzy.jsx
+| |-- Workshops.jsx
+  .
+  .
 |-- slices/
 | |-- auth.js/
 | |-- podcast.js/
