@@ -20,6 +20,7 @@ import { useSelector } from "react-redux";
 import ResetPassword from "../pages/ResetPassword";
 import ForgotPassword from "../pages/ForgotPassword";
 import Podcast from "../pages/Podcast";
+import Profile from "../pages/Profile";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -85,6 +86,11 @@ const AppWrapper = () => {
               exact
               path="/settings"
               element={<Settings Header={Header} />}
+            />
+            <Route
+              exact
+              path="/profile"
+              element={<Profile Header={Header} />}
             />
             <Route exact path="*" element={<PageNotFound />} />
           </Routes>
