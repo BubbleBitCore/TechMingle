@@ -419,6 +419,72 @@ const Podcasts = ({ Header }) => {
   return (
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-2 select-none ">
       <Header urlName="Podcast" />
+      <style>{`/* Audio component styles */
+.rhap_container {
+  box-shadow: 0 0 0 0 !important;
+}
+.rhap_progress-indicator {
+  background-color: white !important;
+  width: 18px !important;
+  height: 18px !important;
+  border: 4px solid rgb(48, 46, 46);
+}
+.rhap_progress-filled {
+  background-color: rgb(48, 46, 46) !important;
+}
+.rhap_time {
+  font-size: 12px !important;
+}
+
+.rhap_main-controls-button {
+  color: rgb(54, 51, 51) !important;
+  font-size: 24px !important;
+}
+
+.rhap_play-pause-button {
+  font-size: 32px !important;
+}
+
+.rhap_repeat-button {
+  font-size: 20px !important;
+  color: rgb(85, 83, 83) !important;
+}
+
+.rhap_volume-button {
+  font-size: 20px !important;
+  color: rgb(85, 83, 83) !important;
+}
+.rhap_volume-button:hover {
+  color: rgb(151, 145, 145) !important;
+}
+
+.rhap_play-pause-button:hover {
+  color: rgb(72, 70, 70) !important;
+}
+
+.rhap_main-controls-button:hover {
+  color: rgb(77, 73, 73) !important;
+}
+
+.rhap_repeat-button:hover {
+  color: rgb(145, 138, 138) !important;
+}
+.rhap_volume-indicator {
+  background-color: white !important;
+  width: 12px !important;
+  height: 12px !important;
+  border: 3px solid rgb(48, 46, 46);
+}
+
+.rhap_container .dark {
+  background-color: transparent !important;
+}
+#rhap_current-time {
+  color: gray;
+}
+.rhap_total-time {
+  color: gray !important;
+}`}</style>
       <div
         className={`flex h-full w-full sm:px-4 ${
           mode ? "bg-zinc-950" : "bg-gray-50"
