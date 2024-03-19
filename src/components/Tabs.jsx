@@ -16,7 +16,7 @@ const Tabs = ({ tabs }) => {
           <div
             className={`w-full flex items-center max-sm:gap-4 sm:gap-12 sm:border-b-2 ${
               mode ? "border-[#1d1d1d]" : "border-gray-300"
-            } pb-2  sticky top-0 max-sm:overflow-hidden max-sm:overflow-x-auto z-20 bg-white`}
+            } pb-2  sticky top-0 max-sm:overflow-hidden max-sm:overflow-x-auto z-20 ${mode?"bg-[#0B0D10]":"bg-white"} transition-all duration-500`}
           >
             {tabs?.map((tab, idx) => (
               <p
@@ -27,7 +27,7 @@ const Tabs = ({ tabs }) => {
                 className={`${
                   mode
                     ? selected.name === tab.name
-                      ? "text-white underline underline-offset-[16px]"
+                      ? "text-white underline decoration-indigo-500 max-sm:underline-offset-[6px] underline-offset-[16px]"
                       : "text-[#696F7A] hover:text-white"
                     : selected.name === tab.name
                     ? "text-black underline decoration-indigo-500 max-sm:underline-offset-[6px] underline-offset-[16px]"

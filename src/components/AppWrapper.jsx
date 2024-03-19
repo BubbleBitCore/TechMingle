@@ -27,6 +27,69 @@ const AppWrapper = () => {
   const location = useLocation();
   return (
     <>
+      {mode ? (
+        <style>
+          {`
+          /*  pc styles here */
+          @media (min-width: 650px) {
+          *::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            /* Width of the scrollbar */
+          }
+        
+          *::-webkit-scrollbar-track {
+            background: transparent;
+            /* Background color of the track */
+            
+          }
+        
+          *::-webkit-scrollbar-thumb {
+            background: #444;
+            /* Color of the scrollbar thumb */
+            border-radius: 0px;
+            /* Rounded corners for the thumb */
+          }
+        
+          *::-webkit-scrollbar-thumb:hover {
+            background: #666;
+            /* Color of the thumb on hover */
+          }
+        }
+    `}
+        </style>
+      ) : (
+        <style>
+          {`
+          /*  pc styles here */
+          @media (min-width: 650px) {
+          *::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+            /* Width of the scrollbar */
+          }
+        
+          *::-webkit-scrollbar-track {
+            background: transparent;
+            /* Background color of the track */
+            
+          }
+        
+          *::-webkit-scrollbar-thumb {
+            background: #E5E4E2;
+            /* Color of the scrollbar thumb */
+            border-radius: 0px;
+            /* Rounded corners for the thumb */
+          }
+        
+          *::-webkit-scrollbar-thumb:hover {
+            background: #C0C0C0;
+            /* Color of the thumb on hover */
+          }
+        }
+    `}
+        </style>
+      )}
       <div
         className={`flex w-full h-full overflow-y-auto pt-4 pb-2 ${
           mode ? "bg-[#0B0D10]" : "bg-white"
