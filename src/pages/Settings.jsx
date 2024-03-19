@@ -199,7 +199,7 @@ const Account = () => {
               <div
                 className={`${
                   mode ? "sm:bg-[#1a1a1a]" : " sm:bg-gray-100"
-                } transition-all duration-500 p-6 sm:pb-10 px-5 rounded-md `}
+                } transition-all duration-500 sm:p-6 sm:pb-10 sm:px-5 rounded-md `}
               >
                 <p
                   className={`w-full font-bold text-xl mb-3 ${
