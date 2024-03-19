@@ -3,6 +3,7 @@ import Tabs from "../components/Tabs";
 import man2 from "../assets/images/man2.png";
 import { useSelector } from "react-redux";
 import { formatDate } from "../utils/conversion";
+import BetaTest from "../components/BetaTest";
 
 // Account tab
 const Account = () => {
@@ -288,7 +289,7 @@ const Activity = () => {
   ];
   return (
     <>
-      <motion.p
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
@@ -296,14 +297,19 @@ const Activity = () => {
       >
         {Sessions?.map((item, key) => (
           <div
+            key={key}
             className={`w-full flex justify-between items-center gap-5 rounded-md max-sm:rounded-xl ${
-              mode ? "bg-[#222222] hover:bg-[#282828]" : "bg-gray-100 hover:bg-[#e9e9e9]"
+              mode
+                ? "bg-[#222222] hover:bg-[#282828]"
+                : "bg-gray-100 hover:bg-[#e9e9e9]"
             } p-4 py-2 transition-all duration-500 cursor-pointer group max-sm:flex-col`}
           >
             <div className=" flex items-center md:gap-5 sm:gap-2 max-sm:flex-col max-sm:justify-center max-sm:w-full max-sm:gap-3 group">
               {/* Icon*/}
               <div
-                className={`${mode?"bg-[#1a1a1a]":"bg-gray-300"} rounded-full h-14 w-14 overflow-hidden flex justify-center items-center transition-color duration-500 opacity-55 group-hover:opacity-100 cursor-pointer max-sm:order-1`}
+                className={`${
+                  mode ? "bg-[#1a1a1a]" : "bg-gray-300"
+                } rounded-full h-14 w-14 overflow-hidden flex justify-center items-center transition-color duration-500 opacity-55 group-hover:opacity-100 cursor-pointer max-sm:order-1`}
               >
                 <i
                   className={`${
@@ -318,7 +324,9 @@ const Activity = () => {
               {/* IP Address*/}
               <div className={`flex flex-col sm:mr-10 max-sm:order-3`}>
                 <p
-                  className={`${mode ? "text-gray-300" : "text-black"} text-lg max-sm:text-center`}
+                  className={`${
+                    mode ? "text-gray-300" : "text-black"
+                  } text-lg max-sm:text-center`}
                 >
                   {item.IP}
                 </p>
@@ -347,7 +355,9 @@ const Activity = () => {
                   item.sessionId === currentSessionId
                     ? "border-green-400"
                     : "border-indigo-500"
-                } max-sm:order-2 rounded-full ${mode ?"bg-gray-800":"bg-white"} flex justify-center items-center scale-75 transition-all duration-500`}
+                } max-sm:order-2 rounded-full ${
+                  mode ? "bg-gray-800" : "bg-white"
+                } flex justify-center items-center scale-75 transition-all duration-500`}
               >
                 <span
                   className={`rounded-full h-3 w-3 ${
@@ -372,27 +382,35 @@ const Activity = () => {
             {/* Actions*/}
             <div className="hidden gap-2 group-hover:flex max-sm:w-full">
               {/* Delete Session */}
-              <button className={`p-2 text-xs px-3 sm:border-2 ${mode?"sm:border-red-500 sm:hover:bg-red-500 hover:text-white sm:text-red-500 max-sm:text-white max-sm:bg-red-500 max-sm:hover:bg-red-600 ":"bg-red-500 text-white"} transition-all   rounded-md max-sm:w-full `}>
-                <i className={`ri-pulse-line mr-1 max-sm:hidden`}></i> <span className={``}>Revoke</span>
+              <button
+                className={`p-2 text-xs px-3 sm:border-2 ${
+                  mode
+                    ? "sm:border-red-500 sm:hover:bg-red-500 hover:text-white sm:text-red-500 max-sm:text-white max-sm:bg-red-500 max-sm:hover:bg-red-600 "
+                    : "bg-red-500 text-white"
+                } transition-all   rounded-md max-sm:w-full `}
+              >
+                <i className={`ri-pulse-line mr-1 max-sm:hidden`}></i>{" "}
+                <span className={``}>Revoke</span>
               </button>
             </div>
           </div>
         ))}
-      </motion.p>
+      </motion.div>
     </>
   );
 };
+// Notifications tab
 const Notifications = () => {
   return (
     <>
-      <motion.p
+      <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
-        className="text-white"
+        className="h-full w-full flex justify-center items-center py-11"
       >
-        Notifications
-      </motion.p>
+        <BetaTest />
+      </motion.div>
     </>
   );
 };
