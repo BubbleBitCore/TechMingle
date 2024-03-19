@@ -20,3 +20,35 @@ export const formatNumber = (num) => {
   }
   return output + suffixes[magnitude];
 };
+
+export const formatDate = (date) => {
+  // Extracting date components
+  var day = date.getDate();
+  var month = date.getMonth() + 1; // Months are zero indexed
+  var year = date.getFullYear();
+  var hours = date.getHours();
+  var minutes = date.getMinutes();
+  var seconds = date.getSeconds();
+
+  // Adding leading zeros if necessary
+  day = day < 10 ? "0" + day : day;
+  month = month < 10 ? "0" + month : month;
+  hours = hours < 10 ? "0" + hours : hours;
+  minutes = minutes < 10 ? "0" + minutes : minutes;
+  seconds = seconds < 10 ? "0" + seconds : seconds;
+
+  // Constructing the formatted string
+  var formattedDate =
+    hours +
+    ":" +
+    minutes +
+    ":" +
+    seconds +
+    " | " +
+    day +
+    "/" +
+    month +
+    "/" +
+    year;
+  return formattedDate;
+};
