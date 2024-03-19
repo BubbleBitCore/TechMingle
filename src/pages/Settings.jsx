@@ -31,7 +31,7 @@ const Account = () => {
           z-Index:1;
         }
         .imgChange::before{
-          content:"Change DP";
+          content:"Change Avatar";
           opacity:0;
           position:absolute;
           transition: all ease 0.2s;
@@ -41,7 +41,7 @@ const Account = () => {
           transform:translate(-50%,-50%);
           border-radius:100%;
           color:white;
-          font-size:1.2rem;
+          font-size:1rem;
          
         }
         
@@ -116,8 +116,26 @@ const Account = () => {
                 </button>
               </div>
             </div>
+
+            {/* Profile Image */}
+            <div className="max-sm:w-full max-sm:order-1 sm:w-[20%] ">
+              <div className="w-full relative aspect-square bg-gray-100 rounded-full ">
+                <img
+                  src={man2}
+                  alt=""
+                  className="rounded-full bg-cover w-full h-full"
+                />
+                <label
+                  title={user}
+                  className="absolute imgChange rounded-full h-full w-full top-0 left-0 cursor-pointer "
+                  htmlFor="image"
+                ></label>
+                <input className="hidden" id="image" type="file" />
+              </div>
+            </div>
+
             {/* Password details */}
-            <div className="max-sm:w-full max-sm:order-3 sm:w-auto sm:pr-10 sm:border-r-2 sm:border-gray-200">
+            <div className="max-sm:w-full max-sm:order-3 sm:w-auto sm:pl-10 sm:border-l-2 sm:border-gray-200">
               <p className="w-full font-bold text-xl mb-3">
                 Password Requirements
               </p>
@@ -134,22 +152,6 @@ const Account = () => {
                 <p className="text-xs text-gray-500 flex gap-2">
                   <span className="w-2">4.</span> Can contain special symbols
                 </p>
-              </div>
-            </div>
-            {/* Profile Image */}
-            <div className="max-sm:w-full max-sm:order-1 sm:w-[20%] ">
-              <div className="w-full relative aspect-square bg-gray-100 rounded-full ">
-                <img
-                  src={man2}
-                  alt=""
-                  className="rounded-full bg-cover w-full h-full"
-                />
-                <label
-                  title={user}
-                  className="absolute imgChange rounded-full h-full w-full top-0 left-0 cursor-pointer "
-                  htmlFor="image"
-                ></label>
-                <input className="hidden" id="image" type="file" />
               </div>
             </div>
           </div>

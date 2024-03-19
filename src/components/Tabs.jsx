@@ -14,7 +14,7 @@ const Tabs = ({ tabs }) => {
         >
           {/* Tab Header */}
           <div
-            className={`w-full flex items-center max-sm:gap-8 sm:gap-12 border-b-2 ${
+            className={`w-full flex items-center max-sm:gap-4 sm:gap-12 sm:border-b-2 ${
               mode ? "border-[#1d1d1d]" : "border-gray-300"
             } pb-2  sticky top-0 max-sm:overflow-hidden max-sm:overflow-x-auto z-20 bg-white`}
           >
@@ -30,7 +30,7 @@ const Tabs = ({ tabs }) => {
                       ? "text-white underline underline-offset-[16px]"
                       : "text-[#696F7A] hover:text-white"
                     : selected.name === tab.name
-                    ? "text-black underline decoration-indigo-500 underline-offset-[16px]"
+                    ? "text-black underline decoration-indigo-500 max-sm:underline-offset-[6px] underline-offset-[16px]"
                     : "text-gray-400 hover:text-black "
                 } transition-all cursor-pointer  text-lg select-none decoration-2`}
               >
