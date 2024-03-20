@@ -501,7 +501,7 @@ const Podcast = () => {
 
             <hr className={`${mode ? " border border-zinc-900" : ""}`}></hr>
             {/* recommended podcasts */}
-            <div className="w-full h-fit flex flex-col gap-2 justify-center items-center">
+            <div className="w-full h-fit flex flex-col gap-2 pt-2 justify-center items-center">
               {recommendations?.slice(0, 4).map((item, idx) => (
                 <div
                   className={`${
