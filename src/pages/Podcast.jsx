@@ -508,14 +508,12 @@ const Podcast = () => {
                     mode ? "hover:bg-zinc-950" : "hover:bg-gray-50"
                   } flex w-full p-2 gap-4    rounded-md group cursor-pointer`}
                   key={idx}
+                  onClick={() => {
+                    setNowPlaying(item);
+                    player.current.audio.current.play();
+                  }}
                 >
-                  <div
-                    className="flex w-[30%] h-full cursor-pointer"
-                    onClick={() => {
-                      setNowPlaying(item);
-                      player.current.audio.current.play();
-                    }}
-                  >
+                  <div className="flex w-[30%] h-full cursor-pointer">
                     <img
                       className="w-full h-full object-cover rounded-lg transition-transform duration-300 transform group-hover:scale-125"
                       src={item.thumbnail}
