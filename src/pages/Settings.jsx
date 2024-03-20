@@ -11,6 +11,8 @@ const Account = () => {
   const user = "Naruto";
   const email = "naruto@gmail.com";
   const password = "naruto@gmail.com";
+  const bio =
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
   return (
     <>
       <style>
@@ -67,11 +69,10 @@ const Account = () => {
           >
             Profile Details
           </p>
-          <div className="w-full flex gap-10 max-sm:flex-col mb-5 ">
+          <div className="w-full flex gap-10 max-sm:flex-col max-sm:mb-5">
+            {/* Acount details */}
             <div
-              className={`max-sm:w-full max-sm:order-2 sm:w-[50%] flex flex-col gap-4 sm:border-r-2 sm:pr-10 select-none ${
-                mode ? "sm:border-gray-600" : "sm:border-gray-200"
-              } duration-500 transition-all`}
+              className={`max-sm:w-full max-sm:order-2 w-[35%]  flex flex-col gap-4  duration-500 transition-all`}
             >
               {/* name */}
               <label
@@ -155,52 +156,40 @@ const Account = () => {
                   } transition-all top-1/2 -translate-y-1/2 right-4 absolute cursor-pointer duration-500`}
                 ></i>
               </div>
-              {/* Action buttons */}
-              <div className="flex gap-5 mt-1">
-                <button
-                  className={`text-sm p-2 px-4 hover:opacity-75 transition-all border-2 border-gray-300 rounded-md ${
-                    mode ? "text-gray-200" : "text-black"
-                  } duration-500`}
-                >
-                  Cancel
-                </button>
-                <button className="text-sm p-2 px-4 text-white  bg-indigo-500 hover:bg-indigo-600 rounded-md transition-all">
-                  Save Changes
-                </button>
-              </div>
             </div>
-
-            {/* Profile Image */}
-            <div className="max-sm:w-full max-sm:order-1 sm:w-[20%] flex justify-center items-center">
-              <div
-                className={`w-full relative aspect-square ${
-                  mode ? "bg-[#1a1a1a]" : "bg-gray-100"
-                }  rounded-full transition-all duration-500`}
-              >
-                <img
-                  src={man2}
-                  alt=""
-                  className="rounded-full bg-cover w-full h-full"
-                />
-                <label
-                  title={user}
-                  className="absolute imgChange rounded-full h-full w-full top-0 left-0 cursor-pointer "
-                  htmlFor="image"
-                ></label>
-                <input className="hidden" id="image" type="file" />
-              </div>
-            </div>
-
-            {/* Password details */}
+            {/* Bio */}
             <div
-              className={`max-sm:w-full max-sm:order-3 sm:w-auto sm:pl-10 sm:border-l-2 ${
-                mode ? "sm:border-gray-600" : "sm:border-gray-200"
-              } duration-500 transition-all sm:flex sm:justify-center sm:items-center`}
+              className={`w-[30%]  flex flex-col gap-4 max-sm:order-3 max-sm:w-full sm:border-r sm:pr-5 ${
+                mode ? "sm:border-gray-800" : "sm:border-gray-200"
+              }`}
             >
+              {/* name */}
+              <label
+                htmlFor="bio"
+                className={`select-none text-sm font-bold cursor-pointer  ${
+                  mode ? "text-[#c1c1c1]" : "text-black"
+                } transition-all duration-500`}
+              >
+                Bio
+              </label>
+              <div className="flex flex-col relative">
+                <textarea
+                  placeholder="Bio"
+                  type="text"
+                  id="bio"
+                  defaultValue={bio}
+                  rows={5}
+                  className={`resize-none w-full border-2 border-gray-600  p-2  rounded-md outline-2 ${
+                    mode ? "outline-gray-500 " : "outline-indigo-500"
+                  } transition-color 
+                  ${mode ? "bg-[#1a1a1a] " : "bg-white"} ${
+                    mode ? "text-white " : "text-black"
+                  } duration-500 text-sm`}
+                />
+              </div>
+              {/* Password details */}
               <div
-                className={`${
-                  mode ? "sm:bg-[#1a1a1a]" : " sm:bg-gray-100"
-                } transition-all duration-500 sm:p-6 sm:pb-10 sm:px-5 rounded-md `}
+                className={`max-sm:w-full max-sm:order-3 sm:w-auto  duration-500 transition-all sm:flex flex-col sm:justify-center sm:items-center my-2`}
               >
                 <p
                   className={`w-full font-bold text-xl mb-3 ${
@@ -228,6 +217,39 @@ const Account = () => {
                 </div>
               </div>
             </div>
+            {/* Profile Image */}
+            <div className="max-sm:w-full w-[25%] max-sm:order-1  ">
+              <div
+                className={`w-full relative aspect-square ${
+                  mode ? "bg-[#1a1a1a]" : "bg-gray-100"
+                }  rounded-full transition-all duration-500`}
+              >
+                <img
+                  src={man2}
+                  alt=""
+                  className="rounded-full bg-cover w-full h-full"
+                />
+                <label
+                  title={user}
+                  className="absolute imgChange rounded-full h-full w-full top-0 left-0 cursor-pointer "
+                  htmlFor="image"
+                ></label>
+                <input className="hidden" id="image" type="file" />
+              </div>
+            </div>
+          </div>
+          {/* Action buttons */}
+          <div className="flex gap-5 mt-1 max-sm:w-full">
+            <button
+              className={`text-smmax-sm:flex-1  p-2 px-4 hover:opacity-75 transition-all border-2 border-gray-300 rounded-md ${
+                mode ? "text-gray-200" : "text-black"
+              } duration-500`}
+            >
+              Cancel
+            </button>
+            <button className="max-sm:flex-1 text-sm p-2 px-4 text-white  bg-indigo-500 hover:bg-indigo-600 rounded-md transition-all">
+              Save Changes
+            </button>
           </div>
           <hr
             className={`my-5  border ${
@@ -251,7 +273,7 @@ const Account = () => {
               Deleting your account is permanent and this actioncannot be
               reversed.
             </p>
-            <button className="bg-red-500 text-sm p-3 px-5 rounded-md text-white hover:bg-red-600 transition-all ">
+            <button className="bg-red-500 max-sm:w-full text-sm p-3 px-5 rounded-md text-white hover:bg-red-600 transition-all ">
               Delete Account
             </button>
           </div>
@@ -339,7 +361,7 @@ const Activity = () => {
               {/* Location*/}
               <div className={`flex flex-col max-sm:order-4`}>
                 <p
-                  className={`${mode ? "text-gray-200" : "text-black"} text-lg`}
+                  className={`${mode ? "text-gray-200" : "text-black"} text-sm`}
                 >
                   {item.Location}
                 </p>
@@ -372,7 +394,7 @@ const Activity = () => {
                 <p
                   className={`${
                     mode ? "text-gray-200" : "text-black"
-                  } text-lg hover:text-indigo-500 transition-all duration-500`}
+                  } text-sm hover:text-indigo-500 transition-all duration-500`}
                 >
                   <span className={`text-gray-500 cursor-pointer `}>#</span>{" "}
                   {item.sessionId}
