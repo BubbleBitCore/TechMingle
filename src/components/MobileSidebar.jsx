@@ -61,7 +61,7 @@ const MobileSidebar = () => {
               ></i>
             </div>
             {/* divider */}
-            <hr className="border-t-2 border-gray-800 mb-3" />
+            <hr className={`border-t-2 ${mode?"border-gray-500":"border-gray-800"}  mb-3`} />
             {/* buttons */}
             <div className="flex flex-col gap-2 text-black text-lg px-2">
               {navigation
@@ -78,7 +78,7 @@ const MobileSidebar = () => {
                             ? `${
                                 mode
                                   ? "hover:bg-[#121212]"
-                                  : "hover:bg-[color:var(--hover-gray-color)]"
+                                  : "hover:bg-gray-100"
                               } transition-all`
                             : ""
                         } transition-all rounded-xl cursor-pointer ${
@@ -88,8 +88,8 @@ const MobileSidebar = () => {
                                 ? "text-gray-200"
                                 : "text-white" 
                             }`
-                            : "text-gray-500 hover:hover:text-gray-300"
-                        }`}
+                            : "text-gray-500 "
+                        } ${mode?"hover:text-white":"hover:text-gray-700"}`}
                       >
                         <i className={`${item.icon} text-xl`}></i>
                         <p>{item.name === "" ? "home" : item.name}</p>
