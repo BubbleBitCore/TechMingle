@@ -4,6 +4,7 @@ import man2 from "../assets/images/man2.png";
 import { useSelector } from "react-redux";
 import { formatDate } from "../utils/conversion";
 import BetaTest from "../components/BetaTest";
+import { useSearchParams } from "react-router-dom";
 
 // Account tab
 const Account = () => {
@@ -136,7 +137,7 @@ const Account = () => {
                   mode ? "text-[#c1c1c1]" : "text-black"
                 } transition-all duration-500`}
               >
-                Passsword
+                Password
               </label>
               <div className="flex flex-col relative">
                 <input
@@ -437,7 +438,10 @@ const Notifications = () => {
   );
 };
 
+// /settings?tab=notifications|activity|account
+
 const Settings = ({ Header }) => {
+  const [searchParams, setSearchParams] = useSearchParams();
   const tabs = [
     { name: "Account", component: Account },
     { name: "Activity", component: Activity },
@@ -448,7 +452,7 @@ const Settings = ({ Header }) => {
       <div className="flex flex-col h-full w-full pr-4 max-sm:px-4">
         <Header urlName="Settings" />
         <div className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto pt-3">
-          <Tabs tabs={tabs} />
+          <Tabs tabs={tabs} selectedTab={searchParams.get("tab")} />
         </div>
       </div>
     </>
