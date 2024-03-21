@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import man2 from "../assets/images/man2.png";
 
 // This slice contain all app related slices which are coomonn to whole app
 const checkSystemMode = () => {
@@ -23,6 +24,9 @@ const initialState = {
     icon: "",
     visible: false,
   },
+  profileImage: man2,
+  tempProfileImage: null,
+  openEditor: false,
 };
 
 export const commonSlice = createSlice({
@@ -37,9 +41,24 @@ export const commonSlice = createSlice({
     changeSnackBarState: (state, action) => {
       state.snackBar = action.payload;
     },
+    setOpenEditor: (state, action) => {
+      state.openEditor = action.payload;
+    },
+    setProfileImage: (state, action) => {
+      state.profileImage = action.payload;
+    },
+    setTempProfileImage: (state, action) => {
+      state.tempProfileImage = action.payload;
+    },
   },
 });
 
-export const { changeMode, changeSnackBarState } = commonSlice.actions;
+export const {
+  changeMode,
+  changeSnackBarState,
+  setProfileImage,
+  setOpenEditor,
+  setTempProfileImage,
+} = commonSlice.actions;
 
 export default commonSlice.reducer;
