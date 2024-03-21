@@ -9,8 +9,8 @@ const ClickMenu = ({ menu, visibility }) => {
         <div
           onClick={(e) => e.stopPropagation()}
           className={`flex justify-center items-center flex-col gap-1 rounded-md absolute top-full right-0 ${
-            mode ? "bg-[#181818]" : "bg-gray-100 "
-          } transition-all overflow-hidden  max-w-52  p-1 py-2 z-50`}
+            mode ? "bg-[#181818] border border-gray-800" : "bg-gray-100"
+          } transition-all overflow-hidden  max-w-52  p-1 py-2 z-50 shadow-xl`}
         >
           {menu?.map((item, key) => (
             <p
