@@ -203,11 +203,10 @@ const Podcast = () => {
       "knowledge",
       "experience",
       "business",
-      "knowledge",
-      "experience",
+      "business",
     ],
     about:
-      " Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita. Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.",
+      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita. Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.",
     lyrics:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.",
   });
@@ -403,7 +402,7 @@ const Podcast = () => {
         <div
           className={`${
             mode ? "bg-black" : "bg-white"
-          } flex flex-col w-[75%] max-lg:w-full h-fit max-sm:h-fit sm:rounded-xl sm:shadow-lg transition-all duration-500`}
+          } flex flex-col w-[75%] max-lg:w-full h-fit max-sm:h-fit sm:rounded-xl sm:shadow-lg overflow-hidden transition-all duration-500`}
         >
           <div
             className={`flex max-sm:flex-col h-[55vh] max-sm:h-[90vh] backdrop-blur-xl rounded-t-xl items-center w-full relative overflow-hidden transition-all duration-500`}
@@ -506,6 +505,7 @@ const Podcast = () => {
                   </div>
                 ) : (
                   <div
+                    title="Follow"
                     className={`bg-blue-500  flex gap-2 p-1 px-3 rounded-lg text-sm text-white cursor-pointer hover:bg-blue-400 transition-all duration-500`}
                     onClick={() => {
                       setFollowing(true);
@@ -517,13 +517,13 @@ const Podcast = () => {
                 )}
 
                 <div
+                  title="Share"
                   className="bg-green-500 flex gap-2 p-1 px-3 rounded-lg text-sm text-white cursor-pointer hover:bg-green-400 transition-all duration-500"
                   onClick={() => {
                     handleShare();
                   }}
                 >
                   <i className="ri-share-forward-line"></i>
-                  <p>Share</p>
                 </div>
               </div>
             </div>
@@ -532,18 +532,18 @@ const Podcast = () => {
                 mode ? "border border-zinc-800" : ""
               } transition-all duration-500`}
             ></hr>
-            <div className="flex flex-col transition-all duration-500">
-              <div className="flex flex-wrap max-w-[90%] max-sm:w-full transition-all duration-500">
+            <div className="flex flex-col  transition-all duration-500  overflow-hidden ">
+              <div className="flex flex-wrap shrink-0 max-sm:w-full overflow-hidden transition-all duration-500">
                 {nowPlaying?.tags.map((item, idx) => (
                   <p
                     className={`${
                       mode ? "text-blue-400" : "text-blue-700"
-                    }  text-sm max-sm:text-xs transition-all duration-500`}
+                    }  text-sm max-sm:text-xs max-w-full transition-all duration-500 cursor-pointer`}
                     key={idx}
                   >
                     #{item}
                     {idx !== nowPlaying?.tags.length - 1 && (
-                      <span className="mr-1"> </span>
+                      <span className="mr-2"> </span>
                     )}
                   </p>
                 ))}
@@ -562,6 +562,7 @@ const Podcast = () => {
                 <div className="flex gap-2 items-center ">
                   <i
                     id="like"
+                    title="Like"
                     className={`${
                       mode ? "text-blue-400" : "text-blue-600"
                     } ri-thumb-up-line text-2xl max-sm:text-lg  cursor-pointer transform transition-transform duration-300  hover:text-blue-500   hover:scale-125 hover:ri-thumb-up-fill `}
@@ -579,6 +580,7 @@ const Podcast = () => {
                   <p className={`${mode ? "text-zinc-200" : ""}`}>|</p>
                   <i
                     id="dislike"
+                    title="Dislike"
                     className={`${
                       mode ? "text-zinc-200" : ""
                     } ri-thumb-down-line text-2xl max-sm:text-lg cursor-pointer hover:scale-125 transform transition-transform duration-300`}
@@ -619,7 +621,13 @@ const Podcast = () => {
               {/* All related episodes */}
               {nowPlaying.type === "playlist" && (
                 <div className="flex flex-col w-full">
-                  <p className="mt-8 mb-4 font-bold ">Related Episodes</p>
+                  <p
+                    className={`${
+                      mode ? "text-zinc-300" : "font-bold"
+                    } mt-8 mb-4  `}
+                  >
+                    Related Episodes
+                  </p>
                   <div className="flex max-sm:flex-col gap-8 max-sm:gap-0">
                     <div className="flex max-sm:flex-col gap-6 max-sm:gap-0 w-[90%] max-sm:w-full">
                       {episodes?.length > 0
@@ -696,7 +704,13 @@ const Podcast = () => {
                         : null}
                     </div>
                     <div className="flex flex-col justify-center items-center">
-                      <div className="flex flex-col justify-center items-center p-2 max-sm:px-4 rounded-lg hover:bg-gray-100">
+                      <div
+                        className={`${
+                          mode
+                            ? "hover:bg-zinc-900 text-zinc-300"
+                            : "hover:bg-gray-100"
+                        } flex flex-col justify-center items-center p-2 max-sm:px-4 rounded-lg  cursor-pointer`}
+                      >
                         <i className="ri-arrow-right-line text-xl"></i>
                         <p className="text-[10px] mt-[-5px]">See all</p>
                       </div>
