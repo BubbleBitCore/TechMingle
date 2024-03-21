@@ -624,7 +624,10 @@ const Podcast = () => {
                     <div className="flex max-sm:flex-col gap-6 max-sm:gap-0 w-[90%] max-sm:w-full">
                       {episodes?.length > 0
                         ? episodes.slice(0, 3).map((item, idx) => (
-                            <div className="flex flex-col w-[90%] max-sm:w-full gap-3 transition-all duration-500" key={idx}>
+                            <div
+                              className="flex flex-col w-[90%] max-sm:w-full gap-3 transition-all duration-500"
+                              key={idx}
+                            >
                               <img
                                 className=" h-[65%] w-full object-cover rounded-md transition-all duration-500"
                                 src={item.thumbnail}
@@ -801,7 +804,7 @@ const Podcast = () => {
               } transition-all duration-500`}
             ></hr>
             {/* tags for recommendation  */}
-            <div className="flex gap-2 p-2 overflow-x-hidden hover:overflow-x-scroll w-full px-2 transition-all duration-500">
+            <div className="flex gap-2 p-2 overflow-x-hidden hover:overflow-x-scroll max-sm:overflow-x-scroll w-full px-2 transition-all duration-500">
               {nowPlaying?.tags.map((item, idx) => (
                 <p
                   className={`${
