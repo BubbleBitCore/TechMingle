@@ -202,10 +202,10 @@ const Profile = ({ Header }) => {
                 >
                   Activity
                 </p>
-                <div className={`flex flex-wrap gap-6`}>
+                <div className={`flex flex-wrap gap-6 max-sm:justify-center`}>
                   {/* Activity */}
                   <div
-                    className={`w-80 h-56 ${
+                    className={`sm:w-80 h-56 max-sm:w-[19rem]   ${
                       mode ? "bg-gray-950" : "bg-white"
                     } rounded-xl flex flex-col group cursor-pointer overflow-hidden transition-all duration-500`}
                   >
@@ -256,7 +256,7 @@ const Profile = ({ Header }) => {
 
                   {/* Activity */}
                   <div
-                    className={`w-80 h-56 ${
+                    className={`sm:w-80 h-56 max-sm:w-[19rem]   ${
                       mode ? "bg-gray-950" : "bg-white"
                     } rounded-xl flex flex-col group cursor-pointer overflow-hidden transition-all duration-500`}
                   >
@@ -309,7 +309,7 @@ const Profile = ({ Header }) => {
 
                   {/* Activity */}
                   <div
-                    className={`w-80 h-56 ${
+                    className={`sm:w-80 h-56 max-sm:w-[19rem]   ${
                       mode ? "bg-gray-950" : "bg-white"
                     } rounded-xl flex flex-col group cursor-pointer overflow-hidden transition-all duration-500`}
                   >
