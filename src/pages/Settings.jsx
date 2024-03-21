@@ -1,19 +1,21 @@
 import { motion } from "framer-motion";
 import Tabs from "../components/Tabs";
-import man2 from "../assets/images/man2.png";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../utils/conversion";
 import BetaTest from "../components/BetaTest";
 import { useSearchParams } from "react-router-dom";
-
+import { setOpenEditor, setTempProfileImage } from "../slices/commonSlice";
 // Account tab
 const Account = () => {
   const mode = useSelector((state) => state.common.mode);
+  const profileImage = useSelector((state) => state.common.profileImage);
+  const dispatch = useDispatch();
   const user = "Naruto";
   const email = "naruto@gmail.com";
   const password = "naruto@gmail.com";
   const bio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
   return (
     <>
       <style>
@@ -52,7 +54,10 @@ const Account = () => {
           font-size:1rem;
          
         }
-        
+        {/*Photo Editor overide Styles */ }
+        .rp-editor{
+          z-index:30 !important;
+        }
         `}
       </style>
       <motion.div
@@ -226,7 +231,7 @@ const Account = () => {
                 }  rounded-full transition-all duration-500`}
               >
                 <img
-                  src={man2}
+                  src={profileImage}
                   alt=""
                   className="rounded-full bg-cover w-full h-full"
                 />
@@ -235,7 +240,16 @@ const Account = () => {
                   className="absolute imgChange rounded-full h-full w-full top-0 left-0 cursor-pointer "
                   htmlFor="image"
                 ></label>
-                <input className="hidden" id="image" type="file" />
+                <input
+                  className="hidden"
+                  id="image"
+                  type="file"
+                  accept="image/*"
+                  onChange={(e) => {
+                    dispatch(setTempProfileImage(e.target.files[0]));
+                    dispatch(setOpenEditor(true));
+                  }}
+                />
               </div>
             </div>
           </div>
