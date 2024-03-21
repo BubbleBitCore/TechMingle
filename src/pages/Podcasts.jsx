@@ -578,7 +578,7 @@ const Podcasts = ({ Header }) => {
                         mode ? "bg-black" : "bg-white"
                       }  border-none outline-none text-sm cursor-pointer transition-all duration-500`}
                       name="category"
-                      onClick={(e) => {
+                      onChange={(e) => {
                         setSelectedTrendingPodcastCategory(e.target.value);
                       }}
                     >
@@ -626,7 +626,7 @@ const Podcasts = ({ Header }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md px-2 max-sm:px-0 overflow-x-hidden max-sm:hover:overflow-x-scroll snap-mandatory snap-x">
+                <div className="flex w-full max-sm:gap-4 gap-6 rounded-md px-2 max-sm:px-0 overflow-x-hidden max-sm:overflow-x-scroll snap-mandatory snap-x">
                   {trendingPodcastStatus === "loading" ? (
                     <div className="max-sm:hidden w-full h-full gap-8 py-1 flex justify-between items-center">
                       {new Array(3).fill(0).map((_, key) => (
@@ -945,7 +945,7 @@ const Podcasts = ({ Header }) => {
                     </div>
                   </div>
                 </div>
-                <div className="flex h-full w-full  gap-4 rounded-md justify-start items-center max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto snap-mandatory snap-x">
+                <div className="flex h-full w-full  gap-4 rounded-md justify-start items-center max-sm:overflow-x-scroll snap-mandatory snap-x">
                   {popularPodcastStatus === "loading" ? (
                     <div className="max-sm:hidden w-full h-full flex justify-between items-center">
                       {new Array(3).fill(0).map((_, key) => (
@@ -1132,7 +1132,7 @@ const Podcasts = ({ Header }) => {
                     Popular categories
                   </p>
                   <div
-                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-3 max-sm:gap-8 sm:justify-between items-center h-full max-lg:h-fit  max-sm:overflow-x-hidden max-sm:hover:overflow-x-auto py-2`}
+                    className={` flex max-lg:flex-wrap max-sm:flex-nowrap gap-3 max-sm:gap-8 sm:justify-between items-center h-full max-lg:h-fit  max-sm:overflow-x-scroll py-2`}
                   >
                     {popularPodcastcategoryStatus === "loading" ? (
                       <div className="flex gap-8 h-full w-full max-sm:hidden overflow-x-auto justify-between items-center">
