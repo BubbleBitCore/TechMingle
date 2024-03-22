@@ -9,13 +9,15 @@ import absfunny3 from "../assets/images/absfunny3.jpg";
 
 import { formatNumber } from "../utils/conversion";
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import ClickMenu from "../components/ClickMenu";
+import { changeSnackBarState } from "../slices/commonSlice";
 
 const Profile = ({ Header }) => {
   const mode = useSelector((state) => state.common.mode);
   const [readMoreEnable, setReadMoreEnable] = useState(true);
   const [moreListVisibility, setMoreListVisibility] = useState(false);
+  const disptach = useDispatch();
   const moreList = [
     {
       value: "Share",
@@ -27,6 +29,13 @@ const Profile = ({ Header }) => {
           .writeText(window.location.href)
           .then(() => {
             // URL COPIED
+            disptach(
+              changeSnackBarState({
+                message: "Profile copied",
+                icon: "ri-clipboard-fill",
+                visible: true,
+              })
+            );
           })
           .catch((error) => {
             console.error("Failed to copy URL: ", error);
@@ -68,7 +77,9 @@ const Profile = ({ Header }) => {
                 } rounded-2xl relative transition-all duration-500`}
               >
                 {/* Bg-wall */}
-                <div className={"w-full h-[13rem] rounded-t-2xl overflow-hidden"}>
+                <div
+                  className={"w-full h-[13rem] rounded-t-2xl overflow-hidden"}
+                >
                   <img
                     src={bgwall}
                     alt={""}
