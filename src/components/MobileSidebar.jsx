@@ -81,7 +81,7 @@ const MobileSidebar = () => {
                                   : "hover:bg-gray-100"
                               } transition-all`
                             : ""
-                        } transition-all rounded-xl cursor-pointer ${
+                        } transition-all rounded-md cursor-pointer ${
                           item.name.toLowerCase() === selectedItem
                             ? `bg-[color:var(--primary-color)] ${
                               mode
@@ -91,8 +91,8 @@ const MobileSidebar = () => {
                             : "text-gray-500 "
                         } ${mode?"hover:text-white":"hover:text-gray-700"}`}
                       >
-                        <i className={`${item.icon} text-xl`}></i>
-                        <p>{item.name === "" ? "home" : item.name}</p>
+                        <i className={`${item.icon} text-xl font-thin`}></i>
+                        <p className={`text-lg inter`}>{item.name === "" ? "home" : item.name}</p>
                       </div>
                     ) : null
                   )

@@ -38,6 +38,12 @@ html {
   font-weight: 400;
   font-style: normal;
 }
+.inter {
+  font-family: "Inter", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 500;
+  font-style: normal;
+}
 
 /* Here we have defined custom variables for colors */
 :root {
@@ -83,7 +89,6 @@ html {
     box-shadow: none;
   }
 }
-
 
 /* Login page */
 
