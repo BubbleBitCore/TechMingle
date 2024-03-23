@@ -417,7 +417,7 @@ const Podcasts = ({ Header }) => {
   }, [selectedTrendingPodcastList]);
 
   return (
-    <div className="flex flex-col h-full w-full pr-8 max-sm:px-2 select-none ">
+    <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 select-none ">
       <Header urlName="Podcast" />
       <style>{`/* Audio component styles */
 .rhap_container {
@@ -488,9 +488,9 @@ const Podcasts = ({ Header }) => {
       <div
         className={`flex h-full w-full sm:px-4 ${
           mode ? "bg-zinc-950" : "bg-gray-50"
-        } rounded-xl overflow-y-auto transition-all duration-500`}
+        } rounded-xl overflow-y-auto transition-all duration-500 max-sm:relative`}
       >
-        <div className="flex max-lg:h-auto  max-xl:flex-col h-full w-full 2xl:gap-12 gap-6 p-4 max-sm:p-2 rounded-xl overflow-y-auto ">
+        <div className="flex max-lg:h-auto  max-xl:flex-col h-full w-full 2xl:gap-12 gap-6 p-4 max-sm:p-2 max-sm:px-0 rounded-xl overflow-y-auto ">
           {/* left section */}
           <div className="flex flex-col gap-6 w-3/4 max-xl:w-full  ">
             {/* Trending this week div */}
@@ -516,7 +516,7 @@ const Podcasts = ({ Header }) => {
                     </div>
                   ) : (
                     <div className="flex flex-col gap-1 max-sm:w-full cursor-pointer">
-                      <div className="flex w-full h-[95%] relative ">
+                      <div className="flex w-full h-[95%] max-sm:min-h-48 relative ">
                         <img
                           className="w-full h-full rounded-xl object-cover"
                           src={trendingThisWeek.thumbnail}
@@ -636,7 +636,7 @@ const Podcasts = ({ Header }) => {
                   ) : selectedTrendingPodcastList?.length > 0 ? (
                     trendingPodcastIdx?.map((idx) => (
                       <div
-                        className=" cursor-pointer max-sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full"
+                        className=" cursor-pointer max-sm:min-h-48 max-sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full"
                         key={idx}
                       >
                         {selectedTrendingPodcastList[idx] && (
@@ -727,7 +727,7 @@ const Podcasts = ({ Header }) => {
                   ) : selectedTrendingPodcastList?.length > 0 ? (
                     selectedTrendingPodcastList.map((item, idx) => (
                       <div
-                        className="sm:hidden flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
+                        className="sm:hidden max-sm:min-h-48 flex flex-col gap-1 w-1/3 max-sm:py-2 max-sm:min-w-full snap-center"
                         key={idx}
                       >
                         {item && (
@@ -1046,7 +1046,7 @@ const Podcasts = ({ Header }) => {
                   ) : selectedPopularPodcastList?.length > 0 ? (
                     selectedPopularPodcastList.map((item, idx) => (
                       <div
-                        className="sm:hidden flex h-full  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden snap-center "
+                        className="sm:hidden flex h-full max-sm:min-h-48  max-lg:flex-col w-1/3 justify-center lg:items-center gap-3 max-sm:min-w-full overflow-hidden snap-center "
                         key={idx}
                       >
                         <div className="max-lg:w-full max-lg:pr-4  max-sm:pr-0">
@@ -1354,20 +1354,24 @@ const Podcasts = ({ Header }) => {
               <div
                 className={`${
                   mode ? "bg-black text-white" : "bg-white"
-                } flex flex-col xl:h-1/2 max-xl:w-1/2 max-sm:w-full gap-2 rounded-xl shadow-lg p-2 justify-center items-center transition-all duration-500`}
+                } flex flex-col xl:h-1/2 max-xl:w-1/2 max-sm:w-full sm:gap-2 sm:rounded-xl sm:shadow-lg sm:p-2 max-sm:pt-2  justify-center items-center transition-all duration-500 max-sm:absolute max-sm:bottom-0`}
               >
-                <p className="font-bold">Now playing</p>
-                <div className="w-2/3 h-1/3 mt-1 cursor-pointer">
-                  <img
-                    className="w-full h-full rounded-lg object-cover"
-                    src={nowPlaying.thumbnail}
-                    alt={nowPlaying.name}
-                  ></img>
+                <p className="max-sm:hidden font-bold">Now playing</p>
+                <div className="flex sm:flex-col gap-2 w-full h-1/2 mt-1 justify-center items-center sm:px-4">
+                  <div className="w-3/4 max-sm:w-1/4 h-2/3 max-sm:h-full  cursor-pointer">
+                    <img
+                      className="w-full h-full rounded-lg object-cover"
+                      src={nowPlaying.thumbnail}
+                      alt=""
+                    ></img>
+                  </div>
+                  <div className="flex flex-col w-full h-full max-sm:justify-between sm:justify-center sm:items-center">
+                    <p className="text-md font-bold">{nowPlaying.title}</p>
+                    <p className="text-sm">{nowPlaying.artist}</p>
+                  </div>
                 </div>
 
-                <p className="text-sm font-bold">{nowPlaying.title}</p>
-                <p className="text-xs">{nowPlaying.artist}</p>
-                <div className="w-full">
+                <div className=" w-full ">
                   <AudioPlayer
                     src={nowPlaying.audio}
                     className={"shadow-none transition-all duration-500"}
@@ -1381,6 +1385,24 @@ const Podcasts = ({ Header }) => {
                     }}
                   />
                 </div>
+                {/* <div className="sm:hidden w-full ">
+                  <AudioPlayer
+                    layout="horizontal"
+                    customVolumeControls={[]}
+                    customAdditionalControls={[]}
+                    showJumpControls={false}
+                    src={nowPlaying.audio}
+                    className={"shadow-none transition-all duration-500"}
+                    style={containerStyle}
+                    ref={player}
+                    onPlay={() => {
+                      setPlayerPaused(false);
+                    }}
+                    onPause={() => {
+                      setPlayerPaused(true);
+                    }}
+                  />
+                </div> */}
               </div>
             )}
 
@@ -1388,7 +1410,7 @@ const Podcasts = ({ Header }) => {
             <div
               className={`${
                 mode ? "bg-black text-white" : "bg-white"
-              } flex flex-col xl:h-1/2 max-xl:w-1/2 max-xl:h-fit max-sm:w-full rounded-xl shadow-lg p-6 select-none transition-all duration-500`}
+              } flex flex-col xl:h-1/2 max-xl:w-1/2 max-xl:h-fit max-sm:w-full rounded-xl shadow-lg p-6 select-none transition-all duration-500 max-sm:mb-32`}
             >
               <div className="flex flex-col w-full h-fit gap-2">
                 <div
