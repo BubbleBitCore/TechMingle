@@ -303,25 +303,31 @@ const Activity = () => {
   const currentSessionId = "42.105.89.18";
   const Sessions = [
     {
-      device: "Smartphone",
-      Location: "Rajkot, Gujarat ,India",
+      platform: "Smartphone",
+      Location: "Rajkot, Gujarat , India",
       IP: "127.0.0.1",
       sessionId: "42.105.89.11",
       createdAt: new Date(),
+      os: "Android",
+      browser: "chrome",
     },
     {
-      device: "PC",
-      Location: "Gandhidham, Gujarat ,India",
+      platform: "PC",
+      Location: "Gandhidham, Gujarat , India",
       IP: "127.0.0.1",
       sessionId: "42.105.89.18",
       createdAt: new Date(),
+      os: "Mac",
+      browser: "mozilla firefox",
     },
     {
-      device: "PC",
-      Location: "Surat, Gujarat ,India",
+      platform: "PC",
+      Location: "Surat, Gujarat , India",
       IP: "127.0.0.1",
       sessionId: "42.105.89.13",
       createdAt: new Date(),
+      os: "Windows",
+      browser: "chrome",
     },
   ];
   return (
@@ -341,16 +347,16 @@ const Activity = () => {
                 : "bg-gray-100 hover:bg-[#e9e9e9]"
             } p-4 py-2 transition-all duration-500 cursor-pointer group max-sm:flex-col`}
           >
-            <div className=" flex items-center md:gap-5 sm:gap-2 max-sm:flex-col max-sm:justify-center max-sm:w-full max-sm:gap-3 group">
+            <div className="flex items-center md:gap-5 sm:gap-2 relative  max-sm:w-full max-sm:gap-3 group">
               {/* Icon*/}
               <div
                 className={`${
                   mode ? "bg-[#1a1a1a]" : "bg-gray-300"
-                } rounded-full h-14 w-14 overflow-hidden flex justify-center items-center transition-color duration-500 opacity-55 group-hover:opacity-100 cursor-pointer max-sm:order-1`}
+                } rounded-full h-14 w-14 overflow-hidden flex justify-center max-sm:self-start items-center transition-color duration-500 opacity-55 group-hover:opacity-100 cursor-pointer `}
               >
                 <i
                   className={`${
-                    item.device === "Smartphone"
+                    item.platform === "Smartphone"
                       ? "ri-smartphone-line "
                       : "ri-computer-line"
                   } transition-color duration-500 ${
@@ -358,62 +364,70 @@ const Activity = () => {
                   } text-xl `}
                 ></i>
               </div>
-              {/* IP Address*/}
-              <div className={`flex flex-col sm:mr-10 max-sm:order-3`}>
-                <p
-                  className={`${
-                    mode ? "text-gray-300" : "text-black"
-                  } text-lg max-sm:text-center`}
-                >
-                  {item.IP}
-                </p>
-                <p
-                  className={`${mode ? "text-gray-400" : "text-black"} text-xs`}
-                >
-                  {formatDate(item.createdAt)}
-                </p>
-              </div>
-              {/* Location*/}
-              <div className={`flex flex-col max-sm:order-4`}>
-                <p
-                  className={`${mode ? "text-gray-200" : "text-black"} text-sm`}
-                >
-                  {item.Location}
-                </p>
-              </div>
-              {/* Status */}
-              <span
-                title={`${
-                  item.sessionId === currentSessionId
-                    ? "current session"
-                    : "other session"
-                }`}
-                className={`h-5 w-5 border ${
-                  item.sessionId === currentSessionId
-                    ? "border-green-400"
-                    : "border-indigo-500"
-                } max-sm:order-2 rounded-full ${
-                  mode ? "bg-gray-800" : "bg-white"
-                } flex justify-center items-center scale-75 transition-all duration-500`}
-              >
-                <span
-                  className={`rounded-full h-3 w-3 ${
-                    item.sessionId === currentSessionId
-                      ? "bg-green-500"
-                      : "bg-indigo-500"
-                  }`}
-                ></span>
-              </span>
-              {/* Session Id*/}
-              <div className={`flex flex-col max-sm:order-5`}>
-                <p
-                  className={`${
-                    mode ? "text-gray-200" : "text-black"
-                  } text-sm hover:text-indigo-500 transition-all duration-500`}
-                >
-                  <span className={`text-gray-500 cursor-pointer `}>#</span>{" "}
-                  {item.sessionId}
-                </p>
+              <div className="flex max-sm:flex-col max-sm:gap-1 gap-5  sm:items-center items-start">
+                {/* platform type */}
+                <div className="flex gap-1 sm:gap-1 items-center">
+                  {/* Status */}
+                  <span
+                    title={`${
+                      item.sessionId === currentSessionId
+                        ? "current session"
+                        : "other session"
+                    }`}
+                    className={`h-5 w-5 border ${
+                      item.sessionId === currentSessionId
+                        ? "border-green-400"
+                        : "border-indigo-500"
+                    } rounded-full ${
+                      mode ? "bg-gray-800" : "bg-white"
+                    } flex sm:order-2 justify-center items-center scale-75 transition-all duration-500 `}
+                  >
+                    <span
+                      className={`rounded-full h-3 w-3 ${
+                        item.sessionId === currentSessionId
+                          ? "bg-green-500"
+                          : "bg-indigo-500"
+                      }`}
+                    ></span>
+                  </span>
+                  <p
+                    className={`${
+                      mode ? "text-gray-300" : "text-black"
+                    } text-lg sm:order-1 sm:w-[13rem] w-[12rem] text-ellipsis overflow-hidden text-nowrap`}
+                  >
+                    Session on {item.os}
+                  </p>
+                </div>
+                {/* Location*/}
+                <div className={`flex flex-col `}>
+                  <p
+                    className={`${
+                      mode ? "text-gray-200" : "text-black"
+                    } text-sm sm:w-[15rem]  w-[13rem] text-ellipsis overflow-hidden sm:text-nowrap`}
+                  >
+                    {item.Location} <i className="max-sm:hidden ri-map-pin-2-line font-thin"></i>
+                  </p>
+                </div>
+                {/* Date */}
+                <div className={`flex  justify-center items-center sm:border-2 opacity-85 sm:rounded-full sm:border-purple-500 sm:px-2 sm:py-1 pt-2 sm:group-hover:bg-purple-500`}>
+                  <p
+                    className={`${
+                      mode ? "text-purple-400 sm:group-hover:text-black" : "text-black"
+                    } text-sm transition-all `}
+                  >
+                    {formatDate(item.createdAt)}
+                  </p>
+                </div>
+                {/* IP Address*/}
+                <div className={`flex flex-col  sm:border-2 opacity-85 sm:rounded-full sm:border-green-500 sm:px-2 sm:py-1 sm:group-hover:bg-green-500`}>
+                  <p
+                    className={`${
+                      mode ? "text-green-400 sm:group-hover:text-black" : "text-black"
+                    } text-sm `}
+                  >
+                    IPv4: {item.IP}
+                  </p>
+                </div>
               </div>
             </div>
             {/* Actions*/}
