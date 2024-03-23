@@ -19,23 +19,28 @@ const SnackBar = () => {
         {`
         .snackBar{
             animation:${
-              snackBar?.visible ? "snack_popup" : "snack_popout"
-            } 0.2s ease-in-out forwards;
+              snackBar?.visible === true
+                ? "snack_popup"
+                : snackBar?.visible === false
+                ? "snack_popout"
+                : ""
+            } 0.5s ease-in-out forwards;
+            ${snackBar?.visible === null && `bottom:-50%;`}
         }
         @keyframes snack_popup {
           0% {
             opacity: 0;
-            transform: translateY(200%);
+            bottom:-50%;
           }
           100% {
             opacity: 1;
-            transform: translateY(0);
+            bottom:0.75rem;
           }
         }
         @keyframes snack_popout {
           100% {
             opacity: 0;
-            transform: translateY(200%);
+            bottom:-100%;
           }
         }
       `}
@@ -44,7 +49,7 @@ const SnackBar = () => {
       <div
         className={`${mode ? "bg-[#282828]" : "bg-gray-100 border"} ${
           mode ? "text-[#bbbbbb]" : "text-black"
-        }  pl-4 pr-0 flex justify-between  rounded-[0.5rem] shadow-xl sm:w-[28rem] max-sm:w-[80%] sm:bottom-5 sm:left-10 max-sm:left-3 fixed  max-sm:bottom-3  snackBar transition-all duration-500`}
+        }  pl-4 pr-0 flex justify-between  rounded-[0.5rem] shadow-xl sm:w-[28rem] max-sm:w-[90%] sm:bottom-5 sm:left-10 max-sm:left-1/2 max-sm:-translate-x-1/2 fixed  max-sm:bottom-3  snackBar transition-all duration-500`}
       >
         <div className="w-[90%]  flex gap-2 justify-center items-center py-3">
           {!snackBar.icon == "" && (
