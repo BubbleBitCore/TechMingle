@@ -21,6 +21,7 @@ import ResetPassword from "../pages/ResetPassword";
 import ForgotPassword from "../pages/ForgotPassword";
 import Podcast from "../pages/Podcast";
 import Profile from "../pages/Profile";
+import Article from "../pages/Article";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -109,6 +110,11 @@ const AppWrapper = () => {
               exact
               path="/articles"
               element={<Articles Header={Header} />}
+            />
+            <Route
+              exact
+              path="/article/:id"
+              element={<Article Header={Header} />}
             />
             <Route exact path="/books" element={<Books Header={Header} />} />
             <Route exact path="/gaming" element={<Gaming Header={Header} />} />
