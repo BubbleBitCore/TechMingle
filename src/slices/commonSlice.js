@@ -22,11 +22,12 @@ const initialState = {
   snackBar: {
     message: "",
     icon: "",
-    visible: false,
+    visible: null, // null means snackbar is inactive , true/false means corresponding animations are visible
   },
   profileImage: man2,
   tempProfileImage: null,
   openEditor: false,
+  onlineStatus: false,
 };
 
 export const commonSlice = createSlice({
@@ -50,6 +51,9 @@ export const commonSlice = createSlice({
     setTempProfileImage: (state, action) => {
       state.tempProfileImage = action.payload;
     },
+    changeOnlineStatus: (state, action) => {
+      state.onlineStatus = action.payload;
+    },
   },
 });
 
@@ -59,6 +63,7 @@ export const {
   setProfileImage,
   setOpenEditor,
   setTempProfileImage,
+  changeOnlineStatus,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;
