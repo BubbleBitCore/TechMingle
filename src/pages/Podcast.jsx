@@ -452,7 +452,7 @@ const Podcast = () => {
           {/*podcast playing div */}
           <div
             className={`${
-              mode ? "bg-black" : "bg-white"
+              mode ? "bg-black " : "bg-white "
             } flex flex-col w-[75%] max-lg:w-full h-fit max-sm:w-full sm:rounded-xl sm:shadow-lg transition-all duration-500`}
           >
             <div
