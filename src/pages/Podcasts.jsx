@@ -1354,7 +1354,9 @@ const Podcasts = ({ Header }) => {
               <div
                 className={`${
                   mode ? "bg-black text-white" : "bg-white"
-                } flex flex-col xl:h-1/2 max-xl:w-1/2 max-sm:w-full sm:gap-2 sm:rounded-xl sm:shadow-lg sm:p-2 max-sm:pt-2  justify-center items-center transition-all duration-500 max-sm:absolute max-sm:bottom-0`}
+                } flex flex-col xl:h-1/2 max-xl:w-1/2 max-sm:w-screen sm:gap-2 sm:rounded-xl sm:shadow-lg sm:p-2 max-sm:pt-2 max-sm:px-3  justify-center items-center transition-all duration-500 max-sm:fixed max-sm:bottom-0 max-sm:left-0 ${
+                  !mode? "max-sm:border-t-2":"max-sm:border-t-2 border-gray-900"}
+                }`}
               >
                 <p className="max-sm:hidden font-bold">Now playing</p>
                 <div className="flex sm:flex-col gap-2 w-full h-1/2 mt-1 justify-center items-center sm:px-4">
