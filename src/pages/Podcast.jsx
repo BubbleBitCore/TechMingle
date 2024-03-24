@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../components/Header";
 import { useSelector, useDispatch } from "react-redux";
 import believer from "../assets/songs/believer.mp3";
@@ -249,13 +249,61 @@ const Podcast = () => {
     navigator.clipboard.writeText(url);
     disptach(
       changeSnackBarState({
-        message: "Copied Url",
-        icon: "",
+        message: "Copied to clipboard",
+        icon: "ri-clipboard-line text-blue-500",
         visible: true,
       })
     );
   };
   const [following, setFollowing] = useState(false);
+  const [isSmallScreen, setIsSmallScreen] = useState(false); // to keep track of viewport and apply viewport specific styles
+  const [textColor, setTextColor] = useState(""); // to create a contrasting color based on bgImage
+  // handling viewport smallscreen state
+  useEffect(() => {
+    // Function to handle changes in screen size
+    const handleResize = () => {
+      // Accessing the computed styles to check if the screen is small or not
+      const screenWidth = window.innerWidth;
+      setIsSmallScreen(screenWidth < 768); // Example: consider 768px width as the threshold for small screens
+    };
+
+    // Initial check on mount
+    handleResize();
+
+    // Event listener for window resize
+    window.addEventListener("resize", handleResize);
+
+    // Cleanup on component unmount
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  // dynamic text color
+  useEffect(() => {
+    const image = new Image();
+    image.src = nowPlaying.thumbnail;
+
+    image.onload = () => {
+      // Use canvas to get the average color of the image
+      const canvas = document.createElement("canvas");
+      const context = canvas.getContext("2d");
+      context.drawImage(image, 0, 0, 1, 1);
+
+      // Get pixel data
+      const pixelData = context.getImageData(0, 0, 1, 1).data;
+
+      // Calculate luminance using formula
+      const luminance =
+        (0.2126 * pixelData[0] +
+          0.7152 * pixelData[1] +
+          0.0722 * pixelData[2]) /
+        255;
+
+      // Set text color based on luminance
+      setTextColor(luminance > 0.5 ? "gray-800" : "gray-200");
+    };
+  }, [nowPlaying]);
 
   return (
     <>
@@ -360,6 +408,35 @@ const Podcast = () => {
       -webkit-line-clamp: unset;
       overflow: unset;
     }
+
+    .fadeShadow::before{
+        content:"";
+        height:10rem;
+        width:100%;
+        position: absolute;
+        top: 0;
+        left:0%;
+        z-Index:50;
+        color: black;
+        display: block;
+        background: linear-gradient(to bottom, rgba(11, 13, 16, 1) ,rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0));
+
+}
+
+      .fadeShadow::after{
+        content:"";
+        height:15rem;
+        width:100%;
+        position: absolute;
+        bottom: 0;
+        left:0%;
+        z-Index:50;
+        color: black;
+        display: block;
+        background: linear-gradient(to top, rgba(11, 13, 16, 1) ,rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.2),rgba(0, 0, 0, 0));
+        Z-Index:50;
+      }
+    }
     `}</style>
       <div className="flex flex-col h-full w-full sm:pr-4 transition-all duration-500">
         <div className="w-full max-sm:px-4 transition-all duration-500">
@@ -370,7 +447,7 @@ const Podcast = () => {
         <div
           className={`${
             mode ? "bg-zinc-950" : "bg-gray-50"
-          } flex max-lg:flex-col gap-6 mt-1 w-full h-full sm:rounded-xl  sm:px-6 sm:py-4 overflow-auto select-none transition-all duration-500`}
+          } flex max-lg:flex-col gap-6 mt-1 w-full h-full sm:rounded-xl  sm:px-6 sm:py-4 overflow-hidden overflow-y-auto select-none transition-all duration-500`}
         >
           {/*podcast playing div */}
           <div
@@ -379,11 +456,13 @@ const Podcast = () => {
             } flex flex-col w-[75%] max-lg:w-full h-fit max-sm:w-full sm:rounded-xl sm:shadow-lg transition-all duration-500`}
           >
             <div
-              className={`flex max-sm:flex-col h-[55vh] max-sm:h-[90vh] backdrop-blur-xl sm:rounded-t-xl items-center w-full relative overflow-hidden transition-all duration-500`}
+              className={`flex max-sm:flex-col h-[55vh] max-sm:h-[90vh] backdrop-blur-xl sm:rounded-t-xl max-sm:items-center w-full relative overflow-hidden transition-all duration-500 ${
+                mode && isSmallScreen && "fadeShadow"
+              }`}
             >
               {!showLyrics && (
                 <div
-                  className="flex flex-col justify-evenly max-sm:h-[75%] h-full w-full max-sm:px-6 items-center relative z-30 transition-all duration-500"
+                  className="flex flex-col justify-evenly max-sm:h-[95%] h-full w-full max-sm:px-6 items-center relative z-30 transition-all duration-500 cursor-pointer"
                   onClick={() => setShowLyrics(!showLyrics)}
                 >
                   <img
@@ -394,26 +473,26 @@ const Podcast = () => {
                   <div
                     className={` sm:hidden flex flex-col gap-2 justify-center items-center w-[90%] transition-all duration-500`}
                   >
-                    <p className=" whitespace-nowrap animate-scrollText text-md ">
+                    <p className={` whitespace-nowrap animate-scrollText text-md text-${textColor}`}>
                       {nowPlaying.title}
                     </p>
-                    <p className="text-sm">{nowPlaying.artist}</p>
+                    <p className={`text-sm text-${textColor}`}>{nowPlaying.artist}</p>
                   </div>
                 </div>
               )}
               {showLyrics && (
                 <div
-                  className="flex justify-center  h-[75%] p-4 sm:rounded-xl w-full max-sm:px-8 items-center relative z-30 transition-all duration-100"
+                  className="flex justify-center mt-5 max-sm:mt-0 max-sm:pt-10 sm:h-[65%] max-sm:h-[80%] p-1 sm:rounded-xl w-full max-sm:px-8 items-center relative z-30 transition-all duration-100  overflow-hidden overflow-y-auto cursor-pointer "
                   onClick={() => setShowLyrics(!showLyrics)}
                 >
-                  <p className="sm:w-[50%] max-h-[50%] text-xl m-6 text-center animate-scrollTextY ">
+                  <p className={`h-full w-full sm:w-[50%] max-sm:text-sm   text-center text-${textColor}`}>
                     {nowPlaying.lyrics}
                   </p>
                 </div>
               )}
               {/* adding a audio player component from react-h5-audio-player */}
-              <div className="flex sm:absolute sm:bottom-3 w-full sm:px-3 relative z-30 transition-all duration-500">
-                <div className="flex max-sm:flex-col w-full sm:backdrop-blur-3xl items-center rounded-md sm:shadow-lg max-sm:fixed">
+              <div className="flex sm:absolute sm:bottom-3 w-full sm:px-3 relative z-[100] transition-all duration-500">
+                <div className="flex max-sm:flex-col w-full sm:backdrop-blur-3xl items-center rounded-md sm:shadow-lg max-sm:fixed max-sm:bottom-4">
                   <AudioPlayer
                     autoPlay
                     src={nowPlaying.audio}
@@ -624,6 +703,24 @@ const Podcast = () => {
                                   className=" h-[65%] w-full object-cover rounded-md transition-all duration-500"
                                   src={item.thumbnail}
                                   alt=""
+                                  onClick={() => {
+                                    if (
+                                      JSON.stringify(nowPlaying) ==
+                                      JSON.stringify(item)
+                                    ) {
+                                      if (playerPaused) {
+                                        player.current.audio.current.play();
+                                        setPlayerPaused(false);
+                                      } else {
+                                        player.current.audio.current.pause();
+                                        setPlayerPaused(true);
+                                      }
+                                    } else {
+                                      setNowPlaying(item);
+                                      player.current.audio.current.play();
+                                      setPlayerPaused(false);
+                                    }
+                                  }}
                                 ></img>
                                 <div className="flex w-full justify-between items-center transition-all duration-500">
                                   <div className="flex flex-col  w-full px-2 gap-1 transition-all duration-500">
@@ -725,9 +822,27 @@ const Podcast = () => {
                 Top recommendations
               </p>
               <img
-                className=" h-[60%] object-cover rounded-md transition-all duration-500"
+                className=" h-[60%] object-cover rounded-md transition-all duration-500 cursor-pointer"
                 src={topRecommended.thumbnail}
                 alt=""
+                onClick={() => {
+                  if (
+                    JSON.stringify(nowPlaying) ==
+                    JSON.stringify(topRecommended)
+                  ) {
+                    if (playerPaused) {
+                      player.current.audio.current.play();
+                      setPlayerPaused(false);
+                    } else {
+                      player.current.audio.current.pause();
+                      setPlayerPaused(true);
+                    }
+                  } else {
+                    setNowPlaying(topRecommended);
+                    player.current.audio.current.play();
+                    setPlayerPaused(false);
+                  }
+                }}
               ></img>
               <div className="flex w-full justify-between items-center transition-all duration-500">
                 <div className="flex flex-col  w-full px-2 gap-1 transition-all duration-500">
