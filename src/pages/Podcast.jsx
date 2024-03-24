@@ -301,7 +301,7 @@ const Podcast = () => {
         255;
 
       // Set text color based on luminance
-      setTextColor(luminance > 0.5 ? "gray-800" : "gray-200");
+      setTextColor(luminance > 0.5 ? "gray-800" : "white");
     };
   }, [nowPlaying]);
 
@@ -456,7 +456,7 @@ const Podcast = () => {
             } flex flex-col w-[75%] max-lg:w-full h-fit max-sm:w-full sm:rounded-xl sm:shadow-lg transition-all duration-500`}
           >
             <div
-              className={`flex max-sm:flex-col h-[55vh] max-sm:h-[90vh] backdrop-blur-xl sm:rounded-t-xl max-sm:items-center w-full relative overflow-hidden transition-all duration-500 ${
+              className={`flex max-sm:flex-col h-[55vh] max-sm:h-[80vh] backdrop-blur-xl sm:rounded-t-xl max-sm:items-center w-full relative overflow-hidden transition-all duration-500 ${
                 mode && isSmallScreen && "fadeShadow"
               }`}
             >
