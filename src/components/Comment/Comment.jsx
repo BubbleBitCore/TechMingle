@@ -65,7 +65,7 @@ const Comment = () => {
             </div>
             <textarea
               name="comment"
-              placeholder={"Add a reply.."}
+              placeholder={"Add a comment.."}
               onChange={(e) => {
                 const textarea = textareaRef.current;
                 if (textarea) {
@@ -81,7 +81,7 @@ const Comment = () => {
               ref={textareaRef}
               rows={1}
               className={`commentTextArea pb-1 w-full   border-b-2 ${
-                mode ? "border-gray-100" : "border-gray-500"
+                mode ? "border-gray-500" : "border-gray-500"
               } bg-transparent  transition-all ${
                 mode ? "text-gray-300" : "text-black"
               } border-0 outline-0`}
@@ -106,9 +106,7 @@ const Comment = () => {
               Clear
             </div>
             <div
-              className={`${
-                disableComment && "pointer-events-none"
-              } ${
+              className={`${disableComment && "pointer-events-none"} ${
                 mode ? "hover:bg-[#242424]" : "hover:bg-gray-200"
               } cursor-pointer rounded-xl p-1 px-2 text-sm ${
                 mode ? "text-gray-200" : "text-white"
@@ -144,6 +142,8 @@ const Comment = () => {
 };
 
 const RootComment = ({ options, commentConnectorLine }) => {
+  // Mode is handled here
+  const mode = useSelector((state) => state.common.mode);
   const [moreOptionsVisibility, setMoreOptionsVisibility] = useState(false);
   const [openCommentInput, setOpenCommentInput] = useState(false);
   const [likeStatus, setLikeStatus] = useState(false);
@@ -239,17 +239,27 @@ const RootComment = ({ options, commentConnectorLine }) => {
           </div>
           {/* Separator line */}
           <div className="flex flex-col  h-[95%] items-center overflow-hidden">
-            <span className="w-[0.1rem] h-[1rem] bg-gray-300"></span>
+            <span
+              className={`w-[0.1rem] h-[1rem] ${
+                mode ? "bg-gray-500" : "bg-gray-300"
+              } transition-all`}
+            ></span>
             <i
-              className={`ri-${
-                showReplies ? "close" : "add"
-              }-circle-line text-gray-500 hover:text-black transition-all duration-100 cursor-pointer `}
+              className={`ri-${showReplies ? "close" : "add"}-circle-line ${
+                mode
+                  ? "text-gray-400 hover:text-white"
+                  : "text-gray-500 hover:text-black"
+              } transition-all duration-100 cursor-pointer `}
               onClick={() =>
                 showReplies ? setShowReplies(false) : setShowReplies(true)
               }
             ></i>
             {showReplies && (
-              <span className="w-[0.1rem] h-[100%] bg-gray-300 "></span>
+              <span
+                className={`w-[0.1rem] h-[100%] ${
+                  mode ? "bg-gray-500" : "bg-gray-300"
+                } transition-all`}
+              ></span>
             )}
           </div>
         </div>
@@ -263,30 +273,54 @@ const RootComment = ({ options, commentConnectorLine }) => {
         >
           <div className="commentHeader flex gap-2">
             {/* username */}
-            <div className="text-sm  font-bold hover:underline cursor-pointer">
+            <div
+              className={`text-sm  ${
+                mode ? "text-gray-400" : "text-black"
+              } transition-all font-bold hover:underline cursor-pointer`}
+            >
               naruto uzumaki
             </div>
             {/* Time */}
             <div className="flex gap-2 text-xs">
-              <span className="font-bold">•</span>
-              <span>12 hr.ago</span>
+              <span
+                className={`font-bold ${
+                  mode ? "text-gray-300" : "text-black"
+                } transition-all`}
+              >
+                •
+              </span>
+              <span
+                className={`${
+                  mode ? "text-gray-300" : "text-black"
+                } transition-all`}
+              >
+                12 hr.ago
+              </span>
             </div>
           </div>
           {/* comment */}
-          <div>Hello Guys</div>
+          <div
+            className={`${
+              mode ? "text-gray-300" : "text-black"
+            } transition-all`}
+          >
+            Hello Guys
+          </div>
 
           {/* Comment Action */}
           <div className="flex gap-1 text-sm">
             {/* like */}
             <div
               onClick={like}
-              className="flex justify-center items-center gap-1 hover:bg-gray-200 p-1 px-2 cursor-pointer rounded-xl"
+              className={`flex justify-center items-center gap-1 ${
+                mode
+                  ? "text-gray-300 hover:bg-[#242424] "
+                  : "text-black hover:bg-gray-200 "
+              } transition-all p-1 px-2 cursor-pointer rounded-xl`}
             >
               {/* like icon  */}
               <i
-                className={`ri-thumb-up-${
-                  likeStatus ? "fill" : "line"
-                } text-black `}
+                className={`ri-thumb-up-${likeStatus ? "fill" : "line"}  `}
               ></i>
               {/* like count */}
               <span className="text-xs">13</span>
@@ -294,13 +328,15 @@ const RootComment = ({ options, commentConnectorLine }) => {
             {/* dislike */}
             <div
               onClick={dislike}
-              className="flex justify-center items-center gap-1 hover:bg-gray-200 p-1 px-2 cursor-pointer rounded-xl"
+              className={`flex justify-center items-center gap-1 ${
+                mode
+                  ? "text-gray-300 hover:bg-[#242424]"
+                  : "text-black hover:bg-gray-200 "
+              } transition-all p-1 px-2 cursor-pointer rounded-xl`}
             >
               {/* dislike icon  */}
               <i
-                className={`ri-thumb-down-${
-                  dislikeStatus ? "fill" : "line"
-                } text-black `}
+                className={`ri-thumb-down-${dislikeStatus ? "fill" : "line"}  `}
               ></i>
               {/* dislike count */}
               <span className="text-xs">13</span>
@@ -310,14 +346,22 @@ const RootComment = ({ options, commentConnectorLine }) => {
               onClick={() => {
                 setOpenCommentInput(true);
               }}
-              className="flex justify-center items-center gap-1 hover:bg-gray-200 p-1 px-2 cursor-pointer rounded-xl text-xs font-bold"
+              className={`flex justify-center items-center gap-1 ${
+                mode
+                  ? "hover:bg-[#242424]  text-gray-300 "
+                  : "hover:bg-gray-200"
+              } p-1 px-2 cursor-pointer rounded-xl text-xs font-bold`}
             >
               Reply
             </div>
             {/* More */}
             <div
               title="More"
-              className="flex justify-center items-center gap-1 hover:bg-gray-200 p-1 px-2 cursor-pointer rounded-xl text-xs font-bold relative"
+              className={`flex justify-center items-center gap-1 ${
+                mode
+                  ? "hover:bg-[#242424]  text-gray-300 "
+                  : "hover:bg-gray-200"
+              } p-1 px-2 cursor-pointer rounded-xl text-xs font-bold relative`}
               onClick={(e) => {
                 openMenus.forEach((element) => {
                   if (Object.keys(element)[0] === comp_id) {
@@ -367,7 +411,11 @@ const RootComment = ({ options, commentConnectorLine }) => {
                 }}
                 ref={textareaRef}
                 rows={1}
-                className="commentTextArea pb-1 w-full  border-b-2 border-gray-500 border-0 outline-0"
+                className={`commentTextArea pb-1 w-full  border-b-2 ${
+                    mode ? "border-gray-500" : "border-gray-500"
+                  } bg-transparent  transition-all ${
+                    mode ? "text-gray-300" : "text-black"
+                  }  border-0 outline-0`}
                 type="text"
               />
             </div>
@@ -377,14 +425,22 @@ const RootComment = ({ options, commentConnectorLine }) => {
                   setOpenCommentInput(false);
                   setComment("");
                 }}
-                className="hover:bg-gray-200 cursor-pointer rounded-xl p-1 px-2 text-xs"
+                className={`${
+                    mode ? "hover:bg-[#242424]" : "hover:bg-gray-200"
+                  } cursor-pointer rounded-xl p-1 px-2  ${
+                    mode ? "text-gray-200" : "text-white"
+                  } text-xs`}
               >
                 Cancel
               </div>
               <div
                 className={`${
                   disableReply && "pointer-events-none"
-                } hover:bg-gray-200 cursor-pointer rounded-xl p-1 px-2 text-xs`}
+                } ${
+                    mode ? "hover:bg-[#242424]" : "hover:bg-gray-200"
+                  } cursor-pointer rounded-xl p-1 px-2 text-xs ${
+                    mode ? "text-gray-200" : "text-white"
+                  }`}
               >
                 Reply
               </div>
