@@ -1,4 +1,5 @@
 // This component is used as placeholder for beta components
+// This component indicates that current componnet is in development
 
 import { useSelector } from "react-redux";
 

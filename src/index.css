@@ -473,3 +473,14 @@ html {
     transform: translate(90px, -50px);
   }
 }
+
+
+.commentConnectorLine::before{
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: -120%;
+  width: 2rem;
+  height: 0.1rem;
+  background: rgb(174, 174, 174);
+}

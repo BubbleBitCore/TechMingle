@@ -1,0 +1,3 @@
+# AppWrapper Component contain all routes 
+  🟢 if you want to create new pages add corresponding routes in this component before the widl card "*" route i.e 404 route
+

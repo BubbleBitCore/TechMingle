@@ -22,6 +22,7 @@ import ForgotPassword from "../pages/ForgotPassword";
 import Podcast from "../pages/Podcast";
 import Profile from "../pages/Profile";
 import Article from "../pages/Article";
+import Test from "../pages/Test";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -161,6 +162,7 @@ const AppWrapper = () => {
               path="/profile"
               element={<Profile Header={Header} />}
             />
+            <Route exact path="/test" element={<Test />} />
             <Route exact path="*" element={<PageNotFound />} />
           </Routes>
         </div>
