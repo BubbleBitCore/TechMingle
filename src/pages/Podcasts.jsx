@@ -43,13 +43,13 @@ const Podcasts = ({ Header }) => {
 
   // top 1 trending podcast in the week
   const trendingThisWeek = {
-    title: "Good Life project",
+    title: "Good Life project abcdefg",
     artist: "Elizabeth",
     thumbnail: img2,
     duration: 50, //in minutes
     audio: song,
   };
-
+  // popular podcast categorywise
   const popularPodcastcategory = [
     "All",
     "Exclusive",
@@ -59,7 +59,7 @@ const Podcasts = ({ Header }) => {
     "health",
     "Exclusive",
   ];
-
+// popular category
   const popularcategories = [
     {
       name: "Buisness",
@@ -97,7 +97,7 @@ const Podcasts = ({ Header }) => {
       count: 190,
     },
   ];
-
+// popular podcasters
   const popularPodcasters = [
     {
       name: "John Doe",
@@ -110,10 +110,10 @@ const Podcasts = ({ Header }) => {
       followers: 1226,
     },
   ];
-
+// popular podcasts list
   const PopularPodcasts = [
     {
-      title: "How to face big decisions 1",
+      title: "How to face big decisions 190999",
       artist: "TOM HEART 1",
       duration: " 1hr 11 min",
       thumbnail: img1,
@@ -161,7 +161,7 @@ const Podcasts = ({ Header }) => {
       category: "Music",
     },
   ];
-
+// recently played podcast
   const recentlyPlayed = [
     {
       title: "How to face big decisions",
@@ -192,7 +192,7 @@ const Podcasts = ({ Header }) => {
       audio: despacito,
     },
   ];
-
+// favourites list
   const favourites = [
     {
       title: "despacito",
@@ -230,7 +230,7 @@ const Podcasts = ({ Header }) => {
       audio: despacito,
     },
   ];
-
+// trending podcast list
   const trendingPodcasts = [
     {
       title: "How to face big decisions1",
@@ -265,7 +265,7 @@ const Podcasts = ({ Header }) => {
       category: "Teach",
     },
     {
-      title: "How to face big decisions5",
+      title: "How to face big decisions5 How to face big decisions5",
       artist: "TOM HEART",
       duration: " 1hr 20 min",
       thumbnail: img2,
@@ -273,14 +273,31 @@ const Podcasts = ({ Header }) => {
       category: "Teach",
     },
     {
-      title: "How to face big decisions6",
-      artist: "TOM HEART",
+      title: "How to face big decisions3 How to face big decisions3",
+      artist: "TOM HEART TOM HEART",
       duration: " 1hr 20 min",
       thumbnail: img3,
       audio: believer,
       category: "Teach",
     },
+    {
+      title: "How to face big decisions6 How to face big decisions6",
+      artist: "TOM HEART",
+      duration: " 1hr 20 min",
+      thumbnail: img1,
+      audio: believer,
+      category: "Teach",
+    },
   ];
+// trending podcast category list items
+const trendingPodcastCategory = [
+  "Inspiration",
+  "Drama",
+  "Culture",
+  "Teach",
+  "Crime",
+  "fashion",
+];
 
   // list to display on use selection of tab
   const [tabList, setTabList] = useState(recentlyPlayed);
@@ -294,15 +311,6 @@ const Podcasts = ({ Header }) => {
     }
   }, [selectedtab]);
 
-  const trendingPodcastCategory = [
-    "Inspiration",
-    "Drama",
-    "Culture",
-    "Teach",
-    "Crime",
-    "fashion",
-  ];
-
   // user category selection in popular podcast & trending podcast
   const [selectedPopularPodcastCategory, setSelectedPopularPodcastCategory] =
     useState(popularPodcastcategory[0]);
@@ -315,6 +323,7 @@ const Podcasts = ({ Header }) => {
   const [selectedTrendingPodcastList, setSelectedTrendingPodcastList] =
     useState(trendingPodcasts);
 
+    // Applying dark theme on audio player component
   const containerStyle = mode
     ? { backgroundColor: "black", transition: "all 0.5s ease" }
     : {};
@@ -328,19 +337,16 @@ const Podcasts = ({ Header }) => {
       } else {
         updatedIdx = arr.map((idx) => idx - 1);
       }
-
-      if (
-        JSON.stringify(list) === JSON.stringify(selectedTrendingPodcastList)
-      ) {
-        setTrendingPodcastIdx(updatedIdx);
-      } else if (
-        JSON.stringify(list) === JSON.stringify(selectedPopularPodcastList)
-      ) {
-        setPopularPodcastIdx(updatedIdx);
-      } else if (
-        JSON.stringify(list) === JSON.stringify(popularPodcastcategory)
-      ) {
-        setPopularPodcastcategoryIdx(updatedIdx);
+      switch(JSON.stringify(list)){
+        case JSON.stringify(selectedTrendingPodcastList):
+          setTrendingPodcastIdx(updatedIdx);
+          break;
+        case JSON.stringify(selectedPopularPodcastList):
+          setPopularPodcastIdx(updatedIdx);
+          break;
+        case JSON.stringify(popularPodcastcategory):
+          setPopularPodcastcategoryIdx(updatedIdx);
+          break;
       }
     }
   };
@@ -352,18 +358,16 @@ const Podcasts = ({ Header }) => {
       } else {
         updatedIdx = arr.map((idx) => idx + 1);
       }
-      if (
-        JSON.stringify(list) === JSON.stringify(selectedTrendingPodcastList)
-      ) {
-        setTrendingPodcastIdx(updatedIdx);
-      } else if (
-        JSON.stringify(list) === JSON.stringify(selectedPopularPodcastList)
-      ) {
-        setPopularPodcastIdx(updatedIdx);
-      } else if (
-        JSON.stringify(list) === JSON.stringify(popularPodcastcategory)
-      ) {
-        setPopularPodcastcategoryIdx(updatedIdx);
+      switch(JSON.stringify(list)){
+        case JSON.stringify(selectedTrendingPodcastList):
+          setTrendingPodcastIdx(updatedIdx);
+          break;
+        case JSON.stringify(selectedPopularPodcastList):
+          setPopularPodcastIdx(updatedIdx);
+          break;
+        case JSON.stringify(popularPodcastcategory):
+          setPopularPodcastcategoryIdx(updatedIdx);
+          break;
       }
     }
   };
@@ -377,7 +381,6 @@ const Podcasts = ({ Header }) => {
         (prev) => prev.category === selectedPopularPodcastCategory
       );
     }
-
     setSelectedPopularPodcastList(list);
   }, [selectedPopularPodcastCategory]);
 
@@ -416,75 +419,85 @@ const Podcasts = ({ Header }) => {
     }
   }, [selectedTrendingPodcastList]);
 
+  // truncate text
+  const truncateText = (text, maxLength) => {
+    if (text.length > maxLength) {
+      return text.substring(0, maxLength) + '...';
+    }
+    return text;
+  };
+
   return (
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 select-none ">
       <Header urlName="Podcast" />
-      <style>{`/* Audio component styles */
-.rhap_container {
-  box-shadow: 0 0 0 0 !important;
-}
-.rhap_progress-indicator {
-  background-color: white !important;
-  width: 18px !important;
-  height: 18px !important;
-  border: 4px solid rgb(48, 46, 46);
-}
-.rhap_progress-filled {
-  background-color: rgb(48, 46, 46) !important;
-}
-.rhap_time {
-  font-size: 12px !important;
-}
+      <style>{`
+        /* Audio component styles */
+        .rhap_container {
+          box-shadow: 0 0 0 0 !important;
+        }
+        .rhap_progress-indicator {
+          background-color: white !important;
+          width: 18px !important;
+          height: 18px !important;
+          border: 4px solid rgb(48, 46, 46);
+        }
+        .rhap_progress-filled {
+          background-color: rgb(48, 46, 46) !important;
+        }
+        .rhap_time {
+          font-size: 12px !important;
+        }
 
-.rhap_main-controls-button {
-  color: rgb(54, 51, 51) !important;
-  font-size: 24px !important;
-}
+        .rhap_main-controls-button {
+          color: rgb(54, 51, 51) !important;
+          font-size: 24px !important;
+        }
 
-.rhap_play-pause-button {
-  font-size: 32px !important;
-}
+        .rhap_play-pause-button {
+          font-size: 32px !important;
+        }
 
-.rhap_repeat-button {
-  font-size: 20px !important;
-  color: rgb(85, 83, 83) !important;
-}
+        .rhap_repeat-button {
+          font-size: 20px !important;
+          color: rgb(85, 83, 83) !important;
+        }
 
-.rhap_volume-button {
-  font-size: 20px !important;
-  color: rgb(85, 83, 83) !important;
-}
-.rhap_volume-button:hover {
-  color: rgb(151, 145, 145) !important;
-}
+        .rhap_volume-button {
+          font-size: 20px !important;
+          color: rgb(85, 83, 83) !important;
+        }
+        .rhap_volume-button:hover {
+          color: rgb(151, 145, 145) !important;
+        }
 
-.rhap_play-pause-button:hover {
-  color: rgb(72, 70, 70) !important;
-}
+        .rhap_play-pause-button:hover {
+          color: rgb(72, 70, 70) !important;
+        }
 
-.rhap_main-controls-button:hover {
-  color: rgb(77, 73, 73) !important;
-}
+        .rhap_main-controls-button:hover {
+          color: rgb(77, 73, 73) !important;
+        }
 
-.rhap_repeat-button:hover {
-  color: rgb(145, 138, 138) !important;
-}
-.rhap_volume-indicator {
-  background-color: white !important;
-  width: 12px !important;
-  height: 12px !important;
-  border: 3px solid rgb(48, 46, 46);
-}
+        .rhap_repeat-button:hover {
+          color: rgb(145, 138, 138) !important;
+        }
+        .rhap_volume-indicator {
+          background-color: white !important;
+          width: 12px !important;
+          height: 12px !important;
+          border: 3px solid rgb(48, 46, 46);
+        }
 
-.rhap_container .dark {
-  background-color: transparent !important;
-}
-#rhap_current-time {
-  color: gray;
-}
-.rhap_total-time {
-  color: gray !important;
-}`}</style>
+        .rhap_container .dark {
+          background-color: transparent !important;
+        }
+        #rhap_current-time {
+          color: gray;
+        }
+        .rhap_total-time {
+          color: gray !important;
+        }`}
+        </style>
       <div
         className={`flex h-full w-full sm:px-4 ${
           mode ? "bg-zinc-950" : "bg-gray-50"
@@ -492,9 +505,9 @@ const Podcasts = ({ Header }) => {
       >
         <div className="flex max-lg:h-auto  max-xl:flex-col h-full w-full 2xl:gap-12 gap-6 p-4 max-sm:p-2 max-sm:px-0 rounded-xl overflow-y-auto ">
           {/* left section */}
-          <div className="flex flex-col gap-6 w-3/4 max-xl:w-full  ">
-            {/* Trending this week div */}
+          <div className="flex flex-col gap-6 w-3/4 max-xl:w-full  ">  
             <div className="flex max-sm:flex-col sm:h-2/5 gap-6 w-full ">
+              {/* Trending this week div */}
               <div
                 className={`${
                   mode ? " bg-black" : "bg-white"
@@ -553,9 +566,9 @@ const Podcasts = ({ Header }) => {
                         ></i>
                         <div className="flex flex-col absolute bottom-2 left-2 sm:text-xs text-white">
                           <p className="font-bold text-sm">
-                            {trendingThisWeek.title}
+                            {truncateText(trendingThisWeek.title,18)}
                           </p>
-                          <p>{trendingThisWeek.artist}</p>
+                          <p>{truncateText(trendingThisWeek.artist,10)}</p>
                         </div>
                       </div>
                     </div>
@@ -594,8 +607,8 @@ const Podcasts = ({ Header }) => {
                       className={`${
                         mode
                           ? "bg-black hover:bg-zinc-900"
-                          : "bg-gray-200 hover:bg-gray-400"
-                      }  rounded-md h-6 w-6 flex items-center justify-center transition-all duration-500`}
+                          : "bg-gray-200 hover:bg-zinc-400"
+                      } ${trendingPodcastIdx.length > 2 ? "": "hidden" }  flex rounded-md h-6 w-6  items-center justify-center transition-all duration-500`}
                     >
                       <i
                         className={` ri-arrow-drop-left-line text-3xl cursor-pointer `}
@@ -611,8 +624,8 @@ const Podcasts = ({ Header }) => {
                       className={`${
                         mode
                           ? "bg-black hover:bg-zinc-900"
-                          : "bg-gray-200 hover:bg-gray-400"
-                      } rounded-md h-6 w-6 flex items-center justify-center transition-all duration-500`}
+                          : "bg-gray-200 hover:bg-zinc-400"
+                      } ${selectedTrendingPodcastList.length <3 ? "hidden" : ""} rounded-md h-6 w-6 flex items-center justify-center transition-all duration-500`}
                     >
                       <i
                         className="ri-arrow-drop-right-line text-3xl cursor-pointer"
@@ -640,7 +653,7 @@ const Podcasts = ({ Header }) => {
                         key={idx}
                       >
                         {selectedTrendingPodcastList[idx] && (
-                          <div className="flex w-full h-2/3 max-sm:h-full relative">
+                          <div className="flex w-full h-2/3 max-sm:h-full  relative">
                             <img
                               className="w-full h-full rounded-xl object-cover"
                               src={selectedTrendingPodcastList[idx].thumbnail}
@@ -686,8 +699,8 @@ const Podcasts = ({ Header }) => {
                           </div>
                         )}
                         {selectedTrendingPodcastList[idx] && (
-                          <p className="text-xs font-bold ">
-                            {selectedTrendingPodcastList[idx].title}
+                          <p className="text-xs font-bold">
+                            {truncateText(selectedTrendingPodcastList[idx].title,30)}
                           </p>
                         )}
 
@@ -697,7 +710,7 @@ const Podcasts = ({ Header }) => {
                               mode ? "text-zinc-600" : "text-gray-500"
                             } flex justify-between items-center text-xs font-bold `}
                           >
-                            <p>{selectedTrendingPodcastList[idx].artist}</p>
+                            <p>{truncateText(selectedTrendingPodcastList[idx].artist,12)}</p>
                             <span>
                               <i className="ri-time-fill"></i>
                               {selectedTrendingPodcastList[idx].duration}
@@ -707,7 +720,7 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="max-sm:hidden flex h-full w-full p-20 justify-center items-center">
+                    <div className="max-sm:hidden flex h-full w-full p-[84px] justify-center items-center">
                       <p
                         className={`${
                           mode ? "text-zinc-500" : "text-gray-500"
@@ -771,7 +784,7 @@ const Podcasts = ({ Header }) => {
                           </div>
                         )}
                         {item && (
-                          <p className="text-xs font-bold ">{item.title}</p>
+                          <p className="text-xs font-bold ">{truncateText(item.title,25)}</p>
                         )}
 
                         {item && (
@@ -780,7 +793,7 @@ const Podcasts = ({ Header }) => {
                               mode ? "text-zinc-600" : "text-gray-500"
                             } flex justify-between items-center text-xs font-bold `}
                           >
-                            <p>{item.artist}</p>
+                            <p>{truncateText(item.artist,15)}</p>
                             <span>
                               <i className="ri-time-fill"></i>
                               {item.duration}
@@ -878,7 +891,7 @@ const Podcasts = ({ Header }) => {
                               );
                             }}
                           >
-                            {popularPodcastcategory[idx]}
+                            {truncateText(popularPodcastcategory[idx],12)}
                           </p>
                         ))
                       ) : (
@@ -912,9 +925,8 @@ const Podcasts = ({ Header }) => {
                     <div
                       className={`${
                         mode
-                          ? "bg-black hover:bg-zinc-900"
-                          : "bg-gray-200 hover:bg-gray-400"
-                      } rounded-md h-6 w-6 flex items-center justify-center transition-all duration-500`}
+                          ? (selectedPopularPodcastList.length > 2 ? "bg-black hover:bg-zinc-900" :"text-transparent"):
+                           (selectedPopularPodcastList.length > 2 ? "bg-gray-200 hover:bg-gray-400" :"text-transparent")} rounded-md h-6 w-6 flex items-center  justify-center transition-all duration-500`}
                     >
                       <i
                         className="ri-arrow-drop-left-line text-3xl cursor-pointer"
@@ -929,8 +941,8 @@ const Podcasts = ({ Header }) => {
                     <div
                       className={`${
                         mode
-                          ? "bg-black hover:bg-zinc-900"
-                          : "bg-gray-200 hover:bg-gray-400"
+                          ? (selectedPopularPodcastList.length > 2 ? "bg-black hover:bg-zinc-900" :"text-transparent"):
+                           (selectedPopularPodcastList.length > 2 ? "bg-gray-200 hover:bg-gray-400" :"text-transparent")
                       } rounded-md h-6 w-6 flex items-center justify-center cursor-pointer transition-all duration-500 `}
                     >
                       <i
@@ -970,14 +982,14 @@ const Podcasts = ({ Header }) => {
                         {selectedPopularPodcastList[idx] && ( // Check if selectedPopularPodcastList[idx] is defined
                           <div className="flex flex-col pt-2 gap-2">
                             <p className="text-xs font-bold">
-                              {selectedPopularPodcastList[idx].title}
+                              {truncateText(selectedPopularPodcastList[idx].title,26)}
                             </p>
                             <p
                               className={`${
                                 mode ? "text-zinc-600" : "text-gray-400"
                               } text-xs font-bold`}
                             >
-                              {selectedPopularPodcastList[idx].artist}
+                              {truncateText(selectedPopularPodcastList[idx].artist,14)}
                             </p>
                             <div
                               className={`${
@@ -1025,7 +1037,7 @@ const Podcasts = ({ Header }) => {
                       </div>
                     ))
                   ) : (
-                    <div className="max-sm:hidden flex h-full w-full p-[38px] justify-center items-center">
+                    <div className="max-sm:hidden flex h-full w-full p-[40px] justify-center items-center">
                       <p
                         className={`${
                           mode ? "text-zinc-500" : "text-gray-500"
@@ -1169,11 +1181,11 @@ const Podcasts = ({ Header }) => {
                                   : "bg-red-500 border-red-500 text-white"
                               }  border flex items-center justify-center rounded-full p-[0.18rem] absolute mt-[-70px] mr-[-55px]`}
                             >
-                              <p className={` text-[8px]`}>
+                              <p className={` text-[8px] font-bold`}>
                                 {formatNumber(item.count)}
                               </p>
                             </div>
-                            <p className="text-xs font-bold">{item.name}</p>
+                            <p className="text-xs font-bold">{truncateText(item.name,10)}</p>
                             {/* <p
                               className={`${
                                 mode ? "text-zinc-700" : "text-gray-400"
@@ -1306,7 +1318,7 @@ const Podcasts = ({ Header }) => {
                                 alt={`${item.name}'s profile`}
                               />
                             </div>
-                            <p className="text-xs font-bold">{item.name}</p>
+                            <p className="text-xs font-bold">{truncateText(item.name,14)}</p>
                           </div>
                           <div>
                             <p
@@ -1314,7 +1326,7 @@ const Podcasts = ({ Header }) => {
                                 mode ? "text-zinc-600" : "text-gray-400"
                               } text-xs font-bold transition-all duration-500`}
                             >
-                              {item.followers} followers
+                              {formatNumber(item.followers)} followers
                             </p>
                           </div>
                         </div>
@@ -1368,8 +1380,8 @@ const Podcasts = ({ Header }) => {
                     ></img>
                   </div>
                   <div className="flex flex-col w-full h-full max-sm:justify-between sm:justify-center sm:items-center">
-                    <p className="text-md font-bold">{nowPlaying.title}</p>
-                    <p className="text-sm">{nowPlaying.artist}</p>
+                    <p className="text-sm font-bold">{truncateText(nowPlaying.title,24)}</p>
+                    <p className="text-sm">{truncateText(nowPlaying.artist,22)}</p>
                   </div>
                 </div>
 
@@ -1482,13 +1494,13 @@ const Podcasts = ({ Header }) => {
                             alt="thumbnail"
                           />
                           <div className="flex flex-col text-xs w-full max-sm:gap-1">
-                            <p className="capitalize">{item.title}</p>
+                            <p className="capitalize">{truncateText(item.title,25)}</p>
                             <div
                               className={`${
                                 mode ? "text-zinc-600" : "text-gray-400"
                               } flex justify-between`}
                             >
-                              <p>{item.artist}</p>
+                              <p>{truncateText(item.artist,12)}</p>
                               <p>{item.duration}</p>
                             </div>
                           </div>
@@ -1513,13 +1525,13 @@ const Podcasts = ({ Header }) => {
                             alt="thumbnail"
                           />
                           <div className="flex flex-col text-xs w-full max-sm:gap-1">
-                            <p className="capitalize">{item.title}</p>
+                            <p className="capitalize">{truncateText(item.title,25)}</p>
                             <div
                               className={`${
                                 mode ? "text-zinc-600" : "text-gray-400"
                               } flex justify-between`}
                             >
-                              <p>{item.artist}</p>
+                              <p>{truncateText(item.artist,12)}</p>
                               <p>{item.duration}</p>
                             </div>
                           </div>
