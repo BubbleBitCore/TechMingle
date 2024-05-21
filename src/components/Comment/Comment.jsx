@@ -134,6 +134,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
   const [showReplies, setShowReplies] = useState(false);
   const [showEdit, setShowEdit] = useState(false);
   const [disableEditBtn, setDisableEditBtn] = useState(true);
+  const [editCommentTextCopy,setEditCommentTextCopy] = useState("Sasuke Uchiha");
   const [editCommentText, setEditCommentText] = useState("Sasuke Uchiha");
   const editTextareaRef = useRef(null);
   const dispatch = useDispatch();
@@ -376,6 +377,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
                 <div
                   onClick={() => {
                     setShowEdit(false);
+                    setEditCommentText(editCommentTextCopy);
                   }}
                   className={`${
                     mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
@@ -388,6 +390,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
                 <div
                   onClick={() => {
                     setEditCommentText(prev=>prev.trim());
+                    setEditCommentTextCopy ( editCommentText);
                     setShowEdit(false);
                   }}
                   className={`${disableEditBtn && "pointer-events-none"} ${
