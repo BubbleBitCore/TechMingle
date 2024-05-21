@@ -4,31 +4,13 @@ import img from "../../assets/images/img1.jpg";
 import ClickMenu from "../ClickMenu";
 import { v4 as uuidv4 } from "uuid";
 import { useSelector } from "react-redux";
+import { changeSnackBarState } from "../../slices/commonSlice";
+import { useDispatch } from "react-redux";
 
 const Comment = () => {
   // Mode is handled here
   const mode = useSelector((state) => state.common.mode);
 
-  const moreOptionsList = [
-    {
-      value: "Edit",
-      icon: "ri-pencil-line",
-      classes: "text-xs",
-      function: () => {},
-    },
-    {
-      value: "Delete",
-      icon: "ri-delete-bin-2-line",
-      classes: "text-xs",
-      function: () => {},
-    },
-    {
-      value: "Flag",
-      icon: "ri-flag-line",
-      classes: "text-xs",
-      function: () => {},
-    },
-  ];
   const textareaRef = useRef(null);
   let openMenus = [];
 
@@ -119,12 +101,11 @@ const Comment = () => {
         {true ? (
           new Array(4).fill(0).map((_, id) => {
             const comp_id = uuidv4();
-            const commentConnectorLine = ""; 
-            const padd = "px-2"; 
+            const commentConnectorLine = "";
+            const padd = "px-2";
             return (
               <RootComment
                 options={{
-                  moreOptionsList,
                   openMenus,
                   setOpenMenus,
                   comp_id,
@@ -142,7 +123,7 @@ const Comment = () => {
   );
 };
 
-const RootComment = ({ options, commentConnectorLine,padd }) => {
+const RootComment = ({ options, commentConnectorLine, padd }) => {
   // Mode is handled here
   const mode = useSelector((state) => state.common.mode);
   const [moreOptionsVisibility, setMoreOptionsVisibility] = useState(false);
@@ -151,6 +132,11 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
   const [dislikeStatus, setDisLikeStatus] = useState(false);
   const [disableReply, setDisableReply] = useState(true);
   const [showReplies, setShowReplies] = useState(false);
+  const [showEdit, setShowEdit] = useState(false);
+  const [disableEditBtn, setDisableEditBtn] = useState(true);
+  const [editCommentText, setEditCommentText] = useState("Sasuke Uchiha");
+  const editTextareaRef = useRef(null);
+  const dispatch = useDispatch();
   const like = () => {
     if (likeStatus) {
       setLikeStatus(false);
@@ -168,9 +154,52 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
     }
   };
 
+  const moreOptionsList = [
+    {
+      value: "Edit",
+      icon: "ri-pencil-line",
+      classes: "text-xs",
+      function: () => {
+        setShowEdit(true);
+        setMoreOptionsVisibility(false);
+      },
+    },
+    {
+      value: "Delete",
+      icon: "ri-delete-bin-2-line",
+      classes: "text-xs",
+      function: () => {
+        deleteComment(comp_id);
+        setMoreOptionsVisibility(false);
+        dispatch(
+          changeSnackBarState({
+            message: "Comment Deleted",
+            icon: "ri-chat-delete-line",
+            visible: true,
+          })
+        );
+      },
+    },
+    {
+      value: "Flag",
+      icon: "ri-flag-line",
+      classes: "text-xs",
+      function: () => {
+        setMoreOptionsVisibility(false);
+        dispatch(
+          changeSnackBarState({
+            message: "Feature currently in beta",
+            icon: "ri-flask-line",
+            visible: true,
+          })
+        );
+      },
+    },
+  ];
+
   const [comment, setComment] = useState("");
   const textareaRef = useRef(null);
-  const { moreOptionsList, openMenus, setOpenMenus, comp_id } = options;
+  const { openMenus, setOpenMenus, comp_id } = options;
 
   // Handling Auto Height of textarea comment input
   useEffect(() => {
@@ -207,6 +236,11 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
         </div>
       </>
     );
+  };
+
+  const deleteComment = (commentId) => {
+    // delete logic goes here
+    console.log(commentId);
   };
   return (
     <>
@@ -247,7 +281,7 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
               } transition-all`}
             ></span>
             <i
-            title="show replies"
+              title="show replies"
               className={`ri-${showReplies ? "close" : "add"}-circle-line ${
                 mode
                   ? "text-gray-400 hover:text-white"
@@ -302,13 +336,70 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
             </div>
           </div>
           {/* comment */}
-          <div
-            className={`${
-              mode ? "text-gray-300" : "text-black"
-            } transition-all`}
-          >
-            Hello Guys
-          </div>
+          {!showEdit ? (
+            <div
+              className={`${
+                mode ? "text-gray-300" : "text-black"
+              } transition-all`}
+            >
+              {editCommentText}
+            </div>
+          ) : (
+            <div className={`w-full py-2 flex-col gap-2 flex`}>
+              <textarea
+                name="edit"
+                value={editCommentText}
+                placeholder={"Write Something..."}
+                onChange={(e) => {
+                  setEditCommentText(e.target.value.trim());
+                  const textarea = editTextareaRef.current;
+                  if (textarea) {
+                    textarea.style.height = "auto"; // Reset the height
+                    textarea.style.height = `${textarea.scrollHeight}px`; // Set the height based on scrollHeight
+                  }
+                  if (e.target.value.trim().length != 0) {
+                    setDisableEditBtn(false);
+                  } else {
+                    setDisableEditBtn(true);
+                  }
+                }}
+                ref={editTextareaRef}
+                rows={1}
+                className={`commentTextArea pb-1 w-full   border-b-2 ${
+                  mode ? "border-gray-500" : "border-gray-500"
+                } bg-transparent  transition-all ${
+                  mode ? "text-gray-300" : "text-black"
+                } border-0 outline-0`}
+                type="text"
+              />
+              <div className="flex gap-1 justify-end items-center ">
+                <div
+                  onClick={() => {
+                    setShowEdit(false);
+                  }}
+                  className={`${
+                    mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
+                  } cursor-pointer rounded-xl p-1 px-2 text-sm ${
+                    mode ? "text-gray-200" : "text-black"
+                  }`}
+                >
+                  Cancel
+                </div>
+                <div
+                  onClick={() => {
+                    setShowEdit(false);
+                  }}
+                  className={`${disableEditBtn && "pointer-events-none"} ${
+                    mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
+                  } cursor-pointer rounded-xl p-1 px-2 text-sm ${
+                    mode ? "text-gray-200" : "text-black"
+                  }`}
+                >
+                  Edit
+                </div>
+              </div>
+            </div>
+          )}
 
           {/* Comment Action */}
           <div className="flex gap-1 text-sm">
@@ -331,7 +422,7 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
             </div>
             {/* dislike */}
             <div
-            title="dislike"
+              title="dislike"
               onClick={dislike}
               className={`flex justify-center items-center gap-1 ${
                 mode
@@ -417,10 +508,10 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
                 ref={textareaRef}
                 rows={1}
                 className={`commentTextArea pb-1 w-full  border-b-2 ${
-                    mode ? "border-gray-500" : "border-gray-500"
-                  } bg-transparent  transition-all ${
-                    mode ? "text-gray-300" : "text-black"
-                  }  border-0 outline-0`}
+                  mode ? "border-gray-500" : "border-gray-500"
+                } bg-transparent  transition-all ${
+                  mode ? "text-gray-300" : "text-black"
+                }  border-0 outline-0`}
                 type="text"
               />
             </div>
@@ -431,21 +522,19 @@ const RootComment = ({ options, commentConnectorLine,padd }) => {
                   setComment("");
                 }}
                 className={`${
-                    mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-                  } cursor-pointer rounded-xl p-1 px-2  ${
-                    mode ? "text-gray-200" : "text-white"
-                  } text-xs`}
+                  mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
+                } cursor-pointer rounded-xl p-1 px-2  ${
+                  mode ? "text-gray-200" : "text-white"
+                } text-xs`}
               >
                 Cancel
               </div>
               <div
-                className={`${
-                  disableReply && "pointer-events-none"
-                } ${
-                    mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-                  } cursor-pointer rounded-xl p-1 px-2 text-xs ${
-                    mode ? "text-gray-200" : "text-white"
-                  }`}
+                className={`${disableReply && "pointer-events-none"} ${
+                  mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
+                } cursor-pointer rounded-xl p-1 px-2 text-xs ${
+                  mode ? "text-gray-200" : "text-white"
+                }`}
               >
                 Reply
               </div>
