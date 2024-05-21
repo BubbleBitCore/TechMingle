@@ -41,7 +41,7 @@ const Comment = () => {
   return (
     <>
       <div
-        className="comment w-full flex flex-col "
+        className="comment w-full flex flex-col px-2"
         onClick={() => {
           openMenus.forEach((element) => {
             element[Object.keys(element)[0]].setMoreOptionsVisibility(false);
@@ -57,7 +57,7 @@ const Comment = () => {
         </div>
         {/* Add Comment input */}
 
-        <div className={`w-full p-2 flex-col gap-2 flex`}>
+        <div className={`w-full py-2 flex-col gap-2 flex`}>
           {/* avtar */}
           <div className="flex gap-2 justify-center items-start">
             <div className="commentAvtar overflow-hidden rounded-full w-7 h-7 cursor-pointer flex-shrink-0">
@@ -98,18 +98,18 @@ const Comment = () => {
                 }
               }}
               className={`${
-                mode ? "hover:bg-[#242424]" : "hover:bg-gray-200"
+                mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
               } cursor-pointer rounded-xl p-1 px-2 text-sm ${
-                mode ? "text-gray-200" : "text-white"
+                mode ? "text-gray-200" : "text-black"
               }`}
             >
               Clear
             </div>
             <div
               className={`${disableComment && "pointer-events-none"} ${
-                mode ? "hover:bg-[#242424]" : "hover:bg-gray-200"
+                mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
               } cursor-pointer rounded-xl p-1 px-2 text-sm ${
-                mode ? "text-gray-200" : "text-white"
+                mode ? "text-gray-200" : "text-black"
               }`}
             >
               Comment
@@ -119,7 +119,8 @@ const Comment = () => {
         {true ? (
           new Array(4).fill(0).map((_, id) => {
             const comp_id = uuidv4();
-            const commentConnectorLine = "";
+            const commentConnectorLine = ""; 
+            const padd = "px-2"; 
             return (
               <RootComment
                 options={{
@@ -141,7 +142,7 @@ const Comment = () => {
   );
 };
 
-const RootComment = ({ options, commentConnectorLine }) => {
+const RootComment = ({ options, commentConnectorLine,padd }) => {
   // Mode is handled here
   const mode = useSelector((state) => state.common.mode);
   const [moreOptionsVisibility, setMoreOptionsVisibility] = useState(false);
@@ -199,6 +200,7 @@ const RootComment = ({ options, commentConnectorLine }) => {
             <RootComment
               options={{ ...options, comp_id }}
               commentConnectorLine={"commentConnectorLine"}
+              padd={""}
               key={comp_id}
             />
           </div>
@@ -215,7 +217,7 @@ const RootComment = ({ options, commentConnectorLine }) => {
         }`}
       </style>
       <div
-        className="rootComments flex gap-3 w-full my-2  p-2 "
+        className={`rootComments flex gap-3 w-full my-2  ${padd} `}
         onClick={(e) => {
           e.preventDefault();
         }}
@@ -229,11 +231,11 @@ const RootComment = ({ options, commentConnectorLine }) => {
         >
           {/* avtar */}
           <div
-            className={`commentAvtar ${commentConnectorLine} relative  rounded-full w-7 h-7 cursor-pointer flex-shrink-0`}
+            className={`commentAvtar z-10 ${commentConnectorLine} relative  rounded-full w-7 h-7 cursor-pointer flex-shrink-0`}
           >
             <img
               src={img}
-              className="w-full h-full rounded-full object-cover"
+              className="w-full z-10 relative h-full rounded-full object-cover"
               alt=""
             />
           </div>
@@ -245,6 +247,7 @@ const RootComment = ({ options, commentConnectorLine }) => {
               } transition-all`}
             ></span>
             <i
+            title="show replies"
               className={`ri-${showReplies ? "close" : "add"}-circle-line ${
                 mode
                   ? "text-gray-400 hover:text-white"
@@ -312,6 +315,7 @@ const RootComment = ({ options, commentConnectorLine }) => {
             {/* like */}
             <div
               onClick={like}
+              title="like"
               className={`flex justify-center items-center gap-1 ${
                 mode
                   ? "text-gray-300 hover:bg-[#242424] "
@@ -327,6 +331,7 @@ const RootComment = ({ options, commentConnectorLine }) => {
             </div>
             {/* dislike */}
             <div
+            title="dislike"
               onClick={dislike}
               className={`flex justify-center items-center gap-1 ${
                 mode
@@ -426,7 +431,7 @@ const RootComment = ({ options, commentConnectorLine }) => {
                   setComment("");
                 }}
                 className={`${
-                    mode ? "hover:bg-[#242424]" : "hover:bg-gray-200"
+                    mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
                   } cursor-pointer rounded-xl p-1 px-2  ${
                     mode ? "text-gray-200" : "text-white"
                   } text-xs`}
@@ -437,7 +442,7 @@ const RootComment = ({ options, commentConnectorLine }) => {
                 className={`${
                   disableReply && "pointer-events-none"
                 } ${
-                    mode ? "hover:bg-[#242424]" : "hover:bg-gray-200"
+                    mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
                   } cursor-pointer rounded-xl p-1 px-2 text-xs ${
                     mode ? "text-gray-200" : "text-white"
                   }`}
