@@ -31,7 +31,7 @@ const PodcastPlayer = ({
 
   useEffect(() => {
     if (player.current && Math.abs(player.current.audio.current.currentTime - playbackState.currentTime) > 0.1) {
-      player.current.audio.current.currentTime = playbackState.currentTime;
+      player.current.audio.current.currentTime = playbackState.currentTime +1;
     }
   }, [playbackState.currentTime, player]);
 
