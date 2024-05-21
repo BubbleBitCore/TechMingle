@@ -1,5 +1,7 @@
+import { useEffect } from "react";
 import AudioPlayer from "react-h5-audio-player";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { setPlaybackState } from "../../slices/podcastSlice";
 
 const PodcastPlayer = ({
   containerStyle ={},
@@ -9,7 +11,30 @@ const PodcastPlayer = ({
   autoPlay
 }) => {
   
+  const dispatch = useDispatch();
   const nowPlaying = useSelector((state) => state.podcast.nowPlaying);
+  const playbackState = useSelector((state) => state.podcast.playbackState);
+
+  const handlePlay = () => {
+    setPlayerPaused(false);
+    dispatch(setPlaybackState({ isPlaying: true }));
+  };
+
+  const handlePause = () => {
+    setPlayerPaused(true);
+    dispatch(setPlaybackState({ isPlaying: false }));
+  };
+
+  const handleListen = (e) => {
+    dispatch(setPlaybackState({ currentTime: e.target.currentTime }));
+  };
+
+  useEffect(() => {
+    if (player.current) {
+      player.current.audio.current.currentTime = playbackState.currentTime;
+    }
+  }, [playbackState.currentTime, player]);
+
   return (
     <>
       <AudioPlayer
@@ -17,14 +42,11 @@ const PodcastPlayer = ({
         className={"shadow-none transition-all duration-500"}
         style={containerStyle}
         ref={player}
-        onPlay={() => {
-          setPlayerPaused(false);
-        }}
-        onPause={() => {
-          setPlayerPaused(true);
-        }}
+        onPlay={handlePlay}
+        onPause={handlePause}
+        onListen={handleListen}
         showSkipControls={showSkipControls}
-        {...(autoPlay && { autoPlay })}
+        autoPlay
       />
     </>
   );
