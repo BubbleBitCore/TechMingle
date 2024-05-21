@@ -266,7 +266,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
         >
           {/* avtar */}
           <div
-            className={`commentAvtar z-10 ${commentConnectorLine} relative  rounded-full w-7 h-7 cursor-pointer flex-shrink-0`}
+            className={`commentAvtar ${mode?"borderColorDark":"borderColorLight"} z-10 ${commentConnectorLine} relative  rounded-full w-7 h-7 cursor-pointer flex-shrink-0`}
           >
             <img
               src={img}
