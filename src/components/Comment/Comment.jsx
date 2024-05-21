@@ -351,7 +351,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
                 value={editCommentText}
                 placeholder={"Write Something..."}
                 onChange={(e) => {
-                  setEditCommentText(e.target.value.trim());
+                  setEditCommentText(e.target.value);
                   const textarea = editTextareaRef.current;
                   if (textarea) {
                     textarea.style.height = "auto"; // Reset the height
@@ -387,6 +387,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
                 </div>
                 <div
                   onClick={() => {
+                    setEditCommentText(prev=>prev.trim());
                     setShowEdit(false);
                   }}
                   className={`${disableEditBtn && "pointer-events-none"} ${
