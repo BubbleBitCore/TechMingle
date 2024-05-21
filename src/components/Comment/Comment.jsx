@@ -81,7 +81,7 @@ const Comment = () => {
               }}
               className={`${
                 mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-              } cursor-pointer rounded-xl p-1 px-2 text-sm ${
+              } cursor-pointer rounded-xl p-1 px-3 text-sm ${
                 mode ? "text-gray-200" : "text-black"
               }`}
             >
@@ -90,7 +90,7 @@ const Comment = () => {
             <div
               className={`${disableComment && "pointer-events-none"} ${
                 mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-              } cursor-pointer rounded-xl p-1 px-2 text-sm ${
+              } cursor-pointer rounded-xl p-1 px-3 text-sm ${
                 mode ? "text-gray-200" : "text-black"
               }`}
             >
@@ -266,7 +266,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
         >
           {/* avtar */}
           <div
-            className={`commentAvtar ${mode?"borderColorDark":"borderColorLight"} z-10 ${commentConnectorLine} relative  rounded-full w-7 h-7 cursor-pointer flex-shrink-0`}
+            className={`commentAvtar ${mode?"borderColorDark bg-[#6B7280]":"borderColorLight bg-[#D1D5DB]"} z-10 ${commentConnectorLine} relative  rounded-full w-7 h-7 cursor-pointer flex-shrink-0`}
           >
             <img
               src={img}
@@ -380,8 +380,8 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
                     setEditCommentText(editCommentTextCopy);
                   }}
                   className={`${
-                    mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-                  } cursor-pointer rounded-xl p-1 px-2 text-sm ${
+                    mode ? "hover:bg-[#242424]" : "hover:bg-[rgb(243,244,246)]"
+                  } cursor-pointer rounded-xl p-1 px-3 text-sm ${
                     mode ? "text-gray-200" : "text-black"
                   }`}
                 >
@@ -395,7 +395,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
                   }}
                   className={`${disableEditBtn && "pointer-events-none"} ${
                     mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-                  } cursor-pointer rounded-xl p-1 px-2 text-sm ${
+                  } cursor-pointer rounded-xl p-1 px-3 text-sm ${
                     mode ? "text-gray-200" : "text-black"
                   }`}
                 >
@@ -527,8 +527,8 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
                 }}
                 className={`${
                   mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-                } cursor-pointer rounded-xl p-1 px-2  ${
-                  mode ? "text-gray-200" : "text-white"
+                } cursor-pointer rounded-xl p-1 px-3  ${
+                  mode ? "text-gray-200" : "text-black"
                 } text-xs`}
               >
                 Cancel
@@ -536,8 +536,8 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
               <div
                 className={`${disableReply && "pointer-events-none"} ${
                   mode ? "hover:bg-[#242424]" : "hover:bg-[#F3F4F6]"
-                } cursor-pointer rounded-xl p-1 px-2 text-xs ${
-                  mode ? "text-gray-200" : "text-white"
+                } cursor-pointer rounded-xl p-1 px-3 text-xs ${
+                  mode ? "text-gray-200" : "text-black"
                 }`}
               >
                 Reply
