@@ -13,14 +13,17 @@ import { useState, useRef } from "react";
 import { formatNumber } from "../utils/conversion";
 import { changeSnackBarState } from "../slices/commonSlice";
 import SnackBar from "../components/SnackBar";
+import PodcastPlayer from "../components/Podcast/PodcastPlayer";
+import { setNowPlaying } from "../slices/podcastSlice";
 
 const Podcast = () => {
   // variables to control functions of audio player
   const player = useRef();
-  const disptach = useDispatch();
+  const dispatch = useDispatch();
   let [playerPaused, setPlayerPaused] = useState(false);
   // to show lyrics
   let [showLyrics, setShowLyrics] = useState(false);
+  const nowPlaying = useSelector((state) => state.podcast.nowPlaying);
   const recommendations = [
     {
       title: "How to face big decisions 1",
@@ -185,31 +188,32 @@ const Podcast = () => {
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.",
     },
   ];
-  const [nowPlaying, setNowPlaying] = useState({
-    title: "How to face big decisions 1",
-    artist: "TOM HEART 1",
-    duration: " 1hr 11 min",
-    thumbnail: img1,
-    audio: despacito,
-    category: "Exclusive",
-    views: 787866,
-    likes: 9882198,
-    type: "playlist",
-    tags: [
-      "business",
-      "knowledge",
-      "experience",
-      "business",
-      "knowledge",
-      "experience",
-      "business",
-      "business",
-    ],
-    about:
-      "Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita. Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.",
-    lyrics:
-      "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.",
-  });
+
+  // const [nowPlaying, setNowPlaying] = useState({
+  //   title: "How to face big decisions 1",
+  //   artist: "TOM HEART 1",
+  //   duration: " 1hr 11 min",
+  //   thumbnail: img1,
+  //   audio: despacito,
+  //   category: "Exclusive",
+  //   views: 787866,
+  //   likes: 9882198,
+  //   type: "playlist",
+  //   tags: [
+  //     "business",
+  //     "knowledge",
+  //     "experience",
+  //     "business",
+  //     "knowledge",
+  //     "experience",
+  //     "business",
+  //     "business",
+  //   ],
+  //   about:
+  //     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita. Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.",
+  //   lyrics:
+  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.",
+  // });
 
   const topRecommended = {
     title: "How to face big decisions 1",
@@ -247,7 +251,7 @@ const Podcast = () => {
   const handleShare = () => {
     const url = window.location.href;
     navigator.clipboard.writeText(url);
-    disptach(
+    dispatch(
       changeSnackBarState({
         message: "Copied to clipboard",
         icon: "ri-clipboard-line text-blue-500",
@@ -473,10 +477,14 @@ const Podcast = () => {
                   <div
                     className={` sm:hidden flex flex-col gap-2 justify-center items-center w-[90%] transition-all duration-500`}
                   >
-                    <p className={` whitespace-nowrap animate-scrollText text-md text-${textColor}`}>
+                    <p
+                      className={` whitespace-nowrap animate-scrollText text-md text-${textColor}`}
+                    >
                       {nowPlaying.title}
                     </p>
-                    <p className={`text-sm text-${textColor}`}>{nowPlaying.artist}</p>
+                    <p className={`text-sm text-${textColor}`}>
+                      {nowPlaying.artist}
+                    </p>
                   </div>
                 </div>
               )}
@@ -485,7 +493,9 @@ const Podcast = () => {
                   className="flex justify-center mt-5 max-sm:mt-0 max-sm:pt-10 sm:h-[65%] max-sm:h-[80%] p-1 sm:rounded-xl w-full max-sm:px-8 items-center relative z-30 transition-all duration-100  overflow-hidden overflow-y-auto cursor-pointer "
                   onClick={() => setShowLyrics(!showLyrics)}
                 >
-                  <p className={`h-full w-full sm:w-[50%] max-sm:text-sm   text-center text-${textColor}`}>
+                  <p
+                    className={`h-full w-full sm:w-[50%] max-sm:text-sm   text-center text-${textColor}`}
+                  >
                     {nowPlaying.lyrics}
                   </p>
                 </div>
@@ -493,7 +503,14 @@ const Podcast = () => {
               {/* adding a audio player component from react-h5-audio-player */}
               <div className="flex sm:absolute sm:bottom-3 w-full sm:px-3 relative z-[100] transition-all duration-500">
                 <div className="flex max-sm:flex-col w-full sm:backdrop-blur-3xl items-center rounded-md sm:shadow-lg max-sm:fixed max-sm:bottom-4">
-                  <AudioPlayer
+                  <PodcastPlayer
+                    player={player}
+                    setPlayerPaused={setPlayerPaused}
+                    showSkipControls={true}
+                    autoPlay
+                  />
+
+                  {/* <AudioPlayer
                     autoPlay
                     src={nowPlaying.audio}
                     onPlay={() => {
@@ -504,7 +521,7 @@ const Podcast = () => {
                     }}
                     showSkipControls={true}
                     ref={player}
-                  />
+                  /> */}
                 </div>
               </div>
               <img
@@ -716,7 +733,7 @@ const Podcast = () => {
                                         setPlayerPaused(true);
                                       }
                                     } else {
-                                      setNowPlaying(item);
+                                      dispatch(setNowPlaying(item));
                                       player.current.audio.current.play();
                                       setPlayerPaused(false);
                                     }
@@ -776,7 +793,7 @@ const Podcast = () => {
                                             setPlayerPaused(true);
                                           }
                                         } else {
-                                          setNowPlaying(item);
+                                          dispatch(setNowPlaying(item));
                                           player.current.audio.current.play();
                                           setPlayerPaused(false);
                                         }
@@ -827,8 +844,7 @@ const Podcast = () => {
                 alt=""
                 onClick={() => {
                   if (
-                    JSON.stringify(nowPlaying) ==
-                    JSON.stringify(topRecommended)
+                    JSON.stringify(nowPlaying) == JSON.stringify(topRecommended)
                   ) {
                     if (playerPaused) {
                       player.current.audio.current.play();
@@ -838,7 +854,7 @@ const Podcast = () => {
                       setPlayerPaused(true);
                     }
                   } else {
-                    setNowPlaying(topRecommended);
+                    dispatch(setNowPlaying(topRecommended));
                     player.current.audio.current.play();
                     setPlayerPaused(false);
                   }
@@ -894,7 +910,7 @@ const Podcast = () => {
                           setPlayerPaused(true);
                         }
                       } else {
-                        setNowPlaying(topRecommended);
+                        dispatch(setNowPlaying(topRecommended));
                         player.current.audio.current.play();
                         setPlayerPaused(false);
                       }
@@ -910,11 +926,6 @@ const Podcast = () => {
                 <p className={`${mode ? "text-zinc-300" : ""}`}>
                   Recommendations
                 </p>
-                <i
-                  className={`${
-                    mode ? "text-zinc-300" : ""
-                  } ri-more-fill cursor-pointer transition-all duration-500`}
-                ></i>
               </div>
               <hr
                 className={`${
@@ -951,7 +962,7 @@ const Podcast = () => {
                     } flex w-full p-2 gap-4    rounded-md group cursor-pointer transition-all duration-500`}
                     key={idx}
                     onClick={() => {
-                      setNowPlaying(item);
+                      dispatch(setNowPlaying(item));
                       player.current.audio.current.play();
                     }}
                   >
