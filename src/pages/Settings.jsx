@@ -5,6 +5,7 @@ import { formatDate } from "../utils/conversion";
 import BetaTest from "../components/BetaTest";
 import { useSearchParams } from "react-router-dom";
 import { setOpenEditor, setTempProfileImage } from "../slices/commonSlice";
+import { useState } from "react";
 // Account tab
 const Account = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -15,6 +16,8 @@ const Account = () => {
   const password = "naruto@gmail.com";
   const bio =
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+
+  const [accountVisibility, setAccountVisibility] = useState(1); // 1 for public 0 for private
 
   return (
     <>
@@ -57,6 +60,81 @@ const Account = () => {
         {/*Photo Editor overide Styles */ }
         .rp-editor{
           z-index:30 !important;
+        }
+        .toggle-container {
+          --inactive-color: #1868e3;
+          position: relative;
+          aspect-ratio: 292/142;
+          height: 1.875em;
+          --active-color: #35c759;
+          
+        }
+        .toggle-input {
+          appearance: none;
+          margin: 0;
+          position: absolute;
+          z-index: 1;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100%;
+          cursor: pointer;
+        }
+        
+        .toggle {
+          width: 100%;
+          height: 100%;
+          overflow: visible;
+        }
+        
+        .toggle-background {
+          fill: var(--inactive-color);
+          transition: fill 0.4s;
+        }
+        .toggle-input:checked + .toggle .toggle-background {
+          fill: var(--active-color);
+        }
+        
+        .toggle-circle-center {
+          transform-origin: center;
+          transition: transform 0.6s;
+        }
+        .toggle-input:checked + .toggle .toggle-circle-center {
+          transform: translateX(150px);
+        }
+        
+        .toggle-circle {
+          transform-origin: center;
+          backface-visibility: hidden;
+          transition: transform 0.45s;
+        }
+        .toggle-circle.left {
+          transform: scale(1);
+        }
+        .toggle-input:checked + .toggle .toggle-circle.left {
+          transform: scale(0);
+        }
+        .toggle-circle.right {
+          transform: scale(0);
+        }
+        .toggle-input:checked + .toggle .toggle-circle.right {
+          transform: scale(1);
+        }
+        
+        .toggle-icon {
+          transition: fill 0.4s;
+        }
+        .toggle-icon.on {
+          fill: var(--inactive-color);
+        }
+        .toggle-input:checked + .toggle .toggle-icon.on {
+          fill: #fff;
+        }
+        .toggle-icon.off {
+          fill: #eaeaec;
+        }
+        .toggle-input:checked + .toggle .toggle-icon.off {
+          fill: var(--active-color);
         }
         `}
       </style>
@@ -256,7 +334,7 @@ const Account = () => {
           {/* Action buttons */}
           <div className="flex gap-5 mt-1 max-sm:w-full">
             <button
-              className={`text-smmax-sm:flex-1  p-2 px-4 hover:opacity-75 transition-all border-2 border-gray-300 rounded-md ${
+              className={`text-sm max-sm:flex-1  p-2 px-4 hover:opacity-75 transition-all border-2 border-gray-300 rounded-md ${
                 mode ? "text-gray-200" : "text-black"
               } duration-500`}
             >
@@ -271,6 +349,115 @@ const Account = () => {
               mode ? "border-[#1d1d1d]" : "border-gray-200"
             } duration-500`}
           />
+          {/* Change Visibility */}
+          <div className={`flex flex-col gap-2 justify-center mb-5`}>
+            <p
+              className={`select-none text-lg font-bold mb-1 ${
+                mode ? "text-white" : "text-black"
+              } duration-500`}
+            >
+              Account Visibility
+            </p>
+            {accountVisibility === 1 ? (
+              <p
+                className={`text-xs ${
+                  mode ? "text-gray-400" : "text-gray-600 "
+                }  transition-all duration-500`}
+              >
+                Public,Everyone can see your posts and profile information.
+              </p>
+            ) : (
+              <p
+                className={`text-xs ${
+                  mode ? "text-gray-400" : "text-gray-600 "
+                } transition-all duration-500`}
+              >
+                Private,Only approved followers can see your posts and other
+                information.
+              </p>
+            )}
+            <div className="">
+              <div className="toggle-container">
+                <input
+                  checked={accountVisibility === 1}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setAccountVisibility(1);
+                    } else {
+                      setAccountVisibility(0);
+                    }
+                  }}
+                  className="toggle-input"
+                  type="checkbox"
+                />
+                <svg
+                  className="toggle"
+                  viewBox="0 0 292 142"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    className="toggle-background"
+                    d="M71 142C31.7878 142 0 110.212 0 71C0 31.7878 31.7878 0 71 0C110.212 0 119 30 146 30C173 30 182 0 221 0C260 0 292 31.7878 292 71C292 110.212 260.212 142 221 142C181.788 142 173 112 146 112C119 112 110.212 142 71 142Z"
+                  />
+                  <rect
+                    className="toggle-icon on"
+                    x="64"
+                    y="39"
+                    width="12"
+                    height="64"
+                    rx="6"
+                  />
+                  <path
+                    className="toggle-icon off"
+                    fillRule="evenodd"
+                    d="M221 91C232.046 91 241 82.0457 241 71C241 59.9543 232.046 51 221 51C209.954 51 201 59.9543 201 71C201 82.0457 209.954 91 221 91ZM221 103C238.673 103 253 88.6731 253 71C253 53.3269 238.673 39 221 39C203.327 39 189 53.3269 189 71C189 88.6731 203.327 103 221 103Z"
+                  />
+                  <g filter="url('#goo')">
+                    <rect
+                      className="toggle-circle-center"
+                      x="13"
+                      y="42"
+                      width="116"
+                      height="58"
+                      rx="29"
+                      fill="#fff"
+                    />
+                    <rect
+                      className="toggle-circle left"
+                      x="14"
+                      y="14"
+                      width="114"
+                      height="114"
+                      rx="58"
+                      fill="#fff"
+                    />
+                    <rect
+                      className="toggle-circle right"
+                      x="164"
+                      y="14"
+                      width="114"
+                      height="114"
+                      rx="58"
+                      fill="#fff"
+                    />
+                  </g>
+                  <filter id="goo">
+                    <feGaussianBlur
+                      in="SourceGraphic"
+                      result="blur"
+                      stdDeviation="10"
+                    />
+                    <feColorMatrix
+                      in="blur"
+                      mode="matrix"
+                      values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 18 -7"
+                      result="goo"
+                    />
+                  </filter>
+                </svg>
+              </div>
+            </div>
+          </div>
           {/* Delete Account */}
           <div className="w-full">
             <p
@@ -405,24 +592,33 @@ const Activity = () => {
                       mode ? "text-gray-200" : "text-black"
                     } text-sm sm:w-[15rem]  w-[13rem] text-ellipsis overflow-hidden sm:text-nowrap`}
                   >
-                    {item.Location} <i className="max-sm:hidden ri-map-pin-2-line font-thin"></i>
+                    {item.Location}{" "}
+                    <i className="max-sm:hidden ri-map-pin-2-line font-thin"></i>
                   </p>
                 </div>
                 {/* Date */}
-                <div className={`flex  justify-center items-center sm:border-2 opacity-85 sm:rounded-full sm:border-purple-500 sm:px-2 sm:py-1 pt-2 sm:group-hover:bg-purple-500`}>
+                <div
+                  className={`flex  justify-center items-center sm:border-2 opacity-85 sm:rounded-full sm:border-purple-500 sm:px-2 sm:py-1 pt-2 sm:group-hover:bg-purple-500`}
+                >
                   <p
                     className={`${
-                      mode ? "text-purple-400 sm:group-hover:text-black" : "text-black"
+                      mode
+                        ? "text-purple-400 sm:group-hover:text-black"
+                        : "text-black"
                     } text-sm transition-all `}
                   >
                     {formatDate(item.createdAt)}
                   </p>
                 </div>
                 {/* IP Address*/}
-                <div className={`flex flex-col  sm:border-2 opacity-85 sm:rounded-full sm:border-green-500 sm:px-2 sm:py-1 sm:group-hover:bg-green-500`}>
+                <div
+                  className={`flex flex-col  sm:border-2 opacity-85 sm:rounded-full sm:border-green-500 sm:px-2 sm:py-1 sm:group-hover:bg-green-500`}
+                >
                   <p
                     className={`${
-                      mode ? "text-green-400 sm:group-hover:text-black" : "text-black"
+                      mode
+                        ? "text-green-400 sm:group-hover:text-black"
+                        : "text-black"
                     } text-sm `}
                   >
                     IPv4: {item.IP}
