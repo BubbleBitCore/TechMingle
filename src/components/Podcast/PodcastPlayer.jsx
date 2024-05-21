@@ -30,7 +30,7 @@ const PodcastPlayer = ({
   };
 
   useEffect(() => {
-    if (player.current) {
+    if (player.current && Math.abs(player.current.audio.current.currentTime - playbackState.currentTime) > 0.1) {
       player.current.audio.current.currentTime = playbackState.currentTime;
     }
   }, [playbackState.currentTime, player]);

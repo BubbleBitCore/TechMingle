@@ -44,7 +44,6 @@ const podcastSlice = createSlice({
     },
     setPlaybackState: (state, action) => {
       state.playbackState = { ...state.playbackState, ...action.payload };
-      console.log(state.playbackState)
     },
   },
 });
