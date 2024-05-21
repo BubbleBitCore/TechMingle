@@ -2,9 +2,12 @@
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
+import { useSearchParams } from "react-router-dom";
 
 const Tabs = ({ tabs, selectedTab }) => {
   const mode = useSelector((state) => state.common.mode);
+  const [searchParams, setSearchParams] = useSearchParams();
+  
   const initialTab = () => {
     if (selectedTab) {
       const iTab = tabs?.filter(
@@ -39,6 +42,11 @@ const Tabs = ({ tabs, selectedTab }) => {
                 key={idx}
                 onClick={() => {
                   setSelected(tab);
+                  console.log(tab)
+                  setSearchParams((params) => {
+                    params.set("tab", tab.name);
+                    return params;
+                  });
                 }}
                 className={`${
                   mode
