@@ -275,7 +275,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
             />
           </div>
           {/* Separator line */}
-          <div className="flex flex-col  h-[95%] items-center overflow-hidden">
+          <div className="flex flex-col  h-[100%]  items-center overflow-hidden">
             <span
               className={`w-[0.1rem] h-[1rem] ${
                 mode ? "bg-gray-500" : "bg-gray-300"
@@ -294,7 +294,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
             ></i>
             {showReplies && (
               <span
-                className={`w-[0.1rem] h-[100%] ${
+                className={`w-[0.1rem] mt-auto h-[100%] ${
                   mode ? "bg-gray-500" : "bg-gray-300"
                 } transition-all`}
               ></span>
