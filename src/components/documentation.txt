@@ -1,3 +1,16 @@
 # AppWrapper Component contain all routes 
-  🟢 if you want to create new pages add corresponding routes in this component before the widl card "*" route i.e 404 route
+  🟢 if you want to create new pages add corresponding routes in this component,Note:Add routes before    the wild card "*" route i.e 404 route always
 
+# SnackBar component use (Created to show Toast messages at the bottom of the screen)
+  🟢 Just import following things
+    import { changeSnackBarState } from "../slices/commonSlice";
+    import { useDispatch } from "react-redux";
+    => then dispatch like this
+      const dispatch = useDispatch();
+        disptach(
+              changeSnackBarState({
+                message: "Hello message",
+                icon: "ri-clipboard-fill",
+                visible: true,
+              })
+            );
