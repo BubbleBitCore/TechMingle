@@ -117,37 +117,49 @@ const DragWheel = ({ dragWheelState, list }) => {
                   right:-0.3rem;
                   
                 }
+                .segmentGlass{
+                    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                    backdrop-filter: blur(5px);
+                    -webkit-backdrop-filter: blur(5px);
+                }
 
-                .redGlass{
+                .redGlassDark{
                   background: rgba(244, 15, 15, 0.2);
-                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                  backdrop-filter: blur(5px);
-                  -webkit-backdrop-filter: blur(5px);
+                  
+                }
+                .redGlassLight{
+                  background: rgba(244, 15, 15, 0.4);
                 }
 
-                .blueGlass{
+                .blueGlassDark{
                   background: rgba(59, 130, 246, 0.2);
-                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                  backdrop-filter: blur(5px);
-                  -webkit-backdrop-filter: blur(5px);
+                  
                 }
-                .yellowGlass{
+                .blueGlassLight{
+                  background: rgba(59, 130, 246, 0.4);
+                  
+                }
+                .yellowGlassDark{
                   background: rgba(234, 179, 8,0.2);
-                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                  backdrop-filter: blur(5px);
-                  -webkit-backdrop-filter: blur(5px);
+                  
                 }
-                .greenGlass{
+                .yellowGlassLight{
+                  background: rgba(234, 179, 8,0.4);
+                  
+                }
+                .greenGlassDark{
                   background: rgba(34, 197, 94,0.2);
-                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-                  backdrop-filter: blur(5px);
-                  -webkit-backdrop-filter: blur(5px);
+                  
+                }
+                .greenGlassLight{
+                  background: rgba(34, 197, 94,0.4);
+                  
                 }
 
             
         `}
       </style>
-      <div className="w-full absolute h-full overflow-hidden bg-transparent glassBg  flex justify-center items-center">
+      <div className="md:w-full max-sm:top-0 max-sm:left-0 max-sm:fixed md:absolute md:h-full max-sm:w-screen max-sm:h-screen overflow-hidden bg-transparent glassBg  flex justify-center items-center">
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -170,7 +182,7 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[0].helper();
                 }}
                 title={list[0].title}
-                className="outerRidgeOne relative border-red-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full redGlass  transition-all duration-200  cursor-pointer flex justify-center items-center"
+                className={`outerRidgeOne relative border-red-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full segmentGlass ${mode?"redGlassDark":"redGlassLight"}  transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
                   className={`text-2xl text-red-500 ${list[0].className} ${list[0].icon} -rotate-45`}
@@ -187,7 +199,7 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[1].helper();
                 }}
                 title={list[1].title}
-                className="outerRidgeTwo relative border-blue-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500 blueGlass transition-all duration-200  cursor-pointer flex justify-center items-center"
+                className={`outerRidgeTwo relative border-blue-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500 segmentGlass ${mode?"blueGlassDark":"blueGlassLight"} transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
                   className={`text-2xl text-blue-500 ${list[1].className} ${list[1].icon} rotate-45`}
@@ -206,7 +218,7 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[2].helper();
                 }}
                 title={list[2].title}
-                className="outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500 yellowGlass transition-all duration-200  cursor-pointer flex justify-center items-center"
+                className={`outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500 segmentGlass ${mode?"yellowGlassDark ":"yellowGlassLight "} transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
                   className={`text-2xl text-yellow-500 ${list[2].className} ${list[2].icon} -rotate-[135deg]`}
@@ -223,7 +235,7 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[3].helper();
                 }}
                 title={list[3].title}
-                className="outerRidgeFour relative border-green-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-green-500 greenGlass transition-all duration-200  cursor-pointer flex justify-center items-center"
+                className={`outerRidgeFour relative border-green-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-green-500 segmentGlass ${mode?"greenGlassDark":"greenGlassLight"} transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
                   className={`text-2xl text-green-500 ${list[3].className} ${list[3].icon} rotate-[135deg]`}
