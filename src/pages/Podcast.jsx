@@ -504,10 +504,11 @@ const Podcast = () => {
               <div className="flex sm:absolute sm:bottom-3 w-full sm:px-3 relative z-[100] transition-all duration-500">
                 <div className="flex max-sm:flex-col w-full sm:backdrop-blur-3xl items-center rounded-md sm:shadow-lg max-sm:fixed max-sm:bottom-4">
                   <PodcastPlayer
-                    player={player}
+                    audioRef={player}
                     setPlayerPaused={setPlayerPaused}
                     showSkipControls={true}
                     autoPlay
+                    large={true}
                   />
 
                   {/* <AudioPlayer
@@ -726,15 +727,15 @@ const Podcast = () => {
                                       JSON.stringify(item)
                                     ) {
                                       if (playerPaused) {
-                                        player.current.audio.current.play();
+                                        player.current.play();
                                         setPlayerPaused(false);
                                       } else {
-                                        player.current.audio.current.pause();
+                                        player.current.pause();
                                         setPlayerPaused(true);
                                       }
                                     } else {
                                       dispatch(setNowPlaying(item));
-                                      player.current.audio.current.play();
+                                      player.current.play();
                                       setPlayerPaused(false);
                                     }
                                   }}
@@ -786,15 +787,15 @@ const Podcast = () => {
                                           JSON.stringify(item)
                                         ) {
                                           if (playerPaused) {
-                                            player.current.audio.current.play();
+                                            player.current.play();
                                             setPlayerPaused(false);
                                           } else {
-                                            player.current.audio.current.pause();
+                                            player.current.pause();
                                             setPlayerPaused(true);
                                           }
                                         } else {
                                           dispatch(setNowPlaying(item));
-                                          player.current.audio.current.play();
+                                          player.current.play();
                                           setPlayerPaused(false);
                                         }
                                       }}
@@ -847,15 +848,15 @@ const Podcast = () => {
                     JSON.stringify(nowPlaying) == JSON.stringify(topRecommended)
                   ) {
                     if (playerPaused) {
-                      player.current.audio.current.play();
+                      player.current.play();
                       setPlayerPaused(false);
                     } else {
-                      player.current.audio.current.pause();
+                      player.current.pause();
                       setPlayerPaused(true);
                     }
                   } else {
                     dispatch(setNowPlaying(topRecommended));
-                    player.current.audio.current.play();
+                    player.current.play();
                     setPlayerPaused(false);
                   }
                 }}
@@ -903,15 +904,15 @@ const Podcast = () => {
                         JSON.stringify(topRecommended)
                       ) {
                         if (playerPaused) {
-                          player.current.audio.current.play();
+                          player.current.play();
                           setPlayerPaused(false);
                         } else {
-                          player.current.audio.current.pause();
+                          player.current.pause();
                           setPlayerPaused(true);
                         }
                       } else {
                         dispatch(setNowPlaying(topRecommended));
-                        player.current.audio.current.play();
+                        player.current.play();
                         setPlayerPaused(false);
                       }
                     }}
@@ -963,7 +964,7 @@ const Podcast = () => {
                     key={idx}
                     onClick={() => {
                       dispatch(setNowPlaying(item));
-                      player.current.audio.current.play();
+                      player.current.play();
                     }}
                   >
                     <div className="flex w-[30%] h-full cursor-pointer transition-all duration-500">
