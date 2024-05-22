@@ -27,17 +27,6 @@ const DragWheel = () => {
                     
                 }
                 
-                
-                .spinner::before{
-                    content:"";
-                    position: absolute;
-                    top: 0px;
-                    left: 0px;
-                    width:100%;
-                    height:100%;
-                    border-radius: 100%;
-                    box-shadow: 0 6px 13px rgba(0,0,0,0.25), 0 6px 6px rgba(0,0,0,0.22);
-                }
                 .outerRidgeOne::before{
                   content:"";
                   position:absolute;
@@ -126,10 +115,36 @@ const DragWheel = () => {
                   
                 }
 
+                .redGlass{
+                  background: rgba(231, 48, 48, 0.2);
+                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                  backdrop-filter: blur(5px);
+                  -webkit-backdrop-filter: blur(5px);
+                }
+
+                .blueGlass{
+                  background: rgba(59, 130, 246, 0.2);
+                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                  backdrop-filter: blur(5px);
+                  -webkit-backdrop-filter: blur(5px);
+                }
+                .yellowGlass{
+                  background: rgba(234, 179, 8,0.2);
+                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                  backdrop-filter: blur(5px);
+                  -webkit-backdrop-filter: blur(5px);
+                }
+                .greenGlass{
+                  background: rgba(34, 197, 94,0.2);
+                  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+                  backdrop-filter: blur(5px);
+                  -webkit-backdrop-filter: blur(5px);
+                }
+
             
         `}
       </style>
-      <div className="w-full h-full overflow-hidden bg-transparent glassBg flex justify-center items-center">
+      <div className="w-full h-full overflow-hidden bg-transparent glassBg  flex justify-center items-center">
         <div ref={wheelRef} className="spinner rounded-full cursor-grab">
           <div className="w-full h-full rounded-full flex flex-col group  gap-3  relative">
             <div className={`h-1/2 w-full flex gap-3 `}>
@@ -140,7 +155,7 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeOne relative border-red-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full bg-red-500  transition-all duration-200  cursor-pointer"
+                className="outerRidgeOne relative border-red-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full redGlass  transition-all duration-200  cursor-pointer"
               ></div>
               <div
                 onMouseEnter={() => {
@@ -149,7 +164,7 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeTwo relative border-blue-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500  transition-all duration-200  cursor-pointer"
+                className="outerRidgeTwo relative border-blue-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500 blueGlass transition-all duration-200  cursor-pointer"
               ></div>
             </div>
             <div className={`h-1/2 w-full flex gap-3 `}>
@@ -160,7 +175,7 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500  transition-all duration-200  cursor-pointer"
+                className="outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500 yellowGlass transition-all duration-200  cursor-pointer"
               ></div>
               <div
                 onMouseEnter={() => {
@@ -169,7 +184,7 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeFour relative border-green-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-green-500  transition-all duration-200  cursor-pointer"
+                className="outerRidgeFour relative border-green-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-green-500 greenGlass transition-all duration-200  cursor-pointer"
               ></div>
             </div>
             {/* Central Ring */}
