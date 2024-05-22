@@ -1,10 +1,12 @@
 // This page is created to test individual components
-import Comment from "../components/Comment/Comment";
+import DragWheel from "../components/DragSpinWheel/DragWheel";
 
 const Test = () => {
   return (
     <>
-      <Comment />
+    <div className="flex justify-center items-center w-full h-full" >
+      <DragWheel />
+    </div>
     </>
   );
 };

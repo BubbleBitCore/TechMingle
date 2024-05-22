@@ -152,6 +152,24 @@ const Profile = ({ Header }) => {
                           />
                         </div>
                       </button>
+                      <button
+                        onClick={(e) => {
+                          e.stopPropagation();
+                        }}
+                        title={"Enter the Horixon"}
+                        className={`rounded-lg md:px-4 px-3 py-2  ${
+                          mode ? "text-white bg-[#303030] hover:bg-[#3e3e3e]" : "text-black bg-[#e7e7e7] hover:bg-[#e0e0e0]"
+                        } group transition-all duration-500`}
+                      >
+                        <div className="flex">
+                          <i className="ri-infinity-line"></i>{" "}
+                          <div
+                            className={`group-hover:w-[4rem]  w-0 overflow-hidden transition-all duration-500`}
+                          >
+                             Horixon
+                          </div>
+                        </div>
+                      </button>
                     </div>
                   </div>
                   {/* sideicons */}

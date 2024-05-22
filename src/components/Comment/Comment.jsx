@@ -283,7 +283,7 @@ const RootComment = ({ options, commentConnectorLine, padd }) => {
             ></span>
             <i
               title="show replies"
-              className={`ri-${showReplies ? "close" : "add"}-circle-line ${
+              className={`ri-${showReplies ? "indeterminate" : "add"}-circle-line ${
                 mode
                   ? "text-gray-400 hover:text-white"
                   : "text-gray-500 hover:text-black"
