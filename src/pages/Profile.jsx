@@ -12,12 +12,49 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ClickMenu from "../components/ClickMenu";
 import { changeSnackBarState } from "../slices/commonSlice";
+import DragWheel from "../components/DragSpinWheel/DragWheel";
 
 const Profile = ({ Header }) => {
   const mode = useSelector((state) => state.common.mode);
   const [readMoreEnable, setReadMoreEnable] = useState(true);
   const [moreListVisibility, setMoreListVisibility] = useState(false);
   const disptach = useDispatch();
+  const [dragWheelVisibility, setDragWheelVisibility] = useState(false);
+  const dragWheelState = { dragWheelVisibility, setDragWheelVisibility };
+  const wheelList = [
+    {
+      icon: "ri-voiceprint-fill",
+      className: "",
+      title: "Podcasts",
+      helper: () => {
+        console.log("title 1");
+      },
+    },
+    {
+      icon: "ri-apps-line",
+      className: "",
+      title: "Articles",
+      helper: () => {
+        console.log("title 2");
+      },
+    },
+    {
+      icon: "ri-skull-2-fill",
+      className: "",
+      title: "Unknown",
+      helper: () => {
+        console.log("title 3");
+      },
+    },
+    {
+      icon: "ri-question-mark",
+      className: "",
+      title: "Unknown",
+      helper: () => {
+        console.log("title 4");
+      },
+    },
+  ];
   const moreList = [
     {
       value: "Share",
@@ -64,7 +101,7 @@ const Profile = ({ Header }) => {
   });
   return (
     <>
-      <div className="flex flex-col h-full w-full pr-4 max-sm:px-4">
+      <div className="flex flex-col h-full w-full pr-4 max-sm:px-4 relative">
         <Header urlName="Profile" />
         <div className="mt-1 mb-2 h-fit w-full overflow-hidden  overflow-y-auto">
           <div className="h-auto w-full flex max-sm:flex-col gap-10 md:px-10 overflow-y-auto">
@@ -131,45 +168,54 @@ const Profile = ({ Header }) => {
                       </p>
                     </div>
                     {/* Actions */}
-                    <div className="flex gap-2 ">
-                      <button
-                        className={`rounded-lg md:px-10 px-6 py-2 bg-blue-500 text-white text-xs hover:bg-blue-400 transition-all `}
-                      >
-                        <i className={`ri-user-add-line text-white`}></i> Follow
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                          setMoreListVisibility(true);
-                        }}
-                        className={`rounded-lg md:px-4 px-3 py-2 border-2 border-blue-500 text-blue-500 text-xs hover:text-blue-400 transition-all hover:border-blue-400 relative`}
-                      >
-                        <i className={`ri-more-line mr-1 font-bold `}></i> More
-                        <div className={`absolute top-[150%] -right-2`}>
-                          <ClickMenu
-                            menu={moreList}
-                            visibility={moreListVisibility}
-                          />
-                        </div>
-                      </button>
-                      <button
-                        onClick={(e) => {
-                          e.stopPropagation();
-                        }}
-                        title={"Enter the Horixon"}
-                        className={`rounded-lg md:px-4 px-3 py-2  ${
-                          mode ? "text-white bg-[#303030] hover:bg-[#3e3e3e]" : "text-black bg-[#e7e7e7] hover:bg-[#e0e0e0]"
-                        } group transition-all duration-500`}
-                      >
-                        <div className="flex">
-                          <i className="ri-infinity-line"></i>{" "}
-                          <div
-                            className={`group-hover:w-[4rem]  w-0 overflow-hidden transition-all duration-500`}
-                          >
-                             Horixon
+                    <div className="flex gap-2 max-sm:flex-col">
+                      <div className="flex gap-2">
+                        <button
+                          className={`rounded-lg md:px-10 px-6 py-2 bg-blue-500 text-white text-xs hover:bg-blue-400 transition-all `}
+                        >
+                          <i className={`ri-user-add-line text-white`}></i>{" "}
+                          Follow
+                        </button>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setMoreListVisibility(true);
+                          }}
+                          className={`rounded-lg md:px-4 px-3 py-2 border-2 border-blue-500 text-blue-500 text-xs hover:text-blue-400 transition-all hover:border-blue-400 relative`}
+                        >
+                          <i className={`ri-more-line mr-1 font-bold `}></i>{" "}
+                          More
+                          <div className={`absolute top-[150%] -right-2`}>
+                            <ClickMenu
+                              menu={moreList}
+                              visibility={moreListVisibility}
+                            />
                           </div>
-                        </div>
-                      </button>
+                        </button>
+                      </div>
+                      <div>
+                        <button
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setDragWheelVisibility(true);
+                          }}
+                          title={"Enter the Horixon"}
+                          className={`rounded-lg md:px-4 px-3 py-2  ${
+                            mode
+                              ? "text-white md:bg-[#303030] hover:bg-[#3e3e3e]"
+                              : "text-black md:bg-[#e7e7e7] hover:bg-[#e0e0e0]"
+                          } group transition-all duration-500`}
+                        >
+                          <div className="flex">
+                            <i className="ri-infinity-line"></i>{" "}
+                            <div
+                              className={`md:group-hover:w-[4rem] max-sm:w-[4rem] md:w-0 overflow-hidden transition-all duration-500`}
+                            >
+                              Horixon
+                            </div>
+                          </div>
+                        </button>
+                      </div>
                     </div>
                   </div>
                   {/* sideicons */}
@@ -886,6 +932,10 @@ const Profile = ({ Header }) => {
             </div>
           </div>
         </div>
+        {/* DragWheel */}
+        {dragWheelVisibility && (
+          <DragWheel dragWheelState={dragWheelState} list={wheelList} />
+        )}
       </div>
     </>
   );

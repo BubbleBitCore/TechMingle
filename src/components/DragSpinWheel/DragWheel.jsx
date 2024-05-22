@@ -1,27 +1,30 @@
 import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
 
-const DragWheel = () => {
+const DragWheel = ({ dragWheelState, list }) => {
+  const mode = useSelector((state) => state.common.mode);
+  const { drahWheelVisibility, setDragWheelVisibility } = dragWheelState;
   const wheelRef = useRef(null);
   const [sectionhover, setSectionhover] = useState(false);
 
   useEffect(() => {
     // initialize the wheel
+    var scope = {};
     let wheel = new Wheel(wheelRef);
+    scope.wheel = wheel;
+    return () => {
+      delete scope.wheel;
+    };
   }, []);
   return (
     <>
       <style>
         {`
-        .glassBg{
-            box-shadow: 0 0 5px 0 ; 
-            background: transparent; 
-            backdrop-filter: blur(1.5px); 
+                .glassBg{
+                    background: transparent; 
+                    backdrop-filter: blur(3px); 
                 }
                 .spinner{
-                    width: 300px;
-                    height: 300px;
-                    min-width: 300px;
-                    min-height: 300px;
                     align-items: center;
                     position: relative;
                     
@@ -116,7 +119,7 @@ const DragWheel = () => {
                 }
 
                 .redGlass{
-                  background: rgba(231, 48, 48, 0.2);
+                  background: rgba(244, 15, 15, 0.2);
                   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
                   backdrop-filter: blur(5px);
                   -webkit-backdrop-filter: blur(5px);
@@ -144,9 +147,17 @@ const DragWheel = () => {
             
         `}
       </style>
-      <div className="w-full h-full overflow-hidden bg-transparent glassBg  flex justify-center items-center">
-        <div ref={wheelRef} className="spinner rounded-full cursor-grab">
-          <div className="w-full h-full rounded-full flex flex-col group  gap-3  relative">
+      <div className="w-full absolute h-full overflow-hidden bg-transparent glassBg  flex justify-center items-center">
+        <div
+          onClick={(e) => {
+            e.stopPropagation();
+          }}
+          ref={wheelRef}
+          className="spinner max-sm:w-[14rem] max-sm:h-[14rem] w-[20rem] h-[20rem] rounded-full cursor-grab"
+        >
+          <div
+            className={`w-full h-full rounded-full flex flex-col group bg-transparent gap-3  relative`}
+          >
             <div className={`h-1/2 w-full flex gap-3 `}>
               <div
                 onMouseEnter={() => {
@@ -155,8 +166,16 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeOne relative border-red-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full redGlass  transition-all duration-200  cursor-pointer"
-              ></div>
+                onClick={() => {
+                  list[0].helper();
+                }}
+                title={list[0].title}
+                className="outerRidgeOne relative border-red-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full redGlass  transition-all duration-200  cursor-pointer flex justify-center items-center"
+              >
+                <i
+                  className={`text-2xl text-red-500 ${list[0].className} ${list[0].icon} -rotate-45`}
+                ></i>
+              </div>
               <div
                 onMouseEnter={() => {
                   setSectionhover(true);
@@ -164,8 +183,16 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeTwo relative border-blue-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500 blueGlass transition-all duration-200  cursor-pointer"
-              ></div>
+                onClick={() => {
+                  list[1].helper();
+                }}
+                title={list[1].title}
+                className="outerRidgeTwo relative border-blue-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500 blueGlass transition-all duration-200  cursor-pointer flex justify-center items-center"
+              >
+                <i
+                  className={`text-2xl text-blue-500 ${list[1].className} ${list[1].icon} rotate-45`}
+                ></i>
+              </div>
             </div>
             <div className={`h-1/2 w-full flex gap-3 `}>
               <div
@@ -175,8 +202,16 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500 yellowGlass transition-all duration-200  cursor-pointer"
-              ></div>
+                onClick={() => {
+                  list[2].helper();
+                }}
+                title={list[2].title}
+                className="outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500 yellowGlass transition-all duration-200  cursor-pointer flex justify-center items-center"
+              >
+                <i
+                  className={`text-2xl text-yellow-500 ${list[2].className} ${list[2].icon} -rotate-[135deg]`}
+                ></i>
+              </div>
               <div
                 onMouseEnter={() => {
                   setSectionhover(true);
@@ -184,15 +219,34 @@ const DragWheel = () => {
                 onMouseLeave={() => {
                   setSectionhover(false);
                 }}
-                className="outerRidgeFour relative border-green-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-green-500 greenGlass transition-all duration-200  cursor-pointer"
-              ></div>
+                onClick={() => {
+                  list[3].helper();
+                }}
+                title={list[3].title}
+                className="outerRidgeFour relative border-green-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-green-500 greenGlass transition-all duration-200  cursor-pointer flex justify-center items-center"
+              >
+                <i
+                  className={`text-2xl text-green-500 ${list[3].className} ${list[3].icon} rotate-[135deg]`}
+                ></i>
+              </div>
             </div>
             {/* Central Ring */}
             <div
               className={`absolute ${
                 sectionhover ? "scale-[85%]" : "group-hover:scale-90"
-              }  transition-all duration-200 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-1/2 h-1/2 bg-black rounded-full z-10 `}
-            ></div>
+              }  transition-all duration-200 -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2 w-1/2 h-1/2 ${
+                mode ? "bg-[#0B0D10]" : "bg-[#f3f3f3]"
+              } rounded-full z-10  cursor-pointer flex justify-center items-center`}
+              onClick={() => {
+                setDragWheelVisibility(false);
+              }}
+            >
+              <i
+                className={` text-xl ri-close-fill ${
+                  mode ? "text-gray-200" : "text-gray-600"
+                }`}
+              ></i>
+            </div>
           </div>
         </div>
       </div>
