@@ -31,16 +31,16 @@ const FlashMsg = ({
                 -webkit-backdrop-filter: blur(5px);
             }
             .warningTint{
-                background: rgba(255, 83, 0, 0.2);
+                background: rgba(255, 83, 0, 0.35);
             }
             .errorTint{
-                background: rgba(255, 5, 5, 0.2);
+                background: rgba(255, 5, 5, 0.35);
             }
             .pendingTint{
-                background: rgba(0, 187, 255, 0.2);
+                background: rgba(0, 187, 255, 0.35);
             }
             .successTint{ 
-                background: rgba(106, 255, 93, 0.2);
+                background: rgba(106, 255, 93, 0.35);
             }
 
             .warningBorder{
