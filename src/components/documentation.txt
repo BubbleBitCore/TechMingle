@@ -14,3 +14,40 @@
                 visible: true,
               })
             );
+
+# FlashMsg component use (Created to show Flash messages at the center of the screen)
+  🟢 Just import following things
+      import FlashMsg from "../components/FlashMsg/FlashMsg";
+      import {
+        FLASH_ERROR,
+        FLASH_PENDING,
+        FLASH_SUCCESS,
+        FLASH_WARNING,
+      } from "../constants/FlashMsgConstants.js";
+      import { AnimatePresence } from "framer-motion";
+
+  🟢 Create This Variables
+      const [flashVisibility, setFlashVisibility] = useState(true);
+      const FLASH_STATE = {
+        flashVisibility,
+        setFlashVisibility,
+      };
+    => then return jsx like this
+      <AnimatePresence> // This is used for animating the component on entering and leaving the dom
+        {flashVisibility && (
+          <FlashMsg
+            key={"FlasMsg"} // any thing can be typed here
+            FLASH_STATE={FLASH_STATE} // contains state variables
+            FLASH_TYPE={FLASH_PENDING} // Flash State are predefined in Constants
+            FLASH_TITLE={FLASH_PENDING }
+            FLASH_MESSAGE={"Something Went well"}
+            ONCLICK={() => {
+              console.log("hello"); //any logic
+            }}
+            CANCELCLICK={() => {
+              console.log("cancel"); //any logic
+            }}
+            cancelEnable={false} // false or true
+          />
+        )}
+      </AnimatePresence>
