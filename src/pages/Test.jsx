@@ -1,49 +1,39 @@
 // This page is created to test individual components
 import { useState } from "react";
-import DragWheel from "../components/DragSpinWheel/DragWheel";
+import FlashMsg from "../components/FlashMsg/FlashMsg";
+import {
+  FLASH_ERROR,
+  FLASH_PENDING,
+  FLASH_SUCCESS,
+  FLASH_WARNING,
+} from "../constants/FlashMsgConstants.js";
+import { AnimatePresence } from "framer-motion";
 
 const Test = () => {
-  const [drahWheelVisibility, setDragWheelVisibility] = useState(true);
-  const dragWheelState = { drahWheelVisibility, setDragWheelVisibility };
-  const wheelList = [
-    {
-      icon: "ri-voiceprint-fill",
-      className: "",
-      title: "Podcasts",
-      helper: () => {
-        console.log("title 1");
-      },
-    },
-    {
-      icon: "ri-apps-line",
-      className: "",
-      title: "Articles",
-      helper: () => {
-        console.log("title 2");
-      },
-    },
-    {
-      icon: "ri-skull-2-fill",
-      className: "",
-      title: "Unknown",
-      helper: () => {
-        console.log("title 3");
-      },
-    },
-    {
-      icon: "ri-question-mark",
-      className: "",
-      title: "Unknown",
-      helper: () => {
-        console.log("title 4");
-      },
-    },
-  ];
+  const [flashVisibility, setFlashVisibility] = useState(true);
+  const FLASH_STATE = {
+    flashVisibility,
+    setFlashVisibility,
+  };
   return (
     <>
-      <div className="flex justify-center items-center w-full h-full">
-        <DragWheel dragWheelState={dragWheelState} list={wheelList}/>
-      </div>
+      <AnimatePresence>
+        {flashVisibility && (
+          <FlashMsg
+            key={"FlasMsg"}
+            FLASH_STATE={FLASH_STATE}
+            FLASH_TYPE={FLASH_PENDING}
+            FLASH_TITLE={FLASH_PENDING }
+            FLASH_MESSAGE={"Something Went well"}
+            ONCLICK={() => {
+              console.log("hello");
+            }}
+            CANCELCLICK={() => {
+              console.log("cancel");
+            }}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

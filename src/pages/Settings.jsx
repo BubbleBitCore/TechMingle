@@ -1,4 +1,4 @@
-import { motion } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import Tabs from "../components/Tabs";
 import { useDispatch, useSelector } from "react-redux";
 import { formatDate } from "../utils/conversion";
@@ -6,6 +6,8 @@ import BetaTest from "../components/BetaTest";
 import { useSearchParams } from "react-router-dom";
 import { setOpenEditor, setTempProfileImage } from "../slices/commonSlice";
 import { useState } from "react";
+import FlashMsg from "../components/FlashMsg/FlashMsg";
+import { FLASH_ERROR } from "../constants/FlashMsgConstants";
 // Account tab
 const Account = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -18,6 +20,70 @@ const Account = () => {
     "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
 
   const [accountVisibility, setAccountVisibility] = useState(1); // 1 for public 0 for private
+
+  const imageValidationAndUpload = (file) => {
+    if (file) {
+      const Extension = file.name
+        .substring(file.name.lastIndexOf(".") + 1)
+        .toLowerCase();
+      const MAX_SIZE = 2097152; // 2MB in bytes
+      const MAX_DIMESNION = 2000; // 2000 pixels width and height
+
+      if (
+        Extension == "gif" ||
+        Extension == "png" ||
+        Extension == "bmp" ||
+        Extension == "jpeg" ||
+        Extension == "jpg"
+      ) {
+        if (file) {
+          var size = file.size;
+          if (size > MAX_SIZE) {
+            // console.log("Maximum file size exceeds");
+            setFlashType(FLASH_ERROR);
+            setFlashTitle("Size Error");
+            setFlashMsg("Image Should be less-than or equal-to 2 MB!");
+            setFlashVisibility(true);
+            return;
+          }
+          const img = new Image();
+          const _URL = window.URL || window.webkitURL;
+          img.src = _URL.createObjectURL(file);
+          img.onload = () => {
+            if (img.width > MAX_DIMESNION || img.height > MAX_DIMESNION) {
+              // console.log(
+              //   "Dimensions Should be equal or less than 2000 pixels"
+              // );
+              setFlashType(FLASH_ERROR);
+              setFlashTitle("Dimension Error");
+              setFlashMsg(
+                "Dimensions Should be equal-to or less-than 2000 pixels!"
+              );
+              setFlashVisibility(true);
+            } else {
+              dispatch(setTempProfileImage(file));
+              dispatch(setOpenEditor(true));
+            }
+          };
+        }
+      } else {
+        // console.log("Format not supported");
+            setFlashType(FLASH_ERROR);
+            setFlashTitle("Format Error");
+            setFlashMsg("Input Image Format is not supported");
+            setFlashVisibility(true);
+      }
+    }
+  };
+  //  Flash messages Are handled here
+  const [flashVisibility, setFlashVisibility] = useState(false);
+  const FLASH_STATE = {
+    flashVisibility,
+    setFlashVisibility,
+  };
+  const [flashType, setFlashType] = useState(null);
+  const [flashTitle, setFlashTitle] = useState("");
+  const [flashMsg, setFlashMsg] = useState("");
 
   return (
     <>
@@ -311,7 +377,7 @@ const Account = () => {
                 <img
                   src={profileImage}
                   alt=""
-                  className="rounded-full bg-cover w-full h-full"
+                  className="rounded-full object-cover bg-cover w-full h-full"
                 />
                 <label
                   title={user}
@@ -324,8 +390,7 @@ const Account = () => {
                   type="file"
                   accept="image/*"
                   onChange={(e) => {
-                    dispatch(setTempProfileImage(e.target.files[0]));
-                    dispatch(setOpenEditor(true));
+                    imageValidationAndUpload(e.target.files[0]);
                   }}
                 />
               </div>
@@ -481,6 +546,19 @@ const Account = () => {
           </div>
         </div>
       </motion.div>
+      <AnimatePresence>
+        {flashVisibility && (
+          <FlashMsg
+            key={"FlasMsg"}
+            FLASH_STATE={FLASH_STATE}
+            FLASH_TYPE={flashType}
+            FLASH_TITLE={flashTitle}
+            FLASH_MESSAGE={flashMsg}
+            ONCLICK={() => {}}
+            CANCELCLICK={() => {}}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
