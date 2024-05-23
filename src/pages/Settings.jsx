@@ -5,12 +5,13 @@ import { formatDate } from "../utils/conversion";
 import BetaTest from "../components/BetaTest";
 import { useSearchParams } from "react-router-dom";
 import { setOpenEditor, setTempProfileImage } from "../slices/commonSlice";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import FlashMsg from "../components/FlashMsg/FlashMsg";
 import { FLASH_ERROR } from "../constants/FlashMsgConstants";
 // Account tab
 const Account = () => {
   const mode = useSelector((state) => state.common.mode);
+  const inputImageFile = useRef(null);
   const profileImage = useSelector((state) => state.common.profileImage);
   const dispatch = useDispatch();
   const user = "Naruto";
@@ -44,6 +45,7 @@ const Account = () => {
             setFlashTitle("Size Error");
             setFlashMsg("Image Should be less-than or equal-to 2 MB!");
             setFlashVisibility(true);
+            inputImageFile.current.value="";
             return;
           }
           const img = new Image();
@@ -60,6 +62,7 @@ const Account = () => {
                 "Dimensions Should be equal-to or less-than 2000 pixels!"
               );
               setFlashVisibility(true);
+              inputImageFile.current.value="";
             } else {
               dispatch(setTempProfileImage(file));
               dispatch(setOpenEditor(true));
@@ -68,10 +71,11 @@ const Account = () => {
         }
       } else {
         // console.log("Format not supported");
-            setFlashType(FLASH_ERROR);
-            setFlashTitle("Format Error");
-            setFlashMsg("Input Image Format is not supported");
-            setFlashVisibility(true);
+        setFlashType(FLASH_ERROR);
+        setFlashTitle("Format Error");
+        setFlashMsg("Input Image Format is not supported");
+        setFlashVisibility(true);
+        inputImageFile.current.value="";
       }
     }
   };
@@ -385,6 +389,7 @@ const Account = () => {
                   htmlFor="image"
                 ></label>
                 <input
+                  ref={inputImageFile}
                   className="hidden"
                   id="image"
                   type="file"
