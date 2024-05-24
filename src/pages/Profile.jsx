@@ -13,6 +13,7 @@ import { useDispatch, useSelector } from "react-redux";
 import ClickMenu from "../components/ClickMenu";
 import { changeSnackBarState } from "../slices/commonSlice";
 import DragWheel from "../components/DragSpinWheel/DragWheel";
+import { AnimatePresence } from "framer-motion";
 
 const Profile = ({ Header }) => {
   const mode = useSelector((state) => state.common.mode);
@@ -933,9 +934,11 @@ const Profile = ({ Header }) => {
           </div>
         </div>
         {/* DragWheel */}
-        {dragWheelVisibility && (
-          <DragWheel dragWheelState={dragWheelState} list={wheelList} />
-        )}
+        <AnimatePresence>
+          {dragWheelVisibility && (
+            <DragWheel dragWheelState={dragWheelState} list={wheelList} />
+          )}
+        </AnimatePresence>
       </div>
     </>
   );

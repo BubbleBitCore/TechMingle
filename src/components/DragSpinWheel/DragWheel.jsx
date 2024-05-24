@@ -1,3 +1,4 @@
+import { motion } from "framer-motion";
 import { useEffect, useRef, useState } from "react";
 import { useSelector } from "react-redux";
 
@@ -18,7 +19,7 @@ const DragWheel = ({ dragWheelState, list }) => {
   }, []);
   return (
     <>
-      <style>
+      <style key={"styles"}>
         {`
                 .glassBg{
                     background: transparent; 
@@ -47,8 +48,8 @@ const DragWheel = ({ dragWheelState, list }) => {
                   border-bottom-color:transparent;
                 }
                 .outerRidgeOne:hover::before{
-                  top:-0.3rem;
-                  left:-0.3rem;
+                  top:-0.45rem;
+                  left:-0.45rem;
                   
                   
                 }
@@ -69,8 +70,8 @@ const DragWheel = ({ dragWheelState, list }) => {
                   border-left-color:transparent;
                 }
                 .outerRidgeTwo:hover::before{
-                  top:-0.3rem;
-                  right:-0.3rem;
+                  top:-0.45rem;
+                  right:-0.45rem;
                   
                   
                 }
@@ -91,8 +92,8 @@ const DragWheel = ({ dragWheelState, list }) => {
                   border-top-color:transparent;
                 }
                 .outerRidgeThree:hover::before{
-                  bottom:-0.3rem;
-                  left:-0.3rem;
+                  bottom:-0.45rem;
+                  left:-0.45rem;
                  
                   
                 }
@@ -113,8 +114,8 @@ const DragWheel = ({ dragWheelState, list }) => {
                   border-top-color:transparent;
                 }
                 .outerRidgeFour:hover::before{
-                  bottom:-0.3rem;
-                  right:-0.3rem;
+                  bottom:-0.45rem;
+                  right:-0.45rem;
                   
                 }
                 .segmentGlass{
@@ -159,7 +160,13 @@ const DragWheel = ({ dragWheelState, list }) => {
             
         `}
       </style>
-      <div className="md:w-full max-sm:top-0 max-sm:left-0 max-sm:fixed md:absolute md:h-full max-sm:w-screen max-sm:h-screen overflow-hidden bg-transparent glassBg  flex justify-center items-center">
+      <motion.div key={"Wheel"} initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{
+              ease: "linear",
+              duration: 0.2,
+            }} className="md:w-full max-sm:top-0 max-sm:left-0 max-sm:fixed md:absolute md:h-full max-sm:w-screen max-sm:h-screen overflow-hidden bg-transparent glassBg  flex justify-center items-center">
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -182,10 +189,12 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[0].helper();
                 }}
                 title={list[0].title}
-                className={`outerRidgeOne relative border-red-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full segmentGlass ${mode?"redGlassDark":"redGlassLight"}  transition-all duration-200  cursor-pointer flex justify-center items-center`}
+                className={`outerRidgeOne relative border-blue-500 w-full h-full  hover:-translate-x-[10%] hover:-translate-y-[10%]  rounded-tl-full segmentGlass ${
+                  mode ? "blueGlassDark" : "blueGlassLight"
+                }  transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
-                  className={`text-2xl text-red-500 ${list[0].className} ${list[0].icon} -rotate-45`}
+                  className={`text-2xl text-blue-500 ${list[0].className} ${list[0].icon} -rotate-45`}
                 ></i>
               </div>
               <div
@@ -199,10 +208,12 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[1].helper();
                 }}
                 title={list[1].title}
-                className={`outerRidgeTwo relative border-blue-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500 segmentGlass ${mode?"blueGlassDark":"blueGlassLight"} transition-all duration-200  cursor-pointer flex justify-center items-center`}
+                className={`outerRidgeTwo relative border-green-500 w-full h-full hover:translate-x-[10%] hover:-translate-y-[10%] rounded-tr-full bg-blue-500 segmentGlass ${
+                  mode ? "greenGlassDark" : "greenGlassLight"
+                } transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
-                  className={`text-2xl text-blue-500 ${list[1].className} ${list[1].icon} rotate-45`}
+                  className={`text-2xl text-green-500 ${list[1].className} ${list[1].icon} rotate-45`}
                 ></i>
               </div>
             </div>
@@ -218,7 +229,9 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[2].helper();
                 }}
                 title={list[2].title}
-                className={`outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500 segmentGlass ${mode?"yellowGlassDark ":"yellowGlassLight "} transition-all duration-200  cursor-pointer flex justify-center items-center`}
+                className={`outerRidgeThree relative border-yellow-500 w-full h-full hover:-translate-x-[10%] hover:translate-y-[10%] rounded-l-full rounded-t bg-yellow-500 segmentGlass ${
+                  mode ? "yellowGlassDark " : "yellowGlassLight "
+                } transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
                   className={`text-2xl text-yellow-500 ${list[2].className} ${list[2].icon} -rotate-[135deg]`}
@@ -235,10 +248,12 @@ const DragWheel = ({ dragWheelState, list }) => {
                   list[3].helper();
                 }}
                 title={list[3].title}
-                className={`outerRidgeFour relative border-green-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-green-500 segmentGlass ${mode?"greenGlassDark":"greenGlassLight"} transition-all duration-200  cursor-pointer flex justify-center items-center`}
+                className={`outerRidgeFour relative border-red-500 w-full h-full hover:translate-x-[10%] hover:translate-y-[10%] rounded-r-full rounded-t bg-red-500 segmentGlass ${
+                  mode ? "redGlassDark" : "redGlassLight"
+                } transition-all duration-200  cursor-pointer flex justify-center items-center`}
               >
                 <i
-                  className={`text-2xl text-green-500 ${list[3].className} ${list[3].icon} rotate-[135deg]`}
+                  className={`text-2xl text-red-500 ${list[3].className} ${list[3].icon} rotate-[135deg]`}
                 ></i>
               </div>
             </div>
@@ -252,16 +267,18 @@ const DragWheel = ({ dragWheelState, list }) => {
               onClick={() => {
                 setDragWheelVisibility(false);
               }}
-            >
-              <i
-                className={` text-xl ri-close-fill ${
-                  mode ? "text-gray-200" : "text-gray-600"
-                }`}
-              ></i>
-            </div>
+            ></div>
           </div>
         </div>
-      </div>
+        <i
+          onClick={(e) => {
+            setDragWheelVisibility(false);
+          }}
+          className={`z-20 cursor-pointer absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-xl ri-close-fill ${
+            mode ? "text-gray-200" : "text-gray-600"
+          }`}
+        ></i>
+      </motion.div>
     </>
   );
 };
