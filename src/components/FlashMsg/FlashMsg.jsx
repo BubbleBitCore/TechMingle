@@ -133,15 +133,15 @@ const FlashMsg = ({
                 className={`flex flex-col w-full h-full  px-2 overflow-x-hidden overflow-y-auto gap-2`}
               >
                 <div
-                  className={`orbitron   flex-shrink-0 md:text-3xl max-sm:text-xl ${
+                  className={`orbitron font-bold   flex-shrink-0 md:text-3xl max-sm:text-xl ${
                     mode ? "text-gray-200" : "text-black"
                   } w-full text-ellipsis whitespace-nowrap overflow-hidden`}
                 >
-                  {FLASH_TITLE}{" "}
+                  {FLASH_TITLE}
                 </div>
                 <div
-                  className={`orbitron    w-full h-auto max-h-[15rem]  ${
-                    mode ? "text-gray-400" : "text-gray-800"
+                  className={`orbitron tracking-wide    w-full h-auto max-h-[15rem]  ${
+                    mode ? "text-gray-400" : "text-[#222]"
                   } overflow-x-hidden overflow-y-auto max-sm:text-sm`}
                 >
                   {FLASH_MESSAGE}
@@ -154,11 +154,19 @@ const FlashMsg = ({
                       ONCLICK();
                       setFlashVisibility(false);
                     }}
-                    className={`orbitron   cursor-pointer md:px-5 md:py-2 max-sm:p-2 max-sm:px-3 text-sm max-sm:text-xs ${
+                    className={`orbitron font-bold   cursor-pointer md:px-5 md:py-2 max-sm:p-1 max-sm:px-3 text-sm max-sm:text-[10px] ${
                       mode
-                        ? "bg-[#0B0D10] hover:bg-[#1b1d21] border-[#1a1a1a] border-2 text-white"
-                        : "bg-white hover:bg-slate-100 border-2 border-gray-300"
-                    }  rounded-lg transition-all duration-500`}
+                        ? "bg-[#0B0D10] hover:bg-[#1b1d21] border-black border-2 text-white"
+                        : " backdrop-blur-3xl  text-black  hover:bg-slate-100 border-2 "
+                    } ${
+                      FLASH_TYPE === FLASH_WARNING
+                        ? " warningBorder "
+                        : FLASH_TYPE === FLASH_ERROR
+                        ? " errorBorder "
+                        : FLASH_TYPE === FLASH_PENDING
+                        ? " pendingBorder "
+                        : " successBorder "
+                    } rounded-lg transition-all duration-500`}
                   >
                     Ok
                   </div>
@@ -169,10 +177,18 @@ const FlashMsg = ({
                         setFlashVisibility(false);
                         CANCELCLICK();
                       }}
-                      className={`cursor-pointer md:px-5 md:py-2 max-sm:p-2 max-sm:px-3  max-sm:text-xs ${
+                      className={`orbitron font-bold cursor-pointer md:px-5 md:py-2 max-sm:p-1 max-sm:px-3 text-sm max-sm:text-[10px] ${
                         mode
                           ? "bg-[#0B0D10] hover:bg-[#1b1d21] border-[#1a1a1a] border-2 text-white"
-                          : "bg-white hover:bg-slate-100 border-2 border-gray-300"
+                          : "backdrop-blur-3xl  text-black border-2 "
+                      } ${
+                        FLASH_TYPE === FLASH_WARNING
+                          ? " warningBorder "
+                          : FLASH_TYPE === FLASH_ERROR
+                          ? " errorBorder "
+                          : FLASH_TYPE === FLASH_PENDING
+                          ? " pendingBorder "
+                          : " successBorder "
                       } rounded-lg transition-all duration-500`}
                     >
                       Cancel

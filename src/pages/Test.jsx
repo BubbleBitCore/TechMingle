@@ -22,8 +22,8 @@ const Test = () => {
           <FlashMsg
             key={"FlasMsg"}
             FLASH_STATE={FLASH_STATE}
-            FLASH_TYPE={FLASH_PENDING}
-            FLASH_TITLE={FLASH_PENDING }
+            FLASH_TYPE={FLASH_SUCCESS}
+            FLASH_TITLE={FLASH_SUCCESS}
             FLASH_MESSAGE={"Something Went well"}
             ONCLICK={() => {
               console.log("hello");
