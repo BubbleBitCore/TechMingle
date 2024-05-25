@@ -29,10 +29,11 @@ const initialState = {
     lyrics:
       "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.",
   },
-  playbackState: {
-    currentTime: 0,
-    isPlaying: false,
-  },
+  currentTime: 0,
+  duration: 0,
+  isPlaying: false,
+  isRepeating: false,
+  volume: 0.5,
 };
 
 const podcastSlice = createSlice({
@@ -42,11 +43,23 @@ const podcastSlice = createSlice({
     setNowPlaying: (state, action) => {
       state.nowPlaying = action.payload;
     },
-    setPlaybackState: (state, action) => {
-      state.playbackState = { ...state.playbackState, ...action.payload };
+    setCurrentTime :(state,action)=>{
+      state.currentTime = action.payload;
     },
+    setDuration :(state,action)=>{
+      state.duration = action.payload;
+    },
+    setIsPlaying :(state,action)=>{
+      state.isPlaying = action.payload;
+    },
+    setIsRepeating :(state,action)=>{
+      state.isRepeating = action.payload;
+    },
+    setVolume : (state,action)=>{
+      state.volume = action.payload;
+    }
   },
 });
 
-export const { setNowPlaying,setPlaybackState } = podcastSlice.actions;
+export const { setNowPlaying, setCurrentTime,setDuration,setIsPlaying,setIsRepeating,setVolume} = podcastSlice.actions;
 export default podcastSlice.reducer;

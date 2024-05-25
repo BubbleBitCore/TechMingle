@@ -23,10 +23,13 @@ import Podcast from "../pages/Podcast";
 import Profile from "../pages/Profile";
 import Article from "../pages/Article";
 import Test from "../pages/Test";
+import { useRef,useState } from "react";
+import GlobalAudioPlayer from "./Podcast/GlobalAudioPlayer";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
   const location = useLocation();
+  const player = useRef(null);
   return (
     <>
       {mode ? (
@@ -132,12 +135,22 @@ const AppWrapper = () => {
             <Route
               exact
               path="/podcasts"
-              element={<Podcasts Header={Header} />}
+              element={
+                <Podcasts
+                  Header={Header}
+                  player={player}
+                />
+              }
             />
             <Route
               exact
               path="/podcast/:id"
-              element={<Podcast Header={Header} />}
+              element={
+                <Podcast
+                  Header={Header}
+                  player={player}
+                />
+              }
             />
             <Route
               exact
@@ -167,6 +180,9 @@ const AppWrapper = () => {
           </Routes>
         </div>
       </div>
+      <GlobalAudioPlayer
+        audioRef={player}
+      />
     </>
   );
 };

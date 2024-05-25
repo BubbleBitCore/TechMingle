@@ -7,23 +7,23 @@ import despacito from "../assets/songs/despacito.mp3";
 import img1 from "../assets/images/img1.jpg";
 import img2 from "../assets/images/img2.jpg";
 import img3 from "../assets/images/img3.jpg";
-import AudioPlayer from "react-h5-audio-player";
-import "react-h5-audio-player/lib/styles.css";
-import { useState, useRef } from "react";
+import { useState} from "react";
 import { formatNumber } from "../utils/conversion";
 import { changeSnackBarState } from "../slices/commonSlice";
 import SnackBar from "../components/SnackBar";
 import PodcastPlayer from "../components/Podcast/PodcastPlayer";
-import { setNowPlaying } from "../slices/podcastSlice";
+import { setNowPlaying,setIsPlaying } from "../slices/podcastSlice";
 
-const Podcast = () => {
+const Podcast = ({player,
+}) => {
+
   // variables to control functions of audio player
-  const player = useRef();
   const dispatch = useDispatch();
-  let [playerPaused, setPlayerPaused] = useState(false);
   // to show lyrics
   let [showLyrics, setShowLyrics] = useState(false);
+
   const nowPlaying = useSelector((state) => state.podcast.nowPlaying);
+  const isPlaying = useSelector((state)=>state.podcast.isPlaying);
   const recommendations = [
     {
       title: "How to face big decisions 1",
@@ -283,6 +283,7 @@ const Podcast = () => {
     };
   }, []);
 
+
   // dynamic text color
   useEffect(() => {
     const image = new Image();
@@ -308,6 +309,10 @@ const Podcast = () => {
       setTextColor(luminance > 0.5 ? "gray-800" : "white");
     };
   }, [nowPlaying]);
+
+  // useEffect(()=>{
+  //   console.log(isPlaying , currentTime)
+  // },[isPlaying])
 
   return (
     <>
@@ -505,24 +510,8 @@ const Podcast = () => {
                 <div className="flex max-sm:flex-col w-full sm:backdrop-blur-3xl items-center rounded-md sm:shadow-lg max-sm:fixed max-sm:bottom-4">
                   <PodcastPlayer
                     audioRef={player}
-                    setPlayerPaused={setPlayerPaused}
-                    showSkipControls={true}
-                    autoPlay
                     large={true}
                   />
-
-                  {/* <AudioPlayer
-                    autoPlay
-                    src={nowPlaying.audio}
-                    onPlay={() => {
-                      setPlayerPaused(false);
-                    }}
-                    onPause={() => {
-                      setPlayerPaused(true);
-                    }}
-                    showSkipControls={true}
-                    ref={player}
-                  /> */}
                 </div>
               </div>
               <img
@@ -726,17 +715,14 @@ const Podcast = () => {
                                       JSON.stringify(nowPlaying) ==
                                       JSON.stringify(item)
                                     ) {
-                                      if (playerPaused) {
-                                        player.current.play();
-                                        setPlayerPaused(false);
+                                      if (!isPlaying) {
+                                        dispatch(setIsPlaying(true));
                                       } else {
-                                        player.current.pause();
-                                        setPlayerPaused(true);
+                                        dispatch(setIsPlaying(false));
                                       }
                                     } else {
                                       dispatch(setNowPlaying(item));
-                                      player.current.play();
-                                      setPlayerPaused(false);
+                                      dispatch(setIsPlaying(true));
                                     }
                                   }}
                                 ></img>
@@ -773,7 +759,7 @@ const Podcast = () => {
                                     <i
                                       className={`${
                                         JSON.stringify(nowPlaying) ===
-                                          JSON.stringify(item) && !playerPaused
+                                          JSON.stringify(item) && isPlaying
                                           ? "ri-pause-circle-fill"
                                           : "ri-play-circle-fill"
                                       } ${
@@ -786,17 +772,14 @@ const Podcast = () => {
                                           JSON.stringify(nowPlaying) ==
                                           JSON.stringify(item)
                                         ) {
-                                          if (playerPaused) {
-                                            player.current.play();
-                                            setPlayerPaused(false);
+                                          if (!isPlaying) {
+                                            dispatch(setIsPlaying(true));
                                           } else {
-                                            player.current.pause();
-                                            setPlayerPaused(true);
+                                            dispatch(setIsPlaying(false));
                                           }
                                         } else {
                                           dispatch(setNowPlaying(item));
-                                          player.current.play();
-                                          setPlayerPaused(false);
+                                          dispatch(setIsPlaying(true));
                                         }
                                       }}
                                     ></i>
@@ -847,17 +830,14 @@ const Podcast = () => {
                   if (
                     JSON.stringify(nowPlaying) == JSON.stringify(topRecommended)
                   ) {
-                    if (playerPaused) {
-                      player.current.play();
-                      setPlayerPaused(false);
+                    if (!isPlaying) {
+                      dispatch(setIsPlaying(true))
                     } else {
-                      player.current.pause();
-                      setPlayerPaused(true);
+                      dispatch(setIsPlaying(false))
                     }
                   } else {
                     dispatch(setNowPlaying(topRecommended));
-                    player.current.play();
-                    setPlayerPaused(false);
+                    dispatch(setIsPlaying(true))
                   }
                 }}
               ></img>
@@ -890,7 +870,7 @@ const Podcast = () => {
                   <i
                     className={`${
                       JSON.stringify(nowPlaying) ===
-                        JSON.stringify(topRecommended) && !playerPaused
+                        JSON.stringify(topRecommended) && isPlaying
                         ? "ri-pause-circle-fill"
                         : "ri-play-circle-fill"
                     } ${
@@ -903,17 +883,14 @@ const Podcast = () => {
                         JSON.stringify(nowPlaying) ==
                         JSON.stringify(topRecommended)
                       ) {
-                        if (playerPaused) {
-                          player.current.play();
-                          setPlayerPaused(false);
+                        if (!isPlaying) {
+                          dispatch(setIsPlaying(true))
                         } else {
-                          player.current.pause();
-                          setPlayerPaused(true);
+                          dispatch(setIsPlaying(false))
                         }
                       } else {
                         dispatch(setNowPlaying(topRecommended));
-                        player.current.play();
-                        setPlayerPaused(false);
+                        dispatch(setIsPlaying(true))
                       }
                     }}
                   ></i>
@@ -964,7 +941,7 @@ const Podcast = () => {
                     key={idx}
                     onClick={() => {
                       dispatch(setNowPlaying(item));
-                      player.current.play();
+                      dispatch(setIsPlaying(true))
                     }}
                   >
                     <div className="flex w-[30%] h-full cursor-pointer transition-all duration-500">
