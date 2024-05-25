@@ -7,7 +7,7 @@
     import { useDispatch } from "react-redux";
     => then dispatch like this
       const dispatch = useDispatch();
-        disptach(
+        dispatch(
               changeSnackBarState({
                 message: "Hello message",
                 icon: "ri-clipboard-fill",
