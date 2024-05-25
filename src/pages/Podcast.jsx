@@ -12,7 +12,7 @@ import { formatNumber } from "../utils/conversion";
 import { changeSnackBarState } from "../slices/commonSlice";
 import SnackBar from "../components/SnackBar";
 import PodcastPlayer from "../components/Podcast/PodcastPlayer";
-import { setNowPlaying,setIsPlaying } from "../slices/podcastSlice";
+import { setNowPlaying,setIsPlaying, setContextList, setCurrentIdx } from "../slices/podcastSlice";
 
 const Podcast = ({player,
 }) => {
@@ -188,32 +188,6 @@ const Podcast = ({player,
         "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.",
     },
   ];
-
-  // const [nowPlaying, setNowPlaying] = useState({
-  //   title: "How to face big decisions 1",
-  //   artist: "TOM HEART 1",
-  //   duration: " 1hr 11 min",
-  //   thumbnail: img1,
-  //   audio: despacito,
-  //   category: "Exclusive",
-  //   views: 787866,
-  //   likes: 9882198,
-  //   type: "playlist",
-  //   tags: [
-  //     "business",
-  //     "knowledge",
-  //     "experience",
-  //     "business",
-  //     "knowledge",
-  //     "experience",
-  //     "business",
-  //     "business",
-  //   ],
-  //   about:
-  //     "Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita. Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.Lorem ipsum dolor sit, amet consectetur adipisicing elit.Reiciendis illum cum est explicabo voluptatem! Fuga facilis, hic sapiente suscipit praesentium architecto quo error, voluptate ducimus deserunt similique dolore iste expedita.",
-  //   lyrics:
-  //     "Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur iure animi possimus! Harum dolorum delectus cupiditate culpa maxime ut reprehenderit ab iusto, excepturi sequi quasi maiores, consequatur similique, quae eius.",
-  // });
 
   const topRecommended = {
     title: "How to face big decisions 1",
@@ -722,6 +696,8 @@ const Podcast = ({player,
                                       }
                                     } else {
                                       dispatch(setNowPlaying(item));
+                                      dispatch(setContextList(episodes));
+                                      dispatch(setCurrentIdx(idx))
                                       dispatch(setIsPlaying(true));
                                     }
                                   }}
@@ -779,6 +755,8 @@ const Podcast = ({player,
                                           }
                                         } else {
                                           dispatch(setNowPlaying(item));
+                                          dispatch(setContextList(episodes));
+                                          dispatch(setCurrentIdx(idx))
                                           dispatch(setIsPlaying(true));
                                         }
                                       }}
@@ -837,7 +815,9 @@ const Podcast = ({player,
                     }
                   } else {
                     dispatch(setNowPlaying(topRecommended));
-                    dispatch(setIsPlaying(true))
+                    dispatch(setContextList(topRecommended));
+                    dispatch(setCurrentIdx(0));
+                    dispatch(setIsPlaying(true));
                   }
                 }}
               ></img>
@@ -890,6 +870,8 @@ const Podcast = ({player,
                         }
                       } else {
                         dispatch(setNowPlaying(topRecommended));
+                        dispatch(setContextList(topRecommended));
+                        dispatch(setCurrentIdx(0))
                         dispatch(setIsPlaying(true))
                       }
                     }}
@@ -933,7 +915,7 @@ const Podcast = ({player,
               ></hr>
               {/* recommended podcasts */}
               <div className="w-full h-fit flex flex-col gap-2 pt-2 justify-center items-center transition-all duration-500">
-                {recommendations?.slice(0, 4).map((item, idx) => (
+                {recommendations?.slice(0, 6).map((item, idx) => (
                   <div
                     className={`${
                       mode ? "hover:bg-zinc-950" : "hover:bg-gray-50"
@@ -941,6 +923,8 @@ const Podcast = ({player,
                     key={idx}
                     onClick={() => {
                       dispatch(setNowPlaying(item));
+                      dispatch(setContextList(recommendations));
+                      dispatch(setCurrentIdx(idx))
                       dispatch(setIsPlaying(true))
                     }}
                   >

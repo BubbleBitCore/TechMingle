@@ -13,7 +13,7 @@ import SkeletonTrendingPodcast from "../components/Podcast/SkeletonTrendingPodca
 import SkeletonPopularCategory from "../components/Podcast/SkeletonPopularCategory";
 import SkeletonList from "../components/Podcast/SkeletonList";
 import PodcastPlayer from "../components/Podcast/PodcastPlayer";
-import { setNowPlaying, setIsPlaying } from "../slices/podcastSlice";
+import { setNowPlaying, setIsPlaying, setContextList, setCurrentIdx } from "../slices/podcastSlice";
 import { Link } from "react-router-dom";
 
 const Podcasts = ({ Header, player }) => {
@@ -970,6 +970,8 @@ const Podcasts = ({ Header, player }) => {
                               dispatch(setIsPlaying(!isPlaying));
                             } else {
                               dispatch(setNowPlaying(trendingThisWeek));
+                              dispatch(setContextList(trendingThisWeek))
+                              dispatch(setCurrentIdx(0))
                               dispatch(setIsPlaying(true));
                             }
                           }}
@@ -1101,6 +1103,8 @@ const Podcasts = ({ Header, player }) => {
                                       selectedTrendingPodcastList[idx]
                                     )
                                   );
+                                  dispatch(setContextList(selectedTrendingPodcastList))
+                                  dispatch(setCurrentIdx(idx))
                                   dispatch(setIsPlaying(true));
                                 }
                               }}
@@ -1187,6 +1191,8 @@ const Podcasts = ({ Header, player }) => {
                                   dispatch(setIsPlaying(!isPlaying));
                                 } else {
                                   dispatch(setNowPlaying(item))
+                                  dispatch(setContextList(selectedTrendingPodcastList))
+                                  dispatch(setCurrentIdx(idx))
                                   dispatch(setIsPlaying(true));
                                 }
                               }}
@@ -1448,6 +1454,8 @@ const Podcasts = ({ Header, player }) => {
                                         selectedPopularPodcastList[idx]
                                       )
                                     );
+                                    dispatch(setContextList(selectedPopularPodcastList))
+                                    dispatch(setCurrentIdx(idx))
                                     dispatch(setIsPlaying(true));
                                   }
                                 }}
@@ -1524,6 +1532,8 @@ const Podcasts = ({ Header, player }) => {
                                     dispatch(setIsPlaying(!isPlaying));
                                   } else {
                                     dispatch(setNowPlaying(item));
+                                    dispatch(setContextList(selectedPopularPodcastList))
+                                    dispatch(setCurrentIdx(idx))
                                     dispatch(setIsPlaying(true));
                                   }
                                 }}
@@ -1884,6 +1894,8 @@ const Podcasts = ({ Header, player }) => {
                           key={idx}
                           onClick={() => {
                             dispatch(setNowPlaying(item));
+                            dispatch(setContextList(tabList))
+                            dispatch(setCurrentIdx(idx))
                             dispatch(setIsPlaying(true));
                           }}
                         >
@@ -1916,6 +1928,8 @@ const Podcasts = ({ Header, player }) => {
                           key={idx}
                           onClick={() => {
                             dispatch(setNowPlaying(item));
+                            dispatch(setContextList(tabList))
+                            dispatch(setCurrentIdx(idx))
                             dispatch(setIsPlaying(true));
                           }}
                         >
