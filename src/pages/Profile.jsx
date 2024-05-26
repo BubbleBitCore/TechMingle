@@ -469,7 +469,7 @@ const Profile = ({ Header }) => {
                       <div
                         className={`w-9 h-9 ${
                           mode ? "bg-blue-500" : " bg-blue-200"
-                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center`}
+                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center flex-shrink-0 `}
                       >
                         <img
                           src={man1}
@@ -522,7 +522,7 @@ const Profile = ({ Header }) => {
                       <div
                         className={`w-9 h-9 ${
                           mode ? "bg-blue-500" : " bg-blue-200"
-                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center`}
+                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center flex-shrink-0 `}
                       >
                         <img
                           src={man2}
@@ -575,7 +575,7 @@ const Profile = ({ Header }) => {
                       <div
                         className={`w-9 h-9 ${
                           mode ? "bg-blue-500" : " bg-blue-200"
-                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center`}
+                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center flex-shrink-0 `}
                       >
                         <img
                           src={man3}
@@ -628,7 +628,7 @@ const Profile = ({ Header }) => {
                       <div
                         className={`w-9 h-9 ${
                           mode ? "bg-blue-500" : " bg-blue-200"
-                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center`}
+                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center flex-shrink-0 `}
                       >
                         <img
                           src={man4}
@@ -681,7 +681,7 @@ const Profile = ({ Header }) => {
                       <div
                         className={`w-9 h-9 ${
                           mode ? "bg-blue-500" : " bg-blue-200"
-                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center`}
+                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center flex-shrink-0 `}
                       >
                         <img
                           src={man1}
@@ -734,7 +734,7 @@ const Profile = ({ Header }) => {
                       <div
                         className={`w-9 h-9 ${
                           mode ? "bg-blue-500" : " bg-blue-200"
-                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center`}
+                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center flex-shrink-0 `}
                       >
                         <img
                           src={man2}
@@ -787,7 +787,7 @@ const Profile = ({ Header }) => {
                       <div
                         className={`w-9 h-9 ${
                           mode ? "bg-blue-500" : " bg-blue-200"
-                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center`}
+                        } transition-all duration-500 rounded-full flex overflow-hidden justify-center items-center flex-shrink-0 `}
                       >
                         <img
                           src={man2}

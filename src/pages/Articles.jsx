@@ -57,7 +57,7 @@ const Articles = ({ Header }) => {
         <Header urlName="Articles" />
         <div className="mt-1 mb-2 h-full w-full flex justify-between overflow-hidden">
           {/* section 1 */}
-          <div className="max-sm:hidden flex flex-col lg:w-[20%] h-full  rounded-lg gap-4">
+          <div className="max-sm:hidden sm:hidden md:flex flex flex-col lg:w-[20%] h-full  rounded-lg gap-4">
             {/* profile card */}
             <div
               className={`flex flex-col w-full ${
@@ -247,7 +247,7 @@ const Articles = ({ Header }) => {
             </div>
             {/* Contents */}
             <div
-              className={`w-full h-full flex flex-col gap-5 overflow-hidden overflow-y-auto roundedScroll`}
+              className={`w-full h-full flex flex-col md:gap-5 max-sm:gap-2 overflow-hidden overflow-y-auto roundedScroll`}
             >
               <ArticleCard
                 articleImg={abs}
@@ -550,19 +550,23 @@ const ArticleCard = ({ articleImg, imgPreviewState }) => {
             Few minutes Ago
           </p>
           {/* Article Image */}
-          <div
-            onClick={() => {
-              imgPreviewState.setShowImgPreview(true);
-              imgPreviewState.setShowImgPreviewSrc(articleImg);
-              // console.log(imgPreviewState);
-            }}
-            className="w-full rounded-xl mt-3 max-sm:pr-[2rem] md:pr-[5rem] mb-4"
-          >
+          <div className="w-full rounded-xl mt-3 max-sm:pr-[2rem] md:pr-[5rem] mb-4 relative">
             <img
               src={articleImg}
               alt=""
-              className={`w-full h-auto rounded-xl object-cover`}
+              className={`w-full h-auto cursor-pointer rounded-xl object-cover`}
             />
+            <div
+              onClick={() => {
+                imgPreviewState.setShowImgPreview(true);
+                imgPreviewState.setShowImgPreviewSrc(articleImg);
+                // console.log(imgPreviewState);
+              }}
+              title={`fullscreen`}
+              className={`cursor-pointer p-2 py-1 max-sm:pr-[2rem] md:pr-[5rem] rounded-lg absolute bottom-3 right-5  transition-all`}
+            >
+              <i className="text-white text-xl ri-fullscreen-line "></i>
+            </div>
           </div>
           {/* Caption */}
           <div
@@ -677,7 +681,7 @@ const ArticleCard = ({ articleImg, imgPreviewState }) => {
                   mode ? "border-gray-500" : "border-gray-500"
                 } bg-transparent  transition-all ${
                   mode ? "text-gray-300" : "text-black"
-                }  border-0 outline-0`}
+                }  border-0 outline-0 max-sm:text-sm `}
                 type="text"
               />
               <div
@@ -696,7 +700,7 @@ const ArticleCard = ({ articleImg, imgPreviewState }) => {
                           ? "bg-white text-black duration-500"
                           : "bg-black text-white duration-500"
                       }`
-                } transition-all select-none cursor-pointer rounded-3xl px-4 py-2 text-xs`}
+                } transition-all select-none cursor-pointer rounded-3xl md:px-4 md:py-2  max-sm:p-2 text-xs`}
               >
                 Make
               </div>
