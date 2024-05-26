@@ -7,7 +7,7 @@ const Spinner = () => {
       <div className="w-full flex justify-center h-full items-center bg-transparent">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="goog-te-spinner w-7 sm:w-[3%]"
+          className="goog-te-spinner w-7 sm:w-[3%] min-w-[1rem]"
           viewBox="0 0 66 66"
         >
           <circle
