@@ -39,7 +39,7 @@ const Comment = () => {
         </div>
         {/* Add Comment input */}
 
-        <div className={`w-full py-2 flex-col gap-2 flex`}>
+        <div className={`w-full py-2 pb-0 flex-col gap-2 flex`}>
           {/* avtar */}
           <div className="flex gap-2 justify-center items-start">
             <div className="commentAvtar overflow-hidden rounded-full w-7 h-7 cursor-pointer flex-shrink-0">

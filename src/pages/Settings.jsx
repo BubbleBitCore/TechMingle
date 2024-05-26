@@ -28,7 +28,7 @@ const Account = () => {
         .substring(file.name.lastIndexOf(".") + 1)
         .toLowerCase();
       const MAX_SIZE = 2097152; // 2MB in bytes
-      const MAX_DIMESNION = 2000; // 2000 pixels width and height
+      const MAX_DIMENSION = 800; // 2000 pixels width and height
 
       if (
         Extension == "gif" ||
@@ -52,14 +52,14 @@ const Account = () => {
           const _URL = window.URL || window.webkitURL;
           img.src = _URL.createObjectURL(file);
           img.onload = () => {
-            if (img.width > MAX_DIMESNION || img.height > MAX_DIMESNION) {
+            if (img.width > MAX_DIMENSION || img.height > MAX_DIMENSION) {
               // console.log(
               //   "Dimensions Should be equal or less than 2000 pixels"
               // );
               setFlashType(FLASH_ERROR);
               setFlashTitle("Dimension Error");
               setFlashMsg(
-                "Dimensions Should be equal-to or less-than 2000 pixels!"
+                "Dimensions Should be equal-to or less-than 800 pixels!"
               );
               setFlashVisibility(true);
               inputImageFile.current.value="";
