@@ -99,7 +99,14 @@ const Article = ({ Header }) => {
                   <i className="text-white text-xl ri-fullscreen-line "></i>
                 </div>
               </div>
-
+              {/* tags */}
+              <div className={`w-full flex flex-wrap lowercase px-3 mt-2 gap-2`}>
+                <p className="text-blue-500 text-sm cursor-pointer hover:underline">#reactx</p>
+                <p className="text-blue-500 text-sm cursor-pointer hover:underline">#mern</p>
+                <p className="text-blue-500 text-sm cursor-pointer hover:underline">#naruto</p>
+                <p className="text-blue-500 text-sm cursor-pointer hover:underline">#jiraya</p>
+                <p className="text-blue-500 text-sm cursor-pointer hover:underline">#sonen</p>
+              </div>
               {/* profile and actions */}
               <div
                 className={`flex w-full px-2 max-sm:px-1 mt-4 max-sm:flex-wrap max-sm:justify-between`}
@@ -119,11 +126,22 @@ const Article = ({ Header }) => {
                   <div className=" cursor-pointer flex lg:min-w-[12rem] max-sm:min-w-[8rem] flex-col max-sm:gap-0 gap-1 mx-3 max-sm:ml-0 justify-start items-start ">
                     <p
                       title="User name"
-                      className={`${mode?"text-white duration-500 ":"text-black  duration-500"} transition-all text-lg max-sm:text-sm montserrat  leading-4 font-bold max-sm:max-w-[8rem] lg:max-w-[12rem] overflow-hidden text-ellipsis text-nowrap`}
+                      className={`${
+                        mode
+                          ? "text-white duration-500 "
+                          : "text-black  duration-500"
+                      } transition-all text-lg max-sm:text-sm montserrat  leading-4 font-bold max-sm:max-w-[8rem] lg:max-w-[12rem] overflow-hidden text-ellipsis text-nowrap`}
                     >
-                      Naruto uzumaki 
+                      Naruto uzumaki
                     </p>
-                    <p title={`Followers`} className={`text-xs ${mode?"text-gray-400 duration-500 ":"text-gray-800  duration-500"} transition-all `}>
+                    <p
+                      title={`Followers`}
+                      className={`text-xs ${
+                        mode
+                          ? "text-gray-400 duration-500 "
+                          : "text-gray-800  duration-500"
+                      } transition-all `}
+                    >
                       920K <span>•</span> Followers
                     </p>
                   </div>
@@ -141,7 +159,11 @@ const Article = ({ Header }) => {
                       }
                     }}
                     className={`${
-                      following ? "bg-blue-500 text-white" : mode ?"bg-white hover:bg-[#d2d2d2] text-black duration-500":"bg-black hover:bg-[#262626] text-white duration-500"
+                      following
+                        ? "bg-blue-500 text-white"
+                        : mode
+                        ? "bg-white hover:bg-[#d2d2d2] text-black duration-500"
+                        : "bg-black hover:bg-[#262626] text-white duration-500"
                     } cursor-pointer text-sm w-auto select-none px-4 py-2 transition-all font-bold montserrat    rounded-3xl flex `}
                   >
                     {following && <i className={`ri-check-line mr-1`}></i>}{" "}
@@ -158,7 +180,11 @@ const Article = ({ Header }) => {
                       onClick={() => {
                         like();
                       }}
-                      className={`select-none cursor-pointer px-4 py-2 text-xs ${mode?"duration-500 hover:bg-[#313131] bg-[#141414] text-white":"hover:bg-[#d2d2d2] bg-gray-200 text-black duration-500"}  transition-all rounded-3xl`}
+                      className={`select-none cursor-pointer px-4 py-2 text-xs ${
+                        mode
+                          ? "duration-500 hover:bg-[#313131] bg-[#141414] text-white"
+                          : "hover:bg-[#d2d2d2] bg-gray-200 text-black duration-500"
+                      }  transition-all rounded-3xl`}
                     >
                       <i
                         className={`text-sm ri-thumb-up-${
@@ -173,7 +199,11 @@ const Article = ({ Header }) => {
                       onClick={() => {
                         dislike();
                       }}
-                      className={`select-none cursor-pointer px-4 py-2 text-xs ${mode?"duration-500 hover:bg-[#313131] bg-[#141414] text-white":"hover:bg-[#d2d2d2] bg-gray-200 text-black duration-500"}  transition-all rounded-3xl`}
+                      className={`select-none cursor-pointer px-4 py-2 text-xs ${
+                        mode
+                          ? "duration-500 hover:bg-[#313131] bg-[#141414] text-white"
+                          : "hover:bg-[#d2d2d2] bg-gray-200 text-black duration-500"
+                      }  transition-all rounded-3xl`}
                     >
                       <i
                         className={`text-sm ri-thumb-down-${
@@ -193,7 +223,11 @@ const Article = ({ Header }) => {
                           })
                         );
                       }}
-                      className={`select-none cursor-pointer px-4 py-2 text-xs ${mode?"duration-500 hover:bg-[#313131] bg-[#141414] text-white":"hover:bg-[#d2d2d2] bg-gray-200 text-black duration-500"}  transition-all rounded-3xl`}
+                      className={`select-none cursor-pointer px-4 py-2 text-xs ${
+                        mode
+                          ? "duration-500 hover:bg-[#313131] bg-[#141414] text-white"
+                          : "hover:bg-[#d2d2d2] bg-gray-200 text-black duration-500"
+                      }  transition-all rounded-3xl`}
                     >
                       <i className={`text-sm ri-share-forward-fill mr-1`}></i>{" "}
                       Share
@@ -210,7 +244,11 @@ const Article = ({ Header }) => {
                       }
                     }}
                     title="more"
-                    className={`cursor-pointer ${mode?"hover:bg-[#141414] text-white":"hover:bg-gray-200 text-black"} transition-all flex justify-center items-center px-3 py-0 rounded-3xl relative`}
+                    className={`cursor-pointer ${
+                      mode
+                        ? "hover:bg-[#141414] text-white"
+                        : "hover:bg-gray-200 text-black"
+                    } transition-all flex justify-center items-center px-3 py-0 rounded-3xl relative`}
                   >
                     <i className={` ri-more-fill`}></i>
                     <ClickMenu menu={moreList} visibility={showMore} />
@@ -218,7 +256,13 @@ const Article = ({ Header }) => {
                 </div>
               </div>
               {/* Caption */}
-              <div className={`w-full text-sm montserrat ${mode?"text-gray-400 transition-all duration-500":"text-gray-500 transition-all duration-500"} inter my-3 px-3`}>
+              <div
+                className={`w-full text-sm montserrat ${
+                  mode
+                    ? "text-gray-400 transition-all duration-500"
+                    : "text-gray-500 transition-all duration-500"
+                } inter my-3 px-3`}
+              >
                 {trimCaption}{" "}
                 <span
                   onClick={() => {
@@ -246,10 +290,18 @@ const Article = ({ Header }) => {
                 mode ? "bg-[#202020]" : "bg-[#F3F4F6]"
               } transition-all duration-500 rounded-lg  flex flex-col lg:overflow-hidden lg:overflow-y-auto roundedScroll `}
             >
-              <p className={`p-2 px-3 text-xl font-bold ${mode?"text-white":"text-black"} `}>
+              <p
+                className={`p-2 px-3 text-xl font-bold ${
+                  mode ? "text-white" : "text-black"
+                } `}
+              >
                 Related Articles
               </p>
-              <hr className={`w-full mb-3 ${mode&&"border-gray-700 transition-all duration-500"}`} />
+              <hr
+                className={`w-full mb-3 ${
+                  mode && "border-gray-700 transition-all duration-500"
+                }`}
+              />
               {/* Recommendation cards */}
               <div
                 className={`flex flex-col gap-2 w-full h-full lg:overflow-hidden lg:overflow-y-auto pb-12`}
@@ -340,18 +392,28 @@ const RelatedArticles = () => {
           className={`flex flex-col w-full gap-0 max-w-[11rem] overflow-hidden`}
         >
           {/* Caption */}
-          <p className={`font-bold max-w-[10rem]  ${mode?"text-gray-300":"text-black"} transition-all duration-500 text-wrap`}>
+          <p
+            className={`font-bold max-w-[10rem]  ${
+              mode ? "text-gray-300" : "text-black"
+            } transition-all duration-500 text-wrap`}
+          >
             {caption.split(" ").slice(0, 5).join(" ")}{" "}
             {caption.split(" ").length > 5 ? "..." : ""}
           </p>
           {/* User */}
           <p
-            className={`text-xs ${mode?"text-gray-400":"text-gray-500"} transition-all duration-500  text-nowrap overflow-hidden text-ellipsis`}
+            className={`text-xs ${
+              mode ? "text-gray-400" : "text-gray-500"
+            } transition-all duration-500  text-nowrap overflow-hidden text-ellipsis`}
           >
             Boruto uzumaki
           </p>
           {/* Like and time */}
-          <p className={`text-xs flex gap-1 ${mode?"text-gray-400":"text-gray-500"} transition-all duration-500`}>
+          <p
+            className={`text-xs flex gap-1 ${
+              mode ? "text-gray-400" : "text-gray-500"
+            } transition-all duration-500`}
+          >
             <span className={``}>31K Likes</span>
             <span className={``}>•</span>
             <span className={``}>1 month Ago</span>
