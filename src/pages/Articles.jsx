@@ -87,15 +87,15 @@ const Articles = ({ Header }) => {
               >
                 {/* user_name */}
                 <p
-                  className={`text-center  monsterrat font-bold max-w-[80%] overflow-hidden text-ellipsis text-nowrap ${
+                  className={`text-center  monsterrat font-bold max-w-[10rem] overflow-hidden text-ellipsis text-nowrap ${
                     mode ? "text-white" : "text-black"
                   } duration-500 transition-all`}
                 >
-                  Naruto Uzumaki
+                  Naruto Uzumaki 
                 </p>
                 {/* user bio */}
                 <p
-                  className={`max-w-[80%] overflow-hidden text-ellipsis text-nowrap text-center text-xs inter ${
+                  className={`max-w-[10rem] overflow-hidden text-ellipsis text-nowrap text-center text-xs inter ${
                     mode ? "text-gray-500" : "text-gray-600"
                   } duration-500 transition-all`}
                 >
@@ -521,8 +521,8 @@ const ArticleCard = ({ articleImg, imgPreviewState }) => {
             <p
               className={`text-sm ${
                 mode ? "text-white" : "text-black"
-              } transition-all duration-500 font-bold`}
-            >
+              } transition-all max-w-[10rem] duration-500 font-bold text-ellipsis text-nowrap overflow-hidden`}
+            > 
               Jiraya Sage
             </p>
             <div
