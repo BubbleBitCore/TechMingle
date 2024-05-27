@@ -1,17 +1,20 @@
 import { useEffect, useState } from "react";
-import { useSelector,useDispatch } from "react-redux";
-import { setCurrentTime,setDuration,setIsPlaying} from "../../slices/podcastSlice";
+import { useSelector, useDispatch } from "react-redux";
+import {
+  setCurrentTime,
+  setDuration,
+  setIsPlaying,
+  setBufferedTime,
+} from "../../slices/podcastSlice";
 
-const GlobalAudioPlayer = ({
-  audioRef,
-}) => {
+const GlobalAudioPlayer = ({ audioRef }) => {
   const nowPlaying = useSelector((state) => state.podcast.nowPlaying);
-  const isRepeating = useSelector((state)=>state.podcast.isRepeating);
-  const isPlaying =  useSelector((state)=>state.podcast.isPlaying);
-  const volume = useSelector((state)=>state.podcast.volume);
+  const isRepeating = useSelector((state) => state.podcast.isRepeating);
+  const isPlaying = useSelector((state) => state.podcast.isPlaying);
+  const volume = useSelector((state) => state.podcast.volume);
 
   const dispatch = useDispatch();
-  const [prevNowPlaying,setPreviousNowPlaying] = useState(nowPlaying);
+  const [prevNowPlaying, setPreviousNowPlaying] = useState(nowPlaying);
   const [loaded, setLoaded] = useState(false);
 
   const handleEnded = () => {
@@ -20,12 +23,12 @@ const GlobalAudioPlayer = ({
     }
   };
 
-  useEffect(()=>{
-    if(prevNowPlaying !== nowPlaying){
+  useEffect(() => {
+    if (prevNowPlaying !== nowPlaying) {
       audioRef.current.currentTime = 0;
-      setPreviousNowPlaying(nowPlaying)
+      setPreviousNowPlaying(nowPlaying);
     }
-  },[nowPlaying])
+  }, [nowPlaying]);
 
   useEffect(() => {
     if (loaded && isPlaying) {
@@ -49,7 +52,13 @@ const GlobalAudioPlayer = ({
         ref={audioRef}
         src={nowPlaying.audio}
         onTimeUpdate={(e) => {
-          dispatch(setCurrentTime(e.target.currentTime));
+          const currentTime = e.target.currentTime;
+          dispatch(setCurrentTime(currentTime));
+          const buffered = e.target.buffered;
+          if (buffered.length > 0) {
+            const bufferedTime = buffered.end(buffered.length - 1); // Use the last buffered range
+            dispatch(setBufferedTime(bufferedTime));
+          }
         }}
         onLoadedMetadata={(e) => {
           dispatch(setDuration(e.target.duration));

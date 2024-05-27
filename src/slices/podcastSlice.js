@@ -11,6 +11,7 @@ const initialState = {
   isPlaying: false,
   isRepeating: false,
   volume: 0.5,
+  bufferedTime:0,
   contextList: [
     {
       id:1,
@@ -122,6 +123,9 @@ const podcastSlice = createSlice({
     setCurrentIdx: (state, action) => {
       state.currentIdx = action.payload;
     },
+    setBufferedTime:(state,action)=>{
+      state.bufferedTime = action.payload;
+    }
   },
 });
 
@@ -133,6 +137,7 @@ export const {
   setIsRepeating,
   setVolume,
   setContextList,
-  setCurrentIdx
+  setCurrentIdx,
+  setBufferedTime
 } = podcastSlice.actions;
 export default podcastSlice.reducer;

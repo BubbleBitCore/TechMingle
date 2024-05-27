@@ -17,11 +17,13 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
   const volume = useSelector((state) => state.podcast.volume);
   const currentIdx = useSelector((state) => state.podcast.currentIdx);
   const contextList = useSelector((state) => state.podcast.contextList);
+  const bufferedTime = useSelector((state) => state.podcast.bufferedTime);
 
   const dispatch = useDispatch();
   const [isDragging, setIsDragging] = useState(false);
   const [wasPlaying, setWasPlaying] = useState(false);
   const [isContinuousDragging, setIsContinuousDragging] = useState(false);
+  const [prevVol, setPrevVol] = useState(volume);
 
   const handleProgressChange = (e) => {
     const newTime = (e.target.value / 100) * duration;
@@ -89,12 +91,13 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
   };
 
   const handleRangeInput = (e) => {
-    console.log(isDragging);
     if (isDragging) {
       setIsContinuousDragging(true); // Start continuous dragging when range value changes
     }
-    if(isContinuousDragging){
-      setWasPlaying(true);
+    if (isContinuousDragging) {
+      if (isPlaying) {
+        setWasPlaying(true);
+      }
       dispatch(setIsPlaying(false));
       setIsDragging(false);
     }
@@ -102,23 +105,13 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
 
   const handleTouchStart = () => {
     setIsDragging(true);
-    if (isPlaying) {
-      setWasPlaying(true);
-      dispatch(setIsPlaying(false));
-    }
   };
 
   const handleTouchEnd = () => {
-    setIsDragging(false);
+    setIsContinuousDragging(false); // Stop continuous dragging
     if (wasPlaying) {
       dispatch(setIsPlaying(true));
       setWasPlaying(false);
-    }
-  };
-
-  const handleTouchMove = (e) => {
-    if (isDragging) {
-      handleProgressChange(e);
     }
   };
 
@@ -132,9 +125,24 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
           .audiorange::-webkit-slider-runnable-track {
             width: 100%;
             height: 5px;
-            background: linear-gradient(to right, #302E2E 0%, #302E2E ${
-              (currentTime / duration) * 100
-            }%, #d3d3d3 ${(currentTime / duration) * 100}%, #d3d3d3 100%);
+            background: #302E2E; /* Start with black */
+            background-image: linear-gradient(
+              to right,
+              #302E2E 0%, /* Black */
+              #302E2E ${
+                (currentTime / duration) * 100
+              }%, /* Black until current time */
+              red ${
+                (currentTime / duration) * 100
+              }%, /* Red from current time to buffered time */
+              red ${
+                (bufferedTime / duration) * 100
+              }%, /* Red for buffered time */
+              #d3d3d3 ${
+                (bufferedTime / duration) * 100
+              }%, /* Gray for remaining time */
+              #d3d3d3 100% /* Gray until the end */
+            );
           }
           #vol_progress::-webkit-slider-runnable-track {
             width: 100%;
@@ -180,7 +188,6 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
             onInput={handleRangeInput}
             onTouchStart={handleTouchStart}
             onTouchEnd={handleTouchEnd}
-            onTouchMove={handleTouchMove}
           ></input>
           <p className="text-xs">
             {new Date(duration * 1000).toISOString().substr(11, 8)}
@@ -225,7 +232,7 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
 
           <div
             className={`flex w-full items-center justify-center text-lg ${
-              large ? "sm:gap-2" : "sm:gap-1"
+              large ? "sm:gap-2" : ""
             } `}
           >
             <div
@@ -297,13 +304,24 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
               <i className="ri-skip-forward-fill"></i>
             </div>
           </div>
-          <div className="flex sm:w-1/3 max-sm:w-[150px] max-w-[120px] items-center ">
+          <div className="flex max-sm:w-[150px] sm:w-[120px] max-w-[120px] items-center ">
             <div
               className={`px-2 py-1 rounded-full ${
                 mode ? " hover:bg-zinc-800" : " hover:bg-zinc-200"
               } transition-all duration-500 cursor-pointer`}
+              onClick={() => {
+                if (volume > 0) {
+                  setPrevVol(volume);
+                  dispatch(setVolume(0));
+                } else {
+                  dispatch(setVolume(prevVol));
+                }}}
             >
-              <i className="ri-volume-up-fill"></i>
+              <i
+                className={`${
+                  volume > 0 ? "ri-volume-up-fill" : "ri-volume-mute-fill"
+                } `}
+              ></i>
             </div>
 
             <input
