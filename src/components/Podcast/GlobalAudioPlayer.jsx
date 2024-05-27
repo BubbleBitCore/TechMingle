@@ -12,6 +12,7 @@ const GlobalAudioPlayer = ({
 
   const dispatch = useDispatch();
   const [prevNowPlaying,setPreviousNowPlaying] = useState(nowPlaying);
+  const [loaded, setLoaded] = useState(false);
 
   const handleEnded = () => {
     if (isRepeating) {
@@ -24,12 +25,17 @@ const GlobalAudioPlayer = ({
       audioRef.current.currentTime = 0;
       setPreviousNowPlaying(nowPlaying)
     }
-    if(isPlaying){
-      audioRef.current.play();
-    }else{
+  },[nowPlaying])
+
+  useEffect(() => {
+    if (loaded && isPlaying) {
+      audioRef.current.play().catch((error) => {
+        console.error("Play request was interrupted:", error);
+      });
+    } else if (audioRef.current) {
       audioRef.current.pause();
     }
-  },[nowPlaying,isPlaying])
+  }, [isPlaying, loaded]);
 
   useEffect(() => {
     if (audioRef.current) {
@@ -47,6 +53,12 @@ const GlobalAudioPlayer = ({
         }}
         onLoadedMetadata={(e) => {
           dispatch(setDuration(e.target.duration));
+          setLoaded(true);
+          if (isPlaying) {
+            audioRef.current.play().catch((error) => {
+              console.error("Play request was interrupted:", error);
+            });
+          }
         }}
         onPlay={() => {
           dispatch(setIsPlaying(true));

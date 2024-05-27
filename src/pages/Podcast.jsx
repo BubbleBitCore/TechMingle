@@ -439,7 +439,7 @@ const Podcast = ({player,
             } flex flex-col w-[75%] max-lg:w-full h-fit max-sm:w-full sm:rounded-xl sm:shadow-lg transition-all duration-500`}
           >
             <div
-              className={`flex max-sm:flex-col h-[55vh] max-sm:h-[80vh] backdrop-blur-xl sm:rounded-t-xl max-sm:items-center w-full relative overflow-hidden transition-all duration-500 ${
+              className={`flex max-sm:flex-col h-[55vh] max-sm:h-[85vh] backdrop-blur-xl sm:rounded-t-xl max-sm:items-center w-full relative overflow-hidden transition-all duration-500 ${
                 mode && isSmallScreen && "fadeShadow"
               }`}
             >

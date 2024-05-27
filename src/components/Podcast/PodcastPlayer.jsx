@@ -146,7 +146,7 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
                   : mode
                   ? "hover:bg-zinc-800"
                   : "hover:bg-zinc-100"
-              } transition-all duration-500 relative flex items-center`}
+              } transition-all duration-500 relative flex items-center cursor-pointer`}
               onClick={() => {
                 dispatch(setIsRepeating(!isRepeating));
                 console.log(isRepeating);
@@ -172,17 +172,17 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
 
           <div
             className={`flex w-full items-center justify-center text-lg ${
-              large ? "gap-2" : "gap-1"
+              large ? "sm:gap-2" : "sm:gap-1"
             } `}
           >
             <div
-              className={`px-2 py-1 rounded-full ${
+              className={`sm:px-2 py-1 rounded-full ${
                 large
                   ? "hover:text-zinc-400 text-2xl"
                   : mode
                   ? " hover:bg-zinc-800 text-xl"
                   : " hover:bg-zinc-100 text-xl"
-              } transition-all duration-500`}
+              } transition-all duration-500 cursor-pointer`}
               onClick={playPrevious}
             >
               <i className="ri-skip-back-fill"></i>
@@ -190,13 +190,13 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
 
             {large && (
               <div
-                className={`px-2 py-1 rounded-full ${
+                className={`px-1 sm:px-2 py-1 rounded-full ${
                   large
                     ? "hover:text-zinc-400 text-2xl"
                     : mode
                     ? " hover:bg-zinc-800"
                     : " hover:bg-zinc-100"
-                } transition-all duration-500`}
+                } transition-all duration-500 cursor-pointer`}
                 onClick={skipBackward}
               >
                 <i className="ri-rewind-fill"></i>
@@ -212,19 +212,19 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
                     : mode
                     ? "hover:text-zinc-300 text-4xl"
                     : "hover:text-zinc-800 text-4xl"
-                }  `}
+                } cursor-pointer transition-all duration-500 `}
                 onClick={handlePlayPause}
               ></i>
             </div>
             {large && (
               <div
-                className={`px-2 py-1 rounded-full ${
+                className={`px-1 sm:px-2 py-1 rounded-full ${
                   large
                     ? "hover:text-zinc-400 text-2xl"
                     : mode
                     ? " hover:bg-zinc-800 "
                     : " hover:bg-zinc-100"
-                } transition-all duration-500`}
+                } transition-all duration-500 cursor-pointer`}
                 onClick={skipForward}
               >
                 <i className="ri-speed-fill "></i>
@@ -232,23 +232,23 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
             )}
 
             <div
-              className={`px-2 py-1 rounded-full ${
+              className={`sm:px-2 py-1 rounded-full ${
                 large
                   ? "hover:text-zinc-400 text-2xl"
                   : mode
                   ? " hover:bg-zinc-800 text-xl"
                   : " hover:bg-zinc-200 text-xl"
-              } transition-all duration-500`}
+              } transition-all duration-500 cursor-pointer`}
               onClick={playNext}
             >
               <i className="ri-skip-forward-fill"></i>
             </div>
           </div>
-          <div className="flex w-1/3 max-w-[120px] items-center ">
+          <div className="flex sm:w-1/3 max-sm:w-[150px] max-w-[120px] items-center ">
             <div
               className={`px-2 py-1 rounded-full ${
                 mode ? " hover:bg-zinc-800" : " hover:bg-zinc-200"
-              } transition-all duration-500`}
+              } transition-all duration-500 cursor-pointer`}
             >
               <i className="ri-volume-up-fill"></i>
             </div>
