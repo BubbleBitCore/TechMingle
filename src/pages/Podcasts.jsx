@@ -15,6 +15,7 @@ import SkeletonList from "../components/Podcast/SkeletonList";
 import PodcastPlayer from "../components/Podcast/PodcastPlayer";
 import { setNowPlaying, setIsPlaying, setContextList, setCurrentIdx } from "../slices/podcastSlice";
 import { Link } from "react-router-dom";
+import { truncateText } from "../utils/conversion";
 
 const Podcasts = ({ Header, player }) => {
   const nowPlaying = useSelector((state) => state.podcast.nowPlaying);
@@ -834,14 +835,6 @@ const Podcasts = ({ Header, player }) => {
       setTrendingPodcastIdx(idxArray);
     }
   }, [selectedTrendingPodcastList]);
-
-  // truncate text
-  const truncateText = (text, maxLength) => {
-    if (text.length > maxLength) {
-      return text.substring(0, maxLength) + "...";
-    }
-    return text;
-  };
 
   return (
     <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 select-none ">

@@ -1,7 +1,6 @@
-import GlobalAudioPlayer from "./GlobalAudioPlayer";
 import { useSelector, useDispatch } from "react-redux";
+import { useState } from "react";
 import {
-  setCurrentTime,
   setIsPlaying,
   setIsRepeating,
   setVolume,
@@ -20,6 +19,9 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
   const contextList = useSelector((state) => state.podcast.contextList);
 
   const dispatch = useDispatch();
+  const [isDragging, setIsDragging] = useState(false);
+  const [wasPlaying, setWasPlaying] = useState(false);
+  const [isContinuousDragging, setIsContinuousDragging] = useState(false);
 
   const handleProgressChange = (e) => {
     const newTime = (e.target.value / 100) * duration;
@@ -51,11 +53,11 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
   };
 
   const playNext = () => {
-    if(contextList.length > 1){
+    if (contextList.length > 1) {
       if (currentIdx < contextList.length - 1) {
         dispatch(setCurrentIdx(currentIdx + 1));
         dispatch(setNowPlaying(contextList[currentIdx + 1]));
-      }else if(currentIdx === contextList.length - 1){
+      } else if (currentIdx === contextList.length - 1) {
         dispatch(setCurrentIdx(0));
         dispatch(setNowPlaying(contextList[0]));
       }
@@ -63,16 +65,61 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
   };
 
   const playPrevious = () => {
-    if(contextList.length > 1){
+    if (contextList.length > 1) {
       if (currentIdx > 0) {
         dispatch(setCurrentIdx(currentIdx - 1));
         dispatch(setNowPlaying(contextList[currentIdx - 1]));
-      }else if(currentIdx === 0){
-        dispatch(setCurrentIdx(contextList.length -1));
-        dispatch(setNowPlaying(contextList[contextList.length-1]));
+      } else if (currentIdx === 0) {
+        dispatch(setCurrentIdx(contextList.length - 1));
+        dispatch(setNowPlaying(contextList[contextList.length - 1]));
       }
     }
-    
+  };
+
+  const handleMouseDown = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = () => {
+    setIsContinuousDragging(false); // Stop continuous dragging
+    if (wasPlaying) {
+      dispatch(setIsPlaying(true));
+      setWasPlaying(false);
+    }
+  };
+
+  const handleRangeInput = (e) => {
+    console.log(isDragging);
+    if (isDragging) {
+      setIsContinuousDragging(true); // Start continuous dragging when range value changes
+    }
+    if(isContinuousDragging){
+      setWasPlaying(true);
+      dispatch(setIsPlaying(false));
+      setIsDragging(false);
+    }
+  };
+
+  const handleTouchStart = () => {
+    setIsDragging(true);
+    if (isPlaying) {
+      setWasPlaying(true);
+      dispatch(setIsPlaying(false));
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsDragging(false);
+    if (wasPlaying) {
+      dispatch(setIsPlaying(true));
+      setWasPlaying(false);
+    }
+  };
+
+  const handleTouchMove = (e) => {
+    if (isDragging) {
+      handleProgressChange(e);
+    }
   };
 
   return (
@@ -128,6 +175,12 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
             className="audiorange w-full h-[5px] rounded-[50px] cursor-pointer outline-none"
             value={(currentTime / duration) * 100 || 0}
             onChange={handleProgressChange}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
+            onInput={handleRangeInput}
+            onTouchStart={handleTouchStart}
+            onTouchEnd={handleTouchEnd}
+            onTouchMove={handleTouchMove}
           ></input>
           <p className="text-xs">
             {new Date(duration * 1000).toISOString().substr(11, 8)}
@@ -176,12 +229,12 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
             } `}
           >
             <div
-              className={`sm:px-2 py-1 rounded-full ${
+              className={`py-1 rounded-full ${
                 large
                   ? "hover:text-zinc-400 text-2xl"
                   : mode
-                  ? " hover:bg-zinc-800 text-xl"
-                  : " hover:bg-zinc-100 text-xl"
+                  ? " hover:bg-zinc-800 text-xl px-2 "
+                  : " hover:bg-zinc-100 text-xl px-2 "
               } transition-all duration-500 cursor-pointer`}
               onClick={playPrevious}
             >
@@ -236,8 +289,8 @@ const PodcastPlayer = ({ large = false, audioRef }) => {
                 large
                   ? "hover:text-zinc-400 text-2xl"
                   : mode
-                  ? " hover:bg-zinc-800 text-xl"
-                  : " hover:bg-zinc-200 text-xl"
+                  ? " hover:bg-zinc-800 text-xl px-2 "
+                  : " hover:bg-zinc-200 text-xl px-2 "
               } transition-all duration-500 cursor-pointer`}
               onClick={playNext}
             >

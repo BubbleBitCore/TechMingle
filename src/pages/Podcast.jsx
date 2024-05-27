@@ -13,6 +13,8 @@ import { changeSnackBarState } from "../slices/commonSlice";
 import SnackBar from "../components/SnackBar";
 import PodcastPlayer from "../components/Podcast/PodcastPlayer";
 import { setNowPlaying,setIsPlaying, setContextList, setCurrentIdx } from "../slices/podcastSlice";
+import Comment from "../components/Comment/Comment";
+import { truncateText } from "../utils/conversion";
 
 const Podcast = ({player,
 }) => {
@@ -479,7 +481,7 @@ const Podcast = ({player,
                   </p>
                 </div>
               )}
-              {/* adding a audio player component from react-h5-audio-player */}
+              {/* adding a podcast player compomnent */}
               <div className="flex sm:absolute sm:bottom-3 w-full sm:px-3 relative z-[100] transition-all duration-500">
                 <div className="flex max-sm:flex-col w-full sm:backdrop-blur-3xl items-center rounded-md sm:shadow-lg max-sm:fixed max-sm:bottom-4">
                   <PodcastPlayer
@@ -496,7 +498,7 @@ const Podcast = ({player,
               <div className="h-full w-full absolute top-0 left-0 z-20 backdrop-blur-3xl transition-all duration-500"></div>
             </div>
             {/* Podcast information */}
-            <div className="sm:h-full flex flex-col w-full sm:p-6 max-sm:pt-3 px-6 max-sm:px-3 sm:px-8 gap-5 transition-all duration-500">
+            <div className="sm:h-full flex flex-col w-full sm:p-6 max-sm:pt-3 px-6 sm:px-8 gap-5 transition-all duration-500">
               <div className="flex justify-between items-center transition-all duration-500">
                 <div
                   className="flex gap-3 justify-center items-center cursor-pointer transition-all duration-500"
@@ -514,7 +516,8 @@ const Podcast = ({player,
                         mode ? "text-zinc-300 " : ""
                       } text-md font-bold transition-all duration-500`}
                     >
-                      {nowPlaying.artist}
+                      {isSmallScreen && truncateText(nowPlaying.artist,10)}
+                      {!isSmallScreen && nowPlaying.artist}
                     </p>
                     <p
                       className={`${
@@ -661,7 +664,10 @@ const Podcast = ({player,
                     {showFullText ? "show less" : "more"}
                   </span>
                 </p>
-
+                <div className="flex w-full mx-[-8px] pt-6">
+                <Comment/>
+                </div>
+                
                 {/* All related episodes */}
                 {nowPlaying.type === "playlist" && (
                   <div className="flex flex-col w-full">

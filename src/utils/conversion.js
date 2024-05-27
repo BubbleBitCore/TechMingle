@@ -52,3 +52,11 @@ export const formatDate = (date) => {
     year;
   return formattedDate;
 };
+
+// To truncate any text
+export const truncateText = (text, maxLength) => {
+  if (text.length > maxLength) {
+    return text.substring(0, maxLength) + "...";
+  }
+  return text;
+};
