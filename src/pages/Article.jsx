@@ -109,7 +109,7 @@ const Article = ({ Header }) => {
               </div>
               {/* profile and actions */}
               <div
-                className={`flex w-full px-2 max-sm:px-1 mt-4 max-sm:flex-wrap max-sm:justify-between`}
+                className={`flex w-full px-2 max-sm:px-3 mt-4 max-sm:flex-wrap max-sm:justify-between`}
               >
                 <div className="flex max-sm:gap-2 ">
                   {/* profile avtar */}
@@ -171,7 +171,7 @@ const Article = ({ Header }) => {
                   </p>
                 </div>
                 {/* Like, dislike and share and more*/}
-                <div className="flex w-full justify-between max-sm:my-3 pl-3">
+                <div className="flex w-full justify-between max-sm:my-3 lg:pl-3">
                   {/* like,share,dislike */}
                   <div className={`flex gap-2 items-center`}>
                     {/* Like */}
@@ -380,7 +380,7 @@ const RelatedArticles = () => {
     <>
       <div className={`cursor-pointer flex gap-2 w-full px-3 `}>
         {/* Article Img */}
-        <div className={`w-[45%] h-auto flex-shrink-0 rounded-lg`}>
+        <div className={`w-[45%] h-[5rem] flex-shrink-0 rounded-lg`}>
           <img
             src={abs2}
             alt=""
