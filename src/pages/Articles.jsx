@@ -404,6 +404,7 @@ const ArticleCard = ({ articleImg, imgPreviewState }) => {
   const [disableAddCommentBtn, setDisableAddCommentBtn] = useState(true);
   const [comment, setComment] = useState("");
   const commonTextAreaRef = useRef(null);
+  const navigate = useNavigate();
   const like = () => {
     if (likeStatus) {
       setLikeStatus(false);
@@ -550,14 +551,21 @@ const ArticleCard = ({ articleImg, imgPreviewState }) => {
             Few minutes Ago
           </p>
           {/* Article Image */}
-          <div className="w-full rounded-xl mt-3 max-sm:pr-[2rem] md:pr-[5rem] mb-4 relative">
+          <div
+            onClick={(e) => {
+              e.stopPropagation();
+              navigate("/article/:123");
+            }}
+            className="w-full rounded-xl mt-3 max-sm:pr-[2rem] md:pr-[5rem] mb-4 relative"
+          >
             <img
               src={articleImg}
               alt=""
               className={`w-full h-auto cursor-pointer rounded-xl object-cover`}
             />
             <div
-              onClick={() => {
+              onClick={(e) => {
+                e.stopPropagation();
                 imgPreviewState.setShowImgPreview(true);
                 imgPreviewState.setShowImgPreviewSrc(articleImg);
                 // console.log(imgPreviewState);
