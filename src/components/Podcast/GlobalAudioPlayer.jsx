@@ -54,11 +54,6 @@ const GlobalAudioPlayer = ({ audioRef }) => {
         onTimeUpdate={(e) => {
           const currentTime = e.target.currentTime;
           dispatch(setCurrentTime(currentTime));
-          const buffered = e.target.buffered;
-          if (buffered.length > 0) {
-            const bufferedTime = buffered.end(buffered.length - 1); // Use the last buffered range
-            dispatch(setBufferedTime(bufferedTime));
-          }
         }}
         onLoadedMetadata={(e) => {
           dispatch(setDuration(e.target.duration));
@@ -77,6 +72,13 @@ const GlobalAudioPlayer = ({ audioRef }) => {
         }}
         onEnded={() => {
           handleEnded();
+        }}
+        onProgress={(e)=>{
+          const buffered = e.target.buffered;
+          if (buffered.length > 0) {
+            const bufferedTime = buffered.end(buffered.length - 1); // Use the last buffered range
+            dispatch(setBufferedTime(bufferedTime));
+          }
         }}
       ></audio>
     </>
