@@ -499,3 +499,15 @@ html {
 .borderColorLight{
   border-color: rgb(209 213 219);
 }
+
+
+/* Aspira font */
+
+@font-face {
+  font-family: aspira;
+  src: url(./assets/fonts/AspiraBold.ttf);
+}
+
+.aspira{
+  font-family: aspira;
+}

@@ -304,7 +304,7 @@ const Article = ({ Header }) => {
               />
               {/* Recommendation cards */}
               <div
-                className={`flex flex-col gap-2 w-full h-full lg:overflow-hidden lg:overflow-y-auto pb-12`}
+                className={`flex flex-col gap-5 w-full h-full lg:overflow-hidden lg:overflow-y-auto pb-12`}
               >
                 {new Array(10).fill(0).map((_, key) => (
                   <RelatedArticles key={key} />
