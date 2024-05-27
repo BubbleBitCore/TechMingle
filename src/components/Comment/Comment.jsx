@@ -22,8 +22,19 @@ const Comment = () => {
 
   return (
     <>
+    <style>
+        {`
+          .roundedScroll::-webkit-scrollbar-track {
+            border-radius: 4px;
+          }
+          
+          .roundedScroll::-webkit-scrollbar-thumb {
+            border-radius: 4px;
+          }
+        `}
+      </style>
       <div
-        className="comment w-full flex flex-col px-2"
+        className="comment w-full flex flex-col px-2 overflow-x-auto roundedScroll"
         onClick={() => {
           openMenus.forEach((element) => {
             element[Object.keys(element)[0]].setMoreOptionsVisibility(false);
