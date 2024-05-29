@@ -474,7 +474,7 @@ const Podcast = ({ player }) => {
               <div className="flex justify-center px-8 w-full overflow-hidden">
                 {/* All related episodes */}
                 {nowPlaying.type === "playlist" && (
-                  <div className="flex flex-col overflow-hidden">
+                  <div className="flex flex-col w-full overflow-hidden">
                     <p
                       className={`${
                         mode ? "text-zinc-300" : "font-bold"
@@ -482,15 +482,15 @@ const Podcast = ({ player }) => {
                     >
                       Related Episodes
                     </p>
-                    <div className="flex gap-6 w-full overflow-x-scroll snap-mandatory snap-x">
+                    <div className="flex gap-6 w-full flex-wrap">
                       {episodes?.length > 0
                         ? episodes.map((item, idx) => (
                             <div
-                              className="cursor-pointer flex flex-col min-w-[31%] max-sm:min-w-full gap-3 snap-center transition-all duration-500"
+                              className="cursor-pointer flex flex-col w-[23%] max-sm:min-w-full gap-3 snap-center transition-all duration-500"
                               key={idx}
                             >
                               <img
-                                className=" h-[65%] w-full shrink-0 object-cover rounded-md transition-all duration-500"
+                                className=" h-[9rem] w-full shrink-0 object-cover rounded-md transition-all duration-500"
                                 src={item.thumbnail}
                                 alt=""
                                 onClick={() => {
@@ -571,11 +571,20 @@ const Podcast = ({ player }) => {
                             </div>
                           ))
                         : null}
+                      {episodes?.length > 3 && (
+                        <div
+                          className={`${
+                            mode ? "text-white hover:text-gray-300 duration-500 " : " duration-500 text-black hover:text-gray-500"
+                          } h-[12rem] cursor-pointer flex transition-all justify-center items-center text-xs w-[9rem]`}
+                        >
+                          <p className={`text-center`}>Load more </p>
+                        </div>
+                      )}
                     </div>
                   </div>
                 )}
               </div>
-              <div className="flex w-full p-6">
+              <div className="flex w-full p-6 overflow-x-auto">
                 <Comment />
               </div>
             </div>
