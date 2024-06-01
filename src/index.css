@@ -511,3 +511,13 @@ html {
 .aspira{
   font-family: aspira;
 }
+/* Konya font */
+
+@font-face {
+  font-family: konya;
+  src: url(./assets/fonts/Konya.ttf);
+}
+
+.konya{
+  font-family:konya;
+}
