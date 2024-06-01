@@ -1,4 +1,4 @@
-import { Routes, Route, useLocation } from "react-router-dom";
+import { Routes, Route, useLocation,matchPath } from "react-router-dom";
 import Navigation from "./Navigation";
 import Login from "../pages/Login";
 import Home from "../pages/Home";
@@ -25,8 +25,8 @@ import Article from "../pages/Article";
 import Test from "../pages/Test";
 import { useRef, useState } from "react";
 import GlobalAudioPlayer from "./Podcast/GlobalAudioPlayer";
-import MyPodcasts from "../pages/MyPodcasts";
-import MyArticles from "../pages/MyArticles";
+import UserPodcasts from "../pages/UserPodcasts";
+import UserArticles from "../pages/UserArticles";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -170,19 +170,21 @@ const AppWrapper = () => {
             <Route
               exact
               path="/:id/podcasts"
-              element={<MyPodcasts Header={Header} />}
+              element={<UserPodcasts Header={Header} />}
             />
             <Route
               exact
               path="/:id/articles"
-              element={<MyArticles Header={Header} />}
+              element={<UserArticles Header={Header} />}
             />
             <Route exact path="/test" element={<Test />} />
             <Route exact path="*" element={<PageNotFound />} />
           </Routes>
         </div>
       </div>
-      <GlobalAudioPlayer audioRef={player} />
+      {(location.pathname === "/podcasts" || matchPath("/podcast/:id", location.pathname)) && (
+        <GlobalAudioPlayer audioRef={player} />
+      )}
     </>
   );
 };
