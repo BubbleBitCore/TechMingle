@@ -38,9 +38,9 @@ const Home = ({ Header }) => {
             className={`select-none w-full h-full flex flex-col justify-center items-center`}
           >
             {/* row 1 */}
-            <div className={`flex gap-3`}>
+            <div className={`flex gap-3 relative`}>
               <div className={`aspira text-white text-8xl`}>unite</div>
-              <div className={`flex gap-0 justify-center items-center`}>
+              <div className={`flex z-30 relative gap-0 justify-center items-center`}>
                 <div
                   className={`rounded-full w-[6rem] h-[6rem] flex justify-center items-center bg-green-400`}
                 >
@@ -77,6 +77,7 @@ const Home = ({ Header }) => {
                   </div>
                 </div>
               </div>
+              <div className="absolute rounded-[2rem] -right-[4rem] top-1/2  border-l-0  h-[6rem] border-4 w-[10rem] z-10 border-white border-dashed "></div>
             </div>
             {/* row 2 */}
             <div className={`flex gap-3 items-center relative`}>
@@ -94,12 +95,13 @@ const Home = ({ Header }) => {
               </div>
               <div className={`aspira text-white text-8xl`}>elevate</div>
               <div
-                className={`rounded-[5rem] border-4 h-[3rem] flex justify-center items-center w-[9rem] border-white relative`}
+                className={`rounded-[5rem] border-4 h-[3rem] flex justify-center items-center w-[9rem] border-white  bg-[#0B0D10] z-30 relative`}
               >
                 <div className={`w-[50%] h-1 rounded-xl  bg-white `}></div>
                 <div
                   className={`w-[1rem] h-[1rem] bg-green-400 rounded-full absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 `}
                 ></div>
+                <div className={`h-[0.7rem] w-[0.7rem] bg-[#3B82F6] rounded-full absolute -right-2`}></div>
               </div>
             </div>
             {/* row 3 */}
