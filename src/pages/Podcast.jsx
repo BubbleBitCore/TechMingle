@@ -457,8 +457,9 @@ const Podcast = ({ player }) => {
                         {formatNumber(nowPlaying.views)}
                       </p>
                     </div>
-                    <div
-                      className="flex gap-1 capitalize text-sm"
+                    {nowPlaying.playlist !=null && nowPlaying.playlist !== "" && (
+                      <div
+                      className="flex gap-1 capitalize text-sm transition-all duration-500"
                       title="Playlist"
                     >
                       <i
@@ -474,6 +475,8 @@ const Podcast = ({ player }) => {
                         {nowPlaying.playlist}
                       </p>
                     </div>
+                    )}
+                    
                   </div>
                   <p
                     className={`${
