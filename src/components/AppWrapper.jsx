@@ -23,8 +23,10 @@ import Podcast from "../pages/Podcast";
 import Profile from "../pages/Profile";
 import Article from "../pages/Article";
 import Test from "../pages/Test";
-import { useRef,useState } from "react";
+import { useRef, useState } from "react";
 import GlobalAudioPlayer from "./Podcast/GlobalAudioPlayer";
+import MyPodcasts from "../pages/MyPodcasts";
+import MyArticles from "../pages/MyArticles";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -135,22 +137,12 @@ const AppWrapper = () => {
             <Route
               exact
               path="/podcasts"
-              element={
-                <Podcasts
-                  Header={Header}
-                  player={player}
-                />
-              }
+              element={<Podcasts Header={Header} player={player} />}
             />
             <Route
               exact
               path="/podcast/:id"
-              element={
-                <Podcast
-                  Header={Header}
-                  player={player}
-                />
-              }
+              element={<Podcast Header={Header} player={player} />}
             />
             <Route
               exact
@@ -175,14 +167,22 @@ const AppWrapper = () => {
               path="/profile"
               element={<Profile Header={Header} />}
             />
+            <Route
+              exact
+              path="/:id/podcasts"
+              element={<MyPodcasts Header={Header} />}
+            />
+            <Route
+              exact
+              path="/:id/articles"
+              element={<MyArticles Header={Header} />}
+            />
             <Route exact path="/test" element={<Test />} />
             <Route exact path="*" element={<PageNotFound />} />
           </Routes>
         </div>
       </div>
-      <GlobalAudioPlayer
-        audioRef={player}
-      />
+      <GlobalAudioPlayer audioRef={player} />
     </>
   );
 };

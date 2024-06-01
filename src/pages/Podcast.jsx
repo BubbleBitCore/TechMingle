@@ -442,19 +442,38 @@ const Podcast = ({ player }) => {
                       ></i>
                     </div>
                   </div>
-                  <div className="flex gap-2 text-xs w-fit">
-                    <i
-                      className={`${
-                        mode ? "text-zinc-200" : ""
-                      } ri-eye-line transition-all duration-500`}
-                    ></i>{" "}
-                    <p
-                      className={`${
-                        mode ? "text-zinc-200" : ""
-                      } transition-all duration-500`}
+                  <div className="flex gap-5 items-center justify-start ">
+                    <div className="flex gap-1  text-xs" title="views">
+                      <i
+                        className={`${
+                          mode ? "text-zinc-200" : ""
+                        } ri-eye-line transition-all duration-500`}
+                      ></i>{" "}
+                      <p
+                        className={`${
+                          mode ? "text-zinc-200" : ""
+                        } transition-all duration-500`}
+                      >
+                        {formatNumber(nowPlaying.views)}
+                      </p>
+                    </div>
+                    <div
+                      className="flex gap-1 capitalize text-sm"
+                      title="Playlist"
                     >
-                      {formatNumber(nowPlaying.views)}
-                    </p>
+                      <i
+                        className={`${
+                          mode ? "text-zinc-200" : ""
+                        } ri-play-list-line transition-all duration-500`}
+                      ></i>{" "}
+                      <p
+                        className={`${
+                          mode ? "text-zinc-200" : ""
+                        } transition-all duration-500`}
+                      >
+                        {nowPlaying.playlist}
+                      </p>
+                    </div>
                   </div>
                   <p
                     className={`${
@@ -473,7 +492,7 @@ const Podcast = ({ player }) => {
               </div>
               <div className="flex justify-center px-8 w-full overflow-hidden">
                 {/* All related episodes */}
-                {nowPlaying.type === "playlist" && (
+                {nowPlaying.playlist !== "" && nowPlaying.playlist !== null && (
                   <div className="flex flex-col w-full overflow-hidden">
                     <p
                       className={`${
@@ -517,26 +536,27 @@ const Podcast = ({ player }) => {
                                     className={`${
                                       mode ? "text-zinc-300" : ""
                                     } font-bold transition-all duration-500 overflow-hidden text-nowrap text-ellipsis`}
-                                  >
+                                    title={`Title : ${item.title}`}>
                                     {item.title}
                                   </p>
                                   <p
                                     className={`${
                                       mode ? "text-zinc-500" : "text-gray-600 "
                                     } text-xs transition-all duration-500 overflow-hidden text-nowrap text-ellipsis`}
-                                  >
+                                    title={`Artist : ${item.artist}`}>
                                     {item.artist}
                                   </p>
                                   <div
                                     className={`${
                                       mode ? "text-zinc-400 " : "text-gray-600"
                                     } flex text-xs  gap-2 transition-all duration-500`}
-                                  >
+                                    title={`Views`}>
                                     <i className="ri-eye-line"></i>
                                     <p>{formatNumber(item.views)}</p>
                                   </div>
                                 </div>
-                                <div className="flex">
+                                <div className="flex" title={`${JSON.stringify(nowPlaying) ===
+                                        JSON.stringify(item) && isPlaying ? "Pause" : "Play" }`}>
                                   <i
                                     className={`${
                                       JSON.stringify(nowPlaying) ===
@@ -574,7 +594,9 @@ const Podcast = ({ player }) => {
                       {episodes?.length > 3 && (
                         <div
                           className={`${
-                            mode ? "text-white hover:text-gray-300 duration-500 " : " duration-500 text-black hover:text-gray-500"
+                            mode
+                              ? "text-white hover:text-gray-300 duration-500 "
+                              : " duration-500 text-black hover:text-gray-500"
                           } h-[12rem] cursor-pointer flex transition-all justify-center items-center text-xs w-[9rem]`}
                         >
                           <p className={`text-center`}>Load more </p>
@@ -631,20 +653,21 @@ const Podcast = ({ player }) => {
                       className={`${
                         mode ? "text-zinc-300" : ""
                       } font-bold transition-all duration-500 overflow-hidden text-nowrap text-ellipsis`}
-                    >
+                    title={`Title : ${topRecommended.title}`}>
                       {topRecommended.title}
                     </p>
                     <p
                       className={`${
                         mode ? "text-zinc-500" : "text-gray-600 "
                       } text-xs transition-all duration-500 overflow-hidden text-nowrap text-ellipsis`}
-                    >
+                      title={`Artist : ${topRecommended.artist}`}>
                       {topRecommended.artist}
                     </p>
                     <div
                       className={`${
                         mode ? "text-zinc-400 " : "text-gray-600"
                       } flex text-xs  gap-2 transition-all duration-500`}
+                      title="Views"
                     >
                       <i className="ri-eye-line"></i>
                       <p>{formatNumber(topRecommended.views)}</p>
