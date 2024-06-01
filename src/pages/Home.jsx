@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Spinner from "../components/Spinner";
 import { useNavigate } from "react-router-dom";
 import sparkleGreen from "../assets/images/sparkleSvgGreen.svg";
@@ -11,9 +11,236 @@ import pattern2 from "../assets/images/pattern2.png";
 import daisy from "../assets/images/daisy.png";
 import topbadge from "../assets/images/topbadge.png";
 import home3DModel from "../assets/images/home3DModel.png";
+import moon from "../assets/images/moon.png";
+import sun from "../assets/images/sun.png";
+import { changeMode } from "../slices/commonSlice.js";
+
+import Matter from "matter-js";
+import { useDispatch } from "react-redux";
 
 const Home = ({ Header }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const section1CanvasRef = useRef(null);
+
+  //handling hangingimages section1
+  const hangingImagesS1 = () => {
+    const {
+      Bodies,
+      Body,
+      Composite,
+      Composites,
+      Constraint,
+      Engine,
+      Mouse,
+      MouseConstraint,
+      Render,
+      Runner,
+      World,
+      Events,
+    } = Matter;
+
+    const runner = Runner.create();
+    const engine = Engine.create();
+    const world = engine.world;
+    const render = Render.create({
+      element: section1CanvasRef.current,
+      engine,
+      options: {
+        background: "transparent",
+        width: window.innerWidth,
+        height: window.innerHeight,
+        wireframes: false,
+      },
+    });
+
+    // create item
+    const createItem1 = ({
+      x: stringX,
+      y: stringY,
+      length: stringLength,
+      texture = "",
+    }) => {
+      const group = Body.nextGroup(true);
+      const string = Composites.stack(stringX, stringY, 12, 1, 2, 2, (x, y) =>
+        Bodies.rectangle(x, y, stringLength / 2, 2, {
+          collisionFilter: { group },
+          render: {
+            fillStyle: "#fff",
+            strokeStyle: "#fff",
+          },
+        })
+      );
+
+      const firstBody = string.bodies[0];
+      const lastBody = string.bodies[string.bodies.length - 1];
+      const item = Bodies.circle(
+        lastBody.position.x,
+        lastBody.position.y + 57,
+        50,
+        {
+          collisionFilter: { group },
+          label: "sun",
+          render: {
+            sprite: {
+              texture,
+              xScale: 0.5,
+              yScale: 0.5,
+            },
+          },
+        }
+      );
+
+      const itemConstraint = Constraint.create({
+        bodyA: item,
+        bodyB: lastBody,
+        pointA: { x: 0, y: -57 },
+        pointB: { x: 0, y: 0 },
+        stiffness: 0.5,
+        render: { visible: false },
+      });
+
+      Composites.chain(string, 0.49, 0, -0.49, 0, {
+        stiffness: 0.7,
+        length: 0,
+        render: { type: "line", visible: false },
+      });
+
+      Composite.add(
+        string,
+        Constraint.create({
+          bodyB: firstBody,
+          pointA: { x: firstBody.position.x, y: firstBody.position.y },
+          pointB: { x: -1, y: 0 },
+          stiffness: 0.5,
+        })
+      );
+
+      World.add(world, [string, item, itemConstraint]);
+    };
+    const createItem2 = ({
+      x: stringX,
+      y: stringY,
+      length: stringLength,
+      texture = "",
+    }) => {
+      const group = Body.nextGroup(true);
+      const string = Composites.stack(stringX, stringY, 6, 1, 2, 2, (x, y) =>
+        Bodies.rectangle(x, y, stringLength / 2, 2, {
+          collisionFilter: { group },
+          render: {
+            fillStyle: "#fff",
+            strokeStyle: "#fff",
+          },
+        })
+      );
+
+      const firstBody = string.bodies[0];
+      const lastBody = string.bodies[string.bodies.length - 1];
+      const item = Bodies.circle(
+        lastBody.position.x,
+        lastBody.position.y + 57,
+        50,
+        {
+          collisionFilter: { group },
+          label: "moon",
+          render: {
+            sprite: {
+              texture,
+              xScale: 0.5,
+              yScale: 0.5,
+            },
+          },
+        }
+      );
+
+      const itemConstraint = Constraint.create({
+        bodyA: item,
+        bodyB: lastBody,
+        pointA: { x: 0, y: -57 },
+        pointB: { x: 0, y: 0 },
+        stiffness: 0.5,
+        render: { visible: false },
+      });
+
+      Composites.chain(string, 0.49, 0, -0.49, 0, {
+        stiffness: 0.7,
+        length: 0,
+        render: { type: "line", visible: false },
+      });
+
+      Composite.add(
+        string,
+        Constraint.create({
+          bodyB: firstBody,
+          pointA: { x: firstBody.position.x, y: firstBody.position.y },
+          pointB: { x: -1, y: 0 },
+          stiffness: 0.5,
+        })
+      );
+
+      World.add(world, [string, item, itemConstraint]);
+    };
+
+    // sun
+    createItem1({
+      x: window.innerWidth * 0.1,
+      y: -80,
+      length: window.innerHeight * 0.055,
+      texture: sun,
+    });
+
+    // moon
+    createItem2({
+      x: window.innerWidth * 0.8,
+      y: -80,
+      length: window.innerHeight * 0.055,
+      texture: moon,
+    });
+
+    // mouse
+    const mouseConstraint = MouseConstraint.create(engine, {
+      mouse: Mouse.create(render.canvas),
+      constraint: {
+        stiffness: 0.2,
+        render: { visible: false },
+      },
+    });
+
+    Events.on(runner, "tick", (event) => {
+      if (mouseConstraint.body) {
+        const { label } = mouseConstraint.body;
+        if (label === "sun") dispatch(changeMode(false));
+        else if (label === "moon") dispatch(changeMode(true));
+      }
+    });
+
+    World.add(world, mouseConstraint);
+
+    Runner.run(runner, engine);
+    Render.run(render);
+    return () => {
+      World.clear(world);
+      Engine.clear(engine);
+    };
+  };
+  let clearSection1 = null;
+  useEffect(() => {
+    clearSection1 = hangingImagesS1();
+
+    // handling screen resize events
+    const handleResize = () => {
+      section1CanvasRef.current.style.width = window.innerWidth;
+      section1CanvasRef.current.style.height = window.innerHeight;
+    };
+
+    window.addEventListener("resize", handleResize);
+    
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
   return (
     <>
       <style>
@@ -43,14 +270,14 @@ const Home = ({ Header }) => {
                   drop-shadow(-2px 2px  #0B0D10);
         }
         .heartText::after{
-          content:"Lovely";
+          content:"lovely";
           position:absolute;
           top:50%;
           left:50%;
-          transform:translate(-50%,-65%);
+          transform:translate(-50%,-80%);
           color:#FF1694;
           font-size:0.8rem;
-          font-family:"Inter";
+          font-family:konya;
 
         }
       `}
@@ -60,10 +287,10 @@ const Home = ({ Header }) => {
         <div className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto">
           {/* section1 */}
           <div
-            className={`select-none w-full h-full flex flex-col justify-center items-center`}
+            className={`select-none w-full h-full flex flex-col relative justify-center items-center`}
           >
             {/* row 1 */}
-            <div className={`flex gap-3 relative`}>
+            <div className={`flex gap-3 relative z-20`}>
               <div className={`aspira text-white text-8xl`}>unite</div>
               <div
                 className={`flex z-30 relative gap-0 justify-center items-center`}
@@ -107,7 +334,7 @@ const Home = ({ Header }) => {
               <div className="absolute rounded-[2rem] -right-[4rem] top-1/2  border-l-0  h-[6rem] border-4 w-[10rem] z-10 border-white border-dashed "></div>
             </div>
             {/* row 2 */}
-            <div className={`flex gap-3 items-center relative`}>
+            <div className={`flex gap-3 items-center relative z-20`}>
               <div
                 className={`rounded-full w-[5.5rem] h-[5.5rem] flex justify-center items-center bg-yellow-300 mr-10 `}
               >
@@ -134,7 +361,7 @@ const Home = ({ Header }) => {
               </div>
             </div>
             {/* row 3 */}
-            <div className={`flex `}>
+            <div className={`flex relative z-20`}>
               <div
                 className={`w-[10rem] relative h-[6.5rem] border-4 border-dashed rounded-tl-none rounded-br-none border-t-0 border-r-0 rounded-[2rem] -top-1/2 left-[6rem] mr-10`}
               ></div>
@@ -160,7 +387,7 @@ const Home = ({ Header }) => {
             </div>
             {/* row 4 */}
             <div
-              className={`flex flex-col justify-center items-center my-6 relative`}
+              className={`flex flex-col justify-center items-center my-6 relative z-20`}
             >
               <p className={`text-gray-500 text-sm `}>
                 Welcome to TechMingle where people connect and innovation
@@ -195,12 +422,12 @@ const Home = ({ Header }) => {
               onClick={() => {
                 navigate("/signup");
               }}
-              className={`cursor-pointer hover:bg-gray-200 transition-all  text-[10px] rounded-3xl px-5 py-3 bg-white font-bold`}
+              className={`cursor-pointer z-20 hover:bg-gray-200 transition-all  text-[10px] rounded-3xl px-5 py-3 bg-white font-bold`}
             >
               Try it for free
             </div>
             {/* row 6 Sponsor */}
-            <div className="flex gap-5 mt-12">
+            <div className="flex gap-5 mt-12 relative z-20">
               <p className="text-gray-700 flex justify-center items-center">
                 <i className="ri-google-fill text-xl"></i>
               </p>
@@ -217,6 +444,11 @@ const Home = ({ Header }) => {
                 <i className="ri-amazon-fill text-xl"></i>
               </p>
             </div>
+            {/* canvas */}
+            <div
+              ref={section1CanvasRef}
+              className="section1Canvas scrol absolute top-0 left-0  z-10 w-full h-full"
+            ></div>
           </div>
           {/* section 2 */}
           <div className={`select-none w-full h-full flex flex-col `}>
@@ -340,7 +572,7 @@ const Home = ({ Header }) => {
               </div>
               {/* p-2 */}
               <div
-                className={`w-full h-full  flex justify-center items-center relative`}
+                className={`w-full h-full  flex justify-center items-center relative `}
               >
                 <img
                   src={home3DModel}
@@ -348,7 +580,7 @@ const Home = ({ Header }) => {
                   className={`h-[38rem] absolute -top-[13rem] z-20`}
                 />
                 <div
-                  className={`flex absolute items-end w-fit z-10  left-[22rem] bottom-[0rem] konya text-pink-300 `}
+                  className={`flex absolute items-end w-fit z-10  left-[22rem] bottom-[1rem] konya text-pink-300 `}
                 >
                   <p className={`konya text-[6rem] `}>W</p>
                   <p className={`konya text-5xl `}>elcome</p>
@@ -364,6 +596,9 @@ const Home = ({ Header }) => {
                   in 5 min
                 </p>
                 <div
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
                   className={`text-white  text-xs bg-pink-400 rounded-md px-5 py-3 cursor-pointer hover:bg-pink-500 transition-all ml-[5rem] w-fit`}
                 >
                   <p className={`inter`}>Start free trial</p>{" "}
