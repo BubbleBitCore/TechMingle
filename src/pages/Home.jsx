@@ -13,7 +13,11 @@ import topbadge from "../assets/images/topbadge.png";
 import home3DModel from "../assets/images/home3DModel.png";
 import moon from "../assets/images/moon.png";
 import sun from "../assets/images/sun.png";
+import people from "../assets/images/people.jpg";
 import { changeMode } from "../slices/commonSlice.js";
+import man from "../assets/images/man.png";
+import man3 from "../assets/images/man3.png";
+import man2 from "../assets/images/man2.png";
 
 import Matter from "matter-js";
 import { useDispatch } from "react-redux";
@@ -289,6 +293,76 @@ const Home = ({ Header }) => {
           font-family:konya;
 
         }
+        /* speechbox */
+        .speechboxSpike {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          z-index: 3;
+          margin: 0;
+          position: relative;
+          min-height: 60px;
+          padding-block: 4px;
+          
+        }
+        .speechboxSpike:after {
+          content: "";
+          bottom: -32px;
+          right: 70px;
+          position: absolute;
+          display: block;
+          width: 38px;
+          height: 26px;
+          border-radius: 0 0 30px 38px;
+          border-color:white;
+          box-shadow: 14px 14px 0px 11px #D8B4FE;
+          transform: rotate(-90deg);
+          z-index: -1;
+        }
+        .speechboxSpike2:after {
+          content: "";
+          bottom: -32px;
+          right: 70px;
+          position: absolute;
+          display: block;
+          width: 38px;
+          height: 26px;
+          border-radius: 0 0 30px 38px;
+          border-color:transparent;
+          box-shadow: 14px 17px 0px 6px #BBF7D0;
+          transform: rotate(-90deg);
+          z-index: -1;
+        }
+        /* infinite scrolling */
+        .horizontal-scrolling-items {
+          display: flex;
+          width: 2600px;
+          animation-duration: 20s;
+          animation-iteration-count: infinite;
+          animation-timing-function: linear;
+        }
+        .horizontalScrollFront{
+          animation-name: infiniteScroll;
+        }
+        .horizontalScrollRev{
+          animation-name: infiniteScrollRev;
+        }
+        .horizontal-scrolling-items__item {
+          white-space: nowrap;
+        }
+        
+        @keyframes infiniteScroll {
+          from {transform: translateX(0)}
+          to {transform: translateX(-50%)}
+        }
+        @keyframes infiniteScrollRev {
+          from {transform: translateX(-50%)}
+          to {transform: translateX(0%)}
+        }
+        .rotateY{
+          transform:rotateY(180deg);
+        }
+        
       `}
       </style>
       <div className="flex flex-col h-full w-full pr-4 max-sm:px-4 ">
@@ -297,7 +371,7 @@ const Home = ({ Header }) => {
           {/* section1 */}
           <div
             ref={s1ContainerRef}
-            className={`select-none w-full h-full flex flex-col relative justify-center items-center`}
+            className={`select-none w-full h-full  flex flex-col relative justify-center items-center`}
           >
             {/* row 1 */}
             <div className={`flex gap-3 relative z-20 pointer-events-none`}>
@@ -344,12 +418,14 @@ const Home = ({ Header }) => {
               <div className="absolute rounded-[2rem] -right-[4rem] top-1/2  border-l-0  h-[6rem] border-4 w-[10rem] z-10 border-white border-dashed "></div>
             </div>
             {/* row 2 */}
-            <div className={`flex gap-3 items-center relative z-20 pointer-events-none`}>
+            <div
+              className={`flex gap-3 items-center relative pointer-events-none`}
+            >
               <div
                 className={`rounded-full w-[5.5rem] h-[5.5rem] flex justify-center items-center bg-yellow-300 mr-10 `}
               >
                 <div
-                  className={`h-[1rem] w-[1rem] border-2 border-white drop-shadow-xl shadow-2xl bg-blue-500 rounded-full z-40`}
+                  className={`h-[1rem] w-[1rem] border-2 border-white drop-shadow-xl shadow-2xl bg-blue-500 rounded-full z-50`}
                 ></div>
               </div>
               <div
@@ -461,10 +537,12 @@ const Home = ({ Header }) => {
             ></div>
           </div>
           {/* section 2 */}
-          <div className={`select-none w-full h-full flex flex-col `}>
+          <div
+            className={`select-none  overflow-hidden w-full h-full flex flex-col `}
+          >
             {/* part1 */}
             <div
-              className={`border border-[#3b3b3b]  border-x-0 w-full flex justify-center items-center`}
+              className={`border border-[#3b3b3b] border-t-0 border-x-0 w-full flex justify-center items-center`}
             >
               <p className={`font-bold monsterrat text-[10rem] text-white `}>
                 REA
@@ -527,7 +605,7 @@ const Home = ({ Header }) => {
               <div className={`relative flex-shrink-0  w-[25rem] `}>
                 {/* ribbon1 */}
                 <div
-                  className={`w-[23rem] h-[7rem] overflow-hidden rounded-lg bg-[#56A681] flex justify-between -rotate-90 absolute -bottom-[4.8rem] -left-[5rem]`}
+                  className={`w-[23rem] h-[7rem] overflow-hidden rounded-lg bg-[#56A681] flex justify-between -rotate-90 absolute -bottom-[3rem] -left-[5rem]`}
                 >
                   <div className={`w-[5rem] f-full overflow-hidden`}>
                     <img
@@ -554,7 +632,7 @@ const Home = ({ Header }) => {
                 </div>
                 {/* ribbon2 */}
                 <div
-                  className={`w-[23rem] h-[7rem]  rounded-lg bg-[#EAB4C7] flex justify-between -rotate-[79deg] absolute -bottom-[4.8rem] left-[6rem]`}
+                  className={`w-[23rem] h-[7rem]  rounded-lg bg-[#EAB4C7] flex justify-between -rotate-[79deg] absolute -bottom-[3rem] left-[6rem]`}
                 >
                   <div className={``}>
                     <img
@@ -587,7 +665,7 @@ const Home = ({ Header }) => {
                 <img
                   src={home3DModel}
                   alt=""
-                  className={`h-[38rem] absolute -top-[13rem] z-20`}
+                  className={`h-[38rem] absolute -top-[14rem] z-20`}
                 />
                 <div
                   className={`flex absolute items-end w-fit z-10  left-[22rem] bottom-[1rem] konya text-pink-300 `}
@@ -613,6 +691,264 @@ const Home = ({ Header }) => {
                 >
                   <p className={`inter`}>Start free trial</p>{" "}
                 </div>
+              </div>
+            </div>
+          </div>
+          {/* section 3 */}
+          <div
+            className={`w-full h-full flex flex-col pt-10  overflow-hidden px-10`}
+          >
+            {/* part 1 */}
+            <div className={`flex gap-2 justify-between w-full h-[60%] `}>
+              {/* p-1 */}
+              <div className={`flex  h-full w-[55%]   gap-7`}>
+                {/* img */}
+                <div
+                  className={`h-full w-[80%] rounded-3xl flex-shrink-0 overflow-hidden relative`}
+                >
+                  <img
+                    src={people}
+                    className={`object-cover h-full w-full `}
+                    alt=""
+                  />
+                  <div
+                    className={`bg-white cursor-pointer absolute top-5 right-5 rounded-xl flex justify-center items-center px-3 py-[0.3rem]`}
+                  >
+                    <p className={`text-[10px]  inter`}> Explore Our Service</p>
+                  </div>
+                  <div
+                    onClick={() => {
+                      navigate("/login");
+                    }}
+                    className={`cursor-pointer bg-white flex justify-center items-center rounded-full h-[2rem] w-[2rem] bottom-5 absolute right-16`}
+                  >
+                    <i className="text-black ri-user-line"></i>
+                  </div>
+                  <div
+                    className={`cursor-pointer bg-white flex justify-center items-center rounded-full h-[2rem] w-[2rem] bottom-5 absolute right-5`}
+                  >
+                    <i className="ri-loop-left-line text-black"></i>
+                  </div>
+                </div>
+                {/* akriti(thing) */}
+                <div
+                  onClick={() => {
+                    navigate("/signup");
+                  }}
+                  className={`h-[7rem] cursor-pointer flex flex-col gap-2 w-[5rem] bg-[#282828] rounded-3xl justify-center items-center`}
+                >
+                  <div
+                    className={`w-[3.5rem] h-[3.5rem] flex justify-center items-center rounded-full bg-purple-300`}
+                  >
+                    <div
+                      className={`flex justify-center items-center w-[2.5rem] h-[2.5rem] rounded-xl bg-purple-100`}
+                    >
+                      <div
+                        className={`flex justify-center items-center rotate-45 w-[1.85rem] h-[1.85rem] rounded-lg bg-purple-300`}
+                      >
+                        <div
+                          className={`flex justify-center items-center rotate-45 w-[1.65rem] h-[1.65rem] rounded-lg bg-purple-100`}
+                        ></div>
+                      </div>
+                    </div>
+                  </div>
+                  <div className={`text-[10px] text-center text-gray-300`}>
+                    Sign Up <br /> Free
+                  </div>
+                </div>
+              </div>
+              {/* p-2 */}
+              <div className={`flex flex-col h-full w-[40%]  `}>
+                {/* p1 */}
+                <div className={`flex w-full justify-end gap-6`}>
+                  <p className={`text-xs text-white text-end`}>
+                    Collaborate in real-time <br />
+                    and share ideas
+                  </p>
+                  <div className={`w-[7.5rem]    relative`}>
+                    <div
+                      className={`absolute top-0 left-0 bg-gray-100 h-[2.5rem] w-[2.5rem] overflow-hidden rounded-full`}
+                    >
+                      {" "}
+                      <img
+                        src={man}
+                        className={`object-cover h-full w-full`}
+                        alt=""
+                      />{" "}
+                    </div>
+                    <div
+                      className={`absolute top-0 left-6 bg-gray-100 h-[2.5rem] w-[2.5rem] overflow-hidden rounded-full`}
+                    >
+                      {" "}
+                      <img
+                        src={man2}
+                        className={`object-cover h-full w-full`}
+                        alt=""
+                      />{" "}
+                    </div>
+                    <div
+                      className={`absolute top-0 left-12 bg-gray-100 h-[2.5rem] w-[2.5rem] overflow-hidden rounded-full`}
+                    >
+                      {" "}
+                      <img
+                        src={man3}
+                        className={`object-cover h-full w-full`}
+                        alt=""
+                      />{" "}
+                    </div>
+                    <div
+                      className={`absolute top-0 left-[72px] bg-gray-100 h-[2.5rem] w-[2.5rem] overflow-hidden rounded-full`}
+                    >
+                      {" "}
+                      <img
+                        src={man}
+                        className={`object-cover h-full w-full`}
+                        alt=""
+                      />{" "}
+                    </div>
+                  </div>
+                </div>
+                {/* p2 */}
+                <div className={`flex w-full flex-col`}>
+                  {/* bubble1 */}
+                  <div className={`w-full flex justify-end mt-10`}>
+                    <div className="speechbox relative">
+                      <div
+                        className={`speechboxSpike  flex-col  w-[20rem] border-2 bg-purple-300 rounded-[4rem]`}
+                      >
+                        <div
+                          className={`w-full overflow-hidden flex flex-col gap-0`}
+                        >
+                          {/* text-1 */}
+                          <div className={`w-full overflow-hidden`}>
+                            <div class="horizontal-scrolling-items horizontalScrollFront">
+                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+
+                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                          {/* text-2 */}
+                          <div className={`w-full overflow-hidden`}>
+                            <div class="horizontal-scrolling-items horizontalScrollRev">
+                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+
+                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                          {/* text-3 */}
+                          <div className={`w-full overflow-hidden`}>
+                            <div class="horizontal-scrolling-items horizontalScrollFront">
+                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+
+                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  {/* bubble2 */}
+                  <div className={`w-full flex rotateY justify-end mt-10`}>
+                    <div className="speechbox relative">
+                      <div
+                        className={`speechboxSpike2  flex-col  w-[13rem] border-none bg-green-200 rounded-[4rem]`}
+                      >
+                        <div
+                          className={`w-full overflow-hidden flex flex-col gap-0`}
+                        >
+                          {/* text-1 */}
+                          <div className={`w-full overflow-hidden rotateY`}>
+                            <div class="horizontal-scrolling-items horizontalScrollFront">
+                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+
+                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                          {/* text-2 */}
+                          <div className={`w-full overflow-hidden rotateY`}>
+                            <div class="horizontal-scrolling-items horizontalScrollRev">
+                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+
+                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                                If everyone is moving forward together, then
+                                success takes care of itself.&nbsp;
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                {/* p-3 */}
+                <div className={`flex w-full justify-end `}>
+                  <p className={`text-xs text-white text-end`}>
+                    Connecting people <br />
+                    bridging worlds
+                  </p>
+                </div>
+              </div>
+            </div>
+            {/* part 2 */}
+            <div className={`flex flex-col w-full h-[40%] mt-16`}>
+              <p className={`text-xs text-white `}>Harmonize Your Potential</p>
+              {/* text-1 */}
+              <div className={`flex gap-1 mt-2 justify-between items-center`}>
+                <div
+                  className={`text-6xl font-bold uppercase text-white monsterrat`}
+                >
+                  Catch<span className={`text-orange-500 font-bold uppercase  monsterrat`}>the</span>wave{" "}
+                  <span className={`inter text-7xl`}>:</span>{" "}
+                  <span className={``}>Trending</span>
+                </div>
+                <div onClick={()=>{
+                  navigate("/login")
+                }} className={`flex gap-2 cursor-pointer group`}>
+                  <div className={`w-[3rem] h-[3rem] bg-white rounded-full flex justify-center items-center`}>
+                  <i className="ri-arrow-right-up-line text-4xl group-hover:scale-90  transition-all"></i>
+                  </div>
+                  <div className={`px-4 py-1 h-[3rem] bg-white rounded-full text-sm  flex justify-center items-center select-none  hover:bg-gray-200  transition-all`}> <p className={`inter`}>Start Collaboration</p> </div>
+                </div>
+              </div>
+              {/* text-2 */}
+              <div className={`flex gap-1 mt-5  items-center`}>
+                <div className={`text-6xl font-bold uppercase text-white monsterrat`}>Stronger</div>
+                <div className={`flex gap-2 mx-5`}>
+                  <div className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}>
+                    <img src={man2} className={`object-cover h-full w-full`} alt="" />
+                  </div>
+                  <div className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}>
+                    <img src={man3} className={`object-cover h-full w-full`} alt="" />
+                  </div>
+                </div>
+                <div className={`text-6xl font-bold uppercase text-white monsterrat`}>Better <span className={`text-purple-400 font-bold uppercase  monsterrat`}>connections</span></div>
               </div>
             </div>
           </div>
