@@ -22,6 +22,7 @@ const Home = ({ Header }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const section1CanvasRef = useRef(null);
+  const s1ContainerRef = useRef(null);
 
   //handling hangingimages section1
   const hangingImagesS1 = () => {
@@ -48,8 +49,8 @@ const Home = ({ Header }) => {
       engine,
       options: {
         background: "transparent",
-        width: window.innerWidth,
-        height: window.innerHeight,
+        width: s1ContainerRef.current.clientWidth,
+        height: s1ContainerRef.current.clientHeight,
         wireframes: false,
       },
     });
@@ -214,6 +215,14 @@ const Home = ({ Header }) => {
         else if (label === "moon") dispatch(changeMode(true));
       }
     });
+    mouseConstraint.mouse.element.removeEventListener(
+      "mousewheel",
+      mouseConstraint.mouse.mousewheel
+    );
+    mouseConstraint.mouse.element.removeEventListener(
+      "DOMMouseScroll",
+      mouseConstraint.mouse.mousewheel
+    );
 
     World.add(world, mouseConstraint);
 
@@ -230,12 +239,12 @@ const Home = ({ Header }) => {
 
     // handling screen resize events
     const handleResize = () => {
-      section1CanvasRef.current.style.width = window.innerWidth;
-      section1CanvasRef.current.style.height = window.innerHeight;
+      section1CanvasRef.current.width = s1ContainerRef.current.clientWidth;
+      section1CanvasRef.current.height = s1ContainerRef.current.clientHeight;
     };
 
     window.addEventListener("resize", handleResize);
-    
+
     return () => {
       window.removeEventListener("resize", handleResize);
     };
@@ -287,10 +296,11 @@ const Home = ({ Header }) => {
         <div className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto">
           {/* section1 */}
           <div
+            ref={s1ContainerRef}
             className={`select-none w-full h-full flex flex-col relative justify-center items-center`}
           >
             {/* row 1 */}
-            <div className={`flex gap-3 relative z-20`}>
+            <div className={`flex gap-3 relative z-20 pointer-events-none`}>
               <div className={`aspira text-white text-8xl`}>unite</div>
               <div
                 className={`flex z-30 relative gap-0 justify-center items-center`}
@@ -334,7 +344,7 @@ const Home = ({ Header }) => {
               <div className="absolute rounded-[2rem] -right-[4rem] top-1/2  border-l-0  h-[6rem] border-4 w-[10rem] z-10 border-white border-dashed "></div>
             </div>
             {/* row 2 */}
-            <div className={`flex gap-3 items-center relative z-20`}>
+            <div className={`flex gap-3 items-center relative z-20 pointer-events-none`}>
               <div
                 className={`rounded-full w-[5.5rem] h-[5.5rem] flex justify-center items-center bg-yellow-300 mr-10 `}
               >
@@ -361,7 +371,7 @@ const Home = ({ Header }) => {
               </div>
             </div>
             {/* row 3 */}
-            <div className={`flex relative z-20`}>
+            <div className={`flex relative z-20 pointer-events-none`}>
               <div
                 className={`w-[10rem] relative h-[6.5rem] border-4 border-dashed rounded-tl-none rounded-br-none border-t-0 border-r-0 rounded-[2rem] -top-1/2 left-[6rem] mr-10`}
               ></div>
@@ -387,7 +397,7 @@ const Home = ({ Header }) => {
             </div>
             {/* row 4 */}
             <div
-              className={`flex flex-col justify-center items-center my-6 relative z-20`}
+              className={`flex flex-col justify-center items-center my-6 pointer-events-none relative z-20`}
             >
               <p className={`text-gray-500 text-sm `}>
                 Welcome to TechMingle where people connect and innovation
@@ -427,7 +437,7 @@ const Home = ({ Header }) => {
               Try it for free
             </div>
             {/* row 6 Sponsor */}
-            <div className="flex gap-5 mt-12 relative z-20">
+            <div className="flex gap-5 mt-12 relative z-20 pointer-events-none">
               <p className="text-gray-700 flex justify-center items-center">
                 <i className="ri-google-fill text-xl"></i>
               </p>
@@ -447,7 +457,7 @@ const Home = ({ Header }) => {
             {/* canvas */}
             <div
               ref={section1CanvasRef}
-              className="section1Canvas scrol absolute top-0 left-0  z-10 w-full h-full"
+              className="absolute overflow-hidden top-0 left-0  w-full h-full"
             ></div>
           </div>
           {/* section 2 */}
