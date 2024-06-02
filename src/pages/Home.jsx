@@ -337,7 +337,7 @@ const Home = ({ Header }) => {
         .horizontal-scrolling-items {
           display: flex;
           width: 2600px;
-          animation-duration: 20s;
+          animation-duration: 40s;
           animation-iteration-count: infinite;
           animation-timing-function: linear;
         }
