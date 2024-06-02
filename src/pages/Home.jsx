@@ -291,7 +291,7 @@ const Home = ({ Header }) => {
       window.removeEventListener("keydown", handleKeyDowns);
     };
   }, []);
-  
+
   const handleKeyDowns = (event) => {
     // carouselSection4 keylisteners
     if (event.keyCode === 39) {
@@ -481,8 +481,8 @@ const Home = ({ Header }) => {
           z-Index:50;
         }
         .transitionEaseBackOut{
-          transition: all 750ms;
-          transition-timing-function: cubic-bezier(0.7, 0, 0.4, 1);
+          transition: all 800ms;
+          transition-timing-function: cubic-bezier(0.7, 0.4, 0, 1);
         }
 
         /* curved text */
