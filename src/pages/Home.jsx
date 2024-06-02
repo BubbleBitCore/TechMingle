@@ -18,6 +18,11 @@ import { changeMode } from "../slices/commonSlice.js";
 import man from "../assets/images/man.png";
 import man3 from "../assets/images/man3.png";
 import man2 from "../assets/images/man2.png";
+import punk1 from "../assets/images/punk1.webp";
+import punk2 from "../assets/images/punk2.webp";
+import punk3 from "../assets/images/punk3.webp";
+import punk4 from "../assets/images/punk4.webp";
+import punk5 from "../assets/images/punk5.webp";
 
 import Matter from "matter-js";
 import { useDispatch } from "react-redux";
@@ -270,6 +275,7 @@ const Home = ({ Header }) => {
   let clearSection1 = null;
   useEffect(() => {
     clearSection1 = hangingImagesS1();
+    initCircularText();
 
     // handling screen resize events
     const handleResize = () => {
@@ -278,11 +284,65 @@ const Home = ({ Header }) => {
     };
 
     window.addEventListener("resize", handleResize);
+    window.addEventListener("keydown", handleKeyDowns);
 
     return () => {
       window.removeEventListener("resize", handleResize);
+      window.removeEventListener("keydown", handleKeyDowns);
     };
   }, []);
+  
+  const handleKeyDowns = (event) => {
+    // carouselSection4 keylisteners
+    if (event.keyCode === 39) {
+      prevButton();
+    } else if (event.keyCode === 37) {
+      nextButton();
+    }
+  };
+
+  // carouselSection4
+  const carouselContainerRef = useRef(null);
+
+  let translated = 0;
+  let rotated = 0;
+
+  const nextButton = () => {
+    if (translated < 93) {
+      carouselContainerRef.current.style.transform = `translateX(-${
+        translated + 31
+      }rem)`;
+
+      translated += 31;
+      circularTextRef.current.style.transform = `rotate(-${rotated + 75}deg)`;
+      rotated += 75;
+    }
+  };
+  const prevButton = () => {
+    if (translated > -31) {
+      carouselContainerRef.current.style.transform = `translateX(${
+        -1 * translated + 31
+      }rem)`;
+      translated -= 31;
+      circularTextRef.current.style.transform = `rotate(${
+        -1 * rotated + 75
+      }deg)`;
+      rotated -= 75;
+    }
+  };
+  // circular text
+  const circularTextRef = useRef(null);
+
+  const initCircularText = () => {
+    const text = circularTextRef.current;
+    text.innerHTML = text.innerText
+      .split("")
+      .map(
+        (char, i) =>
+          `<span style="transform:rotate(${i * 10.3}deg)">${char}</span>`
+      )
+      .join("");
+  };
 
   return (
     <>
@@ -392,6 +452,59 @@ const Home = ({ Header }) => {
         .rotateY{
           transform:rotateY(180deg);
         }
+        .glass{
+          background: rgba(255, 255, 255, 0.13);
+          box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+          backdrop-filter: blur(5.7px);
+          -webkit-backdrop-filter: blur(5.7px);
+        }
+        .carousel::before{
+          content:"";
+          position:absolute;
+          height:100%;
+          width:45%;
+          background: rgb(11,13,16);
+          background: linear-gradient(90deg, rgba(11,13,16,1) 0%, rgba(11,13,16,0.8828781512605042) 54%, rgba(255,255,255,0) 100%);
+          top:0;
+          left:0;
+          z-Index:60;
+        }
+        .carousel::after{
+          content:"";
+          position:absolute;
+          height:100%;
+          width:45%;
+          background: rgb(11,13,16);
+          background: linear-gradient(270deg, rgba(11,13,16,1) 0%, rgba(11,13,16,0.8828781512605042) 54%, rgba(255,255,255,0) 100%);
+          top:0;
+          right:0;
+          z-Index:50;
+        }
+        .transitionEaseBackOut{
+          transition: all 750ms;
+          transition-timing-function: cubic-bezier(0.7, 0, 0.4, 1);
+        }
+
+        /* curved text */
+        
+        .text {
+          position: absolute;
+          width: 100%;
+          height: 100%;
+          font-family: consolas;
+          color: #000;
+          font-size: 17px;
+        }
+        
+        .text span {
+          position: absolute;
+          left: 50%;
+          font-size: 0.8rem;
+          transform-origin: 0 100px;
+          font-family:Orbitron;
+          color:white;
+        }
+        
         
       `}
       </style>
@@ -908,13 +1021,13 @@ const Home = ({ Header }) => {
                           <div className={`w-full overflow-hidden rotateY`}>
                             <div className="horizontal-scrolling-items horizontalScrollFront">
                               <div className="horizontal-scrolling-items__item select-none text-2xl">
-                                If everyone is moving forward together, then
-                                success takes care of itself.&nbsp;
+                                Aim high, even if you miss, you land among the
+                                stars.&nbsp;
                               </div>
 
                               <div className="horizontal-scrolling-items__item select-none text-2xl">
-                                If everyone is moving forward together, then
-                                success takes care of itself.&nbsp;
+                                Aim high, even if you miss, you land among the
+                                stars.&nbsp;
                               </div>
                             </div>
                           </div>
@@ -1018,6 +1131,101 @@ const Home = ({ Header }) => {
                   >
                     connections
                   </span>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* section 4 */}
+          <div className={`h-full w-full  relative overflow-hidden carousel`}>
+            <div
+              className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute  -translate-y-1/2 left-0 z-[50] flex  justify-center items-end pb-10 `}
+            >
+              <div
+                className={`w-full flex gap-10 select-none justify-center items-center`}
+              >
+                <p className={`orbitron text-lg text-white`}>Simulation</p>
+                <p className={`orbitron text-lg text-white`}>Sandbox</p>
+                <p className={`orbitron text-4xl text-white mx-10`}>Meta</p>
+                <p className={`orbitron text-lg text-white`}>Arcade</p>
+                <p className={`orbitron text-lg text-white`}>OpenWorld</p>
+              </div>
+            </div>
+            {/* controls */}
+            {/* right */}
+            <div
+              onClick={() => {
+                prevButton();
+              }}
+              className={`cursor-pointer absolute top-1/2 -right-8 rounded-full glass -translate-y-1/2 h-[4rem] w-[4rem] flex justify-start items-center z-[60]`}
+            >
+              <i className="ri-arrow-right-s-line text-white text-4xl"></i>
+            </div>
+            {/* left */}
+            <div
+              onClick={() => {
+                nextButton();
+              }}
+              className={`cursor-pointer absolute top-1/2 -left-8 rounded-full glass -translate-y-1/2 h-[4rem] w-[4rem] flex justify-end items-center z-[60]`}
+            >
+              <i className="ri-arrow-left-s-line text-white text-4xl"></i>
+            </div>
+            {/* Main carousel */}
+            <div className={`w-full h-full overflow-hidden`}>
+              <div
+                ref={carouselContainerRef}
+                className={`h-full w-full  flex gap-4 relative duration-500 transitionEaseBackOut`}
+              >
+                <img
+                  src={punk5}
+                  className={`h-full w-[30rem] absolute -translate-x-[31rem]  object-cover`}
+                  alt=""
+                />
+                <img
+                  src={punk1}
+                  className={`h-full w-[30rem]  object-cover`}
+                  alt=""
+                />
+                <img
+                  src={punk2}
+                  className={`h-full w-[30rem]  object-cover`}
+                  alt=""
+                />
+                <img
+                  src={punk3}
+                  className={`h-full w-[30rem]  object-cover`}
+                  alt=""
+                />
+                <img
+                  src={punk4}
+                  className={`h-full w-[30rem]  object-cover`}
+                  alt=""
+                />
+                <img
+                  src={punk5}
+                  className={`h-full w-[30rem]  object-cover`}
+                  alt=""
+                />
+                <img
+                  src={punk1}
+                  className={`h-full w-[30rem]  object-cover`}
+                  alt=""
+                />
+              </div>
+            </div>
+            <div
+              className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute bottom-0  translate-y-1/2 left-0 z-[50] flex justify-center items-start `}
+            >
+              <div className={`absolute flex justify-center items-center`}>
+                <div className="circle relative scale-[1.7] w-[200px] h-[200px] rounded-[100vmax] flex justify-center items-center ">
+                  <div className="text-xs text-white orbitron absolute top-[40%] left-1/2 -translate-x-1/2   rounded-[100vmax] w-full  text-center">
+                    Choose Character
+                  </div>
+                  <div
+                    ref={circularTextRef}
+                    className="text transitionEaseBackOut"
+                  >
+                    <p>Sirus • Spis • Mark • Sid • Xerx •</p>
+                  </div>
                 </div>
               </div>
             </div>
