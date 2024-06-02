@@ -219,6 +219,8 @@ const Home = ({ Header }) => {
         else if (label === "moon") dispatch(changeMode(true));
       }
     });
+
+    // handling events
     mouseConstraint.mouse.element.removeEventListener(
       "mousewheel",
       mouseConstraint.mouse.mousewheel
@@ -227,6 +229,34 @@ const Home = ({ Header }) => {
       "DOMMouseScroll",
       mouseConstraint.mouse.mousewheel
     );
+    mouseConstraint.mouse.element.removeEventListener(
+      "touchstart",
+      mouseConstraint.mouse.mousedown
+    );
+    mouseConstraint.mouse.element.removeEventListener(
+      "touchmove",
+      mouseConstraint.mouse.mousemove
+    );
+    mouseConstraint.mouse.element.removeEventListener(
+      "touchend",
+      mouseConstraint.mouse.mouseup
+    );
+
+    mouseConstraint.mouse.element.addEventListener(
+      "touchstart",
+      mouseConstraint.mouse.mousedown,
+      { passive: true }
+    );
+    mouseConstraint.mouse.element.addEventListener("touchmove", (e) => {
+      if (mouseConstraint.body) {
+        mouseConstraint.mouse.mousemove(e);
+      }
+    });
+    mouseConstraint.mouse.element.addEventListener("touchend", (e) => {
+      if (mouseConstraint.body) {
+        mouseConstraint.mouse.mouseup(e);
+      }
+    });
 
     World.add(world, mouseConstraint);
 
@@ -821,13 +851,13 @@ const Home = ({ Header }) => {
                         >
                           {/* text-1 */}
                           <div className={`w-full overflow-hidden`}>
-                            <div class="horizontal-scrolling-items horizontalScrollFront">
-                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                            <div className="horizontal-scrolling-items horizontalScrollFront">
+                              <div className="horizontal-scrolling-items__item select-none text-4xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
 
-                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                              <div className="horizontal-scrolling-items__item select-none text-4xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
@@ -835,13 +865,13 @@ const Home = ({ Header }) => {
                           </div>
                           {/* text-2 */}
                           <div className={`w-full overflow-hidden`}>
-                            <div class="horizontal-scrolling-items horizontalScrollRev">
-                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                            <div className="horizontal-scrolling-items horizontalScrollRev">
+                              <div className="horizontal-scrolling-items__item select-none text-4xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
 
-                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                              <div className="horizontal-scrolling-items__item select-none text-4xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
@@ -849,13 +879,13 @@ const Home = ({ Header }) => {
                           </div>
                           {/* text-3 */}
                           <div className={`w-full overflow-hidden`}>
-                            <div class="horizontal-scrolling-items horizontalScrollFront">
-                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                            <div className="horizontal-scrolling-items horizontalScrollFront">
+                              <div className="horizontal-scrolling-items__item select-none text-4xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
 
-                              <div class="horizontal-scrolling-items__item select-none text-4xl">
+                              <div className="horizontal-scrolling-items__item select-none text-4xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
@@ -876,13 +906,13 @@ const Home = ({ Header }) => {
                         >
                           {/* text-1 */}
                           <div className={`w-full overflow-hidden rotateY`}>
-                            <div class="horizontal-scrolling-items horizontalScrollFront">
-                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                            <div className="horizontal-scrolling-items horizontalScrollFront">
+                              <div className="horizontal-scrolling-items__item select-none text-2xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
 
-                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                              <div className="horizontal-scrolling-items__item select-none text-2xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
@@ -890,13 +920,13 @@ const Home = ({ Header }) => {
                           </div>
                           {/* text-2 */}
                           <div className={`w-full overflow-hidden rotateY`}>
-                            <div class="horizontal-scrolling-items horizontalScrollRev">
-                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                            <div className="horizontal-scrolling-items horizontalScrollRev">
+                              <div className="horizontal-scrolling-items__item select-none text-2xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
 
-                              <div class="horizontal-scrolling-items__item select-none text-2xl">
+                              <div className="horizontal-scrolling-items__item select-none text-2xl">
                                 If everyone is moving forward together, then
                                 success takes care of itself.&nbsp;
                               </div>
@@ -924,31 +954,71 @@ const Home = ({ Header }) => {
                 <div
                   className={`text-6xl font-bold uppercase text-white monsterrat`}
                 >
-                  Catch<span className={`text-orange-500 font-bold uppercase  monsterrat`}>the</span>wave{" "}
-                  <span className={`inter text-7xl`}>:</span>{" "}
+                  Catch
+                  <span
+                    className={`text-orange-500 font-bold uppercase  monsterrat`}
+                  >
+                    the
+                  </span>
+                  wave <span className={`inter text-7xl`}>:</span>{" "}
                   <span className={``}>Trending</span>
                 </div>
-                <div onClick={()=>{
-                  navigate("/login")
-                }} className={`flex gap-2 cursor-pointer group`}>
-                  <div className={`w-[3rem] h-[3rem] bg-white rounded-full flex justify-center items-center`}>
-                  <i className="ri-arrow-right-up-line text-4xl group-hover:scale-90  transition-all"></i>
+                <div
+                  onClick={() => {
+                    navigate("/login");
+                  }}
+                  className={`flex gap-2 cursor-pointer group`}
+                >
+                  <div
+                    className={`w-[3rem] h-[3rem] bg-white rounded-full flex justify-center items-center`}
+                  >
+                    <i className="ri-arrow-right-up-line text-4xl group-hover:scale-90  transition-all"></i>
                   </div>
-                  <div className={`px-4 py-1 h-[3rem] bg-white rounded-full text-sm  flex justify-center items-center select-none  hover:bg-gray-200  transition-all`}> <p className={`inter`}>Start Collaboration</p> </div>
+                  <div
+                    className={`px-4 py-1 h-[3rem] bg-white rounded-full text-sm  flex justify-center items-center select-none  hover:bg-gray-200  transition-all`}
+                  >
+                    {" "}
+                    <p className={`inter`}>Start Collaboration</p>{" "}
+                  </div>
                 </div>
               </div>
               {/* text-2 */}
               <div className={`flex gap-1 mt-5  items-center`}>
-                <div className={`text-6xl font-bold uppercase text-white monsterrat`}>Stronger</div>
+                <div
+                  className={`text-6xl font-bold uppercase text-white monsterrat`}
+                >
+                  Stronger
+                </div>
                 <div className={`flex gap-2 mx-5`}>
-                  <div className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}>
-                    <img src={man2} className={`object-cover h-full w-full`} alt="" />
+                  <div
+                    className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}
+                  >
+                    <img
+                      src={man2}
+                      className={`object-cover h-full w-full`}
+                      alt=""
+                    />
                   </div>
-                  <div className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}>
-                    <img src={man3} className={`object-cover h-full w-full`} alt="" />
+                  <div
+                    className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}
+                  >
+                    <img
+                      src={man3}
+                      className={`object-cover h-full w-full`}
+                      alt=""
+                    />
                   </div>
                 </div>
-                <div className={`text-6xl font-bold uppercase text-white monsterrat`}>Better <span className={`text-purple-400 font-bold uppercase  monsterrat`}>connections</span></div>
+                <div
+                  className={`text-6xl font-bold uppercase text-white monsterrat`}
+                >
+                  Better{" "}
+                  <span
+                    className={`text-purple-400 font-bold uppercase  monsterrat`}
+                  >
+                    connections
+                  </span>
+                </div>
               </div>
             </div>
           </div>
