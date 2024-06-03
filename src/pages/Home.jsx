@@ -27,6 +27,8 @@ import google from "../assets/images/google.png";
 import facebook from "../assets/images/facebook.png";
 import spotify from "../assets/images/spotify.png";
 import netflix from "../assets/images/netflix.png";
+import microphone from "../assets/images/microphone.png";
+import facemodel from "../assets/images/facemodel.png";
 
 import Matter from "matter-js";
 import { useDispatch } from "react-redux";
@@ -413,6 +415,12 @@ const Home = ({ Header }) => {
           transform: rotate(-90deg);
           z-index: -1;
         }
+        .curvedBorder{
+          border-radius: 40px;
+        }
+        .curvedBorderB1{
+          border-radius: 60px;
+        }
         .speechboxSpike2:after {
           content: "";
           bottom: -32px;
@@ -676,9 +684,12 @@ const Home = ({ Header }) => {
             <div className="flex gap-5 absolute bottom-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center">
               <img src={google} className={`invert-[20%] h-[2.75rem]`} alt="" />
               <img src={netflix} className={`invert-[20%] h-[2.5rem]`} alt="" />
-              <img src={facebook} className={`invert-[20%] h-[2.3rem] my-2`} alt="" />
+              <img
+                src={facebook}
+                className={`invert-[20%] h-[2.3rem] my-2`}
+                alt=""
+              />
               <img src={spotify} className={`invert-[20%] h-[1.5rem]`} alt="" />
-              
             </div>
             {/* canvas */}
             <div
@@ -965,7 +976,7 @@ const Home = ({ Header }) => {
                         className={`speechboxSpike  flex-col  w-[20rem] border-2 bg-purple-300 rounded-[4rem]`}
                       >
                         <div
-                          className={`w-full overflow-hidden flex flex-col gap-0`}
+                          className={`w-full overflow-hidden curvedBorderB1 flex flex-col gap-0`}
                         >
                           {/* text-1 */}
                           <div className={`w-full overflow-hidden`}>
@@ -1020,10 +1031,10 @@ const Home = ({ Header }) => {
                         className={`speechboxSpike2  flex-col  w-[13rem] border-none bg-green-200 rounded-[4rem]`}
                       >
                         <div
-                          className={`w-full overflow-hidden flex flex-col gap-0`}
+                          className={`w-full overflow-hidden curvedBorder flex flex-col gap-0`}
                         >
                           {/* text-1 */}
-                          <div className={`w-full overflow-hidden rotateY`}>
+                          <div className={`w-full overflow-hidden  rotateY`}>
                             <div className="horizontal-scrolling-items horizontalScrollFront">
                               <div className="horizontal-scrolling-items__item select-none text-2xl">
                                 Aim high, even if you miss, you land among the
@@ -1230,6 +1241,223 @@ const Home = ({ Header }) => {
                     className="text transitionEaseBackOut"
                   >
                     <p>Sirus • Spis • Mark • Sid • Xerx •</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          {/* section 5 */}
+          <div className={`h-full w-full  overflow-hidden pt-[1rem]`}>
+            <div className={`w-full h-full flex flex-col justify-between`}>
+              <div className={`select-none flex flex-col px-[10.5rem]`}>
+                {/* title */}
+                <div
+                  className={`w-full flex justify-center gap-5 items-center`}
+                >
+                  <span
+                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                  >
+                    P
+                  </span>
+                  <img src={microphone} className={`h-[10rem]`} alt="" />
+                  <span
+                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                  >
+                    D
+                  </span>
+                  <span
+                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                  >
+                    C
+                  </span>
+                  <span
+                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                  >
+                    A
+                  </span>
+                  <span
+                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                  >
+                    S
+                  </span>
+                  <span
+                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                  >
+                    T
+                  </span>
+                </div>
+                {/* second info */}
+                <div className={`flex justify-between items-center`}>
+                  <p
+                    className={`text-4xl font-bold monsterrat text-white uppercase`}
+                  >
+                    Experience
+                  </p>
+                  <div
+                    className={`rounded-3xl bg-white flex h-[2.5rem] items-center cursor-pointer`}
+                    onClick={() => {
+                      navigate("/podcasts/landing");
+                    }}
+                  >
+                    <div
+                      className={`rounded-full  h-[2.5rem] w-[2.5rem] flex justify-center items-center`}
+                    >
+                      <div
+                        className={`rounded-full h-[2.2rem] w-[2.2rem] bg-black flex justify-center items-center `}
+                      >
+                        <i className="ri-play-mini-fill text-white "></i>
+                      </div>
+                    </div>
+                    <div
+                      className={`rounded-full bg-[#ed7c40] h-full w-[9rem] flex justify-center items-center `}
+                    >
+                      <p className={`text-black text-xs font-bold uppercase`}>
+                        Start listening
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              {/* bg-[#ED7C40] */}
+              <div className={` h-[42%] w-full relative `}>
+                {/* image */}
+                <div
+                  className={`absolute left-1/2 -translate-x-1/2 -top-[60%] z-20`}
+                >
+                  <img
+                    src={facemodel}
+                    className={`w-full h-full object-cover `}
+                    alt=""
+                  />
+                </div>
+                {/* ribbons */}
+                <div className={`w-full h-full relative overflow-hidden`}>
+                  {/* ribbon1 */}
+                  <div className={`select-none -rotate-[2deg] absolute top-14 -translate-x-[2rem] w-full flex flex-nowrap `}>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-emerald-300`}
+                    >
+                      Business{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-blue-400`}
+                    >
+                      Technology{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-yellow-400`}
+                    >
+                      Science{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-purple-400`}
+                    >
+                      Art{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-green-400`}
+                    >
+                      Economics{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-pink-400`}
+                    >
+                      Horror{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-teal-400`}
+                    >
+                      Drama{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-purple-600`}
+                    >
+                      Hollywood{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-indigo-400`}
+                    >
+                      SelfGrow{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-yellow-300`}
+                    >
+                      Healthcare{" "}
+                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                    </div>
+                  </div>
+                  {/* ribbon 2 */}
+                  <div className={`select-none rotate-[2deg] absolute bottom-2 translate-x-[2rem] w-full flex flex-nowrap flex-row-reverse z-50`}>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Business{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Technology{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Science{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Art{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Economics{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Horror{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Drama{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Hollywood{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      SelfGrow{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    <div
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                    >
+                      Healthcare{" "}
+                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                    </div>
+                    
                   </div>
                 </div>
               </div>
