@@ -49,7 +49,7 @@ const SnackBar = () => {
       <div
         className={`${mode ? "bg-[#282828]" : "bg-gray-100 border"} ${
           mode ? "text-[#bbbbbb]" : "text-black"
-        }  pl-4 pr-0 flex justify-between  rounded-[0.5rem] shadow-xl sm:w-[28rem] max-sm:w-[90%] sm:bottom-5 sm:left-10 max-sm:left-1/2 max-sm:-translate-x-1/2 fixed  max-sm:bottom-3  snackBar transition-all duration-500`}
+        }  pl-4 pr-0 flex justify-between  rounded-[0.5rem] shadow-xl sm:w-[28rem] max-sm:w-[90%] sm:bottom-5 sm:left-10 max-sm:left-1/2 max-sm:-translate-x-1/2 fixed z-[10000]  max-sm:bottom-3  snackBar transition-all duration-500`}
       >
         <div className="w-[90%]  flex gap-2 justify-center items-center py-3">
           {!snackBar.icon == "" && (
