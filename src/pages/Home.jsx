@@ -23,6 +23,10 @@ import punk2 from "../assets/images/punk2.webp";
 import punk3 from "../assets/images/punk3.webp";
 import punk4 from "../assets/images/punk4.webp";
 import punk5 from "../assets/images/punk5.webp";
+import google from "../assets/images/google.png";
+import facebook from "../assets/images/facebook.png";
+import spotify from "../assets/images/spotify.png";
+import netflix from "../assets/images/netflix.png";
 
 import Matter from "matter-js";
 import { useDispatch } from "react-redux";
@@ -307,7 +311,7 @@ const Home = ({ Header }) => {
   let translated = 0;
   let rotated = 0;
 
-  const nextButton = () => {
+  const prevButton = () => {
     if (translated < 93) {
       carouselContainerRef.current.style.transform = `translateX(-${
         translated + 31
@@ -318,7 +322,7 @@ const Home = ({ Header }) => {
       rotated += 75;
     }
   };
-  const prevButton = () => {
+  const nextButton = () => {
     if (translated > -31) {
       carouselContainerRef.current.style.transform = `translateX(${
         -1 * translated + 31
@@ -505,6 +509,19 @@ const Home = ({ Header }) => {
           color:white;
         }
         
+        /* fade gradient */
+        .fadeGradient::before{
+          content:"";
+          position:absolute;
+          bottom:40%;
+          height:32%;
+          width:100%;
+          left:0;
+          background: rgb(11,13,16);
+          background: linear-gradient(0deg, rgba(11,13,16,1) 0%, rgba(11,13,16,0.8016456582633054) 52%, rgba(255,255,255,0) 100%);
+          z-Index:100;
+          
+        }
         
       `}
       </style>
@@ -656,22 +673,12 @@ const Home = ({ Header }) => {
               Try it for free
             </div>
             {/* row 6 Sponsor */}
-            <div className="flex gap-5 mt-12 relative z-20 pointer-events-none">
-              <p className="text-gray-700 flex justify-center items-center">
-                <i className="ri-google-fill text-xl"></i>
-              </p>
-              <p className="text-gray-700 flex justify-center items-center">
-                <i className="ri-netflix-fill text-xl"></i>
-              </p>
-              <p className="text-gray-700 flex justify-center items-center">
-                <i className="ri-spotify-fill text-xl"></i>
-              </p>
-              <p className="text-gray-700 flex justify-center items-center">
-                <i className="ri-facebook-fill text-xl"></i>
-              </p>
-              <p className="text-gray-700 flex justify-center items-center">
-                <i className="ri-amazon-fill text-xl"></i>
-              </p>
+            <div className="flex gap-5 absolute bottom-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center">
+              <img src={google} className={`invert-[20%] h-[2.75rem]`} alt="" />
+              <img src={netflix} className={`invert-[20%] h-[2.5rem]`} alt="" />
+              <img src={facebook} className={`invert-[20%] h-[2.3rem] my-2`} alt="" />
+              <img src={spotify} className={`invert-[20%] h-[1.5rem]`} alt="" />
+              
             </div>
             {/* canvas */}
             <div
@@ -681,7 +688,7 @@ const Home = ({ Header }) => {
           </div>
           {/* section 2 */}
           <div
-            className={`select-none  overflow-hidden w-full h-full flex flex-col `}
+            className={`select-none  overflow-hidden w-full h-full flex flex-col mb-16`}
           >
             {/* part1 */}
             <div
@@ -805,11 +812,9 @@ const Home = ({ Header }) => {
               <div
                 className={`w-full h-full  flex justify-center items-center relative `}
               >
-                <img
-                  src={home3DModel}
-                  alt=""
-                  className={`h-[38rem] absolute -top-[14rem] z-20`}
-                />
+                <div className={`h-[38rem] absolute -top-[14rem] z-20`}>
+                  <img src={home3DModel} alt="" className={``} />
+                </div>
                 <div
                   className={`flex absolute items-end w-fit z-10  left-[22rem] bottom-[1rem] konya text-pink-300 `}
                 >
@@ -1213,7 +1218,7 @@ const Home = ({ Header }) => {
               </div>
             </div>
             <div
-              className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute bottom-0  translate-y-1/2 left-0 z-[50] flex justify-center items-start `}
+              className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute bottom-0  translate-y-1/2 left-0 z-[50] flex justify-center items-start fadeGradient`}
             >
               <div className={`absolute flex justify-center items-center`}>
                 <div className="circle relative scale-[1.7] w-[200px] h-[200px] rounded-[100vmax] flex justify-center items-center ">
