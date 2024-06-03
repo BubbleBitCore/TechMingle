@@ -60,3 +60,15 @@ export const truncateText = (text, maxLength) => {
   }
   return text;
 };
+
+// format audio duration
+export const formatDuration = (seconds) => {
+  const h = Math.floor(seconds / 3600);
+  const m = Math.floor((seconds % 3600) / 60)
+    .toString()
+    .padStart(2, '0');
+  const s = Math.floor(seconds % 60)
+    .toString()
+    .padStart(2, '0');
+  return h > 0 ? `${h}:${m}:${s}` : `${m}:${s}`;
+};
