@@ -1,6 +1,7 @@
 // all slices related to podcast will come here
 import { createSlice } from "@reduxjs/toolkit";
-import { nowPlaying,contextList } from "../constants/podcastdata";
+import { nowPlaying, contextList } from "../constants/podcastdata";
+import AddToPlaylistModel from "../components/Podcast/AddToPlaylistModel";
 
 const initialState = {
   currentTime: 0,
@@ -8,10 +9,13 @@ const initialState = {
   isPlaying: false,
   isRepeating: false,
   volume: 0.5,
-  bufferedTime:0,
+  bufferedTime: 0,
   contextList: contextList,
   nowPlaying: nowPlaying,
   currentIdx: 0,
+  addToPlayListVisibility: false,
+  editPodcastVisibility: false,
+  podcastToEdit : [],
 };
 
 const podcastSlice = createSlice({
@@ -42,8 +46,17 @@ const podcastSlice = createSlice({
     setCurrentIdx: (state, action) => {
       state.currentIdx = action.payload;
     },
-    setBufferedTime:(state,action)=>{
+    setBufferedTime: (state, action) => {
       state.bufferedTime = action.payload;
+    },
+    setAddToPlaylistVisibility: (state, action) => {
+      state.addToPlayListVisibility = action.payload;
+    },
+    setEditPodcastVisibility: (state, action) => {
+      state.editPodcastVisibility = action.payload;
+    },
+    setPodcastToEdit:(state,action)=>{
+      state.podcastToEdit = action.payload;
     }
   },
 });
@@ -57,6 +70,9 @@ export const {
   setVolume,
   setContextList,
   setCurrentIdx,
-  setBufferedTime
+  setBufferedTime,
+  setAddToPlaylistVisibility,
+  setEditPodcastVisibility,
+  setPodcastToEdit,
 } = podcastSlice.actions;
 export default podcastSlice.reducer;
