@@ -10,6 +10,7 @@ import {
   setIsPlaying,
   setAddToPlaylistVisibility,
   setEditPodcastVisibility,
+  setPodcastToEdit,
 } from "../slices/podcastSlice";
 import { useNavigate } from "react-router-dom";
 import man from "../assets/images/man.png";
@@ -20,6 +21,7 @@ import EditPodcastModal from "../components/Podcast/EditPodcastModal";
 
 const Podcasts = () => {
   const [podcastList, setPodcastList] = useState(episodes);
+  const podcastToEdit = useSelector((state) => state.podcast.podcastToEdit);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.common.mode);
@@ -60,7 +62,7 @@ const Podcasts = () => {
       icon: "ri-pencil-line",
       classes: "",
       function: () => {
-        dispatch(setEditPodcastVisibility(selectedPodcast));
+        dispatch(setPodcastToEdit(selectedPodcast))
         dispatch(setEditPodcastVisibility(true));
         setMoreVisibility(false);
       },
@@ -243,6 +245,7 @@ const UserPodcasts = ({ Header }) => {
   const playList = ["list1", "list2", "list3", "list4"];
   const removeClickMenus = () => {
     dispatch(setAddToPlaylistVisibility(false));
+    dispatch(setEditPodcastVisibility(false));
   };
   useEffect(() => {
     window.addEventListener("click", removeClickMenus);
@@ -255,7 +258,7 @@ const UserPodcasts = ({ Header }) => {
   }, [editPodcastVisibility]);
   return (
     <>
-      <div className="flex flex-col h-full w-full max-sm:px-4 sm:pr-4 relative">
+      <div className="flex flex-col h-full w-full max-sm:px-4 sm:pr-4 relative max-sm:overflow-y-auto">
         <Header />
         <div className="flex flex-col pb-2 sm:px-8 w-full  overflow-hidden overflow-y-auto">
           <div className="flex max-sm:flex-col w-full  gap-4 items-center pb-5 ">
@@ -334,17 +337,17 @@ const UserPodcasts = ({ Header }) => {
               </div>
             </div>
           </div>
-          <div className="h-full w-full overflow-hidden">
+          <div className="h-full w-full sm:overflow-hidden">
             <Tabs tabs={tabs} selectedTab={searchParams.get("tab")} />
           </div>
         </div>
         {addToPlayListVisibility && (
-          <div className="flex w-full h-full justify-center z-50 items-center absolute">
+          <div className="flex w-full h-full justify-center z-20 items-center absolute">
             <AddToPlaylistModel playlist={playList} />
           </div>
         )}
         {editPodcastVisibility && podcastToEdit && (
-          <div className="flex w-full h-full justify-center z-50 items-center absolute">
+          <div className="flex w-full h-full justify-center z-20 items-center absolute">
             <EditPodcastModal podcast={podcastToEdit} />
           </div>
         )}

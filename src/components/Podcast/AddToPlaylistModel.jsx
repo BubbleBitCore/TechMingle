@@ -79,9 +79,10 @@ const AddToPlaylistModel = ({ playlist }) => {
             }`}
       </style>
       {visibility && playlist?.length > 0 && (
+        <div className="flex justify-center items-center w-full h-full rounded-lg backdrop-blur-sm transition-all duration-500">
         <div
           className={`flex flex-col min-w-56 ${
-            mode ? "bg-zinc-800 text-white" : "bg-zinc-200 text-black"
+            mode ? "bg-zinc-900 text-white" : "bg-zinc-200 text-black"
           } p-3 px-4 rounded-xl gap-5`}
           onClick={(e) => {
             e.stopPropagation();
@@ -171,6 +172,7 @@ const AddToPlaylistModel = ({ playlist }) => {
               </div>
             </div>
           )}
+        </div>
         </div>
       )}
     </>
