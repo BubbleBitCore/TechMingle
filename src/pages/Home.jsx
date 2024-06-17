@@ -535,11 +535,11 @@ const Home = ({ Header }) => {
       </style>
       <div className="flex flex-col h-full w-full pr-4 max-sm:px-4 ">
         {/* <Header urlName="TechMingle" /> */}
-        <div className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto">
+        <div className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto snap-mandatory snap-y">
           {/* section1 */}
           <div
             ref={s1ContainerRef}
-            className={`select-none w-full h-full  flex flex-col relative justify-center items-center`}
+            className={`select-none w-full h-full  flex flex-col relative justify-center items-center snap-center`}
           >
             {/* row 1 */}
             <div className={`flex gap-3 relative z-20 pointer-events-none`}>
@@ -699,7 +699,7 @@ const Home = ({ Header }) => {
           </div>
           {/* section 2 */}
           <div
-            className={`select-none  overflow-hidden w-full h-full flex flex-col mb-16`}
+            className={`select-none  overflow-hidden w-full h-full flex flex-col mb-16 snap-center`}
           >
             {/* part1 */}
             <div
@@ -855,7 +855,7 @@ const Home = ({ Header }) => {
           </div>
           {/* section 3 */}
           <div
-            className={`w-full h-full flex flex-col pt-10  overflow-hidden px-10`}
+            className={`w-full h-full flex flex-col pt-10  overflow-hidden px-10 snap-center`}
           >
             {/* part 1 */}
             <div className={`flex gap-2 justify-between w-full h-[60%] `}>
@@ -1152,7 +1152,7 @@ const Home = ({ Header }) => {
             </div>
           </div>
           {/* section 4 */}
-          <div className={`h-full w-full  relative overflow-hidden carousel`}>
+          <div className={`h-full w-full  relative overflow-hidden carousel snap-center`}>
             <div
               className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute  -translate-y-1/2 left-0 z-[50] flex  justify-center items-end pb-10 `}
             >
@@ -1247,7 +1247,7 @@ const Home = ({ Header }) => {
             </div>
           </div>
           {/* section 5 */}
-          <div className={`h-full w-full  overflow-hidden pt-[1rem]`}>
+          <div className={`h-full w-full  overflow-hidden pt-[1rem] snap-center`}>
             <div className={`w-full h-full flex flex-col justify-between`}>
               <div className={`select-none flex flex-col px-[10.5rem]`}>
                 {/* title */}
