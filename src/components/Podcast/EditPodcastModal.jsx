@@ -59,6 +59,7 @@ const EditPodcastModal = ({ podcast }) => {
       setShowSuggestions(false);
       setTagList([...tagList, e.target.value.trim()]);
       e.target.value = "";
+      e.preventDefault();
     }
   };
 
@@ -385,6 +386,7 @@ const EditPodcastModal = ({ podcast }) => {
                               : "border-b  border-zinc-700"
                           }
                               hover:bg-blue-500 `}
+                              key={idx}
                           onClick={() => {
                             setTagList([...tagList, item]);
                             if (tagInputRef.current) {

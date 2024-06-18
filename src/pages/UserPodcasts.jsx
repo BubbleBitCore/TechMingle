@@ -253,9 +253,7 @@ const UserPodcasts = ({ Header }) => {
       window.removeEventListener("click", removeClickMenus);
     };
   });
-  useEffect(() => {
-    console.log(editPodcastVisibility);
-  }, [editPodcastVisibility]);
+
   return (
     <>
       <div className="flex flex-col h-full w-full max-sm:px-4 sm:pr-4 relative max-sm:overflow-y-auto">
@@ -268,7 +266,7 @@ const UserPodcasts = ({ Header }) => {
                 src={man}
               />
             </div>
-            <div className="flex flex-col w-[90%] gap-2">
+            <div className="flex flex-col sm:w-[90%] gap-2">
               <p
                 className={`text-3xl font-extrabold max-sm:text-center ${
                   mode ? "text-white" : "text-black"
@@ -276,7 +274,6 @@ const UserPodcasts = ({ Header }) => {
               >
                 Naruto Uzumaki
               </p>
-
               <div
                 className={`flex max-sm:flex-col max-sm:items-center gap-4 ${
                   mode ? "text-zinc-400" : "text-gray-600"
@@ -285,7 +282,7 @@ const UserPodcasts = ({ Header }) => {
                 <div className="flex gap-4">
                   <div className="flex gap-1">
                     <p className="font-bold ">{formatNumber(2111111)}</p>{" "}
-                    <p>subscribers</p>
+                    <p>Followers</p>
                   </div>
                   <div className="flex justify-center items-center">
                     <div
@@ -327,12 +324,13 @@ const UserPodcasts = ({ Header }) => {
                   ))}
               </div>
 
-              <div className="flex select-none">
+              <div className="flex select-none max-sm:justify-center max-sm:mt-3">
                 <Link
                   to="/profile"
-                  className="p-1.5 text-xs bg-blue-600  hover:outline-none  hover:bg-blue-500 w-24 rounded-md text-white text-center justify-center"
+                  className="flex max-sm:gap-2 p-1.5 px-3 text-xs sm:bg-blue-600 max-sm:outline max-sm:outline-zinc-900 hover:outline-none max-sm:hover:outline-zinc-600  sm:hover:bg-blue-500 rounded-md text-white max-sm:text-zinc-400 text-center justify-center"
                 >
-                  view profile
+                  <p>view profile</p>
+                  <i className="ri-arrow-right-double-line"></i>
                 </Link>
               </div>
             </div>
