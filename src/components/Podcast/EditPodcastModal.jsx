@@ -1,10 +1,15 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { setEditPodcastVisibility } from "../../slices/podcastSlice";
+import { setOpenEditor } from "../../slices/commonSlice";
+import { AnimatePresence } from "framer-motion";
 import FlashMsg from "../../components/FlashMsg/FlashMsg";
-import { FLASH_ERROR } from "../../constants/FlashMsgConstants";
-import { setOpenEditor} from "../../slices/commonSlice";
-import { AnimatePresence} from "framer-motion";
+import {
+  FLASH_ERROR,
+  FLASH_PENDING,
+  FLASH_SUCCESS,
+  FLASH_WARNING,
+} from "../../constants/FlashMsgConstants.js";
 
 const EditPodcastModal = ({ podcast }) => {
   const visibility = useSelector(
@@ -108,7 +113,7 @@ const EditPodcastModal = ({ podcast }) => {
             setFlashTitle("Size Error");
             setFlashMsg("Image Should be less-than or equal-to 2 MB!");
             setFlashVisibility(true);
-            inputImageFile.current.value="";
+            inputImageFile.current.value = "";
             return;
           }
           const img = new Image();
@@ -122,11 +127,11 @@ const EditPodcastModal = ({ podcast }) => {
                 "Dimensions Should be equal-to or less-than 800 pixels!"
               );
               setFlashVisibility(true);
-              inputImageFile.current.value="";
+              inputImageFile.current.value = "";
             } else {
               dispatch(setOpenEditor(true));
               console.log("editor open");
-              (setImgSrc(img.src));
+              setImgSrc(img.src);
             }
           };
         }
@@ -136,7 +141,7 @@ const EditPodcastModal = ({ podcast }) => {
         setFlashTitle("Format Error");
         setFlashMsg("Input Image Format is not supported");
         setFlashVisibility(true);
-        inputImageFile.current.value="";
+        inputImageFile.current.value = "";
       }
     }
   };
@@ -150,14 +155,26 @@ const EditPodcastModal = ({ podcast }) => {
   const [flashType, setFlashType] = useState(null);
   const [flashTitle, setFlashTitle] = useState("");
   const [flashMsg, setFlashMsg] = useState("");
+  const [enableCancel , setEnableCancel] =useState(false);
 
-  useEffect(() => {
-    console.log(visibility);
-  }, [visibility]);
+  const saveChanges = () => {
+    setFlashType(FLASH_SUCCESS);
+    setFlashTitle("Saved");
+    setFlashMsg("All changes are saved successfully.");
+    setFlashVisibility(true);
+  };
 
-  useEffect(() => {
-    console.log(podcast);
-  }, [podcast]);
+  const cancelChanges = () => {
+    setEnableCancel(true)
+    setFlashType(FLASH_WARNING);
+    setFlashTitle("Unsaved Changes");
+    setFlashMsg("Changes you have made will be lost if you proceed. Are you sure you want to discard these changes and continue?");
+    setFlashVisibility(true);
+  };
+
+  const onOkClicked =()=>{
+    dispatch(setEditPodcastVisibility(false))
+  }
   return (
     <>
       <style>
@@ -279,15 +296,17 @@ const EditPodcastModal = ({ podcast }) => {
       {visibility && (
         <div className="flex justify-center items-center w-full h-full rounded-lg backdrop-blur-sm transition-all duration-500">
           <div
-            className={`flex flex-col w-[700px] rounded-lg bg-[#101216]`}
+            className={`flex flex-col w-[700px] rounded-lg ${
+              mode ? "bg-[#101216] text-white" : "bg-zinc-100"
+            } `}
             onClick={(e) => {
               e.stopPropagation();
             }}
           >
             <div
               className={`flex justify-between ${
-                mode ? "bg-[#17191f]" : ""
-              } rounded-t-lg p-3 text-sm px-5 items-center text-white select-none`}
+                mode ? "bg-[#17191f] " : "bg-[#eff0f1]"
+              } rounded-t-lg p-3 text-sm px-5 items-center  select-none`}
             >
               <p>Edit podcast details</p>
               <div
@@ -304,26 +323,34 @@ const EditPodcastModal = ({ podcast }) => {
             <div className="p-5 flex flex-col w-full gap-5 overflow-y-auto ">
               {/* title section */}
               <div className="flex flex-col gap-2 text-sm">
-                <p className="text-white select-none">Title</p>
+                <p className=" select-none">Title</p>
                 <input
                   type="text"
                   value={title}
                   onChange={(e) => {
                     setTitle(e.target.value);
                   }}
-                  className="p-1.5 px-3 rounded-md outline outline-1 outline-zinc-700 bg-transparent focus:outline-2 focus:outline-blue-500 text-gray-300"
+                  className={`p-1.5 px-3 rounded-md outline outline-1  bg-transparent focus:outline-2 focus:outline-blue-500 ${
+                    mode
+                      ? "text-gray-300 outline-zinc-700"
+                      : "text-gray-600 outline-zinc-400"
+                  }`}
                 ></input>
               </div>
               {/* description section */}
               <div className="flex flex-col gap-2 text-sm">
-                <p className="text-white select-none">Description</p>
+                <p className="select-none">Description</p>
                 <input
                   type="text"
                   value={description}
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
-                  className="p-1.5 px-3 rounded-md outline outline-1 outline-zinc-700 bg-transparent focus:outline-2 focus:outline-blue-500 text-gray-300"
+                  className={`p-1.5 px-3 rounded-md outline outline-1  bg-transparent focus:outline-2 focus:outline-blue-500 ${
+                    mode
+                      ? "text-gray-300 outline-zinc-700"
+                      : "text-gray-600 outline-zinc-400"
+                  }`}
                 ></input>
               </div>
               {/* tags section */}
@@ -337,20 +364,30 @@ const EditPodcastModal = ({ podcast }) => {
               >
                 <div className="flex gap-2 items-center select-none">
                   {" "}
-                  <p className="text-white">Tags</p>
+                  <p className="">Tags</p>
                   <p className="text-zinc-500 text-xs">
                     (separate with spaces)
                   </p>
                 </div>
-                <div className=" flex w-full outline gap-3 outline-1 select-none outline-zinc-700 rounded-md  p-1 px-3 flex-wrap">
+                <div
+                  className={` flex w-full outline gap-3 outline-1 select-none ${
+                    mode ? "outline-zinc-700" : "outline-zinc-400"
+                  }  rounded-md  p-1 px-3 flex-wrap`}
+                >
                   {tagList?.length > 0 &&
                     tagList.map((item, idx) => (
                       <div
-                        className="flex blueGlassBg hover:bg-blue-500 group hover:text-white text-[#3F8EF6] text-xs p-1 gap-1 px-3 rounded-full"
+                        className={`flex ${
+                          mode ? "blueGlassBg" : "bg-blue-100"
+                        }  hover:bg-blue-500 group hover:text-white text-[#3F8EF6] text-xs p-1 gap-1 px-3 rounded-full`}
                         key={idx}
                       >
                         <p className="">{item}</p>
-                        <div className="bg-[#162844] group-hover:bg-blue-500 flex justify-center items-center text-blue-400 font-bold rounded-full p-1 px-2 mr-[-19px] mt-[-5px] mb-[-5px]">
+                        <div
+                          className={`${
+                            mode ? "bg-[#162844]" : "bg-blue-200"
+                          } group-hover:bg-blue-500 flex justify-center items-center text-blue-400 font-bold rounded-full p-1 px-2 mr-[-19px] mt-[-5px] mb-[-5px]`}
+                        >
                           <i
                             className={`ri-close-large-line text-xs hover:text-white`}
                             onClick={() => {
@@ -363,7 +400,9 @@ const EditPodcastModal = ({ podcast }) => {
                   <input
                     ref={tagInputRef}
                     type="text"
-                    className=" w-56 rounded-md  bg-transparent outline-none focus:border focus:border-blue-600 text-gray-300"
+                    className={`w-56 rounded-md  bg-transparent outline-none focus:border focus:border-blue-600 ${
+                      mode ? "text-gray-300" : "text-gray-600"
+                    }`}
                     onKeyDown={(e) => {
                       handleKeyDown(e);
                     }}
@@ -376,17 +415,25 @@ const EditPodcastModal = ({ podcast }) => {
               <div className="flex relative min-h-56">
                 {/* suggestion section */}
                 {showSuggestions && (
-                  <div className=" flex flex-col  mt-[-19.5px] overflow-hidden  z-50 w-full absolute  bg-[#101216] outline outline-1 outline-zinc-700 rounded-md">
+                  <div
+                    className={`flex flex-col  mt-[-19.5px] overflow-hidden  z-50 w-full absolute  ${
+                      mode
+                        ? "bg-[#101216] outline-zinc-700 "
+                        : "bg-zinc-100 outline-zinc-400 "
+                    } outline outline-1 rounded-md`}
+                  >
                     {suggestionList?.length > 0 &&
                       suggestionList.map((item, idx) => (
                         <div
-                          className={`${
+                          className={` ${
                             idx === suggestionList.length - 1
                               ? ""
-                              : "border-b  border-zinc-700"
+                              : mode
+                              ? "border-b border-zinc-700"
+                              : "border-b border-zinc-400"
                           }
-                              hover:bg-blue-500 `}
-                              key={idx}
+                              hover:bg-blue-500  `}
+                          key={idx}
                           onClick={() => {
                             setTagList([...tagList, item]);
                             if (tagInputRef.current) {
@@ -395,7 +442,13 @@ const EditPodcastModal = ({ podcast }) => {
                             setShowSuggestions(false);
                           }}
                         >
-                          <p className="p-1.5 px-2 text-xs text-gray-300">
+                          <p
+                            className={`p-1.5 px-2 text-xs  ${
+                              mode
+                                ? "text-gray-300"
+                                : "text-gray-600 hover:text-white"
+                            }`}
+                          >
                             {item}
                           </p>
                         </div>
@@ -404,8 +457,12 @@ const EditPodcastModal = ({ podcast }) => {
                 )}
                 {/* Thumbnail section */}
                 <div className="flex flex-col gap-2 text-sm absolute">
-                  <p className="text-white select-none">Thumbnail</p>
-                  <p className="text-xs text-gray-500">
+                  <p className=" select-none">Thumbnail</p>
+                  <p
+                    className={`text-xs ${
+                      mode ? "text-gray-500" : "text-gray-600"
+                    }`}
+                  >
                     Select or upload a picture that shows what's in your video.
                     A good thumbnail stands out and draws viewer's attention.
                   </p>
@@ -438,15 +495,26 @@ const EditPodcastModal = ({ podcast }) => {
             </div>
             {/* cancel or save sections */}
             <div
-              className={`flex justify-end gap-2 rounded-b-lg border-t border-t-zinc-800 p-3 font px-5 items-center text-white select-none`}
+              className={`flex justify-end gap-2 rounded-b-lg border-t ${
+                mode ? "border-t-zinc-800" : "border-t-zinc-300"
+              }  p-3 font px-5 items-center  select-none`}
             >
               <div
-                className={`flex justify-center p-1.5 px-4 text-[13px] bg-[#1d1f27] items-center rounded-md transition-all duration-500 cursor-pointer`}
-              >
+                className={`flex justify-center p-1.5 px-4 text-[13px] ${
+                  mode
+                    ? "bg-[#1d1f27]"
+                    : "bg-zinc-300 hover:bg-zinc-400 text-zinc-700 hover:text-white"
+                } items-center rounded-md transition-all duration-500 cursor-pointer`}
+              onClick={cancelChanges}>
                 Cancel
               </div>
               <div
-                className={`flex justify-center p-1.5 px-4 text-[13px] bg-[#238636] items-center rounded-md transition-all duration-500 cursor-pointer`}
+                className={`flex justify-center p-1.5 px-4 text-[13px] text-white ${
+                  mode
+                    ? "bg-[#238636] hover:bg-[#37de58]"
+                    : "bg-[#2cde50] hover:bg-[#2bba47]"
+                } items-center rounded-md transition-all duration-500 cursor-pointer`}
+                onClick={saveChanges}
               >
                 Save changes
               </div>
@@ -462,8 +530,9 @@ const EditPodcastModal = ({ podcast }) => {
             FLASH_TYPE={flashType}
             FLASH_TITLE={flashTitle}
             FLASH_MESSAGE={flashMsg}
-            ONCLICK={() => {}}
+            ONCLICK={onOkClicked}
             CANCELCLICK={() => {}}
+            enableCancel ={enableCancel}
           />
         )}
       </AnimatePresence>

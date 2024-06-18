@@ -18,6 +18,14 @@ import { Link } from "react-router-dom";
 import { changeSnackBarState } from "../slices/commonSlice";
 import AddToPlaylistModel from "../components/Podcast/AddToPlaylistModel";
 import EditPodcastModal from "../components/Podcast/EditPodcastModal";
+import { AnimatePresence } from "framer-motion";
+import FlashMsg from "../components/FlashMsg/FlashMsg";
+import {
+  FLASH_ERROR,
+  FLASH_PENDING,
+  FLASH_SUCCESS,
+  FLASH_WARNING,
+} from "../constants/FlashMsgConstants.js";
 
 const Podcasts = () => {
   const [podcastList, setPodcastList] = useState(episodes);
@@ -31,6 +39,17 @@ const Podcasts = () => {
   );
   const [durations, setDurations] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
+
+    //  Flash messages Are handled here
+    const [flashVisibility, setFlashVisibility] = useState(false);
+    const FLASH_STATE = {
+      flashVisibility,
+      setFlashVisibility,
+    };
+    const [flashType, setFlashType] = useState(null);
+    const [flashTitle, setFlashTitle] = useState("");
+    const [flashMsg, setFlashMsg] = useState("");
+
   const moreList = [
     {
       value: "Add to playlist",
@@ -74,13 +93,10 @@ const Podcasts = () => {
       function: () => {
         deletePodcast(selectedId);
         setMoreVisibility(false);
-        dispatch(
-          changeSnackBarState({
-            message: "Podcast Deleted",
-            icon: "ri-delete-bin-7-line text-red-400",
-            visible: true,
-          })
-        );
+        setFlashType(FLASH_WARNING);
+        setFlashTitle("Confirm Deletion");
+        setFlashMsg("Are you sure you want to delete this podcast? This action cannot be undone.");
+        setFlashVisibility(true);
       },
     },
   ];
@@ -201,6 +217,20 @@ const Podcasts = () => {
             : null}
         </div>
       </div>
+      <AnimatePresence>
+        {flashVisibility && (
+          <FlashMsg
+            key={"FlasMsg"}
+            FLASH_STATE={FLASH_STATE}
+            FLASH_TYPE={flashType}
+            FLASH_TITLE={flashTitle}
+            FLASH_MESSAGE={flashMsg}
+            ONCLICK={() => {}}
+            CANCELCLICK={() => {}}
+            enableCancel ={true}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };
