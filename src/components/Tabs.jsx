@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 
-const Tabs = ({ tabs, selectedTab }) => {
+const Tabs = ({ tabs, selectedTab , tabHeaderZIdx = 20 }) => {
   const mode = useSelector((state) => state.common.mode);
   const [searchParams, setSearchParams] = useSearchParams();
   
@@ -33,7 +33,7 @@ const Tabs = ({ tabs, selectedTab }) => {
           <div
             className={`w-full flex items-center max-sm:gap-4 sm:gap-12 sm:border-b-2 ${
               mode ? "border-[#1d1d1d]" : "border-gray-300"
-            } pb-2  sticky top-0 max-sm:overflow-hidden max-sm:overflow-x-auto z-20 ${
+            } pb-2  sticky top-0 max-sm:overflow-hidden max-sm:overflow-x-auto z-${tabHeaderZIdx} ${
               mode ? "bg-[#0B0D10]" : "bg-white"
             } transition-all duration-500`}
           >
