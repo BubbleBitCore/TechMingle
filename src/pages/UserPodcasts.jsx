@@ -11,6 +11,7 @@ import {
   setAddToPlaylistVisibility,
   setEditPodcastVisibility,
   setPodcastToEdit,
+  setCreatePodcastVisibility,
 } from "../slices/podcastSlice";
 import { useNavigate } from "react-router-dom";
 import man from "../assets/images/man.png";
@@ -26,6 +27,8 @@ import {
   FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../constants/FlashMsgConstants.js";
+import podcastMike from "../assets/images/podcastMike.png";
+import CreatePodcast from "../components/Podcast/CreatePodcast.jsx";
 
 const Podcasts = () => {
   const [podcastList, setPodcastList] = useState(episodes);
@@ -40,15 +43,15 @@ const Podcasts = () => {
   const [durations, setDurations] = useState([]);
   const [selectedId, setSelectedId] = useState(null);
 
-    //  Flash messages Are handled here
-    const [flashVisibility, setFlashVisibility] = useState(false);
-    const FLASH_STATE = {
-      flashVisibility,
-      setFlashVisibility,
-    };
-    const [flashType, setFlashType] = useState(null);
-    const [flashTitle, setFlashTitle] = useState("");
-    const [flashMsg, setFlashMsg] = useState("");
+  //  Flash messages Are handled here
+  const [flashVisibility, setFlashVisibility] = useState(false);
+  const FLASH_STATE = {
+    flashVisibility,
+    setFlashVisibility,
+  };
+  const [flashType, setFlashType] = useState(null);
+  const [flashTitle, setFlashTitle] = useState("");
+  const [flashMsg, setFlashMsg] = useState("");
 
   const moreList = [
     {
@@ -81,7 +84,7 @@ const Podcasts = () => {
       icon: "ri-pencil-line",
       classes: "",
       function: () => {
-        dispatch(setPodcastToEdit(selectedPodcast))
+        dispatch(setPodcastToEdit(selectedPodcast));
         dispatch(setEditPodcastVisibility(true));
         setMoreVisibility(false);
       },
@@ -95,7 +98,9 @@ const Podcasts = () => {
         setMoreVisibility(false);
         setFlashType(FLASH_WARNING);
         setFlashTitle("Confirm Deletion");
-        setFlashMsg("Are you sure you want to delete this podcast? This action cannot be undone.");
+        setFlashMsg(
+          "Are you sure you want to delete this podcast? This action cannot be undone."
+        );
         setFlashVisibility(true);
       },
     },
@@ -157,7 +162,7 @@ const Podcasts = () => {
                     <div className="w-64 xl:w-56 2xl:w-60 max-sm:w-full sm:h-40 rounded-xl relative">
                       <img
                         src={item.thumbnail}
-                        className="w-full h-full object-cover rounded-xl"
+                        className="w-full h-full object-cover rounded-xl cursor-pointer"
                         onDoubleClick={() => {
                           dispatch(setNowPlaying(item));
                           dispatch(setIsPlaying(true));
@@ -227,7 +232,7 @@ const Podcasts = () => {
             FLASH_MESSAGE={flashMsg}
             ONCLICK={() => {}}
             CANCELCLICK={() => {}}
-            enableCancel ={true}
+            enableCancel={true}
           />
         )}
       </AnimatePresence>
@@ -245,6 +250,7 @@ const Playlists = () => {
 
 const UserPodcasts = ({ Header }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const createPodcastVisibility = useSelector((state)=>state.podcast.createPodcastVisibility)
   const mode = useSelector((state) => state.common.mode);
   const dispatch = useDispatch();
   const addToPlayListVisibility = useSelector(
@@ -289,84 +295,141 @@ const UserPodcasts = ({ Header }) => {
       <div className="flex flex-col h-full w-full max-sm:px-4 sm:pr-4 relative max-sm:overflow-y-auto">
         <Header />
         <div className="flex flex-col pb-2 sm:px-8 w-full  overflow-hidden overflow-y-auto">
-          <div className="flex max-sm:flex-col w-full  gap-4 items-center pb-5 ">
-            <div className="flex rounded-full w-32 h-32 bg-gray-300 justify-center">
-              <img
-                className="w-full h-full object-cover rounded-full"
-                src={man}
-              />
-            </div>
-            <div className="flex flex-col sm:w-[90%] gap-2">
-              <p
-                className={`text-3xl font-extrabold max-sm:text-center ${
-                  mode ? "text-white" : "text-black"
-                }`}
+          <div className="flex sm:justify-between">
+            <div className="flex max-sm:flex-col w-full  gap-4 items-center pb-5 ">
+              <Link
+                className="flex rounded-full w-32 h-32 bg-gray-300 justify-center"
+                to="/profile"
               >
-                Naruto Uzumaki
-              </p>
-              <div
-                className={`flex max-sm:flex-col max-sm:items-center gap-4 ${
-                  mode ? "text-zinc-400" : "text-gray-600"
-                } text-sm px-1  select-none`}
-              >
-                <div className="flex gap-4">
-                  <div className="flex gap-1">
-                    <p className="font-bold ">{formatNumber(2111111)}</p>{" "}
-                    <p>Followers</p>
-                  </div>
-                  <div className="flex justify-center items-center">
-                    <div
-                      className={`w-[1px] h-[20px] ${
-                        mode ? "bg-zinc-600" : "bg-gray-900"
-                      }  rounded-full`}
-                    ></div>
-                  </div>
-                  <div className="flex gap-1">
-                    <p className="font-bold">{formatNumber(101)} </p>{" "}
-                    <p>Podcasts</p>
-                  </div>
-                  <div className="flex justify-center items-center max-sm:hidden">
-                    <div
-                      className={`w-[1px] h-[20px] ${
-                        mode ? "bg-zinc-600" : "bg-gray-900"
-                      }  rounded-full`}
-                    ></div>
-                  </div>
-                </div>
-                <div className="flex items-center  gap-2 ">
-                  <i className="ri-user-voice-line font-bold"></i>
-                  <div className="flex gap-2 text-xs">
-                    {language.length > 0 && <p>{language.join(", ")}</p>}
-                  </div>
-                </div>
-              </div>
-              <div className="flex gap-2 text-xs flex-wrap select-none">
-                {genre.length > 0 &&
-                  genre.map((item, idx) => (
-                    <div
-                      key={idx}
-                      className={`p-1.5 ${
-                        mode ? "bg-zinc-900 text-zinc-400" : "bg-gray-100"
-                      } px-4 rounded-full transition-all duration-500`}
-                    >
-                      <p>{item.name}</p>
-                    </div>
-                  ))}
-              </div>
-
-              <div className="flex select-none max-sm:justify-center max-sm:mt-3">
-                <Link
-                  to="/profile"
-                  className="flex max-sm:gap-2 p-1.5 px-3 text-xs sm:bg-blue-600 max-sm:outline max-sm:outline-zinc-900 hover:outline-none max-sm:hover:outline-zinc-600  sm:hover:bg-blue-500 rounded-md text-white max-sm:text-zinc-400 text-center justify-center"
+                <img
+                  className="w-full h-full object-cover rounded-full"
+                  src={man}
+                />
+              </Link>
+              <div className="flex flex-col sm:w-[90%] gap-2">
+                <p
+                  className={`text-3xl font-extrabold max-sm:text-center ${
+                    mode ? "text-white" : "text-black"
+                  }`}
                 >
-                  <p>view profile</p>
-                  <i className="ri-arrow-right-double-line"></i>
-                </Link>
+                  Naruto Uzumaki
+                </p>
+                <div
+                  className={`flex max-sm:flex-col max-sm:items-center gap-4 ${
+                    mode ? "text-zinc-400" : "text-gray-600"
+                  } text-sm px-1  select-none`}
+                >
+                  <div className="flex gap-4">
+                    <div className="flex gap-1">
+                      <p className="font-bold ">{formatNumber(2111111)}</p>{" "}
+                      <p>Followers</p>
+                    </div>
+                    <div className="flex justify-center items-center">
+                      <div
+                        className={`w-[1px] h-[20px] ${
+                          mode ? "bg-zinc-600" : "bg-gray-900"
+                        }  rounded-full`}
+                      ></div>
+                    </div>
+                    <div className="flex gap-1">
+                      <p className="font-bold">{formatNumber(101)} </p>{" "}
+                      <p>Podcasts</p>
+                    </div>
+                    <div className="flex justify-center items-center max-sm:hidden">
+                      <div
+                        className={`w-[1px] h-[20px] ${
+                          mode ? "bg-zinc-600" : "bg-gray-900"
+                        }  rounded-full`}
+                      ></div>
+                    </div>
+                  </div>
+                  <div className="flex items-center  gap-2 ">
+                    <i className="ri-user-voice-line font-bold"></i>
+                    <div className="flex gap-2 text-xs">
+                      {language.length > 0 && <p>{language.join(", ")}</p>}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-2 text-xs flex-wrap select-none">
+                  {genre.length > 0 &&
+                    genre.map((item, idx) => (
+                      <div
+                        key={idx}
+                        className={`p-1.5 ${
+                          mode ? "bg-zinc-900 text-zinc-400" : "bg-gray-100"
+                        } px-4 rounded-full transition-all duration-500`}
+                      >
+                        <p>{item.name}</p>
+                      </div>
+                    ))}
+                </div>
+
+                <div className="flex select-none max-sm:justify-center max-sm:mt-3">
+                  <Link
+                    to="/profile"
+                    className="flex max-sm:gap-2 p-1.5 px-3 text-xs sm:bg-blue-600 max-sm:outline max-sm:outline-zinc-900 hover:outline-none max-sm:hover:outline-zinc-600  sm:hover:bg-blue-500 rounded-md text-white max-sm:text-zinc-400 text-center justify-center"
+                  >
+                    <p>view profile</p>
+                    <i className="ri-arrow-right-double-line"></i>
+                  </Link>
+                </div>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center w-36">
+              <div
+                className="flex flex-col items-center p-2"
+                onClick={() => {
+                  dispatch(setCreatePodcastVisibility(true));
+                  console.log(createPodcastVisibility)
+                }}
+              >
+                <svg
+                  viewBox="-10 -10 120 120"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <defs>
+                    <pattern
+                      id="imgPattern"
+                      patternUnits="userSpaceOnUse"
+                      width="100"
+                      height="100"
+                    >
+                      <image
+                        href={podcastMike}
+                        x="0"
+                        y="8"
+                        width="100"
+                        height="80"
+                      />
+                    </pattern>
+                  </defs>
+                  <circle cx="50" cy="50" r="40" fill="url(#imgPattern)" />
+                  <path
+                    id="circlePath"
+                    d="M 10, 50
+            a 40,40 0 1,1 80,0
+            40,40 0 1,1 -80,0
+          "
+                    fill="none"
+                  />
+                  <text>
+                    <textPath
+                      href="#circlePath"
+                      className={`${  mode ? "text-white" : "text-black"} font-semibold select-none`}
+                    >
+                      Create your ⭐own Podcast ⭐
+                    </textPath>
+                  </text>
+                </svg>
               </div>
             </div>
           </div>
           <div className="h-full w-full sm:overflow-hidden">
-            <Tabs tabs={tabs} selectedTab={searchParams.get("tab")} />
+            <Tabs
+              tabs={tabs}
+              selectedTab={searchParams.get("tab")}
+              tabHeaderZIdx={0}
+            />
           </div>
         </div>
         {addToPlayListVisibility && (
@@ -377,6 +440,11 @@ const UserPodcasts = ({ Header }) => {
         {editPodcastVisibility && podcastToEdit && (
           <div className="flex w-full h-full justify-center z-20 items-center absolute">
             <EditPodcastModal podcast={podcastToEdit} />
+          </div>
+        )}
+        {createPodcastVisibility && (
+          <div className="flex w-full h-full justify-center z-20 items-center absolute">
+            <CreatePodcast podcast={podcastToEdit} />
           </div>
         )}
       </div>

@@ -10,6 +10,7 @@ import {
   FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../../constants/FlashMsgConstants.js";
+import {changeSnackBarState} from "../../slices/commonSlice.js"
 
 const EditPodcastModal = ({ podcast }) => {
   const visibility = useSelector(
@@ -158,23 +159,24 @@ const EditPodcastModal = ({ podcast }) => {
   const [enableCancel , setEnableCancel] =useState(false);
 
   const saveChanges = () => {
-    setFlashType(FLASH_SUCCESS);
-    setFlashTitle("Saved");
-    setFlashMsg("All changes are saved successfully.");
-    setFlashVisibility(true);
-  };
-
-  const cancelChanges = () => {
-    setEnableCancel(true)
     setFlashType(FLASH_WARNING);
-    setFlashTitle("Unsaved Changes");
-    setFlashMsg("Changes you have made will be lost if you proceed. Are you sure you want to discard these changes and continue?");
+    setFlashTitle("Save Changes ?");
+    setFlashMsg("Are you sure you want to save the changes? This action will update the podcast details permanently.");
     setFlashVisibility(true);
+    setEnableCancel(true)
   };
 
   const onOkClicked =()=>{
     dispatch(setEditPodcastVisibility(false))
   }
+
+  const [settlePromise, setSettlePromise] = useState(false);
+  useEffect(() => {
+    setTimeout(() => {
+      setSettlePromise(true);
+    }, 5000);
+  }, []);  
+  
   return (
     <>
       <style>
@@ -330,6 +332,7 @@ const EditPodcastModal = ({ podcast }) => {
                   onChange={(e) => {
                     setTitle(e.target.value);
                   }}
+                  maxLength={100}
                   className={`p-1.5 px-3 rounded-md outline outline-1  bg-transparent focus:outline-2 focus:outline-blue-500 ${
                     mode
                       ? "text-gray-300 outline-zinc-700"
@@ -340,18 +343,19 @@ const EditPodcastModal = ({ podcast }) => {
               {/* description section */}
               <div className="flex flex-col gap-2 text-sm">
                 <p className="select-none">Description</p>
-                <input
-                  type="text"
+                <textarea
+                  rows="4"
                   value={description}
                   onChange={(e) => {
                     setDescription(e.target.value);
                   }}
-                  className={`p-1.5 px-3 rounded-md outline outline-1  bg-transparent focus:outline-2 focus:outline-blue-500 ${
+                  maxLength={2000}
+                  className={`p-1.5 px-3 resize-none rounded-md outline outline-1  bg-transparent focus:outline-2 focus:outline-blue-500 ${
                     mode
                       ? "text-gray-300 outline-zinc-700"
                       : "text-gray-600 outline-zinc-400"
                   }`}
-                ></input>
+                ></textarea>
               </div>
               {/* tags section */}
               <div
@@ -500,15 +504,6 @@ const EditPodcastModal = ({ podcast }) => {
               }  p-3 font px-5 items-center  select-none`}
             >
               <div
-                className={`flex justify-center p-1.5 px-4 text-[13px] ${
-                  mode
-                    ? "bg-[#1d1f27]"
-                    : "bg-zinc-300 hover:bg-zinc-400 text-zinc-700 hover:text-white"
-                } items-center rounded-md transition-all duration-500 cursor-pointer`}
-              onClick={cancelChanges}>
-                Cancel
-              </div>
-              <div
                 className={`flex justify-center p-1.5 px-4 text-[13px] text-white ${
                   mode
                     ? "bg-[#238636] hover:bg-[#37de58]"
@@ -533,6 +528,20 @@ const EditPodcastModal = ({ podcast }) => {
             ONCLICK={onOkClicked}
             CANCELCLICK={() => {}}
             enableCancel ={enableCancel}
+            enablePromiseFlash={true}
+            promiseSettled={settlePromise}
+            postPromiseCancelClick={() => {
+              console.log("Post Promise cancel");
+            }}
+            postPromiseOnClick={() => {
+              console.log("Post Promise ok");
+            }}
+            postPromiseFlashType={FLASH_SUCCESS}
+            postPromiseEnableCancel={false}
+            postPromiseTitle={"Update Successfull"}
+            postPromiseMessage={
+              "Podcast transaction successful! Your podcast has been updated. Press 'OK' to continue."
+            }
           />
         )}
       </AnimatePresence>

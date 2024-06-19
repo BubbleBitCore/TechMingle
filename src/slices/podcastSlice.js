@@ -16,6 +16,7 @@ const initialState = {
   addToPlayListVisibility: false,
   editPodcastVisibility: false,
   podcastToEdit : [],
+  createPodcastVisibility: false,
 };
 
 const podcastSlice = createSlice({
@@ -57,6 +58,9 @@ const podcastSlice = createSlice({
     },
     setPodcastToEdit:(state,action)=>{
       state.podcastToEdit = action.payload;
+    },
+    setCreatePodcastVisibility:(state,action)=>{
+      state.createPodcastVisibility = action.payload;
     }
   },
 });
@@ -74,5 +78,6 @@ export const {
   setAddToPlaylistVisibility,
   setEditPodcastVisibility,
   setPodcastToEdit,
+  setCreatePodcastVisibility,
 } = podcastSlice.actions;
 export default podcastSlice.reducer;
