@@ -43,18 +43,6 @@ const FlashMsg = ({
                 background: rgba(106, 255, 93, 0.35);
             }
 
-            .warningBorder{
-                border-color: rgba(255, 83, 0, 0.5);
-            }
-            .errorBorder{
-                border-color: rgba(255, 5, 5, 0.5);
-            }
-            .pendingBorder{
-                border-color: rgba(0, 187, 255, 0.5);
-            }
-            .successBorder{ 
-                border-color: rgba(106, 255, 93, 0.5);
-            }
 
             .warningText{
                 color: rgba(255, 83, 0,1);
@@ -67,6 +55,18 @@ const FlashMsg = ({
             }
             .successText{ 
                 color: rgba(10, 255, 20,1);
+            }
+            .warningBg{
+              background-color: rgba(255, 83, 0,0.85);
+            }
+            .errorBg{
+              background-color : rgba(255, 5, 5,1);
+            }
+            .pendingBg{
+              background-color : rgba(0, 187, 255,1);
+            }
+            .successBg{
+              background-color : rgba(10, 255, 20,1);
             }
             
             `}
@@ -90,34 +90,16 @@ const FlashMsg = ({
               onClick={(e) => {
                 e.stopPropagation();
               }}
-              className={`md:w-[35%] max-sm:w-[80%] max-sm:rounded-lg md:h-auto md:max-h-[40%] md:rounded-xl flex p-5 md:gap-5 max-sm:gap-2  overflow-hidden ${
-                FLASH_TYPE === FLASH_WARNING
-                  ? " warningBorder "
-                  : FLASH_TYPE === FLASH_ERROR
-                  ? " errorBorder "
-                  : FLASH_TYPE === FLASH_PENDING
-                  ? " pendingBorder "
-                  : " successBorder "
-              }  ${
-                mode
-                  ? "bg-[#181818]"
-                  : `glass border-2 ${
-                      FLASH_TYPE === FLASH_WARNING
-                        ? " warningTint "
-                        : FLASH_TYPE === FLASH_ERROR
-                        ? " errorTint "
-                        : FLASH_TYPE === FLASH_PENDING
-                        ? " pendingTint "
-                        : " successTint "
-                    } `
-              } `}
+              className={`${
+                mode ? "bg-[#181818]" : "bg-white shadow-2xl"
+              } py-5 px-10 rounded-3xl flex flex-col justify-center items-center max-sm:w-[20rem]`}
             >
               {/* icon */}
               <div
-                className={`flex justify-center items-start w-[2rem] h-full`}
+                className={`flex justify-center items-start w-full h-full mb-3`}
               >
                 <i
-                  className={` md:text-4xl max-sm:text-3xl ${
+                  className={` text-3xl  ${
                     FLASH_TYPE === FLASH_WARNING
                       ? " ri-alert-fill warningText "
                       : FLASH_TYPE === FLASH_ERROR
@@ -133,42 +115,38 @@ const FlashMsg = ({
                 className={`flex flex-col w-full h-full  px-2 overflow-x-hidden overflow-y-auto gap-2`}
               >
                 <div
-                  className={`orbitron font-bold   flex-shrink-0 md:text-3xl max-sm:text-xl ${
+                  className={`aspira flex justify-center items-center flex-shrink-0 text-2xl font-bold   ${
                     mode ? "text-gray-200" : "text-black"
-                  } w-full text-ellipsis whitespace-nowrap overflow-hidden`}
+                  } w-full `}
                 >
-                  {FLASH_TITLE}
+                  <p title={FLASH_TITLE} className={`max-w-[14rem] text-ellipsis whitespace-nowrap overflow-hidden `}>{FLASH_TITLE}</p>
                 </div>
                 <div
-                  className={`orbitron tracking-wide    w-full h-auto max-h-[15rem]  ${
-                    mode ? "text-gray-400" : "text-[#222]"
-                  } overflow-x-hidden overflow-y-auto max-sm:text-sm`}
+                  className={`font-sans w-full text-center  max-w-[18rem]  ${
+                    mode ? "text-gray-400" : "text-[#898989]"
+                  } overflow-x-hidden overflow-y-auto  max-sm:text-sm`}
                 >
                   {FLASH_MESSAGE}
                 </div>
                 {/* action btns */}
-                <div className="flex w-full md:gap-5 max-sm:gap-2 mt-2">
+                <div className="grid grid-cols-2 w-full md:gap-5 max-sm:gap-2 mt-2 max-sm:mt-4">
                   <div
                     onClick={(e) => {
                       e.stopPropagation();
                       ONCLICK();
                       setFlashVisibility(false);
                     }}
-                    className={`orbitron font-bold   cursor-pointer md:px-5 md:py-2 max-sm:p-1 max-sm:px-3 text-sm max-sm:text-[10px] ${
-                      mode
-                        ? "bg-[#0B0D10] hover:bg-[#1b1d21] border-black border-2 text-white"
-                        : " backdrop-blur-3xl  text-black  hover:bg-slate-100 border-2 "
-                    } ${
+                    className={` font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:opacity-85 rounded-3xl transition-all duration-500 ${
                       FLASH_TYPE === FLASH_WARNING
-                        ? " warningBorder "
+                        ? " warningBg text-white"
                         : FLASH_TYPE === FLASH_ERROR
-                        ? " errorBorder "
+                        ? " errorBg text-white"
                         : FLASH_TYPE === FLASH_PENDING
-                        ? " pendingBorder "
-                        : " successBorder "
-                    } rounded-lg transition-all duration-500`}
+                        ? " pendingBg text-white"
+                        : " successBg "
+                    }`}
                   >
-                    Ok
+                    <span>Okay</span>
                   </div>
                   {enableCancel && (
                     <div
@@ -177,21 +155,9 @@ const FlashMsg = ({
                         setFlashVisibility(false);
                         CANCELCLICK();
                       }}
-                      className={`orbitron font-bold cursor-pointer md:px-5 md:py-2 max-sm:p-1 max-sm:px-3 text-sm max-sm:text-[10px] ${
-                        mode
-                          ? "bg-[#0B0D10] hover:bg-[#1b1d21] border-[#1a1a1a] border-2 text-white"
-                          : "backdrop-blur-3xl  text-black border-2 "
-                      } ${
-                        FLASH_TYPE === FLASH_WARNING
-                          ? " warningBorder "
-                          : FLASH_TYPE === FLASH_ERROR
-                          ? " errorBorder "
-                          : FLASH_TYPE === FLASH_PENDING
-                          ? " pendingBorder "
-                          : " successBorder "
-                      } rounded-lg transition-all duration-500`}
+                      className={`font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:bg-[#eceeef] rounded-3xl transition-all duration-500 `}
                     >
-                      Cancel
+                      <span>Cancel</span>
                     </div>
                   )}
                 </div>

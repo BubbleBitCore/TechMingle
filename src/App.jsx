@@ -37,7 +37,7 @@ const App = () => {
       } else {
         dispatch(
           changeSnackBarState({
-            message: "Back online",
+            message: "Connection restored",
             icon: "fa-solid fa-wifi text-green-500",
             visible: true,
           })

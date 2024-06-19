@@ -22,12 +22,13 @@ const Test = () => {
           <FlashMsg
             key={"FlasMsg"}
             FLASH_STATE={FLASH_STATE}
-            FLASH_TYPE={FLASH_SUCCESS}
-            FLASH_TITLE={FLASH_SUCCESS}
-            FLASH_MESSAGE={"Something Went well"}
+            FLASH_TYPE={FLASH_ERROR}
+            FLASH_TITLE={"Payment Done"}
+            FLASH_MESSAGE={"Podcast transaction is successfull ,press 'Ok' to continue"}
             ONCLICK={() => {
               console.log("hello");
             }}
+            enableCancel={true}
             CANCELCLICK={() => {
               console.log("cancel");
             }}

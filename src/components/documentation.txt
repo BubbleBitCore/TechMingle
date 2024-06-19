@@ -37,10 +37,10 @@
         {flashVisibility && (
           <FlashMsg
             key={"FlasMsg"} // any thing can be typed here
-            FLASH_STATE={FLASH_STATE} // contains state variables
-            FLASH_TYPE={FLASH_PENDING} // Flash State are predefined in Constants
-            FLASH_TITLE={FLASH_PENDING }
-            FLASH_MESSAGE={"Something Went well"}
+            FLASH_STATE={FLASH_STATE} // contains state variables to control visibility of Flash
+            FLASH_TYPE={FLASH_PENDING} // Flash States are predefined in `Constants` file
+            FLASH_TITLE={FLASH_PENDING } // You can write anything
+            FLASH_MESSAGE={"Something Went well"} // You can write anything
             ONCLICK={() => {
               console.log("hello"); //any logic
             }}
