@@ -81,8 +81,10 @@ const FlashMsg = ({
               ease: "linear",
               duration: 0.2,
             }}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation()
               setFlashVisibility(false);
+              CANCELCLICK();
             }}
             className={`z-[100] w-screen h-screen top-0 left-0 fixed bgBlur flex justify-center items-center`}
           >
