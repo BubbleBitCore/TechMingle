@@ -5,6 +5,8 @@ import {
   FLASH_PENDING,
   FLASH_WARNING,
 } from "../../constants/FlashMsgConstants";
+import Spinner from "../Spinner";
+import { useEffect, useState } from "react";
 
 const FlashMsg = ({
   FLASH_TYPE,
@@ -14,9 +16,24 @@ const FlashMsg = ({
   ONCLICK,
   CANCELCLICK,
   enableCancel = false,
+  enablePromiseFlash = false,
+  postPromiseFlashType,
+  promiseSettled,
+  postPromiseTitle,
+  postPromiseMessage,
+  postPromiseOnClick,
+  postPromiseEnableCancel = false,
+  postPromiseCancelClick,
 }) => {
   const mode = useSelector((state) => state.common.mode);
+  const [promiseFlashActive, setPromiseFlashActive] = useState(false); // handling followback promise Flashes
+  const [promiseFlashSpinner, setPromiseFlashSpinner] = useState(true); // handling followback promise Flashes
   const { flashVisibility, setFlashVisibility } = FLASH_STATE;
+  useEffect(() => {
+    if (promiseSettled) {
+      setPromiseFlashSpinner(false);
+    }
+  }, [promiseSettled]);
   return (
     <>
       {FLASH_TYPE != null && (
@@ -82,7 +99,7 @@ const FlashMsg = ({
               duration: 0.2,
             }}
             onClick={(e) => {
-              e.stopPropagation()
+              e.stopPropagation();
               setFlashVisibility(false);
               CANCELCLICK();
             }}
@@ -93,77 +110,180 @@ const FlashMsg = ({
                 e.stopPropagation();
               }}
               className={`${
-                mode ? "bg-[#181818]" : "bg-white shadow-2xl"
-              } py-5 px-10 rounded-3xl flex flex-col justify-center items-center max-sm:w-[20rem]`}
+                mode
+                  ? "bg-[#181818]"
+                  : "bg-white shadow-2xl border transition-all "
+              } py-5 px-10 rounded-3xl flex transition-all duration-200  flex-col justify-center items-center max-sm:w-[20rem]`}
             >
-              {/* icon */}
-              <div
-                className={`flex justify-center items-start w-full h-full mb-3`}
-              >
-                <i
-                  className={` text-3xl  ${
-                    FLASH_TYPE === FLASH_WARNING
-                      ? " ri-alert-fill warningText "
-                      : FLASH_TYPE === FLASH_ERROR
-                      ? " ri-error-warning-fill errorText "
-                      : FLASH_TYPE === FLASH_PENDING
-                      ? " ri-radio-button-line pendingText "
-                      : " ri-checkbox-circle-fill successText "
-                  }`}
-                ></i>
-              </div>
-              {/* Msg */}
-              <div
-                className={`flex flex-col w-full h-full  px-2 overflow-x-hidden overflow-y-auto gap-2`}
-              >
-                <div
-                  className={`aspira flex justify-center items-center flex-shrink-0 text-2xl font-bold   ${
-                    mode ? "text-gray-200" : "text-black"
-                  } w-full `}
-                >
-                  <p title={FLASH_TITLE} className={`max-w-[14rem] text-ellipsis whitespace-nowrap overflow-hidden `}>{FLASH_TITLE}</p>
-                </div>
-                <div
-                  className={`font-sans w-full text-center  max-w-[18rem]  ${
-                    mode ? "text-gray-400" : "text-[#898989]"
-                  } overflow-x-hidden overflow-y-auto  max-sm:text-sm`}
-                >
-                  {FLASH_MESSAGE}
-                </div>
-                {/* action btns */}
-                <div className="grid grid-cols-2 w-full md:gap-5 max-sm:gap-2 mt-2 max-sm:mt-4">
+              {!promiseFlashActive ? (
+                <>
+                  {/* icon */}
                   <div
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      ONCLICK();
-                      setFlashVisibility(false);
-                    }}
-                    className={` font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:opacity-85 rounded-3xl transition-all duration-500 ${
-                      FLASH_TYPE === FLASH_WARNING
-                        ? " warningBg text-white"
-                        : FLASH_TYPE === FLASH_ERROR
-                        ? " errorBg text-white"
-                        : FLASH_TYPE === FLASH_PENDING
-                        ? " pendingBg text-white"
-                        : " successBg "
-                    }`}
+                    className={`flex justify-center items-start w-full h-full mb-3`}
                   >
-                    <span>Okay</span>
+                    <i
+                      className={` text-3xl  ${
+                        FLASH_TYPE === FLASH_WARNING
+                          ? " ri-alert-fill warningText "
+                          : FLASH_TYPE === FLASH_ERROR
+                          ? " ri-error-warning-fill errorText "
+                          : FLASH_TYPE === FLASH_PENDING
+                          ? " ri-radio-button-line pendingText "
+                          : " ri-checkbox-circle-fill successText "
+                      }`}
+                    ></i>
                   </div>
-                  {enableCancel && (
+                  {/* Msg */}
+                  <div
+                    className={`flex flex-col w-full h-full  px-2 overflow-x-hidden overflow-y-auto gap-2`}
+                  >
                     <div
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        setFlashVisibility(false);
-                        CANCELCLICK();
-                      }}
-                      className={`font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:bg-[#eceeef] rounded-3xl transition-all duration-500 `}
+                      className={`aspira flex justify-center items-center flex-shrink-0 text-2xl font-bold   ${
+                        mode ? "text-gray-200" : "text-black"
+                      } w-full transition-all duration-200 max-sm:text-xl`}
                     >
-                      <span>Cancel</span>
+                      <p
+                        title={FLASH_TITLE}
+                        className={`max-w-[15rem] text-ellipsis whitespace-nowrap overflow-hidden `}
+                      >
+                        {FLASH_TITLE}
+                      </p>
                     </div>
-                  )}
+                    <div
+                      className={`font-sans w-full text-center  max-w-[18rem]  ${
+                        mode ? "text-gray-400" : "text-[#898989]"
+                      } overflow-x-hidden overflow-y-auto  max-sm:text-sm transition-all duration-200`}
+                    >
+                      {FLASH_MESSAGE}
+                    </div>
+                    {/* action btns */}
+                    <div
+                      className={`grid ${
+                        enableCancel ? " grid-cols-2 " : " grid-cols-1 "
+                      } w-full md:gap-5 max-sm:gap-2 mt-4 max-sm:mt-4 `}
+                    >
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          if (!enablePromiseFlash) {
+                            ONCLICK();
+                            setFlashVisibility(false);
+                          } else {
+                            setPromiseFlashActive(true);
+                          }
+                        }}
+                        className={` font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:opacity-85 rounded-3xl transition-all duration-500 ${
+                          FLASH_TYPE === FLASH_WARNING
+                            ? " warningBg text-white"
+                            : FLASH_TYPE === FLASH_ERROR
+                            ? " errorBg text-white"
+                            : FLASH_TYPE === FLASH_PENDING
+                            ? " pendingBg text-white"
+                            : " successBg "
+                        }`}
+                      >
+                        <span>Okay</span>
+                      </div>
+                      {enableCancel && (
+                        <div
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setFlashVisibility(false);
+                            CANCELCLICK();
+                          }}
+                          className={`font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:bg-[#eceeef] rounded-3xl transition-all duration-500 `}
+                        >
+                          <span>Cancel</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </>
+              ) : promiseFlashSpinner ? (
+                <div
+                  className={`relative flex justify-center items-center min-h-[11rem] md:scale-[2]`}
+                >
+                  <Spinner />
                 </div>
-              </div>
+              ) : (
+                <>
+                  {/* Post Promise Flash */}
+                  <div
+                    className={`flex justify-center items-start w-full h-full mb-3`}
+                  >
+                    <i
+                      className={` text-3xl  ${
+                        postPromiseFlashType === FLASH_WARNING
+                          ? " ri-alert-fill warningText "
+                          : postPromiseFlashType === FLASH_ERROR
+                          ? " ri-error-warning-fill errorText "
+                          : postPromiseFlashType === FLASH_PENDING
+                          ? " ri-radio-button-line pendingText "
+                          : " ri-checkbox-circle-fill successText "
+                      }`}
+                    ></i>
+                  </div>
+                  {/* Msg */}
+                  <div
+                    className={`flex flex-col w-full h-full  px-2 overflow-x-hidden overflow-y-auto gap-2`}
+                  >
+                    <div
+                      className={`aspira flex justify-center items-center flex-shrink-0 text-2xl font-bold   ${
+                        mode ? "text-gray-200" : "text-black"
+                      } w-full transition-all duration-200 `}
+                    >
+                      <p
+                        title={postPromiseTitle}
+                        className={`max-w-[15rem] text-ellipsis whitespace-nowrap overflow-hidden `}
+                      >
+                        {postPromiseTitle}
+                      </p>
+                    </div>
+                    <div
+                      className={`font-sans w-full text-center  max-w-[18rem]  ${
+                        mode ? "text-gray-400" : "text-[#898989]"
+                      } overflow-x-hidden overflow-y-auto  max-sm:text-sm transition-all duration-200`}
+                    >
+                      {postPromiseMessage}
+                    </div>
+                    {/* action btns */}
+                    <div className={`grid ${
+                        postPromiseEnableCancel ? " grid-cols-2 " : " grid-cols-1 "
+                      } w-full md:gap-5 max-sm:gap-2 mt-4 max-sm:mt-4 `}>
+                      <div
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          postPromiseOnClick();
+                          setFlashVisibility(false);
+                        }}
+                        className={` font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:opacity-85 rounded-3xl transition-all duration-500 ${
+                          postPromiseFlashType === FLASH_WARNING
+                            ? " warningBg text-white"
+                            : postPromiseFlashType === FLASH_ERROR
+                            ? " errorBg text-white"
+                            : postPromiseFlashType === FLASH_PENDING
+                            ? " pendingBg text-white"
+                            : " successBg "
+                        }`}
+                      >
+                        <span>Okay</span>
+                      </div>
+                      {postPromiseEnableCancel && (
+                        <div
+                          onClick={(e) => {
+                            e.stopPropagation();
+                            setFlashVisibility(false);
+                            postPromiseCancelClick();
+                          }}
+                          className={`font-bold  flex justify-center items-center cursor-pointer px-10 py-3  text-sm  max-sm:px-5  bg-[#f2f4f6] hover:bg-[#eceeef] rounded-3xl transition-all duration-500 `}
+                        >
+                          <span>Cancel</span>
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
           </motion.div>
         </>
