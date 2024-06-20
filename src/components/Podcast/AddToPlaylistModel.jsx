@@ -79,7 +79,7 @@ const AddToPlaylistModel = ({ playlist }) => {
             }`}
       </style>
       {visibility && playlist?.length > 0 && (
-        <div className="flex justify-center items-center w-full h-full rounded-lg backdrop-blur-sm transition-all duration-500">
+        <div className=" z-[70] flex justify-center items-center w-full h-full rounded-lg backdrop-blur-sm transition-all duration-500">
         <div
           className={`flex flex-col min-w-56 ${
             mode ? "bg-zinc-900 text-white" : "bg-zinc-200 text-black"

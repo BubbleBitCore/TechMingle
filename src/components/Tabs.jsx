@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import { AnimatePresence } from "framer-motion";
 import { useSearchParams } from "react-router-dom";
 
-const Tabs = ({ tabs, selectedTab , tabHeaderZIdx = 20 }) => {
+const Tabs = ({ tabs, selectedTab , tabHeaderZIdx = 20 ,tabBodyZIdx}) => {
   const mode = useSelector((state) => state.common.mode);
   const [searchParams, setSearchParams] = useSearchParams();
   
@@ -63,7 +63,7 @@ const Tabs = ({ tabs, selectedTab , tabHeaderZIdx = 20 }) => {
             ))}
           </div>
           {/* Tab Body */}
-          <div className="w-full h-auto mt-5 max-sm:mt-3 z-10 relative">
+            <div className={`w-full h-auto mt-5 max-sm:mt-3 relative ${tabBodyZIdx ? `z-${tabBodyZIdx}` : ""}`}>
             <selected.component />
           </div>
         </div>

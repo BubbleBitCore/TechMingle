@@ -759,7 +759,7 @@ const Settings = ({ Header }) => {
       <div className="flex flex-col h-full w-full pr-4 max-sm:px-4">
         <Header urlName="Settings" />
         <div className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto pt-3">
-          <Tabs tabs={tabs} selectedTab={searchParams.get("tab")} />
+          <Tabs tabs={tabs} selectedTab={searchParams.get("tab")} tabBodyZIdx={10} />
         </div>
       </div>
     </>

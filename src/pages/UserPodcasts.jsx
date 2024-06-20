@@ -415,9 +415,10 @@ const UserPodcasts = ({ Header }) => {
                   <text>
                     <textPath
                       href="#circlePath"
-                      className={`${  mode ? "text-white" : "text-black"} font-semibold select-none`}
+                      className={` select-none`}
+                      fill={mode ? "white" : "black"}
                     >
-                      Create your ⭐own Podcast ⭐
+                      Create my ⭐ own Podcast ⭐
                     </textPath>
                   </text>
                 </svg>
@@ -428,22 +429,22 @@ const UserPodcasts = ({ Header }) => {
             <Tabs
               tabs={tabs}
               selectedTab={searchParams.get("tab")}
-              tabHeaderZIdx={0}
+              tabHeaderZIdx={`[60]`}
             />
           </div>
         </div>
         {addToPlayListVisibility && (
-          <div className="flex w-full h-full justify-center z-20 items-center absolute">
+          <div className="flex w-full h-full justify-center z-70 items-center absolute">
             <AddToPlaylistModel playlist={playList} />
           </div>
         )}
         {editPodcastVisibility && podcastToEdit && (
-          <div className="flex w-full h-full justify-center z-20 items-center absolute">
+          <div className="flex w-full h-full justify-center z-70 items-center absolute">
             <EditPodcastModal podcast={podcastToEdit} />
           </div>
         )}
         {createPodcastVisibility && (
-          <div className="flex w-full h-full justify-center z-20 items-center absolute">
+          <div className="flex w-full h-full justify-center z-70 items-center absolute">
             <CreatePodcast podcast={podcastToEdit} />
           </div>
         )}

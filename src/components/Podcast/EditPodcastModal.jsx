@@ -296,9 +296,9 @@ const EditPodcastModal = ({ podcast }) => {
       `}
       </style>
       {visibility && (
-        <div className="flex justify-center items-center w-full h-full rounded-lg backdrop-blur-sm transition-all duration-500">
+        <div className=" z-[70] w-screen h-screen top-0 left-0 fixed bgBlur flex justify-center items-center backdrop-blur-sm">
           <div
-            className={`flex flex-col w-[700px] rounded-lg ${
+            className={` flex flex-col w-[700px] rounded-lg ${
               mode ? "bg-[#101216] text-white" : "bg-zinc-100"
             } `}
             onClick={(e) => {

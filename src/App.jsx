@@ -12,6 +12,7 @@ import {
   setTempProfileImage,
 } from "./slices/commonSlice";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const App = () => {
   const tempProfileImage = useSelector(
@@ -19,6 +20,7 @@ const App = () => {
   );
   const openEditor = useSelector((state) => state.common.openEditor);
   const onlineStatus = useSelector((state) => state.common.onlineStatus);
+  const url = window.location.href;
   const dispatch = useDispatch();
   // Offline and online Navigator
   useEffect(() => {
@@ -53,6 +55,12 @@ const App = () => {
       window.removeEventListener("offline", handleOnlineStatus);
     };
   }, []);
+
+  useEffect(()=>{
+    if(openEditor){
+      dispatch(setOpenEditor(false))
+    }
+  },[url])
   return (
     <>
       <AppWrapper key={12} />
