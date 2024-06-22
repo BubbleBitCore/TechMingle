@@ -157,6 +157,7 @@ const EditPodcastModal = ({ podcast }) => {
   const [flashTitle, setFlashTitle] = useState("");
   const [flashMsg, setFlashMsg] = useState("");
   const [enableCancel , setEnableCancel] =useState(false);
+  const [enablePromiseFlash,setEnablePromiseFlash] = useState(false)
 
   const saveChanges = () => {
     setFlashType(FLASH_WARNING);
@@ -164,6 +165,7 @@ const EditPodcastModal = ({ podcast }) => {
     setFlashMsg("Are you sure you want to save the changes? This action will update the podcast details permanently.");
     setFlashVisibility(true);
     setEnableCancel(true)
+    setEnablePromiseFlash(true)
   };
 
   const onOkClicked =()=>{
@@ -404,7 +406,8 @@ const EditPodcastModal = ({ podcast }) => {
                   <input
                     ref={tagInputRef}
                     type="text"
-                    className={`w-56 rounded-md  bg-transparent outline-none focus:border focus:border-blue-600 ${
+                    maxLength={15}
+                    className={`w-40 px-1 rounded-md  bg-transparent outline-none focus:border focus:border-blue-600 ${
                       mode ? "text-gray-300" : "text-gray-600"
                     }`}
                     onKeyDown={(e) => {
@@ -528,7 +531,7 @@ const EditPodcastModal = ({ podcast }) => {
             ONCLICK={onOkClicked}
             CANCELCLICK={() => {}}
             enableCancel ={enableCancel}
-            enablePromiseFlash={true}
+            enablePromiseFlash={enablePromiseFlash}
             promiseSettled={settlePromise}
             postPromiseCancelClick={() => {
               console.log("Post Promise cancel");
