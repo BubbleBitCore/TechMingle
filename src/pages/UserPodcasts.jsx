@@ -377,7 +377,7 @@ const UserPodcasts = ({ Header }) => {
             </div>
             <div className="flex flex-col justify-center w-36">
               <div
-                className="flex flex-col items-center p-2"
+                className="flex flex-col items-center p-2 cursor-pointer"
                 onClick={() => {
                   dispatch(setCreatePodcastVisibility(true));
                   console.log(createPodcastVisibility)

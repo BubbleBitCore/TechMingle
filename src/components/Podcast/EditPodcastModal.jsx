@@ -543,7 +543,7 @@ const EditPodcastModal = ({ podcast }) => {
             postPromiseEnableCancel={false}
             postPromiseTitle={"Update Successfull"}
             postPromiseMessage={
-              "Podcast transaction successful! Your podcast has been updated. Press 'OK' to continue."
+              "Your podcast has been updated successfully! Press 'OK' to continue."
             }
           />
         )}

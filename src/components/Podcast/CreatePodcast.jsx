@@ -643,7 +643,7 @@ const CreatePodcast = () => {
                           <div
                             className={`${
                               mode ? "bg-[#162844]" : "bg-blue-200"
-                            } group-hover:bg-blue-500 flex justify-center items-center text-blue-400 font-bold rounded-full px-2 mr-[-19px] mt-[-4px] mb-[-4px]`}
+                            } group-hover:bg-blue-500 flex justify-center items-center text-blue-400 font-bold rounded-full px-2 mr-[-19px] mt-[-4px] mb-[-4px] cursor-pointer`}
                           >
                             <i
                               className={`ri-close-large-line text-xs hover:text-white`}
@@ -901,14 +901,13 @@ const CreatePodcast = () => {
             postPromiseEnableCancel={false}
             postPromiseTitle={"Success !"}
             postPromiseMessage={
-              "Podcast transaction successful! Your podcast has been created. Press 'OK' to continue."
+              "Your podcast has been created successfully! Press 'OK' to continue."
             }
             postPromiseCancelClick={() => {
               console.log("Post Promise cancel");
             }}
             postPromiseOnClick={() => {
               dispatch(setCreatePodcastVisibility(false))
-              console.log("Post Promise ok");
             }}
           />
         )}
