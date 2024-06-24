@@ -152,6 +152,7 @@ const CreatePodcast = () => {
             setFlashTitle("Size Error");
             setFlashMsg("Image Should be less-than or equal-to 2 MB!");
             setFlashVisibility(true);
+            setEnablePromiseFlash(false);
             inputImageFile.current.value = "";
             return;
           }
@@ -166,6 +167,7 @@ const CreatePodcast = () => {
                 "Dimensions Should be equal-to or less-than 800 pixels!"
               );
               setFlashVisibility(true);
+              setEnablePromiseFlash(false);
               inputImageFile.current.value = "";
             } else {
               dispatch(setOpenEditor(true));
@@ -179,6 +181,7 @@ const CreatePodcast = () => {
         setFlashType(FLASH_ERROR);
         setFlashTitle("Format Error");
         setFlashMsg("Input Image Format is not supported");
+        setEnablePromiseFlash(false);
         setFlashVisibility(true);
         inputImageFile.current.value = "";
       }
@@ -202,7 +205,6 @@ const CreatePodcast = () => {
       setLanguageError(true);
     }
     if (tagList.length < 1) {
-      
       setTagError(true);
     }
     if (!audioFile) {
@@ -227,14 +229,9 @@ const CreatePodcast = () => {
     }
   };
 
-  useEffect(()=>{
+  useEffect(() => {
     console.log(tagList);
-  },[tagList])
-
-  // on Ok clicked on flash msg
-  const onOkClicked = () => {
-    dispatch(setCreatePodcastVisibility(false));
-  };
+  }, [tagList]);
 
   // remove tag
   const removeTag = (itemToRemove) => {
@@ -401,7 +398,7 @@ const CreatePodcast = () => {
       {visibility && (
         <div className=" z-[70] w-screen h-screen top-0 left-0 fixed bgBlur flex justify-center items-center backdrop-blur-sm">
           <div
-            className={`flex flex-col w-[600px] max-h-[600px] rounded-md transition-all duration-300 ${
+            className={`flex flex-col w-[600px] max-h-[600px] max-sm:w-[90%] max-sm:h-[90%] rounded-md transition-all duration-300 ${
               mode ? "bg-[#101216] text-white" : "bg-zinc-100"
             } `}
             onClick={(e) => {
@@ -424,11 +421,18 @@ const CreatePodcast = () => {
                 ></i>
               </div>
             </div>
-            <div className="border-t h-[0.2px] w-full border-zinc-700"></div>
+            <div
+              className={`border-t w-full ${
+                mode ? "border-zinc-700" : "border-zinc-300"
+              } `}
+            ></div>
             {/* main content */}
             <div className="flex flex-col gap-5 p-6 w-full overflow-hidden overflow-y-auto">
+              {/* podcast upload section */}
               <div
-                className={`flex flex-col justify-between items-center select-none py-2 pt-12 bg-zinc-900 w-full min-h-72 ${
+                className={`flex flex-col justify-between items-center select-none py-2 pt-12 ${
+                  mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
+                } w-full min-h-72 ${
                   audioFileError
                     ? "border border-red-500"
                     : dragActive
@@ -441,7 +445,11 @@ const CreatePodcast = () => {
                 onDrop={handleDrop}
               >
                 <div className="flex">
-                  <i className="ri-netease-cloud-music-line text-8xl h-17 text-gray-400"></i>
+                  <i
+                    className={`ri-netease-cloud-music-line text-8xl h-17 ${
+                      mode ? "text-gray-400" : "text-zinc-500"
+                    }`}
+                  ></i>
                 </div>
                 <div
                   className={`${
@@ -450,7 +458,9 @@ const CreatePodcast = () => {
                 >
                   <label
                     htmlFor="audioInput"
-                    className="text-xs bg-blue-500 px-4 p-2 hover:bg-blue-400 cursor-pointer transition-all duration-500 rounded-sm "
+                    className={`text-xs px-4 p-2 bg-blue-500  hover:bg-blue-400 ${
+                      mode ? "" : "text-white"
+                    } cursor-pointer transition-all duration-500 rounded-sm `}
                   >
                     Choose podcast
                   </label>
@@ -464,7 +474,7 @@ const CreatePodcast = () => {
                       handleChange(e.target.files);
                     }}
                   />
-                  <p className="text-xs text-zinc-300">
+                  <p className={`text-xs ${mode ? "text-zinc-300" : ""}`}>
                     or, drop the file here
                   </p>
                   {error && <p className="text-xs text-red-500">{error}</p>}
@@ -507,7 +517,11 @@ const CreatePodcast = () => {
                   </div>
                 )}
                 {!audioFile && (
-                  <p className="text-[11px] text-zinc-400">
+                  <p
+                    className={`text-[11px] ${
+                      mode ? "text-zinc-400" : "text-zinc-600"
+                    }`}
+                  >
                     Maximum file size: 50MB
                   </p>
                 )}
@@ -515,22 +529,25 @@ const CreatePodcast = () => {
               {/* title div */}
               <div
                 className={`flex flex-col gap-1 w-full justify-center rounded-sm p-2 px-4 border transition-all duration-500 ${
-                  mode
-                    ? ` ${
-                        isTitleFocused
-                          ? "text-blue-400 border-blue-500 "
+                  isTitleFocused
+                    ? "text-blue-400 border-blue-500 "
+                    : `${
+                        titleError
+                          ? "text-red-500 border-red-500"
                           : `${
-                              titleError
-                                ? "text-red-500 border-red-500"
-                                : "text-zinc-300 border-zinc-700 hover:border-zinc-400"
+                              mode
+                                ? "text-zinc-300 border-zinc-700 hover:border-zinc-400"
+                                : " border-zinc-200"
                             }`
-                      } `
-                    : " border-zinc-200"
-                }   `}
+                      }`
+                } `}
               >
                 <div className={`flex gap-2 items-center `}>
                   <p className={`text-xs select-none`}>Title (required)</p>
-                  <i className="ri-question-line "></i>
+                  <i
+                    className="ri-question-line "
+                    title="Use your official podcast name to make sure that users can find it while searching and browsing."
+                  ></i>
                 </div>
                 <input
                   type="text"
@@ -558,24 +575,27 @@ const CreatePodcast = () => {
               {/* Description div */}
               <div
                 className={`flex flex-col gap-1 w-full justify-center rounded-sm p-2 px-4 border transition-all duration-5300 ${
-                  mode
-                    ? ` ${
-                        isDescFocused
-                          ? "text-blue-400 border-blue-500 "
+                  isDescFocused
+                    ? "text-blue-400 border-blue-500 "
+                    : `${
+                        descError
+                          ? "text-red-500 border-red-500"
                           : `${
-                              descError
-                                ? "text-red-500 border-red-500"
-                                : "text-zinc-300 border-zinc-700 hover:border-zinc-400"
+                              mode
+                                ? "text-zinc-300 border-zinc-700 hover:border-zinc-400"
+                                : " border-zinc-200"
                             }`
-                      } `
-                    : " border-zinc-200"
+                      }`
                 } `}
               >
                 <div className={`flex gap-2 items-center`}>
                   <p className={`text-xs select-none`}>
                     Description (required)
                   </p>
-                  <i className="ri-question-line "></i>
+                  <i
+                    className="ri-question-line "
+                    title="Ensure your podcast description clearly states its main topics and highlights what makes it unique. Use keywords for better visibility, introduce the hosts briefly, and encourage listeners to subscribe and review."
+                  ></i>
                 </div>
                 <textarea
                   rows={4}
@@ -604,17 +624,17 @@ const CreatePodcast = () => {
               <div className="flex flex-col gap-1">
                 <div
                   className={`flex flex-col gap-1 w-full justify-center rounded-sm p-2 px-4 border transition-all duration-500 ${
-                    mode
-                      ? ` ${
-                          isTagFocused
-                            ? "text-blue-400 border-blue-500 "
+                    isTagFocused
+                      ? "text-blue-400 border-blue-500 "
+                      : `${
+                          tagError
+                            ? "text-red-500 border-red-500"
                             : `${
-                                tagError
-                                  ? "text-red-500 border-red-500"
-                                  : "text-zinc-300 border-zinc-700 hover:border-zinc-400"
+                                mode
+                                  ? "text-zinc-300 border-zinc-700 hover:border-zinc-400"
+                                  : " border-zinc-200"
                               }`
-                        } `
-                      : " border-zinc-200"
+                        }`
                   }   `}
                   onClick={() => {
                     if (tagInputRef.current) {
@@ -626,7 +646,10 @@ const CreatePodcast = () => {
                     <p className={`text-xs select-none`}>
                       Tags (minimun 1 tag is required)
                     </p>
-                    <i className="ri-question-line "></i>
+                    <i
+                      className="ri-question-line "
+                      title="When writing tags for your podcast, make sure they are relevant and specific to the content of your episodes. Use variations and trending keywords to improve visibility and attract a broader audience."
+                    ></i>
                   </div>
                   <div
                     className={` flex w-full gap-3 select-none rounded-md  p-1  flex-wrap`}
@@ -723,7 +746,10 @@ const CreatePodcast = () => {
               >
                 <div className={`flex gap-2 items-center `}>
                   <p className={`text-sm select-none`}>Thumbnail (required)</p>
-                  <i className="ri-question-line text-lg"></i>
+                  <i
+                    className="ri-question-line text-lg"
+                    title="For a compelling podcast thumbnail, ensure it clearly represents your show's theme and brand. Use eye-catching visuals, readable text, and your official podcast name to make it easily recognizable and attractive to potential listeners."
+                  ></i>
                 </div>
                 <p
                   className={`text-xs ${
@@ -734,7 +760,9 @@ const CreatePodcast = () => {
                 </p>
                 <div
                   className={`flex justify-center items-center border-2 border-dashed  w-64 h-36 mt-1 ${
-                    thumbnailError ? "border-red-500" : "border-zinc-700"
+                    thumbnailError
+                      ? "border-red-500"
+                      : `${mode ? "border-zinc-700" : "border-zinc-400"}`
                   }`}
                 >
                   <div className="relative w-full h-full">
@@ -779,18 +807,34 @@ const CreatePodcast = () => {
                     <div
                       className={`flex flex-col gap-1 text-xs transition-all duration-300`}
                     >
-                      <p className={`text-zinc-400`}>Visibility</p>
                       <p
-                        className={`text-zinc-200 text-sm capitalize`}
+                        className={`${
+                          mode ? "text-zinc-400" : "text-zinc-600"
+                        }`}
+                      >
+                        Visibility
+                      </p>
+                      <p
+                        className={`${
+                          mode ? "text-zinc-200" : "text-zinc-800"
+                        } text-sm capitalize`}
                       >{`${podcastVisibility}`}</p>
                     </div>
                     <i className="ri-arrow-down-s-fill text-xl cursor-pointer"></i>
                   </div>
                   {showVisibilityDropDown && (
                     <div className="flex z-10 transition-all duration-300">
-                      <div className="flex flex-col bg-zinc-900 w-full rounded-lg overflow-hidden capitalize">
+                      <div
+                        className={`flex flex-col  ${
+                          mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
+                        } w-full rounded-lg overflow-hidden capitalize`}
+                      >
                         <p
-                          className="py-1 text-xs hover:bg-blue-600 px-4 transition-all duration-100"
+                          className={`py-1 text-xs ${
+                            mode
+                              ? "hover:bg-blue-600"
+                              : "hover:bg-blue-500 hover:text-white"
+                          }  px-4 transition-all duration-500`}
                           onClick={() => {
                             setPodcastVisibility("private");
                             setShowVisibilityDropDown(false);
@@ -800,7 +844,11 @@ const CreatePodcast = () => {
                           Private
                         </p>
                         <p
-                          className="py-1 text-xs hover:bg-blue-600 px-4 transition-all duration-100"
+                          className={`py-1 text-xs ${
+                            mode
+                              ? "hover:bg-blue-600"
+                              : "hover:bg-blue-500 hover:text-white"
+                          } px-4 transition-all duration-100`}
                           onClick={() => {
                             setPodcastVisibility("public");
                             setShowVisibilityDropDown(false);
@@ -832,24 +880,37 @@ const CreatePodcast = () => {
                     >
                       <p
                         className={`${
-                          languageError ? "text-red-500" : "text-zinc-400"
+                          languageError
+                            ? "text-red-500"
+                            : `${mode ? "text-zinc-400" : "text-zinc-600"}`
                         }`}
                       >
                         Language
                       </p>
                       <p
-                        className={`text-zinc-200 text-sm capitalize`}
+                        className={`${
+                          mode ? "text-zinc-200" : "text-zinc-800"
+                        } text-sm capitalize`}
                       >{`${language}`}</p>
                     </div>
                     <i className="ri-arrow-down-s-fill text-xl cursor-pointer"></i>
                   </div>
                   {showLanguageDropDown && (
                     <div className="flex z-10 transition-all duration-300">
-                      <div className="flex flex-col bg-zinc-900 w-full rounded-lg overflow-hidden capitalize">
+                      <div
+                        className={`flex flex-col ${
+                          mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
+                        } w-full rounded-lg overflow-hidden capitalize`}
+                      >
                         {languages.length > 0 &&
                           languages.map((item, idx) => (
                             <p
-                              className="py-1 text-xs hover:bg-blue-600 px-4 transition-all duration-100"
+                              key={idx}
+                              className={`py-1 text-xs ${
+                                mode
+                                  ? "hover:bg-blue-600"
+                                  : "hover:bg-blue-500 hover:text-white"
+                              }  px-4 transition-all duration-500`}
                               onClick={() => {
                                 setLanguage(item);
                                 if (languageError) {
@@ -868,7 +929,11 @@ const CreatePodcast = () => {
               </div>
             </div>
             {/* create section */}
-            <div className="border-t border-zinc-700"></div>
+            <div
+              className={`border-t w-full ${
+                mode ? "border-zinc-700" : "border-zinc-300"
+              } `}
+            ></div>
             <div
               className={`flex justify-end rounded-b-md p-4  px-5 ${
                 mode ? "text-zinc-500" : ""
@@ -892,7 +957,10 @@ const CreatePodcast = () => {
             FLASH_TYPE={flashType}
             FLASH_TITLE={flashTitle}
             FLASH_MESSAGE={flashMsg}
-            ONCLICK={onOkClicked}
+            ONCLICK={() => {
+              if (flashType === FLASH_SUCCESS)
+                dispatch(setCreatePodcastVisibility(false));
+            }}
             CANCELCLICK={() => {}}
             enableCancel={enableCancel}
             enablePromiseFlash={enablePromiseFlash}
@@ -907,7 +975,7 @@ const CreatePodcast = () => {
               console.log("Post Promise cancel");
             }}
             postPromiseOnClick={() => {
-              dispatch(setCreatePodcastVisibility(false))
+              dispatch(setCreatePodcastVisibility(false));
             }}
           />
         )}

@@ -250,7 +250,9 @@ const Playlists = () => {
 
 const UserPodcasts = ({ Header }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const createPodcastVisibility = useSelector((state)=>state.podcast.createPodcastVisibility)
+  const createPodcastVisibility = useSelector(
+    (state) => state.podcast.createPodcastVisibility
+  );
   const mode = useSelector((state) => state.common.mode);
   const dispatch = useDispatch();
   const addToPlayListVisibility = useSelector(
@@ -295,7 +297,7 @@ const UserPodcasts = ({ Header }) => {
       <div className="flex flex-col h-full w-full max-sm:px-4 sm:pr-4 relative max-sm:overflow-y-auto">
         <Header />
         <div className="flex flex-col pb-2 sm:px-8 w-full  overflow-hidden overflow-y-auto">
-          <div className="flex sm:justify-between">
+          <div className="flex max-sm:flex-col sm:justify-between">
             <div className="flex max-sm:flex-col w-full  gap-4 items-center pb-5 ">
               <Link
                 className="flex rounded-full w-32 h-32 bg-gray-300 justify-center"
@@ -364,23 +366,33 @@ const UserPodcasts = ({ Header }) => {
                     ))}
                 </div>
 
-                <div className="flex select-none max-sm:justify-center max-sm:mt-3">
+                <div className="flex select-none max-sm:justify-center gap-6 max-sm:px-4 max-sm:mt-3">
                   <Link
                     to="/profile"
-                    className="flex max-sm:gap-2 p-1.5 px-3 text-xs sm:bg-blue-600 max-sm:outline max-sm:outline-zinc-900 hover:outline-none max-sm:hover:outline-zinc-600  sm:hover:bg-blue-500 rounded-md text-white max-sm:text-zinc-400 text-center justify-center"
+                    className="flex max-sm:gap-2 p-1.5 px-3 text-xs sm:bg-blue-600 max-sm:outline max-sm:outline-blue-500 hover:outline-none max-sm:hover:outline-blue-300  sm:hover:bg-blue-500 rounded-md text-white max-sm:text-zinc-400 text-center justify-center"
                   >
                     <p>view profile</p>
                     <i className="ri-arrow-right-double-line"></i>
                   </Link>
+                  <div
+                    className="flex max-sm:gap-2 sm:hidden p-1.5 px-3 text-xs cursor-pointer sm:bg-blue-600 max-sm:outline max-sm:outline-green-600 hover:outline-none max-sm:hover:outline-green-400  sm:hover:bg-blue-500 rounded-md text-white max-sm:text-zinc-400 text-center justify-center"
+                    onClick={() => {
+                      dispatch(setCreatePodcastVisibility(true));
+                      console.log(createPodcastVisibility);
+                    }}
+                  >
+                    <i class="ri-add-large-fill"></i>
+                    <p>create</p>
+                  </div>
                 </div>
               </div>
             </div>
-            <div className="flex flex-col justify-center w-36">
+            <div className="flex max-sm:hidden flex-col justify-center w-36 max-sm:w-20 ">
               <div
-                className="flex flex-col items-center p-2 cursor-pointer"
+                className="flex flex-col items-center sm:p-2 cursor-pointer"
                 onClick={() => {
                   dispatch(setCreatePodcastVisibility(true));
-                  console.log(createPodcastVisibility)
+                  console.log(createPodcastVisibility);
                 }}
               >
                 <svg

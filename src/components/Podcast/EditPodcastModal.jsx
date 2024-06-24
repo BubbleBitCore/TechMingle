@@ -10,7 +10,7 @@ import {
   FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../../constants/FlashMsgConstants.js";
-import {changeSnackBarState} from "../../slices/commonSlice.js"
+import { changeSnackBarState } from "../../slices/commonSlice.js";
 
 const EditPodcastModal = ({ podcast }) => {
   const visibility = useSelector(
@@ -114,6 +114,7 @@ const EditPodcastModal = ({ podcast }) => {
             setFlashTitle("Size Error");
             setFlashMsg("Image Should be less-than or equal-to 2 MB!");
             setFlashVisibility(true);
+            setEnablePromiseFlash(false);
             inputImageFile.current.value = "";
             return;
           }
@@ -127,6 +128,7 @@ const EditPodcastModal = ({ podcast }) => {
               setFlashMsg(
                 "Dimensions Should be equal-to or less-than 800 pixels!"
               );
+              setEnablePromiseFlash(false);
               setFlashVisibility(true);
               inputImageFile.current.value = "";
             } else {
@@ -142,6 +144,7 @@ const EditPodcastModal = ({ podcast }) => {
         setFlashTitle("Format Error");
         setFlashMsg("Input Image Format is not supported");
         setFlashVisibility(true);
+        setEnablePromiseFlash(false);
         inputImageFile.current.value = "";
       }
     }
@@ -156,29 +159,29 @@ const EditPodcastModal = ({ podcast }) => {
   const [flashType, setFlashType] = useState(null);
   const [flashTitle, setFlashTitle] = useState("");
   const [flashMsg, setFlashMsg] = useState("");
-  const [enableCancel , setEnableCancel] =useState(false);
-  const [enablePromiseFlash,setEnablePromiseFlash] = useState(false)
+  const [enableCancel, setEnableCancel] = useState(false);
+  const [enablePromiseFlash, setEnablePromiseFlash] = useState(false);
 
   const saveChanges = () => {
     setFlashType(FLASH_WARNING);
     setFlashTitle("Save Changes ?");
-    setFlashMsg("Are you sure you want to save the changes? This action will update the podcast details permanently.");
+    setFlashMsg(
+      "Are you sure you want to save the changes? This action will update the podcast details permanently."
+    );
     setFlashVisibility(true);
-    setEnableCancel(true)
-    setEnablePromiseFlash(true)
+    setEnableCancel(true);
+    setEnablePromiseFlash(true);
   };
 
-  const onOkClicked =()=>{
-    dispatch(setEditPodcastVisibility(false))
-  }
+  const onOkClicked = () => {};
 
   const [settlePromise, setSettlePromise] = useState(false);
   useEffect(() => {
     setTimeout(() => {
       setSettlePromise(true);
     }, 5000);
-  }, []);  
-  
+  }, []);
+
   return (
     <>
       <style>
@@ -300,7 +303,7 @@ const EditPodcastModal = ({ podcast }) => {
       {visibility && (
         <div className=" z-[70] w-screen h-screen top-0 left-0 fixed bgBlur flex justify-center items-center backdrop-blur-sm">
           <div
-            className={` flex flex-col w-[700px] rounded-lg ${
+            className={` flex flex-col w-[700px] max-sm:h-[90%] max-sm:w-[90%] rounded-lg ${
               mode ? "bg-[#101216] text-white" : "bg-zinc-100"
             } `}
             onClick={(e) => {
@@ -528,9 +531,12 @@ const EditPodcastModal = ({ podcast }) => {
             FLASH_TYPE={flashType}
             FLASH_TITLE={flashTitle}
             FLASH_MESSAGE={flashMsg}
-            ONCLICK={onOkClicked}
+            ONCLICK={() => {
+              if (flashType === FLASH_SUCCESS)
+                dispatch(setEditPodcastVisibility(false));
+            }}
             CANCELCLICK={() => {}}
-            enableCancel ={enableCancel}
+            enableCancel={enableCancel}
             enablePromiseFlash={enablePromiseFlash}
             promiseSettled={settlePromise}
             postPromiseCancelClick={() => {
