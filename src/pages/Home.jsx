@@ -1682,6 +1682,136 @@ const Home = ({ Header }) => {
 
 const FooterCanvas = () => {
   const FooterRefCanvas = useRef(null);
+  const objects = [
+    {
+      sprite: "https://i.imgur.com/RADmiFI.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 560,
+      y: 500,
+      width: 133,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/NwQqeng.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 905,
+      y: 60,
+      width: 56,
+      height: 56,
+    },
+    {
+      sprite: "https://i.imgur.com/ptUWXgO.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 30,
+      y: 360,
+      width: 52,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/TyOmVtt.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 60,
+      y: 420,
+      width: 105,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/tc3MsJP.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 800,
+      y: 380,
+      width: 86,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/QYNTBNr.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 220,
+      y: 540,
+      width: 165,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/rSnEY9Q.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 400,
+      y: 490,
+      width: 128,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/5BSBvSm.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 390,
+      y: 440,
+      width: 104,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/VEyrikN.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 170,
+      y: 390,
+      width: 82,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/hr9p4uV.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 360,
+      y: 420,
+      width: 108,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/n6TV7XG.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 300,
+      y: 380,
+      width: 92,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/dax8MwT.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 700,
+      y: 360,
+      width: 86,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/C2qPMbB.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 80,
+      y: 260,
+      width: 42,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/4gPcZVN.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 230,
+      y: 140,
+      width: 87,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/RStSwfG.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 880,
+      y: 280,
+      width: 40,
+      height: 40,
+    },
+    {
+      sprite: "https://i.imgur.com/YS51eIC.png",
+      url: "https://github.com/BubbleBitCore/TechMingle/",
+      x: 930,
+      y: 480,
+      width: 112,
+      height: 40,
+    },
+  ];
   const pillWorld = () => {
     let Engine = Matter.Engine,
       Render = Matter.Render,
@@ -1743,170 +1873,22 @@ const FooterCanvas = () => {
     // create objects
 
     // art & design
-    let illustration = Bodies.rectangle(70, 500, 133, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/RADmiFI.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let art = Bodies.rectangle(35, 460, 56, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/NwQqeng.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let threeD = Bodies.rectangle(90, 460, 52, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/ptUWXgO.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let graphic = Bodies.rectangle(60, 420, 105, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/TyOmVtt.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let photo = Bodies.rectangle(50, 380, 86, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/tc3MsJP.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    // video
-    let documentary = Bodies.rectangle(220, 540, 165, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/QYNTBNr.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let animation = Bodies.rectangle(200, 490, 128, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/rSnEY9Q.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let vintage = Bodies.rectangle(190, 440, 104, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/5BSBvSm.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let short = Bodies.rectangle(170, 390, 82, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/VEyrikN.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    //misc
-    let website = Bodies.rectangle(360, 420, 108, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/hr9p4uV.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let article = Bodies.rectangle(300, 380, 92, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/n6TV7XG.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let music = Bodies.rectangle(400, 360, 86, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/dax8MwT.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let star = Bodies.rectangle(80, 260, 42, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/C2qPMbB.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    //about
-    let about = Bodies.rectangle(230, 140, 87, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/4gPcZVN.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-    });
-    let instagram = Bodies.rectangle(320, 180, 40, 40, {
-      id: "instagramBody",
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/RStSwfG.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
-      url: "https://github.com/Siddhantsingh1230/",
-    });
-    let random = Bodies.rectangle(230, 180, 112, 40, {
-      chamfer: { radius: radius },
-      render: {
-        sprite: {
-          texture: "https://i.imgur.com/YS51eIC.png",
-          xScale: 0.5,
-          yScale: 0.5,
-        },
-      },
+    const renderedObjects = [];
+    objects.forEach((obj) => {
+      renderedObjects.push(
+        Bodies.rectangle(obj.x, obj.y, obj.width, obj.height, {
+          id: obj.sprite,
+          chamfer: { radius: radius },
+          render: {
+            sprite: {
+              texture: obj.sprite,
+              xScale: 0.5,
+              yScale: 0.5,
+            },
+          },
+          url: obj.url,
+        })
+      );
     });
 
     // Original Shape
@@ -1918,22 +1900,7 @@ const FooterCanvas = () => {
       wallLeft,
       wallRight,
       roof,
-      illustration,
-      art,
-      threeD,
-      graphic,
-      photo,
-      documentary,
-      animation,
-      vintage,
-      short,
-      website,
-      article,
-      music,
-      star,
-      about,
-      instagram,
-      random,
+      ...renderedObjects,
     ]);
 
     // add mouse control
