@@ -38,6 +38,7 @@ const Home = ({ Header }) => {
   const dispatch = useDispatch();
   const section1CanvasRef = useRef(null);
   const s1ContainerRef = useRef(null);
+  const mainContainerRef = useRef(null);
 
   //handling hangingimages section1
   const hangingImagesS1 = () => {
@@ -535,7 +536,10 @@ const Home = ({ Header }) => {
       </style>
       <div className="flex flex-col h-full w-full pr-4 max-sm:px-4 ">
         {/* <Header urlName="TechMingle" /> */}
-        <div className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto snap-mandatory snap-y">
+        <div
+          ref={mainContainerRef}
+          className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto snap-mandatory snap-y"
+        >
           {/* section1 */}
           <div
             ref={s1ContainerRef}
@@ -1152,7 +1156,9 @@ const Home = ({ Header }) => {
             </div>
           </div>
           {/* section 4 */}
-          <div className={`h-full w-full  relative overflow-hidden carousel snap-center`}>
+          <div
+            className={`h-full w-full  relative overflow-hidden carousel snap-center`}
+          >
             <div
               className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute  -translate-y-1/2 left-0 z-[50] flex  justify-center items-end pb-10 `}
             >
@@ -1247,7 +1253,9 @@ const Home = ({ Header }) => {
             </div>
           </div>
           {/* section 5 */}
-          <div className={`h-full w-full  overflow-hidden pt-[1rem] snap-center`}>
+          <div
+            className={`h-full w-full  overflow-hidden pt-[1rem] snap-center`}
+          >
             <div className={`w-full h-full flex flex-col justify-between`}>
               <div className={`select-none flex flex-col px-[10.5rem]`}>
                 {/* title */}
@@ -1333,138 +1341,677 @@ const Home = ({ Header }) => {
                 {/* ribbons */}
                 <div className={`w-full h-full relative overflow-hidden`}>
                   {/* ribbon1 */}
-                  <div className={`select-none -rotate-[2deg] absolute top-14 -translate-x-[2rem] w-full flex flex-nowrap `}>
+                  <div
+                    className={`select-none -rotate-[2deg] absolute top-14 -translate-x-[2rem] w-full flex flex-nowrap `}
+                  >
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-emerald-300`}
                     >
                       Business{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-blue-400`}
                     >
                       Technology{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-yellow-400`}
                     >
                       Science{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-purple-400`}
                     >
                       Art{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-green-400`}
                     >
                       Economics{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-pink-400`}
                     >
                       Horror{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-teal-400`}
                     >
                       Drama{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-purple-600`}
                     >
                       Hollywood{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-indigo-400`}
                     >
                       SelfGrow{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 bg-yellow-300`}
                     >
                       Healthcare{" "}
-                      <i className={`ri-mic-fill text-black ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-mic-fill text-black ml-3 text-nowrap`}
+                      ></i>
                     </div>
                   </div>
                   {/* ribbon 2 */}
-                  <div className={`select-none rotate-[2deg] absolute bottom-2 translate-x-[2rem] w-full flex flex-nowrap flex-row-reverse z-50`}>
+                  <div
+                    className={`select-none rotate-[2deg] absolute bottom-2 translate-x-[2rem] w-full flex flex-nowrap flex-row-reverse z-50`}
+                  >
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Business{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Technology{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Science{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Art{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Economics{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Horror{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Drama{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Hollywood{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       SelfGrow{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
                     <div
                       className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
                     >
                       Healthcare{" "}
-                      <i className={`ri-hashtag   text-white ml-3 text-nowrap`}></i>
+                      <i
+                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                      ></i>
                     </div>
-                    
                   </div>
                 </div>
               </div>
             </div>
           </div>
+          {/* Footer */}
+          <div
+            className={`h-[80%] relative w-full overflow-hidden snap-center flex gap-14 flex-col  px-10`}
+          >
+            {/* main footer */}
+            <div className={` flex justify-between w-full my-10`}>
+              {/* list */}
+              <div className={` flex gap-10`}>
+                <div className={`flex flex-col gap-4`}>
+                  <h2 className={`text-sm text-gray-400`}>Product</h2>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Feature
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Integration
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Templates
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Docs
+                  </p>
+                </div>
+                <div className={`flex flex-col gap-4`}>
+                  <h2 className={`text-sm text-gray-400`}>Company</h2>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    About
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Career
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Forum
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Blog
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Youtube
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Community
+                  </p>
+                </div>
+                <div className={`flex flex-col gap-4`}>
+                  <h2 className={`text-sm text-gray-400`}>Legal</h2>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Security
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Terms of use
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    Privacy policy
+                  </p>
+                  <p
+                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                  >
+                    terms of interoggation
+                  </p>
+                </div>
+              </div>
+              {/* actions */}
+              <div className={`flex flex-col justify-between`}>
+                {/* email subscribe */}
+                <div className={`flex flex-col`}>
+                  <p className={`text-sm text-gray-400 uppercase mb-2`}>
+                    Join Our Mailing list
+                  </p>
+                  <div
+                    className={`relative z-10 rounded-3xl flex bg-white w-[17rem] p-[2px] h-[2.5rem] overflow-hidden`}
+                  >
+                    <input
+                      type="text"
+                      placeholder={`Enter your email address`}
+                      className={`w-[70%] rounded-3xl text-xs placeholder-black h-full border-none outline-none px-3`}
+                    />
+                    <div
+                      className={`w-[30%] cursor-pointer bg-purple-400 flex justify-center items-center rounded-3xl`}
+                    >
+                      <p className={`text-xs  select-none `}>Say Hii</p>
+                    </div>
+                  </div>
+                </div>
+                {/* Socials */}
+                <div className={`flex flex-col`}>
+                  <p className={`text-sm text-gray-400 uppercase mb-2`}>
+                    Socials
+                  </p>
+                  <div className={`flex gap-3`}>
+                    <div
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                    >
+                      <i className="ri-instagram-fill"></i>
+                    </div>
+                    <div
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                    >
+                      <i className="ri-linkedin-fill"></i>
+                    </div>
+                    <div
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                    >
+                      <i className="ri-facebook-fill"></i>
+                    </div>
+                    <div
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                    >
+                      <i className="ri-twitter-x-fill"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            {/* trail */}
+            <div className={` flex justify-between items-center w-full`}>
+              <a
+                href="#"
+                className={`relative z-10 text-white cursor-pointer text-xs`}
+              >
+                © BubbleBit {new Date().getFullYear()}
+              </a>
+              <p
+                onClick={() => {
+                  mainContainerRef.current.scrollTop = 0;
+                }}
+                className={`relative z-10 text-white underline cursor-pointer text-xs uppercase select-none`}
+              >
+                BACK to TOP
+              </p>
+            </div>
+            {/* footerCanvas */}
+            <FooterCanvas />
+          </div>
         </div>
       </div>
+    </>
+  );
+};
+
+const FooterCanvas = () => {
+  const FooterRefCanvas = useRef(null);
+  const pillWorld = () => {
+    let Engine = Matter.Engine,
+      Render = Matter.Render,
+      Events = Matter.Events,
+      MouseConstraint = Matter.MouseConstraint,
+      Mouse = Matter.Mouse,
+      World = Matter.World,
+      Bodies = Matter.Bodies;
+
+    // create an engine
+    let engine = Engine.create(),
+      world = engine.world;
+    // create a renderer
+    let render = Render.create({
+      element: FooterRefCanvas.current,
+      engine: engine,
+      options: {
+        width: window.innerWidth,
+        height: window.innerHeight,
+        pixelRatio: 2,
+        background: "transparent",
+        wireframes: false,
+      },
+    });
+
+    // create bounds
+    let ground = Bodies.rectangle(
+      window.innerWidth / 2 + 160,
+      window.innerHeight - 105,
+      window.innerWidth + 320,
+      160,
+      { render: { fillStyle: "transparent" }, isStatic: true }
+    );
+    let wallLeft = Bodies.rectangle(
+      -80,
+      window.innerHeight / 2,
+      160,
+      window.innerHeight,
+      { render: { fillStyle: "transparent" }, isStatic: true }
+    );
+    let wallRight = Bodies.rectangle(
+      window.innerWidth - 40,
+      window.innerHeight / 2,
+      160,
+      1200,
+      { render: { fillStyle: "transparent" }, isStatic: true }
+    );
+    let roof = Bodies.rectangle(
+      window.innerWidth / 2 + 160,
+      -80,
+      window.innerWidth + 320,
+      160,
+      { render: { fillStyle: "transparent" }, isStatic: true }
+    );
+
+    // object
+    let radius = 20;
+
+    // create objects
+
+    // art & design
+    let illustration = Bodies.rectangle(70, 500, 133, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/RADmiFI.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let art = Bodies.rectangle(35, 460, 56, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/NwQqeng.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let threeD = Bodies.rectangle(90, 460, 52, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/ptUWXgO.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let graphic = Bodies.rectangle(60, 420, 105, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/TyOmVtt.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let photo = Bodies.rectangle(50, 380, 86, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/tc3MsJP.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    // video
+    let documentary = Bodies.rectangle(220, 540, 165, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/QYNTBNr.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let animation = Bodies.rectangle(200, 490, 128, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/rSnEY9Q.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let vintage = Bodies.rectangle(190, 440, 104, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/5BSBvSm.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let short = Bodies.rectangle(170, 390, 82, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/VEyrikN.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    //misc
+    let website = Bodies.rectangle(360, 420, 108, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/hr9p4uV.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let article = Bodies.rectangle(300, 380, 92, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/n6TV7XG.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let music = Bodies.rectangle(400, 360, 86, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/dax8MwT.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let star = Bodies.rectangle(80, 260, 42, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/C2qPMbB.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    //about
+    let about = Bodies.rectangle(230, 140, 87, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/4gPcZVN.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+    let instagram = Bodies.rectangle(320, 180, 40, 40, {
+      id: "instagramBody",
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/RStSwfG.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+      url: "https://github.com/Siddhantsingh1230/",
+    });
+    let random = Bodies.rectangle(230, 180, 112, 40, {
+      chamfer: { radius: radius },
+      render: {
+        sprite: {
+          texture: "https://i.imgur.com/YS51eIC.png",
+          xScale: 0.5,
+          yScale: 0.5,
+        },
+      },
+    });
+
+    // Original Shape
+    // let illustration = Bodies.rectangle(70, 500, 133, 40, {render: { fillStyle: arts}, chamfer: {radius: 20}})
+
+    // add all of the bodies to the world
+    World.add(engine.world, [
+      ground,
+      wallLeft,
+      wallRight,
+      roof,
+      illustration,
+      art,
+      threeD,
+      graphic,
+      photo,
+      documentary,
+      animation,
+      vintage,
+      short,
+      website,
+      article,
+      music,
+      star,
+      about,
+      instagram,
+      random,
+    ]);
+
+    // add mouse control
+    let mouse = Mouse.create(render.canvas),
+      mouseConstraint = MouseConstraint.create(engine, {
+        mouse: mouse,
+        constraint: {
+          stiffness: 0.2,
+          render: {
+            visible: false,
+          },
+        },
+      });
+
+    World.add(world, mouseConstraint);
+
+    // keep the mouse in sync with rendering
+    render.mouse = mouse;
+
+    // Allow page scrolling in matter.js window
+    mouse.element.removeEventListener("mousewheel", mouse.mousewheel);
+    mouse.element.removeEventListener("DOMMouseScroll", mouse.mousewheel);
+
+    // Detect clicks vs. drags
+    let click = false;
+
+    document.addEventListener("mousedown", () => (click = true));
+    document.addEventListener("mousemove", () => (click = false));
+    document.addEventListener("mouseup", () => {
+      // console.log(click ? "click" : "drag")
+    });
+
+    // Create a On-Mouseup Event-Handler
+    Events.on(mouseConstraint, "mouseup", function (event) {
+      let mouseConstraint = event.source;
+      let bodies = engine.world.bodies;
+      if (!mouseConstraint.bodyB) {
+        for (let i = 0; i < bodies.length; i++) {
+          let body = bodies[i];
+          // Check if clicked or dragged
+          if (click === true) {
+            if (
+              Matter.Bounds.contains(
+                body.bounds,
+                mouseConstraint.mouse.position
+              )
+            ) {
+              let bodyUrl = body.url;
+              console.log("Body.Url >> " + bodyUrl);
+              // Hyperlinking feature
+              if (bodyUrl != undefined) {
+                //window.location.href = bodyUrl;
+                window.open(bodyUrl, "_blank");
+                console.log("Hyperlink was opened");
+              }
+              break;
+            }
+          }
+        }
+      }
+    });
+
+    // run the engine
+    Engine.run(engine);
+
+    // run the renderer
+    Render.run(render);
+  };
+
+  useEffect(() => {
+    pillWorld();
+  }, []);
+  return (
+    <>
+      <div
+        ref={FooterRefCanvas}
+        className={`z-0 absolute top-0 left-0 w-full h-full`}
+      ></div>
     </>
   );
 };
