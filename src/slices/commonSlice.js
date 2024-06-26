@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 import man2 from "../assets/images/man2.png";
 
-// This slice contain all app related slices which are coomonn to whole app
+// This slice contain all app related slices which are common to whole app
 const checkSystemMode = () => {
   if (localStorage.getItem("mode") === null) {
     localStorage.setItem(
