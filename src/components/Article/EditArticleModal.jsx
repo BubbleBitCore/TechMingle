@@ -1,9 +1,9 @@
 import { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { setEditPodcastVisibility } from "../../slices/podcastSlice";
-import { setOpenEditor } from "../../slices/commonSlice";
+import { setEditArticleVisibility } from "../../slices/articleSlice.js";
+import { setOpenEditor } from "../../slices/commonSlice.js";
 import { AnimatePresence } from "framer-motion";
-import FlashMsg from "../../components/FlashMsg/FlashMsg";
+import FlashMsg from "../FlashMsg/FlashMsg.jsx";
 import {
   FLASH_ERROR,
   FLASH_PENDING,
@@ -12,35 +12,26 @@ import {
 } from "../../constants/FlashMsgConstants.js";
 import { changeSnackBarState } from "../../slices/commonSlice.js";
 
-const EditPodcastModal = ({ podcast }) => {
+const EditArticleModal = ({ article }) => {
   const visibility = useSelector(
-    (state) => state.podcast.editPodcastVisibility
+    (state) => state.article.editArticleVisibility
   );
   const mode = useSelector((state) => state.common.mode);
   const dispatch = useDispatch();
   const tagInputRef = useRef(null);
-  const [title, setTitle] = useState(podcast.title);
-  const [description, setDescription] = useState(podcast.about);
-  const [imgSrc, setImgSrc] = useState(podcast.thumbnail);
+  const [title, setTitle] = useState(article.title);
+  const [description, setDescription] = useState(article.about);
+  const [imgSrc, setImgSrc] = useState(article.image);
   const inputImageFile = useRef(null);
 
   const handleClose = () => {
-    dispatch(setEditPodcastVisibility(false));
+    dispatch(setEditArticleVisibility(false));
   };
-  const [tagList, setTagList] = useState(podcast.tags);
+  const [tagList, setTagList] = useState(article.tags);
   let suggestions = [
     "abc",
     "asd",
     "abc",
-    "asd",
-    "abc",
-    "asd",
-    "abc",
-    "asd",
-    "abc",
-    "asd",
-    "abc",
-    "asd",
     "bcd",
     "cde",
     "def",
@@ -166,7 +157,7 @@ const EditPodcastModal = ({ podcast }) => {
     setFlashType(FLASH_WARNING);
     setFlashTitle("Save Changes ?");
     setFlashMsg(
-      "Are you sure you want to save the changes? This action will update the podcast details permanently."
+      "Are you sure you want to save the changes? This action will update the article details permanently."
     );
     setFlashVisibility(true);
     setEnableCancel(true);
@@ -313,7 +304,7 @@ const EditPodcastModal = ({ podcast }) => {
                 mode ? "bg-[#17191f] " : "bg-[#eff0f1]"
               } rounded-t-lg p-3 text-sm px-5 items-center  select-none`}
             >
-              <p>Edit podcast details</p>
+              <p>Edit article details</p>
               <div
                 className={`flex justify-center items-center rounded-full transition-all duration-500 cursor-pointer`}
               >
@@ -465,14 +456,14 @@ const EditPodcastModal = ({ podcast }) => {
                 )}
                 {/* Thumbnail section */}
                 <div className="flex flex-col gap-2 text-sm absolute">
-                  <p className=" select-none">Thumbnail</p>
+                  <p className=" select-none">Image</p>
                   <p
                     className={`text-xs ${
                       mode ? "text-gray-500" : "text-gray-600"
                     }`}
                   >
                     Select or upload a picture that shows what's in your video.
-                    A good thumbnail stands out and draws viewer's attention.
+                    A good image stands out and draws viewer's attention.
                   </p>
                   <div className=" flex justify-center items-center border-2 border-dashed border-gray-500 w-64 h-36 mt-1">
                     <div className="relative w-full h-full">
@@ -482,7 +473,7 @@ const EditPodcastModal = ({ podcast }) => {
                         alt="Your Image Description"
                       />
                       <label
-                        title="podcast thumbnail"
+                        title="article"
                         className="absolute imgChange rounded-full h-full w-full top-0 left-0 cursor-pointer "
                         htmlFor="image"
                       ></label>
@@ -529,23 +520,20 @@ const EditPodcastModal = ({ podcast }) => {
             FLASH_TYPE={flashType}
             FLASH_TITLE={flashTitle}
             FLASH_MESSAGE={flashMsg}
-            ONCLICK={() => {}}
+            ONCLICK={()=>{}}
             CANCELCLICK={() => {}}
             enableCancel={enableCancel}
             enablePromiseFlash={enablePromiseFlash}
             promiseSettled={settlePromise}
-            postPromiseCancelClick={() => {
-              console.log("Post Promise cancel");
-            }}
             postPromiseOnClick={() => {
-              if (flashType === FLASH_SUCCESS) console.log(flashType);
-              dispatch(setEditPodcastVisibility(false));
+              if (flashType === FLASH_SUCCESS)
+                dispatch(setEditArticleVisibility(false));
             }}
             postPromiseFlashType={FLASH_SUCCESS}
             postPromiseEnableCancel={false}
             postPromiseTitle={"Update Successfull"}
             postPromiseMessage={
-              "Your podcast has been updated successfully! Press 'OK' to continue."
+              "Your article has been updated successfully! Press 'OK' to continue."
             }
           />
         )}
@@ -554,4 +542,4 @@ const EditPodcastModal = ({ podcast }) => {
   );
 };
 
-export default EditPodcastModal;
+export default EditArticleModal;
