@@ -114,6 +114,7 @@ const CreateArticle = () => {
   const [flashMsg, setFlashMsg] = useState("");
   const [enableCancel, setEnableCancel] = useState(false);
   const [enablePromiseFlash, setEnablePromiseFlash] = useState(false);
+  const [settlePromise, setSettlePromise] = useState(false);
 
   const imageValidationAndUpload = (file) => {
     if (file) {
@@ -157,7 +158,7 @@ const CreateArticle = () => {
               inputImageFile.current.value = "";
             } else {
               dispatch(setOpenEditor(true));
-              console.log("editor open");
+              // console.log("editor open");
               setImgSrc(img.src);
             }
           };
@@ -181,7 +182,7 @@ const CreateArticle = () => {
 
   // check if key is enter or space bar
   const handleKeyDown = (e) => {
-    console.log(e.key);
+    // console.log(e.key);
     if (
       (e.key === " " || e.key === "Enter" || e.key === ",") &&
       e.target.value.trim() !== "" &&
@@ -237,6 +238,9 @@ const CreateArticle = () => {
       language !== "select" &&
       tagList.length >= 1
     ) {
+      setTimeout(() => {
+        setSettlePromise(true);
+      }, 5000);
       setFlashType(FLASH_WARNING);
       setFlashTitle("Warning!");
       setFlashMsg(
@@ -249,7 +253,7 @@ const CreateArticle = () => {
   };
 
   useEffect(() => {
-    console.log(tagList);
+    // console.log(tagList);
   }, [tagList]);
 
   // Close the dropdown if the user clicks outside of it
@@ -284,12 +288,7 @@ const CreateArticle = () => {
     }
   }, [imgSrc]);
 
-  const [settlePromise, setSettlePromise] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setSettlePromise(true);
-    }, 5000);
-  }, []);
+  
 
   return (
     <>
@@ -353,7 +352,7 @@ const CreateArticle = () => {
                 <div className={`flex gap-2 items-center `}>
                   <p className={`text-xs select-none`}>Title (required)</p>
                   <i
-                    className="ri-question-line "
+                    className="ri-question-line cursor-pointer"
                     title="Use your official article name to make sure that users can find it while searching and browsing."
                   ></i>
                 </div>
@@ -401,7 +400,7 @@ const CreateArticle = () => {
                     Description (required)
                   </p>
                   <i
-                    className="ri-question-line "
+                    className="ri-question-line cursor-pointer "
                     title="Ensure your article description clearly states its main topics and highlights what makes it unique. Use keywords for better visibility, introduce the hosts briefly, and encourage listeners to subscribe and review."
                   ></i>
                 </div>
@@ -455,7 +454,7 @@ const CreateArticle = () => {
                       Tags (minimun 1 tag is required)
                     </p>
                     <i
-                      className="ri-question-line "
+                      className="ri-question-line cursor-pointer"
                       title="When writing tags for your article, make sure they are relevant and specific to the content of your episodes. Use variations and trending keywords to improve visibility and attract a broader audience."
                     ></i>
                   </div>
@@ -522,7 +521,7 @@ const CreateArticle = () => {
                     {suggestionList?.length > 0 &&
                       suggestionList.map((item, idx) => (
                         <div
-                          className={`hover:bg-blue-500  `}
+                          className={`hover:bg-blue-500 cursor-pointer `}
                           key={idx}
                           onClick={() => {
                             setTagList([...tagList, item]);
@@ -555,7 +554,7 @@ const CreateArticle = () => {
                 <div className={`flex gap-2 items-center `}>
                   <p className={`text-sm select-none`}>Image (required)</p>
                   <i
-                    className="ri-question-line text-lg"
+                    className="ri-question-line text-lg cursor-pointer"
                     title="For a compelling article thumbnail, ensure it clearly represents your show's theme and brand. Use eye-catching visuals, readable text, and your official article name to make it easily recognizable and attractive to potential listeners."
                   ></i>
                 </div>
@@ -646,7 +645,7 @@ const CreateArticle = () => {
                           onClick={() => {
                             setArticleVisibility("private");
                             setShowVisibilityDropDown(false);
-                            console.log("private");
+                            // console.log("private");
                           }}
                         >
                           Private
@@ -660,7 +659,7 @@ const CreateArticle = () => {
                           onClick={() => {
                             setArticleVisibility("public");
                             setShowVisibilityDropDown(false);
-                            console.log("public");
+                            // console.log("public");
                           }}
                         >
                           Public
@@ -718,7 +717,7 @@ const CreateArticle = () => {
                                 mode
                                   ? "hover:bg-blue-600"
                                   : "hover:bg-blue-500 hover:text-white"
-                              }  px-4 transition-all duration-500`}
+                              }  px-4 transition-all duration-500 cursor-pointer`}
                               onClick={() => {
                                 setLanguage(item);
                                 if (languageError) {

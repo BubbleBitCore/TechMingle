@@ -22,9 +22,6 @@ import EditPodcastModal from "../components/Podcast/EditPodcastModal";
 import { AnimatePresence } from "framer-motion";
 import FlashMsg from "../components/FlashMsg/FlashMsg";
 import {
-  FLASH_ERROR,
-  FLASH_PENDING,
-  FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../constants/FlashMsgConstants.js";
 import podcastMike from "../assets/images/podcastMike.png";
@@ -118,7 +115,7 @@ const Podcasts = () => {
 
   // delete podcast
   const deletePodcast = (id) => {
-    console.log(id);
+    // console.log(id);
   };
 
   // share podcast
@@ -378,10 +375,10 @@ const UserPodcasts = ({ Header }) => {
                     className="flex max-sm:gap-2 sm:hidden p-1.5 px-3 text-xs cursor-pointer sm:bg-blue-600 max-sm:outline max-sm:outline-green-600 hover:outline-none max-sm:hover:outline-green-400  sm:hover:bg-blue-500 rounded-md text-white max-sm:text-zinc-400 text-center justify-center"
                     onClick={() => {
                       dispatch(setCreatePodcastVisibility(true));
-                      console.log(createPodcastVisibility);
+                      // console.log(createPodcastVisibility);
                     }}
                   >
-                    <i class="ri-add-large-fill"></i>
+                    <i className="ri-add-large-fill"></i>
                     <p>create</p>
                   </div>
                 </div>
@@ -392,7 +389,7 @@ const UserPodcasts = ({ Header }) => {
                 className="flex flex-col items-center sm:p-2 cursor-pointer"
                 onClick={() => {
                   dispatch(setCreatePodcastVisibility(true));
-                  console.log(createPodcastVisibility);
+                  // console.log(createPodcastVisibility);
                 }}
               >
                 <svg

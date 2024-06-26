@@ -6,7 +6,6 @@ import { AnimatePresence } from "framer-motion";
 import FlashMsg from "../../components/FlashMsg/FlashMsg";
 import {
   FLASH_ERROR,
-  FLASH_PENDING,
   FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../../constants/FlashMsgConstants.js";
@@ -171,7 +170,7 @@ const CreatePodcast = () => {
               inputImageFile.current.value = "";
             } else {
               dispatch(setOpenEditor(true));
-              console.log("editor open");
+              // console.log("editor open");
               setImgSrc(img.src);
             }
           };
@@ -218,6 +217,9 @@ const CreatePodcast = () => {
       tagList.length >= 1 &&
       audioFile
     ) {
+      setTimeout(() => {
+        setSettlePromise(true);
+      }, 5000);
       setFlashType(FLASH_WARNING);
       setFlashTitle("Warning!");
       setFlashMsg(
@@ -226,11 +228,12 @@ const CreatePodcast = () => {
       setFlashVisibility(true);
       setEnableCancel(true);
       setEnablePromiseFlash(true);
+      
     }
   };
 
   useEffect(() => {
-    console.log(tagList);
+    // console.log(tagList);
   }, [tagList]);
 
   // remove tag
@@ -240,7 +243,7 @@ const CreatePodcast = () => {
 
   // check if key is enter or space bar
   const handleKeyDown = (e) => {
-    console.log(e.key);
+    // console.log(e.key);
     if (
       (e.key === " " || e.key === "Enter" || e.key === ",") &&
       e.target.value.trim() !== "" &&
@@ -303,12 +306,6 @@ const CreatePodcast = () => {
     }
   }, [imgSrc]);
 
-  useEffect(() => {
-    setTimeout(() => {
-      setSettlePromise(true);
-    }, 5000);
-  }, []);
-
   // drag and drop functionality
 
   const [dragActive, setDragActive] = useState(false);
@@ -345,7 +342,7 @@ const CreatePodcast = () => {
     if (files && files.length > 0) {
       const file = files[0];
       if (file.type.startsWith("audio/")) {
-        console.log("Selected file:", file);
+        // console.log("Selected file:", file);
         podcastUploadFile(file);
         setAudioFileError(false);
         // Process the audio file here
@@ -380,7 +377,7 @@ const CreatePodcast = () => {
 
       if (progress >= 100) {
         clearInterval(interval);
-        console.log("File upload successful");
+        // console.log("File upload successful");
       }
     }, 100);
   };
@@ -545,7 +542,7 @@ const CreatePodcast = () => {
                 <div className={`flex gap-2 items-center `}>
                   <p className={`text-xs select-none`}>Title (required)</p>
                   <i
-                    className="ri-question-line "
+                    className="ri-question-line cursor-pointer"
                     title="Use your official podcast name to make sure that users can find it while searching and browsing."
                   ></i>
                 </div>
@@ -593,7 +590,7 @@ const CreatePodcast = () => {
                     Description (required)
                   </p>
                   <i
-                    className="ri-question-line "
+                    className="ri-question-line cursor-pointer "
                     title="Ensure your podcast description clearly states its main topics and highlights what makes it unique. Use keywords for better visibility, introduce the hosts briefly, and encourage listeners to subscribe and review."
                   ></i>
                 </div>
@@ -647,7 +644,7 @@ const CreatePodcast = () => {
                       Tags (minimun 1 tag is required)
                     </p>
                     <i
-                      className="ri-question-line "
+                      className="ri-question-line cursor-pointer"
                       title="When writing tags for your podcast, make sure they are relevant and specific to the content of your episodes. Use variations and trending keywords to improve visibility and attract a broader audience."
                     ></i>
                   </div>
@@ -714,7 +711,7 @@ const CreatePodcast = () => {
                     {suggestionList?.length > 0 &&
                       suggestionList.map((item, idx) => (
                         <div
-                          className={`hover:bg-blue-500  `}
+                          className={`hover:bg-blue-500 cursor-pointer `}
                           key={idx}
                           onClick={() => {
                             setTagList([...tagList, item]);
@@ -747,7 +744,7 @@ const CreatePodcast = () => {
                 <div className={`flex gap-2 items-center `}>
                   <p className={`text-sm select-none`}>Thumbnail (required)</p>
                   <i
-                    className="ri-question-line text-lg"
+                    className="ri-question-line cursor-pointer text-lg"
                     title="For a compelling podcast thumbnail, ensure it clearly represents your show's theme and brand. Use eye-catching visuals, readable text, and your official podcast name to make it easily recognizable and attractive to potential listeners."
                   ></i>
                 </div>
@@ -834,11 +831,11 @@ const CreatePodcast = () => {
                             mode
                               ? "hover:bg-blue-600"
                               : "hover:bg-blue-500 hover:text-white"
-                          }  px-4 transition-all duration-500`}
+                          }  px-4 transition-all duration-500 cursor-pointer`}
                           onClick={() => {
                             setPodcastVisibility("private");
                             setShowVisibilityDropDown(false);
-                            console.log("private");
+                            // console.log("private");
                           }}
                         >
                           Private
@@ -848,11 +845,11 @@ const CreatePodcast = () => {
                             mode
                               ? "hover:bg-blue-600"
                               : "hover:bg-blue-500 hover:text-white"
-                          } px-4 transition-all duration-100`}
+                          } px-4 transition-all duration-100 cursor-pointer`}
                           onClick={() => {
                             setPodcastVisibility("public");
                             setShowVisibilityDropDown(false);
-                            console.log("public");
+                            // console.log("public");
                           }}
                         >
                           Public
@@ -910,7 +907,7 @@ const CreatePodcast = () => {
                                 mode
                                   ? "hover:bg-blue-600"
                                   : "hover:bg-blue-500 hover:text-white"
-                              }  px-4 transition-all duration-500`}
+                              }  px-4 transition-all duration-500 cursor-pointer`}
                               onClick={() => {
                                 setLanguage(item);
                                 if (languageError) {
@@ -972,7 +969,7 @@ const CreatePodcast = () => {
               "Your podcast has been created successfully! Press 'OK' to continue."
             }
             postPromiseCancelClick={() => {
-              console.log("Post Promise cancel");
+              // console.log("Post Promise cancel");
             }}
             postPromiseOnClick={() => {
               dispatch(setCreatePodcastVisibility(false));

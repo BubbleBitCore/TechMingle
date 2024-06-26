@@ -6,11 +6,9 @@ import { AnimatePresence } from "framer-motion";
 import FlashMsg from "../FlashMsg/FlashMsg.jsx";
 import {
   FLASH_ERROR,
-  FLASH_PENDING,
   FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../../constants/FlashMsgConstants.js";
-import { changeSnackBarState } from "../../slices/commonSlice.js";
 
 const EditArticleModal = ({ article }) => {
   const visibility = useSelector(
@@ -46,7 +44,7 @@ const EditArticleModal = ({ article }) => {
 
   // check if key is enter or space bar
   const handleKeyDown = (e) => {
-    console.log(e.key);
+    // console.log(e.key);
     if (
       (e.key === " " || e.key === "Enter" || e.key === ",") &&
       e.target.value.trim() !== "" &&
@@ -124,7 +122,7 @@ const EditArticleModal = ({ article }) => {
               inputImageFile.current.value = "";
             } else {
               dispatch(setOpenEditor(true));
-              console.log("editor open");
+              // console.log("editor open");
               setImgSrc(img.src);
             }
           };
@@ -152,8 +150,12 @@ const EditArticleModal = ({ article }) => {
   const [flashMsg, setFlashMsg] = useState("");
   const [enableCancel, setEnableCancel] = useState(false);
   const [enablePromiseFlash, setEnablePromiseFlash] = useState(false);
+  const [settlePromise, setSettlePromise] = useState(false);
 
   const saveChanges = () => {
+    setTimeout(() => {
+      setSettlePromise(true);
+    }, 5000);
     setFlashType(FLASH_WARNING);
     setFlashTitle("Save Changes ?");
     setFlashMsg(
@@ -163,13 +165,6 @@ const EditArticleModal = ({ article }) => {
     setEnableCancel(true);
     setEnablePromiseFlash(true);
   };
-
-  const [settlePromise, setSettlePromise] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setSettlePromise(true);
-    }, 5000);
-  }, []);
 
   return (
     <>
@@ -377,7 +372,7 @@ const EditArticleModal = ({ article }) => {
                       <div
                         className={`flex ${
                           mode ? "blueGlassBg" : "bg-blue-100"
-                        }  hover:bg-blue-500 group hover:text-white text-[#3F8EF6] text-xs p-1 gap-1 px-3 rounded-full`}
+                        }  hover:bg-blue-500 group hover:text-white text-[#3F8EF6] text-xs p-1 gap-1 px-3 rounded-full cursor-pointer`}
                         key={idx}
                       >
                         <p className="">{item}</p>
@@ -431,7 +426,7 @@ const EditArticleModal = ({ article }) => {
                               ? "border-b border-zinc-700"
                               : "border-b border-zinc-400"
                           }
-                              hover:bg-blue-500  `}
+                              hover:bg-blue-500 cursor-pointer  `}
                           key={idx}
                           onClick={() => {
                             setTagList([...tagList, item]);
@@ -526,7 +521,6 @@ const EditArticleModal = ({ article }) => {
             enablePromiseFlash={enablePromiseFlash}
             promiseSettled={settlePromise}
             postPromiseOnClick={() => {
-              if (flashType === FLASH_SUCCESS)
                 dispatch(setEditArticleVisibility(false));
             }}
             postPromiseFlashType={FLASH_SUCCESS}
