@@ -32,6 +32,7 @@ import facemodel from "../assets/images/facemodel.png";
 
 import Matter from "matter-js";
 import { useDispatch, useSelector } from "react-redux";
+import debounce from "../utils/debounce.js";
 
 const Home = ({ Header }) => {
   const navigate = useNavigate();
@@ -40,6 +41,7 @@ const Home = ({ Header }) => {
   const s1ContainerRef = useRef(null);
   const mainContainerRef = useRef(null);
   const mode = useSelector((state) => state.common.mode);
+  // Canvas related Global States
 
   //handling hangingimages section1
   const hangingImagesS1 = () => {
@@ -275,21 +277,20 @@ const Home = ({ Header }) => {
 
     Runner.run(runner, engine);
     Render.run(render);
-    return () => {
-      World.clear(world);
-      Engine.clear(engine);
-    };
   };
-  let clearSection1 = null;
+
   useEffect(() => {
-    clearSection1 = hangingImagesS1();
+    hangingImagesS1();
     initCircularText();
 
     // handling screen resize events
-    const handleResize = () => {
-      section1CanvasRef.current.width = s1ContainerRef.current.clientWidth;
-      section1CanvasRef.current.height = s1ContainerRef.current.clientHeight;
-    };
+    const handleResize = debounce(() => {
+      section1CanvasRef.current.childNodes[0].width =
+        s1ContainerRef.current.clientWidth;
+      section1CanvasRef.current.childNodes[0].height =
+        s1ContainerRef.current.clientHeight;
+      window.location.reload();
+    },300);
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("keydown", handleKeyDowns);
@@ -312,8 +313,8 @@ const Home = ({ Header }) => {
   // carouselSection4
   const carouselContainerRef = useRef(null);
 
-  let [translated,setTranslated] = useState(0);
-  let [rotated,setRotated] = useState(0);
+  let [translated, setTranslated] = useState(0);
+  let [rotated, setRotated] = useState(0);
   let [activeCarouselImage, setActiveCarouselImage] = useState(3);
 
   const prevButton = () => {
@@ -321,12 +322,12 @@ const Home = ({ Header }) => {
       carouselContainerRef.current.style.transform = `translateX(${
         -1 * translated + 31
       }rem)`;
-      setTranslated(translated -= 31);
+      setTranslated((translated -= 31));
       circularTextRef.current.style.transform = `rotate(${
         -1 * rotated + 75
       }deg)`;
-      setRotated(rotated -= 75);
-      setActiveCarouselImage(activeCarouselImage-1);
+      setRotated((rotated -= 75));
+      setActiveCarouselImage(activeCarouselImage - 1);
     }
   };
   const nextButton = () => {
@@ -335,10 +336,10 @@ const Home = ({ Header }) => {
         translated + 31
       }rem)`;
 
-      setTranslated(translated += 31);
+      setTranslated((translated += 31));
       circularTextRef.current.style.transform = `rotate(-${rotated + 75}deg)`;
-      setRotated(rotated += 75);
-      setActiveCarouselImage(activeCarouselImage+1);
+      setRotated((rotated += 75));
+      setActiveCarouselImage(activeCarouselImage + 1);
     }
   };
   // circular text
