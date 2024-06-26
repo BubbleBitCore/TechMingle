@@ -31,7 +31,7 @@ import microphone from "../assets/images/microphone.png";
 import facemodel from "../assets/images/facemodel.png";
 
 import Matter from "matter-js";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 const Home = ({ Header }) => {
   const navigate = useNavigate();
@@ -39,6 +39,7 @@ const Home = ({ Header }) => {
   const section1CanvasRef = useRef(null);
   const s1ContainerRef = useRef(null);
   const mainContainerRef = useRef(null);
+  const mode = useSelector((state) => state.common.mode);
 
   //handling hangingimages section1
   const hangingImagesS1 = () => {
@@ -83,8 +84,8 @@ const Home = ({ Header }) => {
         Bodies.rectangle(x, y, stringLength / 2, 2, {
           collisionFilter: { group },
           render: {
-            fillStyle: "#fff",
-            strokeStyle: "#fff",
+            fillStyle: "#808080",
+            strokeStyle: "#808080",
           },
         })
       );
@@ -146,8 +147,8 @@ const Home = ({ Header }) => {
         Bodies.rectangle(x, y, stringLength / 2, 2, {
           collisionFilter: { group },
           render: {
-            fillStyle: "#fff",
-            strokeStyle: "#fff",
+            fillStyle: "#808080",
+            strokeStyle: "#808080",
           },
         })
       );
@@ -379,6 +380,12 @@ const Home = ({ Header }) => {
           filter: drop-shadow(2px 2px  #0B0D10) drop-shadow( 0px -4px  #0B0D10)
                   drop-shadow(-2px 2px  #0B0D10);
         }
+        .heartLight {
+          -webkit-filter: drop-shadow(2px 2px 0 #fff) drop-shadow( 0px -4px  #fff)
+                          drop-shadow(-2px -2px 0 #fff);
+          filter: drop-shadow(2px 2px  #fff) drop-shadow( 0px -4px  #fff)
+                  drop-shadow(-2px 2px  #fff);
+        }
         .heartText::after{
           content:"lovely";
           position:absolute;
@@ -493,6 +500,28 @@ const Home = ({ Header }) => {
           right:0;
           z-Index:50;
         }
+        .carouselLight::before{
+          content:"";
+          position:absolute;
+          height:100%;
+          width:45%;
+          background: rgb(11,13,16);
+          background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8828781512605042) 20%, rgba(255,255,255,0) 60%);
+          top:0;
+          left:0;
+          z-Index:60;
+        }
+        .carouselLight::after{
+          content:"";
+          position:absolute;
+          height:100%;
+          width:45%;
+          background: rgb(11,13,16);
+          background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8828781512605042) 20%, rgba(255,255,255,0) 60%);
+          top:0;
+          right:0;
+          z-Index:50;
+        }
         .transitionEaseBackOut{
           transition: all 800ms;
           transition-timing-function: cubic-bezier(0.7, 0.4, 0, 1);
@@ -505,7 +534,6 @@ const Home = ({ Header }) => {
           width: 100%;
           height: 100%;
           font-family: consolas;
-          color: #000;
           font-size: 17px;
         }
         
@@ -515,7 +543,6 @@ const Home = ({ Header }) => {
           font-size: 0.8rem;
           transform-origin: 0 100px;
           font-family:Orbitron;
-          color:white;
         }
         
         /* fade gradient */
@@ -528,6 +555,18 @@ const Home = ({ Header }) => {
           left:0;
           background: rgb(11,13,16);
           background: linear-gradient(0deg, rgba(11,13,16,1) 0%, rgba(11,13,16,0.8016456582633054) 52%, rgba(255,255,255,0) 100%);
+          z-Index:100;
+          
+        }
+        .fadeGradientLight::before{
+          content:"";
+          position:absolute;
+          bottom:40%;
+          height:32%;
+          width:100%;
+          left:0;
+          background: rgb(11,13,16);
+          background: linear-gradient(0deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8016456582633054) 52%, rgba(255,255,255,0) 100%);
           z-Index:100;
           
         }
@@ -547,22 +586,34 @@ const Home = ({ Header }) => {
           >
             {/* row 1 */}
             <div className={`flex gap-3 relative z-20 pointer-events-none`}>
-              <div className={`aspira text-white text-8xl`}>unite</div>
+              <div
+                className={`aspira ${
+                  mode ? "text-white" : "text-gray-800"
+                } transition-all duration-200 text-8xl`}
+              >
+                unite
+              </div>
               <div
                 className={`flex z-30 relative gap-0 justify-center items-center`}
               >
                 <div
                   className={`rounded-full w-[6rem] h-[6rem] flex justify-center items-center bg-green-400`}
                 >
-                  <p className="text-white aspira text-8xl">→</p>
+                  <p className={`text-white aspira text-8xl`}>→</p>
                 </div>
                 <div
                   className={`gradient h-[6rem] w-[19rem] rounded-[5rem] flex justify-end items-center overflow-hidden`}
                 >
                   <div
-                    className={`bg-white w-[65%] h-full rounded-[6rem] flex gap-1 justify-center items-center`}
+                    className={`${
+                      mode ? "bg-white" : "bg-gray-800"
+                    } transition-all duration-200 w-[65%] h-full rounded-[6rem] flex gap-1 justify-center items-center`}
                   >
-                    <div className="w-[5.5rem] h-[5.5rem] flex-shrink-0 bg-white rounded-full shadow-2xl relative">
+                    <div
+                      className={`w-[5.5rem] h-[5.5rem] flex-shrink-0 ${
+                        mode ? "bg-white" : "bg-gray-800"
+                      } transition-all duration-200 rounded-full shadow-2xl relative`}
+                    >
                       <svg
                         width="100%"
                         height="100%"
@@ -581,13 +632,21 @@ const Home = ({ Header }) => {
                         </g>
                       </svg>
                     </div>
-                    <div className="w-[5.5rem] h-[5.5rem] flex justify-center items-center flex-shrink-0 bg-white rounded-full">
+                    <div
+                      className={`w-[5.5rem] h-[5.5rem] flex justify-center items-center flex-shrink-0 ${
+                        mode ? "bg-white" : "bg-gray-800"
+                      } transition-all duration-200 rounded-full`}
+                    >
                       <p className={`text-[5rem] leading-[1]`}>😅</p>
                     </div>
                   </div>
                 </div>
               </div>
-              <div className="absolute rounded-[2rem] -right-[4rem] top-1/2  border-l-0  h-[6rem] border-4 w-[10rem] z-10 border-white border-dashed "></div>
+              <div
+                className={`absolute rounded-[2rem] -right-[4rem] top-1/2  border-l-0  h-[6rem] border-4 w-[10rem] z-10 ${
+                  mode ? "border-white" : "border-gray-800"
+                } transition-all duration-200 border-dashed `}
+              ></div>
             </div>
             {/* row 2 */}
             <div
@@ -601,13 +660,27 @@ const Home = ({ Header }) => {
                 ></div>
               </div>
               <div
-                className={`glass absolute left-[3.5rem] rounded-[5rem] border-b-0 border-r-0 border-l-0 border-2 h-[3rem] w-[6.5rem] border-white flex justify-center items-center`}
+                className={`glass absolute left-[3.5rem] rounded-[5rem] border-b-0 border-r-0 border-l-0 border-2 h-[3rem] w-[6.5rem] ${
+                  mode ? "border-white" : "border-gray-200"
+                } transition-all duration-200 flex justify-center items-center`}
               >
-                <div className={`w-[50%] h-1 rounded-xl  bg-white `}></div>
+                <div
+                  className={`w-[50%] h-1 rounded-xl  ${
+                    mode ? "bg-white" : "bg-gray-400"
+                  } transition-all duration-200 `}
+                ></div>
               </div>
-              <div className={`aspira text-white text-8xl`}>elevate</div>
               <div
-                className={`rounded-[5rem] border-4 h-[3rem] flex justify-center items-center w-[9rem] border-white  bg-[#0B0D10] z-30 relative`}
+                className={`aspira ${
+                  mode ? "text-white" : "text-gray-800"
+                } transition-all duration-200  text-8xl`}
+              >
+                elevate
+              </div>
+              <div
+                className={`rounded-[5rem] border-4 h-[3rem] flex justify-center items-center w-[9rem] ${
+                  mode ? "border-white" : "border-gray-500"
+                } transition-all duration-200  bg-[#0B0D10] z-30 relative`}
               >
                 <div className={`w-[50%] h-1 rounded-xl  bg-white `}></div>
                 <div
@@ -621,7 +694,9 @@ const Home = ({ Header }) => {
             {/* row 3 */}
             <div className={`flex relative z-20 pointer-events-none`}>
               <div
-                className={`w-[10rem] relative h-[6.5rem] border-4 border-dashed rounded-tl-none rounded-br-none border-t-0 border-r-0 rounded-[2rem] -top-1/2 left-[6rem] mr-10`}
+                className={`w-[10rem] relative h-[6.5rem] border-4 border-dashed rounded-tl-none rounded-br-none border-t-0 border-r-0 ${
+                  mode ? "border-white" : "border-gray-800"
+                } transition-all duration-200 rounded-[2rem] -top-1/2 left-[6rem] mr-10`}
               ></div>
               <div className={`relative w-[5rem] mr-14`}>
                 <div
@@ -636,22 +711,35 @@ const Home = ({ Header }) => {
                   <div
                     className={`w-[60%] h-[2rem] rounded-3xl  bg-white mr-2 shadow-xl flex justify-center items-center text-2xl aspira font-bold`}
                   >
-                    {" "}
                     <p>×</p>{" "}
                   </div>
                 </div>
               </div>
-              <div className={`aspira text-white text-8xl ml-2`}>together</div>
+              <div
+                className={`aspira ${
+                  mode ? "text-white" : "text-gray-800"
+                } transition-all duration-200  text-8xl ml-2`}
+              >
+                together
+              </div>
             </div>
             {/* row 4 */}
             <div
               className={`flex flex-col justify-center items-center my-6 pointer-events-none relative z-20`}
             >
-              <p className={`text-gray-500 text-sm `}>
+              <p
+                className={`${
+                  mode ? "text-gray-500" : "text-gray-400"
+                } transition-all duration-200  text-sm `}
+              >
                 Welcome to TechMingle where people connect and innovation
                 thrives.
               </p>
-              <p className={`text-gray-500 text-sm `}>
+              <p
+                className={`${
+                  mode ? "text-gray-500" : "text-gray-400"
+                } transition-all duration-200  text-sm `}
+              >
                 Dive into a vibrant community and share groundbreaking ideas
               </p>
               <img
@@ -680,20 +768,44 @@ const Home = ({ Header }) => {
               onClick={() => {
                 navigate("/signup");
               }}
-              className={`cursor-pointer z-20 hover:bg-gray-200 transition-all  text-[10px] rounded-3xl px-5 py-3 bg-white font-bold`}
+              className={`cursor-pointer z-20    text-[10px] rounded-3xl px-5 py-3 ${
+                mode
+                  ? "bg-white hover:bg-gray-200 text-black"
+                  : "bg-black hover:bg-gray-800 text-white"
+              } transition-all duration-200  font-bold`}
             >
               Try it for free
             </div>
             {/* row 6 Sponsor */}
             <div className="flex gap-5 absolute bottom-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center">
-              <img src={google} className={`invert-[20%] h-[2.75rem]`} alt="" />
-              <img src={netflix} className={`invert-[20%] h-[2.5rem]`} alt="" />
               <img
-                src={facebook}
-                className={`invert-[20%] h-[2.3rem] my-2`}
+                src={google}
+                className={`invert-[20%] ${
+                  mode ? "opacity-100" : "opacity-30"
+                } transition-all duration-200 h-[2.75rem]`}
                 alt=""
               />
-              <img src={spotify} className={`invert-[20%] h-[1.5rem]`} alt="" />
+              <img
+                src={netflix}
+                className={`invert-[20%] ${
+                  mode ? "opacity-100" : "opacity-30"
+                } transition-all duration-200 h-[2.5rem]`}
+                alt=""
+              />
+              <img
+                src={facebook}
+                className={`invert-[20%] ${
+                  mode ? "opacity-100" : "opacity-30"
+                } transition-all duration-200 h-[2.3rem] my-2`}
+                alt=""
+              />
+              <img
+                src={spotify}
+                className={`invert-[20%] ${
+                  mode ? "opacity-100" : "opacity-30"
+                } transition-all duration-200 h-[1.5rem]`}
+                alt=""
+              />
             </div>
             {/* canvas */}
             <div
@@ -707,9 +819,15 @@ const Home = ({ Header }) => {
           >
             {/* part1 */}
             <div
-              className={`border border-[#3b3b3b] border-t-0 border-x-0 w-full flex justify-center items-center`}
+              className={`border ${
+                mode ? "border-[#3b3b3b]" : "border-gray-400"
+              } transition-all duration-200  border-t-0 border-x-0 w-full flex justify-center items-center`}
             >
-              <p className={`font-bold monsterrat text-[10rem] text-white `}>
+              <p
+                className={`font-bold monsterrat text-[10rem] ${
+                  mode ? "text-white" : "text-black"
+                } transition-all duration-200 `}
+              >
                 REA
                 <span className={`relative `}>
                   D
@@ -718,7 +836,7 @@ const Home = ({ Header }) => {
                   >
                     <img
                       src={heart}
-                      className={`h-[4rem] heart drop-shadow-2xl`}
+                      className={`h-[4rem] ${mode?"heart":"heartLight"} drop-shadow-2xl`}
                       alt=""
                     />
                   </span>
@@ -731,7 +849,11 @@ const Home = ({ Header }) => {
               className={`flex w-full justify-between items-center mt-10 px-10`}
             >
               <div className={`flex gap-4 `}>
-                <p className={`text-gray-300 text-sm monsterrat`}>
+                <p
+                  className={`${
+                    mode ? "text-gray-300" : "text-gray-500"
+                  } transition-all duration-200  text-sm monsterrat`}
+                >
                   More Knowledge <br /> in less 5min
                 </p>
                 <div className={`flex justify-center items-start`}>
@@ -748,7 +870,9 @@ const Home = ({ Header }) => {
                   <p className={`text-sm text-[#e86c5c] font-bold  monsterrat`}>
                     95%
                   </p>
-                  <p className={`text-sm  text-gray-300 monsterrat`}>
+                  <p className={`text-sm  ${
+                    mode ? "text-gray-300" : "text-gray-500"
+                  } transition-all duration-200 monsterrat`}>
                     more reading
                   </p>
                 </div>
@@ -756,7 +880,9 @@ const Home = ({ Header }) => {
                   <p className={`text-sm text-[#e86c5c] font-bold  monsterrat`}>
                     91%
                   </p>
-                  <p className={`text-sm  text-gray-300 monsterrat`}>
+                  <p className={`text-sm  ${
+                    mode ? "text-gray-300" : "text-gray-500"
+                  } transition-all duration-200 monsterrat`}>
                     better habbits
                   </p>
                 </div>
@@ -831,7 +957,9 @@ const Home = ({ Header }) => {
                   <img src={home3DModel} alt="" className={``} />
                 </div>
                 <div
-                  className={`flex absolute items-end w-fit z-10  left-[22rem] bottom-[1rem] konya text-pink-300 `}
+                  className={`flex absolute items-end w-fit z-10  left-[22rem] bottom-[1rem] konya ${
+                    mode ? "text-pink-300" : "text-pink-500"
+                  } transition-all duration-200  `}
                 >
                   <p className={`konya text-[6rem] `}>W</p>
                   <p className={`konya text-5xl `}>elcome</p>
@@ -841,7 +969,9 @@ const Home = ({ Header }) => {
               <div
                 className={`flex-shrink-0 flex-col gap-10  w-[25rem]  flex justify-center  relative`}
               >
-                <p className={`text-white  font-bold text-5xl pl-[5rem]`}>
+                <p className={`${
+                    mode ? "text-white" : "text-black"
+                  } transition-all duration-200  font-bold text-5xl pl-[5rem]`}>
                   Books & <br />
                   Podcasts <br />
                   in 5 min
@@ -850,9 +980,9 @@ const Home = ({ Header }) => {
                   onClick={() => {
                     navigate("/signup");
                   }}
-                  className={`text-white  text-xs bg-pink-400 rounded-md px-5 py-3 cursor-pointer hover:bg-pink-500 transition-all ml-[5rem] w-fit`}
+                  className={`text-white  text-xs ${mode?"bg-pink-400":"bg-pink-500"} rounded-md px-5 py-3 cursor-pointer hover:bg-pink-500 transition-all ml-[5rem] w-fit`}
                 >
-                  <p className={`inter`}>Start free trial</p>{" "}
+                  <p className={`inter`}>Start for free</p>{" "}
                 </div>
               </div>
             </div>
@@ -898,7 +1028,7 @@ const Home = ({ Header }) => {
                   onClick={() => {
                     navigate("/signup");
                   }}
-                  className={`h-[7rem] cursor-pointer flex flex-col gap-2 w-[5rem] bg-[#282828] rounded-3xl justify-center items-center`}
+                  className={`h-[7rem] cursor-pointer flex flex-col gap-2 w-[5rem] ${mode?"bg-[#282828]":"bg-[#4a4a4a]"} transition-all duration-200  rounded-3xl justify-center items-center`}
                 >
                   <div
                     className={`w-[3.5rem] h-[3.5rem] flex justify-center items-center rounded-full bg-purple-300`}
@@ -924,7 +1054,7 @@ const Home = ({ Header }) => {
               <div className={`flex flex-col h-full w-[40%]  `}>
                 {/* p1 */}
                 <div className={`flex w-full justify-end gap-6`}>
-                  <p className={`text-xs text-white text-end`}>
+                  <p className={`text-xs ${mode?"text-white":"text-gray-800"} transition-all duration-200 text-end`}>
                     Collaborate in real-time <br />
                     and share ideas
                   </p>
@@ -1072,7 +1202,7 @@ const Home = ({ Header }) => {
                 </div>
                 {/* p-3 */}
                 <div className={`flex w-full justify-end `}>
-                  <p className={`text-xs text-white text-end`}>
+                  <p className={`text-xs ${mode?"text-white":"text-gray-800"} transition-all duration-200 text-end`}>
                     Connecting people <br />
                     bridging worlds
                   </p>
@@ -1081,11 +1211,11 @@ const Home = ({ Header }) => {
             </div>
             {/* part 2 */}
             <div className={`flex flex-col w-full h-[40%] mt-16`}>
-              <p className={`text-xs text-white `}>Harmonize Your Potential</p>
+              <p className={`text-xs ${mode?"text-white":"text-gray-800"} transition-all duration-200 `}>Harmonize Your Potential</p>
               {/* text-1 */}
               <div className={`flex gap-1 mt-2 justify-between items-center`}>
                 <div
-                  className={`text-6xl font-bold uppercase text-white monsterrat`}
+                  className={`text-6xl font-bold uppercase ${mode?"text-white":"text-gray-800"} transition-all duration-200 monsterrat`}
                 >
                   Catch
                   <span
@@ -1108,7 +1238,7 @@ const Home = ({ Header }) => {
                     <i className="ri-arrow-right-up-line text-4xl group-hover:scale-90  transition-all"></i>
                   </div>
                   <div
-                    className={`px-4 py-1 h-[3rem] bg-white rounded-full text-sm  flex justify-center items-center select-none  hover:bg-gray-200  transition-all`}
+                    className={`px-4 py-1 h-[3rem] ${mode?"bg-white hover:bg-gray-200  text-black":"bg-black hover:bg-gray-800 text-white "} transition-all duration-200 rounded-full text-sm  flex justify-center items-center select-none  `}
                   >
                     {" "}
                     <p className={`inter`}>Start Collaboration</p>{" "}
@@ -1118,13 +1248,13 @@ const Home = ({ Header }) => {
               {/* text-2 */}
               <div className={`flex gap-1 mt-5  items-center`}>
                 <div
-                  className={`text-6xl font-bold uppercase text-white monsterrat`}
+                  className={`text-6xl font-bold uppercase ${mode?"text-white":" text-black "} transition-all duration-200 monsterrat`}
                 >
                   Stronger
                 </div>
                 <div className={`flex gap-2 mx-5`}>
                   <div
-                    className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}
+                    className={`h-[2.75rem] w-[2.75rem] ${mode?"bg-white":" bg-pink-300 "} transition-all duration-200  overflow-hidden rounded-full`}
                   >
                     <img
                       src={man2}
@@ -1133,7 +1263,7 @@ const Home = ({ Header }) => {
                     />
                   </div>
                   <div
-                    className={`h-[2.75rem] w-[2.75rem] bg-white overflow-hidden rounded-full`}
+                    className={`h-[2.75rem] w-[2.75rem] ${mode?"bg-white":" bg-purple-300 "} transition-all duration-200  overflow-hidden rounded-full`}
                   >
                     <img
                       src={man3}
@@ -1143,7 +1273,7 @@ const Home = ({ Header }) => {
                   </div>
                 </div>
                 <div
-                  className={`text-6xl font-bold uppercase text-white monsterrat`}
+                  className={`text-6xl font-bold uppercase ${mode?"text-white":" text-black "} transition-all duration-200 monsterrat`}
                 >
                   Better{" "}
                   <span
@@ -1157,19 +1287,19 @@ const Home = ({ Header }) => {
           </div>
           {/* section 4 */}
           <div
-            className={`h-full w-full  relative overflow-hidden carousel snap-center`}
+            className={`h-full w-full  relative overflow-hidden ${mode?"carousel":"carouselLight"} snap-center`}
           >
             <div
-              className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute  -translate-y-1/2 left-0 z-[50] flex  justify-center items-end pb-10 `}
+              className={`${mode?"bg-[#0B0D10]":" bg-white"} transition-all duration-200   rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute  -translate-y-1/2 left-0 z-[50] flex  justify-center items-end pb-10 `}
             >
               <div
                 className={`w-full flex gap-10 select-none justify-center items-center`}
               >
-                <p className={`orbitron text-lg text-white`}>Simulation</p>
-                <p className={`orbitron text-lg text-white`}>Sandbox</p>
-                <p className={`orbitron text-4xl text-white mx-10`}>Meta</p>
-                <p className={`orbitron text-lg text-white`}>Arcade</p>
-                <p className={`orbitron text-lg text-white`}>OpenWorld</p>
+                <p className={`orbitron text-lg ${mode?"text-white":"text-black"} transition-all duration-200`}>Simulation</p>
+                <p className={`orbitron text-lg ${mode?"text-white":"text-black"} transition-all duration-200`}>Sandbox</p>
+                <p className={`orbitron text-4xl ${mode?"text-white":"text-black"} transition-all duration-200 mx-10`}>Meta</p>
+                <p className={`orbitron text-lg ${mode?"text-white":"text-black"} transition-all duration-200`}>Arcade</p>
+                <p className={`orbitron text-lg ${mode?"text-white":"text-black"} transition-all duration-200`}>OpenWorld</p>
               </div>
             </div>
             {/* controls */}
@@ -1178,18 +1308,18 @@ const Home = ({ Header }) => {
               onClick={() => {
                 prevButton();
               }}
-              className={`cursor-pointer absolute top-1/2 -right-8 rounded-full glass -translate-y-1/2 h-[4rem] w-[4rem] flex justify-start items-center z-[60]`}
+              className={`cursor-pointer absolute top-1/2 -right-8 rounded-full ${mode?"glass":" bg-gray-200"} -translate-y-1/2 h-[4rem] w-[4rem] flex justify-start items-center z-[60]`}
             >
-              <i className="ri-arrow-right-s-line text-white text-4xl"></i>
+              <i className={`ri-arrow-right-s-line ${mode?"text-white":"text-black"} transition-all duration-200 text-4xl`}></i>
             </div>
             {/* left */}
             <div
               onClick={() => {
                 nextButton();
               }}
-              className={`cursor-pointer absolute top-1/2 -left-8 rounded-full glass -translate-y-1/2 h-[4rem] w-[4rem] flex justify-end items-center z-[60]`}
+              className={`cursor-pointer absolute top-1/2 -left-8 rounded-full ${mode?"glass":" bg-gray-200"} -translate-y-1/2 h-[4rem] w-[4rem] flex justify-end items-center z-[60]`}
             >
-              <i className="ri-arrow-left-s-line text-white text-4xl"></i>
+              <i className={`ri-arrow-left-s-line ${mode?"text-white":"text-black"} transition-all duration-200 text-4xl`}></i>
             </div>
             {/* Main carousel */}
             <div className={`w-full h-full overflow-hidden`}>
@@ -1235,16 +1365,16 @@ const Home = ({ Header }) => {
               </div>
             </div>
             <div
-              className={`bg-[#0B0D10] rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute bottom-0  translate-y-1/2 left-0 z-[50] flex justify-center items-start fadeGradient`}
+              className={`${mode?"bg-[#0B0D10]":" bg-white"} transition-all duration-200 rounded-[50%] w-[110%] -translate-x-[5%] h-[15rem] absolute bottom-0  translate-y-1/2 left-0 z-[50] flex justify-center items-start ${mode?"fadeGradient":"fadeGradientLight"}`}
             >
               <div className={`absolute flex justify-center items-center`}>
                 <div className="circle relative scale-[1.7] w-[200px] h-[200px] rounded-[100vmax] flex justify-center items-center ">
-                  <div className="text-xs text-white orbitron absolute top-[40%] left-1/2 -translate-x-1/2   rounded-[100vmax] w-full  text-center">
+                  <div className={`text-xs ${mode?"text-white":"text-black"} transition-all duration-200 orbitron absolute top-[40%] left-1/2 -translate-x-1/2   rounded-[100vmax] w-full  text-center`}>
                     Choose Character
                   </div>
                   <div
                     ref={circularTextRef}
-                    className="text transitionEaseBackOut"
+                    className={`text ${mode?"text-white":"text-gray-300 "} transitionEaseBackOut`}
                   >
                     <p>Sirus • Spis • Mark • Sid • Xerx •</p>
                   </div>
