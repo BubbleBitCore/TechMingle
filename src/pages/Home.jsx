@@ -506,7 +506,7 @@ const Home = ({ Header }) => {
           height:100%;
           width:45%;
           background: rgb(11,13,16);
-          background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8828781512605042) 20%, rgba(255,255,255,0) 60%);
+          background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8828781512605042) 20%, rgba(255,255,255,0) 55%);
           top:0;
           left:0;
           z-Index:60;
@@ -517,7 +517,7 @@ const Home = ({ Header }) => {
           height:100%;
           width:45%;
           background: rgb(11,13,16);
-          background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8828781512605042) 20%, rgba(255,255,255,0) 60%);
+          background: linear-gradient(270deg, rgba(255,255,255,1) 0%, rgba(255,255,255,0.8828781512605042) 20%, rgba(255,255,255,0) 55%);
           top:0;
           right:0;
           z-Index:50;
@@ -1393,33 +1393,33 @@ const Home = ({ Header }) => {
                   className={`w-full flex justify-center gap-5 items-center`}
                 >
                   <span
-                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                    className={`uppercase ${mode?"text-white":"text-black"} transition-all duration-200  monsterrat font-bold text-[12rem] leading-[1] text-center`}
                   >
                     P
                   </span>
                   <img src={microphone} className={`h-[10rem]`} alt="" />
                   <span
-                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                    className={`uppercase ${mode?"text-white":"text-black"} transition-all duration-200 monsterrat font-bold text-[12rem] leading-[1] text-center`}
                   >
                     D
                   </span>
                   <span
-                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                    className={`uppercase ${mode?"text-white":"text-black"} transition-all duration-200 monsterrat font-bold text-[12rem] leading-[1] text-center`}
                   >
                     C
                   </span>
                   <span
-                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                    className={`uppercase ${mode?"text-white":"text-black"} transition-all duration-200 monsterrat font-bold text-[12rem] leading-[1] text-center`}
                   >
                     A
                   </span>
                   <span
-                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                    className={`uppercase ${mode?"text-white":"text-black"} transition-all duration-200 monsterrat font-bold text-[12rem] leading-[1] text-center`}
                   >
                     S
                   </span>
                   <span
-                    className={`uppercase text-white monsterrat font-bold text-[12rem] leading-[1] text-center`}
+                    className={`uppercase ${mode?"text-white":"text-black"} transition-all duration-200 monsterrat font-bold text-[12rem] leading-[1] text-center`}
                   >
                     T
                   </span>
@@ -1427,7 +1427,7 @@ const Home = ({ Header }) => {
                 {/* second info */}
                 <div className={`flex justify-between items-center`}>
                   <p
-                    className={`text-4xl font-bold monsterrat text-white uppercase`}
+                    className={`text-4xl font-bold monsterrat ${mode?"text-white":"text-black"} transition-all duration-200 uppercase`}
                   >
                     Experience
                   </p>
@@ -1560,83 +1560,83 @@ const Home = ({ Header }) => {
                     className={`select-none rotate-[2deg] absolute bottom-2 translate-x-[2rem] w-full flex flex-nowrap flex-row-reverse z-50`}
                   >
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200  border-r-0`}
                     >
                       Business{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag   ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Technology{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag    ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Science{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag   ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Art{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag   ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Economics{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag   ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Horror{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Drama{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag  ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2  ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Hollywood{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag  ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       SelfGrow{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag  ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                     <div
-                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 border-white text-white border-r-0`}
+                      className={`uppercase flex text-base  monsterrat font-bold px-5 py-2 glass border-2 ${mode?"border-white text-white":"border-gray-600 text-gray-800"} transition-all duration-200 border-r-0`}
                     >
                       Healthcare{" "}
                       <i
-                        className={`ri-hashtag   text-white ml-3 text-nowrap`}
+                        className={`ri-hashtag  ${mode?"text-white":"text-black"} transition-all duration-200 ml-3 text-nowrap`}
                       ></i>
                     </div>
                   </div>
@@ -1653,80 +1653,80 @@ const Home = ({ Header }) => {
               {/* list */}
               <div className={` flex gap-10`}>
                 <div className={`flex flex-col gap-4`}>
-                  <h2 className={`text-sm text-gray-400`}>Product</h2>
+                  <h2 className={`text-sm ${mode?"text-gray-400":"text-gray-600 font-bold"}`}>Product</h2>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Feature
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Integration
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Templates
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Docs
                   </p>
                 </div>
                 <div className={`flex flex-col gap-4`}>
-                  <h2 className={`text-sm text-gray-400`}>Company</h2>
+                  <h2 className={`text-sm ${mode?"text-gray-400":"text-gray-600 font-bold"} transition-all duration-200`}>Company</h2>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     About
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Career
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Forum
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Blog
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Youtube
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Community
                   </p>
                 </div>
                 <div className={`flex flex-col gap-4`}>
-                  <h2 className={`text-sm text-gray-400`}>Legal</h2>
+                  <h2 className={`text-sm ${mode?"text-gray-400":"text-gray-600 font-bold"}`}>Legal</h2>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Security
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Terms of use
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     Privacy policy
                   </p>
                   <p
-                    className={`text-xs relative z-10 text-white cursor-pointer hover:underline select-none`}
+                    className={`text-xs relative z-10 ${mode?"text-white":"text-gray-800"} transition-all duration-200 cursor-pointer hover:underline select-none`}
                   >
                     terms of interoggation
                   </p>
@@ -1736,16 +1736,16 @@ const Home = ({ Header }) => {
               <div className={`flex flex-col justify-between`}>
                 {/* email subscribe */}
                 <div className={`flex flex-col`}>
-                  <p className={`text-sm text-gray-400 uppercase mb-2`}>
+                  <p className={`text-sm ${mode?"text-gray-400":"text-gray-600 font-bold"} transition-all duration-200 uppercase mb-2`}>
                     Join Our Mailing list
                   </p>
                   <div
-                    className={`relative z-10 rounded-3xl flex bg-white w-[17rem] p-[2px] h-[2.5rem] overflow-hidden`}
+                    className={`relative z-10 rounded-3xl flex ${mode?"bg-white":"bg-gray-100"} transition-all duration-200 w-[17rem] p-[2px] h-[2.5rem] overflow-hidden`}
                   >
                     <input
                       type="text"
                       placeholder={`Enter your email address`}
-                      className={`w-[70%] rounded-3xl text-xs placeholder-black h-full border-none outline-none px-3`}
+                      className={`w-[70%] bg-transparent rounded-3xl text-xs placeholder-black h-full border-none outline-none px-3`}
                     />
                     <div
                       className={`w-[30%] cursor-pointer bg-purple-400 flex justify-center items-center rounded-3xl`}
@@ -1756,29 +1756,29 @@ const Home = ({ Header }) => {
                 </div>
                 {/* Socials */}
                 <div className={`flex flex-col`}>
-                  <p className={`text-sm text-gray-400 uppercase mb-2`}>
+                  <p className={`text-sm ${mode?"text-gray-400":"text-gray-600 font-bold"} transition-all duration-200 uppercase mb-2`}>
                     Socials
                   </p>
                   <div className={`flex gap-3`}>
                     <div
-                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full ${mode?"bg-white":"bg-black"} transition-all duration-200`}
                     >
-                      <i className="ri-instagram-fill"></i>
+                      <i className={`ri-instagram-fill ${mode?"text-black":"text-white"} transition-all duration-200`}></i>
                     </div>
                     <div
-                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full ${mode?"bg-white":"bg-black"} transition-all duration-200`}
                     >
-                      <i className="ri-linkedin-fill"></i>
+                      <i className={`ri-linkedin-fill ${mode?"text-black":"text-white"} transition-all duration-200`}></i>
                     </div>
                     <div
-                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full ${mode?"bg-white":"bg-black"} transition-all duration-200`}
                     >
-                      <i className="ri-facebook-fill"></i>
+                      <i className={`ri-facebook-fill ${mode?"text-black":"text-white"} transition-all duration-200`}></i>
                     </div>
                     <div
-                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full bg-white`}
+                      className={`relative z-10 cursor-pointer w-[2rem] flex justify-center items-center h-[2rem] rounded-full ${mode?"bg-white":"bg-black"} transition-all duration-200`}
                     >
-                      <i className="ri-twitter-x-fill"></i>
+                      <i className={`ri-twitter-x-fill ${mode?"text-black":"text-white"} transition-all duration-200`}></i>
                     </div>
                   </div>
                 </div>
