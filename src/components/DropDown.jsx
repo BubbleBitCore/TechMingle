@@ -1,4 +1,4 @@
-import { useState, useRef, useEffect } from "react";
+import {useRef} from "react";
 import { useSelector } from "react-redux";
 
 const DropDown = ({
@@ -21,7 +21,6 @@ const DropDown = ({
         className="flex flex-col w-1/2 h-fit"
         ref={dropDownRef}
         onClick={(e) => {
-          console.log(title + " clicked");
           setVisible(!visible);
           e.stopPropagation();
           generalCallback();
@@ -62,7 +61,7 @@ const DropDown = ({
           <div
             className={`flex flex-col ${
               mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
-            } w-full rounded-lg overflow-hidden capitalize`}
+            } w-full rounded-b-lg overflow-hidden capitalize`}
           >
             {list.length > 0 &&
               list.map((item, idx) => (

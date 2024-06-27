@@ -599,7 +599,7 @@ const CreatePodcast = () => {
                 </div>
               </div>
               {/* tags div */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-0.5">
                 <div
                   className={`flex flex-col gap-1 w-full justify-center rounded-sm p-2 px-4 border transition-all duration-500 ${
                     isTagFocused
@@ -687,7 +687,7 @@ const CreatePodcast = () => {
                 {/* suggestion section */}
                 {showSuggestions && (
                   <div
-                    className={`flex flex-col overflow-hidden w-full bg-zinc-900 rounded-lg`}
+                    className={`flex flex-col overflow-hidden w-full ${mode ? "bg-zinc-900" : "bg-white"} rounded-b-lg`}
                   >
                     {suggestionList?.length > 0 &&
                       suggestionList.map((item, idx) => (

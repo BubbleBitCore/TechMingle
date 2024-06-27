@@ -837,7 +837,7 @@ const Podcasts = ({ Header, player }) => {
   }, [selectedTrendingPodcastList]);
 
   return (
-    <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 select-none ">
+    <div className="flex flex-col h-full w-full pr-4 max-sm:px-4 select-none ">
       <Header urlName="Podcast" />
       <style>
         {`

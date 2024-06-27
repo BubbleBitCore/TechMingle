@@ -9,6 +9,7 @@ import {
   FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../../constants/FlashMsgConstants.js";
+import DropDown from "../DropDown.jsx";
 
 const CreateArticle = () => {
   const visibility = useSelector(
@@ -20,6 +21,7 @@ const CreateArticle = () => {
   const [language, setLanguage] = useState("select");
   const [tagList, setTagList] = useState([]);
   let suggestions = [
+    "asdfghjkl",
     "abc",
     "asd",
     "abc",
@@ -37,8 +39,8 @@ const CreateArticle = () => {
   const [isTitleFocused, setIsTitleFocused] = useState(false);
   const [isDescFocused, setIsDescFocused] = useState(false);
   const [isTagFocused, setIsTagFocused] = useState(false);
-  const [showVisibilityDropDown, setShowVisibilityDropDown] = useState(false);
-  const [showLanguageDropDown, setShowLanguageDropDown] = useState(false);
+  const [dropDownStatus1, setDropDownStatus1] = useState(false);
+  const [dropDownStatus2, setDropDownStatus2] = useState(false);
   const [titleError, setTitleError] = useState(false);
   const [descError, setDescError] = useState(false);
   const [thumbnailError, setThumbnailError] = useState(false);
@@ -255,30 +257,7 @@ const CreateArticle = () => {
   useEffect(() => {
     // console.log(tagList);
   }, [tagList]);
-
-  // Close the dropdown if the user clicks outside of it
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        visibilityDropDownRef.current &&
-        !visibilityDropDownRef.current.contains(event.target)
-      ) {
-        setShowVisibilityDropDown(false);
-      }
-      if (
-        languageDropDownRef.current &&
-        !languageDropDownRef.current.contains(event.target)
-      ) {
-        setShowLanguageDropDown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [visibilityDropDownRef, languageDropDownRef]);
-
+  
   // handle thumbnail error
   useEffect(() => {
     if (thumbnailError) {
@@ -287,8 +266,6 @@ const CreateArticle = () => {
       }
     }
   }, [imgSrc]);
-
-  
 
   return (
     <>
@@ -308,6 +285,8 @@ const CreateArticle = () => {
             } `}
             onClick={(e) => {
               e.stopPropagation();
+              setDropDownStatus1(false);
+              setDropDownStatus2(false);
             }}
           >
             {/* header */}
@@ -428,7 +407,7 @@ const CreateArticle = () => {
                 </div>
               </div>
               {/* tags div */}
-              <div className="flex flex-col gap-1">
+              <div className="flex flex-col gap-0.5">
                 <div
                   className={`flex flex-col gap-1 w-full justify-center rounded-sm p-2 px-4 border transition-all duration-500 ${
                     isTagFocused
@@ -516,7 +495,7 @@ const CreateArticle = () => {
                 {/* suggestion section */}
                 {showSuggestions && (
                   <div
-                    className={`flex flex-col overflow-hidden w-full bg-zinc-900 rounded-lg`}
+                    className={`flex flex-col overflow-hidden w-full ${mode ? "bg-zinc-900" : "bg-white"} rounded-b-lg`}
                   >
                     {suggestionList?.length > 0 &&
                       suggestionList.map((item, idx) => (
@@ -599,140 +578,31 @@ const CreateArticle = () => {
               {/* Visibiltiy & language*/}
               <div className="flex w-full gap-8">
                 {/* visibility */}
-                <div
-                  className="flex flex-col w-1/2"
-                  ref={visibilityDropDownRef}
-                >
-                  <div
-                    className={`flex border  justify-between items-center rounded-sm p-2 px-3  transition-all duration-300 ${
-                      mode ? "border-zinc-700 hover:border-zinc-400" : ""
-                    }`}
-                    onClick={() => {
-                      setShowVisibilityDropDown(!showVisibilityDropDown);
-                    }}
-                  >
-                    <div
-                      className={`flex flex-col gap-1 text-xs transition-all duration-300`}
-                    >
-                      <p
-                        className={`${
-                          mode ? "text-zinc-400" : "text-zinc-600"
-                        }`}
-                      >
-                        Visibility
-                      </p>
-                      <p
-                        className={`${
-                          mode ? "text-zinc-200" : "text-zinc-800"
-                        } text-sm capitalize`}
-                      >{`${articleVisibility}`}</p>
-                    </div>
-                    <i className="ri-arrow-down-s-fill text-xl cursor-pointer"></i>
-                  </div>
-                  {showVisibilityDropDown && (
-                    <div className="flex z-10 transition-all duration-300">
-                      <div
-                        className={`flex flex-col  ${
-                          mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
-                        } w-full rounded-lg overflow-hidden capitalize`}
-                      >
-                        <p
-                          className={`py-1 text-xs ${
-                            mode
-                              ? "hover:bg-blue-600"
-                              : "hover:bg-blue-500 hover:text-white"
-                          }  px-4 transition-all duration-500`}
-                          onClick={() => {
-                            setArticleVisibility("private");
-                            setShowVisibilityDropDown(false);
-                            // console.log("private");
-                          }}
-                        >
-                          Private
-                        </p>
-                        <p
-                          className={`py-1 text-xs ${
-                            mode
-                              ? "hover:bg-blue-600"
-                              : "hover:bg-blue-500 hover:text-white"
-                          } px-4 transition-all duration-100`}
-                          onClick={() => {
-                            setArticleVisibility("public");
-                            setShowVisibilityDropDown(false);
-                            // console.log("public");
-                          }}
-                        >
-                          Public
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <DropDown
+                  title={"Visibility"}
+                  value={articleVisibility}
+                  setValue={setArticleVisibility}
+                  list={["Private", "Public"]}
+                  visible={dropDownStatus1}
+                  setVisible={setDropDownStatus1}
+                  generalCallback={() => {
+                    setDropDownStatus2(false);
+                  }}
+                ></DropDown>
                 {/* language */}
-                <div className="flex flex-col w-1/2" ref={languageDropDownRef}>
-                  <div
-                    className={`flex border justify-between items-center rounded-sm p-2 px-3  transition-all duration-300  ${
-                      languageError
-                        ? "border-red-500"
-                        : `${
-                            mode ? "border-zinc-700 hover:border-zinc-400" : ""
-                          }`
-                    }`}
-                    onClick={() => {
-                      setShowLanguageDropDown(!showLanguageDropDown);
-                    }}
-                  >
-                    <div
-                      className={`flex flex-col gap-1 text-xs transition-all duration-300`}
-                    >
-                      <p
-                        className={`${
-                          languageError
-                            ? "text-red-500"
-                            : `${mode ? "text-zinc-400" : "text-zinc-600"}`
-                        }`}
-                      >
-                        Language
-                      </p>
-                      <p
-                        className={`${
-                          mode ? "text-zinc-200" : "text-zinc-800"
-                        } text-sm capitalize`}
-                      >{`${language}`}</p>
-                    </div>
-                    <i className="ri-arrow-down-s-fill text-xl cursor-pointer"></i>
-                  </div>
-                  {showLanguageDropDown && (
-                    <div className="flex z-10 transition-all duration-300">
-                      <div
-                        className={`flex flex-col ${
-                          mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
-                        } w-full rounded-lg overflow-hidden capitalize`}
-                      >
-                        {languages.length > 0 &&
-                          languages.map((item, idx) => (
-                            <p
-                              key={idx}
-                              className={`py-1 text-xs ${
-                                mode
-                                  ? "hover:bg-blue-600"
-                                  : "hover:bg-blue-500 hover:text-white"
-                              }  px-4 transition-all duration-500 cursor-pointer`}
-                              onClick={() => {
-                                setLanguage(item);
-                                if (languageError) {
-                                  setLanguageError(false);
-                                }
-                                setShowLanguageDropDown(false);
-                              }}
-                            >
-                              {`${item}`}
-                            </p>
-                          ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <DropDown
+                  title={"Language"}
+                  value={language}
+                  setValue={setLanguage}
+                  list={languages}
+                  visible={dropDownStatus2}
+                  setVisible={setDropDownStatus2}
+                  generalCallback={() => {
+                    setDropDownStatus1(false);
+                  }}
+                  error={languageError}
+                  setError={setLanguageError}
+                ></DropDown>
               </div>
             </div>
             {/* create section */}

@@ -12,7 +12,7 @@ const PodcastLanding = ({ Header }) => {
   // Mode is handled here
   const mode = useSelector((state) => state.common.mode);
   return (
-    <div className="flex flex-col h-full w-full pr-8 max-sm:px-4 ">
+    <div className="flex flex-col h-full w-full pr-4 max-sm:px-4 ">
       <Header urlName="Podcast" />
       {/*content */}
       <div className="flex flex-col-reverse sm:gap-6  lg:flex-row overflow-y-auto h-full sm:pl-10 sm:pt-10 max-sm:py-7">
