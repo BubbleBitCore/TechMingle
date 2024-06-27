@@ -9,6 +9,7 @@ import {
   FLASH_SUCCESS,
   FLASH_WARNING,
 } from "../../constants/FlashMsgConstants.js";
+import DropDown from "../DropDown.jsx";
 
 const CreatePodcast = () => {
   const visibility = useSelector(
@@ -55,6 +56,8 @@ const CreatePodcast = () => {
   const [languageError, setLanguageError] = useState(false);
   const [tagError, setTagError] = useState(false);
   const [audioFileError, setAudioFileError] = useState(false);
+  const [dropDownStatus1, setDropDownStatus1] = useState(false);
+  const [dropDownStatus2, setDropDownStatus2] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const languages = [
     "Amharic",
@@ -228,7 +231,6 @@ const CreatePodcast = () => {
       setFlashVisibility(true);
       setEnableCancel(true);
       setEnablePromiseFlash(true);
-      
     }
   };
 
@@ -273,29 +275,6 @@ const CreatePodcast = () => {
       setShowSuggestions(false);
     }
   };
-
-  // Close the dropdown if the user clicks outside of it
-  useEffect(() => {
-    const handleClickOutside = (event) => {
-      if (
-        visibilityDropDownRef.current &&
-        !visibilityDropDownRef.current.contains(event.target)
-      ) {
-        setShowVisibilityDropDown(false);
-      }
-      if (
-        languageDropDownRef.current &&
-        !languageDropDownRef.current.contains(event.target)
-      ) {
-        setShowLanguageDropDown(false);
-      }
-    };
-
-    document.addEventListener("mousedown", handleClickOutside);
-    return () => {
-      document.removeEventListener("mousedown", handleClickOutside);
-    };
-  }, [visibilityDropDownRef, languageDropDownRef]);
 
   // handle thumbnail error
   useEffect(() => {
@@ -400,6 +379,8 @@ const CreatePodcast = () => {
             } `}
             onClick={(e) => {
               e.stopPropagation();
+              setDropDownStatus1(false);
+              setDropDownStatus2(false);
             }}
           >
             {/* header */}
@@ -789,140 +770,31 @@ const CreatePodcast = () => {
               {/* Visibiltiy & language*/}
               <div className="flex w-full gap-8">
                 {/* visibility */}
-                <div
-                  className="flex flex-col w-1/2"
-                  ref={visibilityDropDownRef}
-                >
-                  <div
-                    className={`flex border  justify-between items-center rounded-sm p-2 px-3  transition-all duration-300 ${
-                      mode ? "border-zinc-700 hover:border-zinc-400" : ""
-                    }`}
-                    onClick={() => {
-                      setShowVisibilityDropDown(!showVisibilityDropDown);
-                    }}
-                  >
-                    <div
-                      className={`flex flex-col gap-1 text-xs transition-all duration-300`}
-                    >
-                      <p
-                        className={`${
-                          mode ? "text-zinc-400" : "text-zinc-600"
-                        }`}
-                      >
-                        Visibility
-                      </p>
-                      <p
-                        className={`${
-                          mode ? "text-zinc-200" : "text-zinc-800"
-                        } text-sm capitalize`}
-                      >{`${podcastVisibility}`}</p>
-                    </div>
-                    <i className="ri-arrow-down-s-fill text-xl cursor-pointer"></i>
-                  </div>
-                  {showVisibilityDropDown && (
-                    <div className="flex z-10 transition-all duration-300">
-                      <div
-                        className={`flex flex-col  ${
-                          mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
-                        } w-full rounded-lg overflow-hidden capitalize`}
-                      >
-                        <p
-                          className={`py-1 text-xs ${
-                            mode
-                              ? "hover:bg-blue-600"
-                              : "hover:bg-blue-500 hover:text-white"
-                          }  px-4 transition-all duration-500 cursor-pointer`}
-                          onClick={() => {
-                            setPodcastVisibility("private");
-                            setShowVisibilityDropDown(false);
-                            // console.log("private");
-                          }}
-                        >
-                          Private
-                        </p>
-                        <p
-                          className={`py-1 text-xs ${
-                            mode
-                              ? "hover:bg-blue-600"
-                              : "hover:bg-blue-500 hover:text-white"
-                          } px-4 transition-all duration-100 cursor-pointer`}
-                          onClick={() => {
-                            setPodcastVisibility("public");
-                            setShowVisibilityDropDown(false);
-                            // console.log("public");
-                          }}
-                        >
-                          Public
-                        </p>
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <DropDown
+                  title={"Visibility"}
+                  value={podcastVisibility}
+                  setValue={setPodcastVisibility}
+                  list={["Private", "Public"]}
+                  visible={dropDownStatus1}
+                  setVisible={setDropDownStatus1}
+                  generalCallback={() => {
+                    setDropDownStatus2(false);
+                  }}
+                ></DropDown>
                 {/* language */}
-                <div className="flex flex-col w-1/2" ref={languageDropDownRef}>
-                  <div
-                    className={`flex border justify-between items-center rounded-sm p-2 px-3  transition-all duration-300  ${
-                      languageError
-                        ? "border-red-500"
-                        : `${
-                            mode ? "border-zinc-700 hover:border-zinc-400" : ""
-                          }`
-                    }`}
-                    onClick={() => {
-                      setShowLanguageDropDown(!showLanguageDropDown);
-                    }}
-                  >
-                    <div
-                      className={`flex flex-col gap-1 text-xs transition-all duration-300`}
-                    >
-                      <p
-                        className={`${
-                          languageError
-                            ? "text-red-500"
-                            : `${mode ? "text-zinc-400" : "text-zinc-600"}`
-                        }`}
-                      >
-                        Language
-                      </p>
-                      <p
-                        className={`${
-                          mode ? "text-zinc-200" : "text-zinc-800"
-                        } text-sm capitalize`}
-                      >{`${language}`}</p>
-                    </div>
-                    <i className="ri-arrow-down-s-fill text-xl cursor-pointer"></i>
-                  </div>
-                  {showLanguageDropDown && (
-                    <div className="flex z-10 transition-all duration-300">
-                      <div
-                        className={`flex flex-col ${
-                          mode ? "bg-zinc-900" : "bg-[#f9f8f8]"
-                        } w-full rounded-lg overflow-hidden capitalize`}
-                      >
-                        {languages.length > 0 &&
-                          languages.map((item, idx) => (
-                            <p
-                              key={idx}
-                              className={`py-1 text-xs ${
-                                mode
-                                  ? "hover:bg-blue-600"
-                                  : "hover:bg-blue-500 hover:text-white"
-                              }  px-4 transition-all duration-500 cursor-pointer`}
-                              onClick={() => {
-                                setLanguage(item);
-                                if (languageError) {
-                                  setLanguageError(false);
-                                }
-                                setShowLanguageDropDown(false);
-                              }}
-                            >
-                              {`${item}`}
-                            </p>
-                          ))}
-                      </div>
-                    </div>
-                  )}
-                </div>
+                <DropDown
+                  title={"Language"}
+                  value={language}
+                  setValue={setLanguage}
+                  list={languages}
+                  visible={dropDownStatus2}
+                  setVisible={setDropDownStatus2}
+                  generalCallback={() => {
+                    setDropDownStatus1(false);
+                  }}
+                  error={languageError}
+                  setError={setLanguageError}
+                ></DropDown>
               </div>
             </div>
             {/* create section */}
