@@ -280,17 +280,17 @@ const Home = ({ Header }) => {
   };
 
   useEffect(() => {
-    hangingImagesS1();
+    // hangingImagesS1();
     initCircularText();
 
     // handling screen resize events
     const handleResize = debounce(() => {
-      section1CanvasRef.current.childNodes[0].width =
-        s1ContainerRef.current.clientWidth;
-      section1CanvasRef.current.childNodes[0].height =
-        s1ContainerRef.current.clientHeight;
-      window.location.reload();
-    },300);
+      // section1CanvasRef.current.childNodes[0].width =
+      //   s1ContainerRef.current.clientWidth;
+      // section1CanvasRef.current.childNodes[0].height =
+      //   s1ContainerRef.current.clientHeight;
+      // window.location.reload();
+    }, 300);
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("keydown", handleKeyDowns);
@@ -596,7 +596,7 @@ const Home = ({ Header }) => {
         
       `}
       </style>
-      <div className="flex flex-col h-full w-full pr-4 max-sm:px-4 ">
+      <div className="flex flex-col h-full w-full pr-4 max-sm:p-0 ">
         {/* <Header urlName="TechMingle" /> */}
         <div
           ref={mainContainerRef}
@@ -608,34 +608,44 @@ const Home = ({ Header }) => {
             className={`select-none w-full h-full  flex flex-col relative justify-center items-center snap-center`}
           >
             {/* row 1 */}
-            <div className={`flex gap-3 relative z-20 pointer-events-none`}>
+            <div
+              className={`flex md:gap-3 max-md:gap-2 relative  z-20 pointer-events-none`}
+            >
+              {/* text */}
               <div
                 className={`aspira ${
                   mode ? "text-white" : "text-gray-800"
-                } transition-all duration-200 text-8xl`}
+                } transition-all duration-200 lg:text-8xl md:text-7xl max-md:text-7xl max-sm:text-4xl`}
               >
                 unite
               </div>
+              {/* circles and arrows */}
               <div
                 className={`flex z-30 relative gap-0 justify-center items-center`}
               >
+                {/* green circle */}
                 <div
-                  className={`rounded-full w-[6rem] h-[6rem] flex justify-center items-center bg-green-400`}
+                  className={`rounded-full lg:w-[6rem] lg:h-[6rem] md:w-[3.5rem] md:h-[3.5rem] max-md:w-[3.5rem] max-md:h-[3.5rem] max-sm:h-[3rem] max-sm:w-[3rem] flex justify-center items-center bg-green-400`}
                 >
-                  <p className={`text-white aspira text-8xl`}>→</p>
+                  {/* arrow */}
+                  <p
+                    className={`text-white aspira lg:text-8xl md:text-7xl max-md:text-7xl max-sm:text-5xl`}
+                  >
+                    →
+                  </p>
                 </div>
                 <div
-                  className={`gradient h-[6rem] w-[19rem] rounded-[5rem] flex justify-end items-center overflow-hidden`}
+                  className={`gradient lg:w-[19rem] lg:h-[6rem] md:w-[14rem] md:h-[3.5rem] max-md:w-[14rem] max-md:h-[3.5rem] max-sm:h-[3rem] max-sm:w-[8rem] rounded-[5rem] flex justify-end items-center overflow-hidden`}
                 >
                   <div
                     className={`${
                       mode ? "bg-white" : "bg-gray-800"
-                    } transition-all duration-200 w-[65%] h-full rounded-[6rem] flex gap-1 justify-center items-center`}
+                    } transition-all duration-200 w-[65%] max-sm:w-[70%]  h-full rounded-[6rem] flex gap-1 justify-center items-center`}
                   >
                     <div
-                      className={`w-[5.5rem] h-[5.5rem] flex-shrink-0 ${
+                      className={`lg:w-[5.5rem] lg:h-[5.5rem] md:w-[3rem] md:h-[3rem] max-md:w-[3rem] max-md:h-[3rem] max-sm:h-[2rem] max-sm:w-[2rem] flex-shrink-0 ${
                         mode ? "bg-white" : "bg-gray-800"
-                      } transition-all duration-200 rounded-full shadow-2xl relative`}
+                      } transition-all duration-200 rounded-full shadow-2xl relative max-sm:scale-80`}
                     >
                       <svg
                         width="100%"
@@ -656,17 +666,22 @@ const Home = ({ Header }) => {
                       </svg>
                     </div>
                     <div
-                      className={`w-[5.5rem] h-[5.5rem] flex justify-center items-center flex-shrink-0 ${
+                      className={`lg:w-[5.5rem] md:w-[4rem] max-md:w-[4rem] max-sm:w-[2.3rem] lg:h-[5.5rem] md:h-[4rem] max-md:h-[4rem] max-sm:h-[2.3rem]  flex justify-center items-center flex-shrink-0 ${
                         mode ? "bg-white" : "bg-gray-800"
                       } transition-all duration-200 rounded-full`}
                     >
-                      <p className={`text-[5rem] leading-[1]`}>😅</p>
+                      <p
+                        className={`lg:text-[5rem] md:text-[3rem] max-md:text-[3rem] max-sm:text-[2.5rem] leading-[1]`}
+                      >
+                        😅
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
+              {/* bordered right line */}
               <div
-                className={`absolute rounded-[2rem] -right-[4rem] top-1/2  border-l-0  h-[6rem] border-4 w-[10rem] z-10 ${
+                className={`absolute rounded-[2rem] lg:-right-[4rem] md:-right-[4.5rem] max-md:-right-[4.5rem] max-sm:-right-[3rem] top-1/2 max-sm:top-1/3  border-l-0 md:h-[4.6rem]  lg:h-[6rem] max-md:h-[4.6rem] max-sm:h-[4rem] border-4 w-[10rem] max-sm:w-[6rem] z-10 ${
                   mode ? "border-white" : "border-gray-800"
                 } transition-all duration-200 border-dashed `}
               ></div>
@@ -675,15 +690,17 @@ const Home = ({ Header }) => {
             <div
               className={`flex gap-3 items-center relative pointer-events-none`}
             >
+              {/* yellow circle */}
               <div
-                className={`rounded-full w-[5.5rem] h-[5.5rem] flex justify-center items-center bg-yellow-300 mr-10 `}
+                className={`rounded-full lg:w-[5.5rem] lg:h-[5.5rem] md:w-[4rem] max-md:w-[4rem] md:h-[4rem] max-md:h-[4rem] max-sm:h-[3.4rem] max-sm:w-[3.4rem] flex justify-center items-center bg-yellow-300 mr-10 max-sm:mr-5`}
               >
                 <div
-                  className={`h-[1rem] w-[1rem] border-2 border-white drop-shadow-xl shadow-2xl bg-blue-500 rounded-full z-50`}
+                  className={`lg:h-[1rem] lg:w-[1rem] md:h-[0.75rem] md:w-[0.75rem] max-md:h-[0.75rem] max-md:w-[0.75rem] border-2 border-white drop-shadow-xl shadow-2xl bg-blue-500 rounded-full z-50`}
                 ></div>
               </div>
+              {/* transparent div */}
               <div
-                className={`glass absolute left-[3.5rem] rounded-[5rem] border-b-0 border-r-0 border-l-0 border-2 h-[3rem] w-[6.5rem] ${
+                className={`glass absolute lg:left-[3.5rem] md:left-[3rem] max-md:left-[3rem] max-sm:left-[2.5rem] rounded-[5rem] border-b-0 border-r-0 border-l-0 border-2 lg:h-[3rem] lg:w-[6.5rem] md:h-[2.5rem] md:w-[5rem] max-md:h-[2.5rem] max-md:w-[5rem] max-sm:h-[2rem] max-sm:w-[3.5rem] ${
                   mode ? "border-white" : "border-gray-200"
                 } transition-all duration-200 flex justify-center items-center`}
               >
@@ -693,15 +710,17 @@ const Home = ({ Header }) => {
                   } transition-all duration-200 `}
                 ></div>
               </div>
+              {/* text */}
               <div
                 className={`aspira ${
                   mode ? "text-white" : "text-gray-800"
-                } transition-all duration-200  text-8xl`}
+                } transition-all duration-200  lg:text-8xl md:text-7xl max-md:text-7xl max-sm:text-4xl`}
               >
                 elevate
               </div>
+              {/* bordered rounded div */}
               <div
-                className={`rounded-[5rem] border-4 h-[3rem] flex justify-center items-center w-[9rem] ${
+                className={`rounded-[5rem] border-4 lg:h-[3rem] md:h-[2.5rem] max-md:h-[2.5rem] max-sm:h-[2rem] flex justify-center items-center lg:w-[9rem] md:w-[7rem] max-md:w-[7rem] max-sm:w-[5.5rem] ${
                   mode ? "border-white" : "border-gray-500"
                 } transition-all duration-200  bg-[#0B0D10] z-30 relative`}
               >
@@ -716,44 +735,51 @@ const Home = ({ Header }) => {
             </div>
             {/* row 3 */}
             <div className={`flex relative z-20 pointer-events-none`}>
+              {/* bordered line div */}
               <div
-                className={`w-[10rem] relative h-[6.5rem] border-4 border-dashed rounded-tl-none rounded-br-none border-t-0 border-r-0 ${
+                className={`lg:w-[10rem] md:w-[8rem] max-md:w-[8rem] max-sm:w-[3rem] relative lg:h-[6.5rem] md:h-[5rem] max-md:h-[5rem] max-sm:h-[4.5rem] border-4 border-dashed rounded-tl-none rounded-br-none border-t-0 border-r-0 ${
                   mode ? "border-white" : "border-gray-800"
-                } transition-all duration-200 rounded-[2rem] -top-1/2 left-[6rem] mr-10`}
+                } transition-all duration-200 rounded-[2rem] -top-1/2 max-sm:-top-[46%] lg:left-[6rem] md:left-[4.8rem] max-md:left-[4.8rem] max-sm:left-[1.9rem] mr-10 max-sm:mr-5 `}
               ></div>
-              <div className={`relative w-[5rem] mr-14`}>
+              {/* circles */}
+              <div className={`relative w-[5rem]  lg:mr-14 md:mr-8 max-md:mr-8 max-sm:mr-6`}>
+                {/* cicle1 */}
                 <div
-                  className={`rounded-full w-[5.5rem] h-[5.5rem] flex justify-center items-center row3Gradient`}
+                  className={`rounded-full lg:w-[5.5rem] md:w-[4.5rem] max-md:w-[4.5rem] max-sm:w-[3.5rem] lg:h-[5.5rem] md:h-[4.5rem] max-md:h-[4.5rem] max-sm:h-[3.5rem] flex justify-center items-center row3Gradient`}
                 ></div>
+                {/* circle2 */}
                 <div
-                  className={`rounded-full w-[5.5rem] h-[5.5rem] flex justify-center items-center bg-blue-300 absolute top-0 left-1/2 shadow-2xl`}
+                  className={`rounded-full lg:w-[5.5rem] md:w-[4.5rem] max-md:w-[4.5rem] max-sm:w-[3.5rem] max-sm:h-[3.5rem] lg:h-[5.5rem] md:h-[4.5rem] max-md:h-[4.5rem] flex justify-center items-center bg-blue-300 absolute top-0 left-1/2 shadow-2xl`}
                 ></div>
+                {/* transaparent div */}
                 <div
-                  className={`glass top-1/2 absolute left-1/2 -translate-x-1/4 -translate-y-[60%] rounded-[5rem] border-b-0 border-r-0 border-l-0 border-2 h-[3rem] w-[5.5rem] border-white flex justify-end items-center `}
+                  className={`glass top-1/2 max-sm:top-[40%] absolute left-1/2 max-sm:left-[40%] -translate-x-1/4 -translate-y-[60%] rounded-[5rem] border-b-0 border-r-0 border-l-0 border-2 lg:h-[3rem] md:h-[2.5rem] max-md:h-[2.5rem] max-sm:h-[2rem] lg:w-[5.5rem] md:w-[5rem] max-md:w-[5rem] max-sm:w-[4rem]  border-white flex justify-end items-center `}
                 >
                   <div
-                    className={`w-[60%] h-[2rem] rounded-3xl  bg-white mr-2 shadow-xl flex justify-center items-center text-2xl aspira font-bold`}
+                    className={`w-[60%] h-[2rem] max-sm:h-[1.5rem] rounded-3xl  bg-white mr-2 shadow-xl flex justify-center items-center lg:text-2xl md:text-xl max-md:text-xl max-sm:text-sm aspira font-bold`}
                   >
                     <p>×</p>{" "}
                   </div>
                 </div>
               </div>
+              {/* text */}
               <div
                 className={`aspira ${
                   mode ? "text-white" : "text-gray-800"
-                } transition-all duration-200  text-8xl ml-2`}
+                } transition-all duration-200  lg:text-8xl md:text-7xl max-md:text-7xl max-sm:text-4xl ml-2 max-sm:ml-0`}
               >
                 together
               </div>
             </div>
             {/* row 4 */}
+            {/* text row */}
             <div
               className={`flex flex-col justify-center items-center my-6 pointer-events-none relative z-20`}
             >
               <p
                 className={`${
                   mode ? "text-gray-500" : "text-gray-400"
-                } transition-all duration-200  text-sm `}
+                } transition-all duration-200  lg:text-sm md:text-xs max-md:text-xs max-sm:mx-10 max-sm:text-center`}
               >
                 Welcome to TechMingle where people connect and innovation
                 thrives.
@@ -761,29 +787,30 @@ const Home = ({ Header }) => {
               <p
                 className={`${
                   mode ? "text-gray-500" : "text-gray-400"
-                } transition-all duration-200  text-sm `}
+                } transition-all duration-200  lg:text-sm md:text-xs max-md:text-xs max-sm:mx-10 max-sm:text-center`}
               >
                 Dive into a vibrant community and share groundbreaking ideas
               </p>
+              {/* sparkles */}
               <img
                 src={sparkleGreen}
                 alt=""
-                className={` absolute scale-[0.2] -left-[15rem] -top-[9rem]`}
+                className={` absolute scale-[0.2] max-sm:scale-[0.1] lg:-left-[15rem] md:-left-[13rem] max-md:-left-[13rem] lg:-top-[9rem] md:-top-[7rem] max-md:-top-[7rem] max-sm:-left-[6.5rem] max-sm:-top-[9rem]`}
               />
               <img
                 src={sparkleBlue}
                 alt=""
-                className={` absolute scale-[0.2] -right-[15rem] -top-[9rem]`}
+                className={` absolute scale-[0.2] max-sm:scale-[0.1]  lg:-right-[15rem] md:-right-[13rem] max-md:-right:[13rem] lg:-top-[9rem] md:-top-[7rem] max-md:-top-[7rem] max-sm:-right-[6.5rem] max-sm:-top-[9rem]`}
               />
               <img
                 src={sparkleYellow}
                 alt=""
-                className={` absolute scale-[0.13] -left-[10rem] -top-[3rem]`}
+                className={` absolute scale-[0.13] max-sm:scale-[0.09]  lg:-left-[10rem] md:-left-[7rem] max-md:-left-[7rem]  lg:-top-[3rem] md:-top-[3rem] max-md:-top-[3rem] max-sm:-left-[4.5rem]`}
               />
               <img
                 src={sparklePink}
                 alt=""
-                className={` absolute scale-[0.13] -right-[10rem] -top-[3rem]`}
+                className={` absolute scale-[0.13] max-sm:scale-[0.09] lg:-right-[10rem] md:-right-[7rem] max-md:-right-[7rem]  lg:-top-[3rem] md:-top-[3rem] max-md:-top-[3rem] max-sm:-right-[4.5rem]`}
               />
             </div>
             {/* row 5 */}
@@ -791,7 +818,7 @@ const Home = ({ Header }) => {
               onClick={() => {
                 navigate("/signup");
               }}
-              className={`cursor-pointer z-20    text-[10px] rounded-3xl px-5 py-3 ${
+              className={`cursor-pointer z-20   lg:text-[10px] md:text-[9px] max-md:text-[9px] rounded-3xl lg:px-5 lg:py-3 md:px-4 md:py-3 max-md:px-4 max-md:py-3 ${
                 mode
                   ? "bg-white hover:bg-gray-200 text-black"
                   : "bg-black hover:bg-gray-800 text-white"
@@ -800,33 +827,33 @@ const Home = ({ Header }) => {
               Try it for free
             </div>
             {/* row 6 Sponsor */}
-            <div className="flex gap-5 absolute bottom-10 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center">
+            <div className={`flex lg:gap-5 md:gap-4 max-md:gap-4 absolute lg:bottom-10 md:bottom-14 max-md:bottom-14 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center max-sm:scale-[0.8]`}>
               <img
                 src={google}
                 className={`invert-[20%] ${
                   mode ? "opacity-100" : "opacity-30"
-                } transition-all duration-200 h-[2.75rem]`}
+                } transition-all duration-200 lg:h-[2.75rem] md:h-[2.5rem] max-md:h-[2.5rem]`}
                 alt=""
               />
               <img
                 src={netflix}
                 className={`invert-[20%] ${
                   mode ? "opacity-100" : "opacity-30"
-                } transition-all duration-200 h-[2.5rem]`}
+                } transition-all duration-200 lg:h-[2.5rem] md:h-[2.3rem] max-md:h-[2.3rem]`}
                 alt=""
               />
               <img
                 src={facebook}
                 className={`invert-[20%] ${
                   mode ? "opacity-100" : "opacity-30"
-                } transition-all duration-200 h-[2.3rem] my-2`}
+                } transition-all duration-200 lg:h-[2.3rem] md:h-[2rem] max-md:h-[2rem] lg:my-2 md:my-1 max-md:my-1`}
                 alt=""
               />
               <img
                 src={spotify}
                 className={`invert-[20%] ${
                   mode ? "opacity-100" : "opacity-30"
-                } transition-all duration-200 h-[1.5rem]`}
+                } transition-all duration-200 lg:h-[1.5rem] md:h-[1.2rem] max-md:h-[1.3rem]`}
                 alt=""
               />
             </div>
@@ -2374,7 +2401,7 @@ const FooterCanvas = () => {
   };
 
   useEffect(() => {
-    pillWorld();
+    // pillWorld();
   }, []);
   return (
     <>
