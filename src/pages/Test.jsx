@@ -1,62 +1,26 @@
 // This page is created to test individual components
-import { useEffect, useState } from "react";
-import FlashMsg from "../components/FlashMsg/FlashMsg";
-import {
-  FLASH_ERROR,
-  FLASH_PENDING,
-  FLASH_SUCCESS,
-  FLASH_WARNING,
-} from "../constants/FlashMsgConstants.js";
-import { AnimatePresence } from "framer-motion";
+import { useState } from "react";
+import DropDown from "../components/DropDown";
 
 const Test = () => {
-  const [flashVisibility, setFlashVisibility] = useState(true);
-  const FLASH_STATE = {
-    flashVisibility,
-    setFlashVisibility,
-  };
-  const [settlePromise, setSettlePromise] = useState(false);
-  useEffect(() => {
-    setTimeout(() => {
-      setSettlePromise(true);
-    }, 5000);
-  }, []);
+  const [podcastVisibility, setPodcastVisibility] = useState("Public");
+  const [language,setLanguage] = useState("English");
+  const languages = ["Hindi","English","Marathi","Spanish"];
   return (
     <>
-      <AnimatePresence>
-        {flashVisibility && (
-          <FlashMsg
-            key={"FlasMsg"}
-            FLASH_STATE={FLASH_STATE}
-            FLASH_TYPE={FLASH_ERROR}
-            FLASH_TITLE={"Payment Done"}
-            FLASH_MESSAGE={
-              "Podcast transaction is successfull ,press 'Ok' to continue"
-            }
-            ONCLICK={() => {
-              console.log("hello");
-            }}
-            enableCancel={true}
-            CANCELCLICK={() => {
-              console.log("cancel");
-            }}
-            enablePromiseFlash={true}
-            promiseSettled={settlePromise}
-            postPromiseCancelClick={() => {
-              console.log("Post Promise cancel");
-            }}
-            postPromiseOnClick={() => {
-              console.log("Post Promise ok");
-            }}
-            postPromiseFlashType={FLASH_SUCCESS}
-            postPromiseEnableCancel={false}
-            postPromiseTitle={"Update Successfull"}
-            postPromiseMessage={
-              "Podcast transaction is successfull ,press 'Ok' to continue"
-            }
-          />
-        )}
-      </AnimatePresence>
+      <DropDown
+        title={"Visibility"}
+        value={podcastVisibility}
+        setValue={setPodcastVisibility}
+        list={["Private", "Public"]}
+      ></DropDown>
+
+      <DropDown
+        title={"Language"}
+        value={language}
+        setValue={setLanguage}
+        list={languages}
+      ></DropDown>
     </>
   );
 };
