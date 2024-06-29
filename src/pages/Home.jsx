@@ -681,7 +681,7 @@ const Home = ({ Header }) => {
               </div>
               {/* bordered right line */}
               <div
-                className={`absolute rounded-[2rem] lg:-right-[4rem] md:-right-[4.5rem] max-md:-right-[4.5rem] max-sm:-right-[3rem] top-1/2 max-sm:top-1/3  border-l-0 md:h-[4.6rem]  lg:h-[6rem] max-md:h-[4.6rem] max-sm:h-[4rem] border-4 w-[10rem] max-sm:w-[6rem] z-10 ${
+                className={`absolute rounded-[2rem] max-sm:rounded-[1rem] lg:-right-[4rem] md:-right-[4.5rem] max-md:-right-[4.5rem] max-sm:-right-[2.5rem] top-1/2 max-sm:top-1/3  border-l-0 md:h-[4.6rem]  lg:h-[6rem] max-md:h-[4.6rem] max-sm:h-[4rem] border-4 w-[10rem] max-sm:w-[4rem] z-10 ${
                   mode ? "border-white" : "border-gray-800"
                 } transition-all duration-200 border-dashed `}
               ></div>
