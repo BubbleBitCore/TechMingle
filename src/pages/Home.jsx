@@ -342,18 +342,18 @@ const Home = ({ Header }) => {
     });
 
     const deviceOrient = (event) => {
-      if (event.beta || event.gamma) {
+      if (event.accelerationIncludingGravity) {
         console.log(event.beta);
         console.log(event.gamma);
-        const { beta, gamma } = event;
-        engineRef.current.gravity.x = -beta / 180;
-        engineRef.current.gravity.y = -gamma / 180;
+        const { x, y } = event.accelerationIncludingGravity;
+        engineRef.current.gravity.x = x;
+        engineRef.current.gravity.y = y;
       }
     };
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("keydown", handleKeyDowns);
-    window.addEventListener("deviceorientation", deviceOrient);
+    window.addEventListener("devicemotion", deviceOrient);
 
     return () => {
       window.removeEventListener("resize", handleResize);
