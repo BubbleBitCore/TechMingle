@@ -341,8 +341,19 @@ const Home = ({ Header }) => {
       );
     });
 
+    const deviceOrient = (event) => {
+      if (event.accelerationIncludingGravity.x || event.accelerationIncludingGravity.y) {
+        console.log(event.accelerationIncludingGravity.x);
+        console.log(event.accelerationIncludingGravity.y);
+        const { x, y } = event.accelerationIncludingGravity;
+        engineRef.current.gravity.x = -x/10;
+        engineRef.current.gravity.y = y/10;
+      }
+    };
+
     window.addEventListener("resize", handleResize);
     window.addEventListener("keydown", handleKeyDowns);
+    window.addEventListener("devicemotion", deviceOrient);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -967,7 +978,9 @@ const Home = ({ Header }) => {
                   D{/* heart */}
                   <span
                     className={`absolute  ${
-                      screenSize === mobileScreen ? "heartTextMobile" : "heartText"
+                      screenSize === mobileScreen
+                        ? "heartTextMobile"
+                        : "heartText"
                     }  bottom-[30%] -right-3  rotate-[6deg] `}
                   >
                     <img
