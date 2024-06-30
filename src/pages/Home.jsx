@@ -964,7 +964,7 @@ const Home = ({ Header }) => {
           </div>
           {/* section 2 */}
           <div
-            className={`select-none  overflow-hidden w-full h-full max-sm:h-auto flex flex-col mb-16 `}
+            className={`select-none  overflow-hidden w-full h-full max-sm:h-auto flex flex-col mb-16 max-sm:mb-0 `}
           >
             {/* part1 */}
             <div
@@ -1052,11 +1052,11 @@ const Home = ({ Header }) => {
             </div>
             {/* part3 */}
             <div
-              className={`flex max-sm:flex-col w-full  h-[35rem] justify-between max-sm:justify-normal items-center mt-12 max-sm:relative`}
+              className={`flex max-sm:flex-col w-full  h-[35rem] max-sm:h-[30rem] justify-between max-sm:justify-normal items-center mt-12 max-sm:relative`}
             >
               {/* p-1 */}
               <div
-                className={`relative flex-shrink-0 max-sm:absolute max-sm:-right-32 max-sm:bottom-52 max-sm:h-[10rem] max-sm:scale-[0.35] w-[25rem] max-sm:order-3`}
+                className={`relative flex-shrink-0 max-sm:absolute max-sm:-right-32 max-sm:bottom-36 max-sm:h-[10rem] max-sm:scale-[0.35] w-[25rem] max-sm:order-3`}
               >
                 {/* ribbon1 */}
                 <div
@@ -1164,12 +1164,12 @@ const Home = ({ Header }) => {
           </div>
           {/* section 3 */}
           <div
-            className={`w-full h-full flex flex-col pt-10  overflow-hidden px-10 `}
+            className={`w-full h-full max-sm:h-auto flex flex-col pt-10 max-sm:pt-7  overflow-hidden px-10 max-sm:px-5`}
           >
             {/* part 1 */}
-            <div className={`flex gap-2 justify-between w-full h-[60%] `}>
+            <div className={`flex max-sm:flex-col-reverse gap-2 justify-between max-sm:justify-normal w-full h-[60%] max-sm:h-auto `}>
               {/* p-1 */}
-              <div className={`flex  h-full w-[55%]   gap-7`}>
+              <div className={`flex  h-full w-[55%] max-sm:w-full  gap-7 max-sm:gap-3 `}>
                 {/* img */}
                 <div
                   className={`h-full w-[80%] rounded-3xl flex-shrink-0 overflow-hidden relative`}
@@ -1203,38 +1203,38 @@ const Home = ({ Header }) => {
                   onClick={() => {
                     navigate("/signup");
                   }}
-                  className={`h-[7rem] cursor-pointer flex flex-col gap-2 w-[5rem] ${
+                  className={`h-[7rem] cursor-pointer flex flex-col gap-2 w-[5rem]   ${
                     mode ? "bg-[#282828]" : "bg-[#4a4a4a]"
                   } transition-all duration-200  rounded-3xl justify-center items-center`}
                 >
                   <div
-                    className={`w-[3.5rem] h-[3.5rem] flex justify-center items-center rounded-full bg-purple-300`}
+                    className={`w-[3.5rem] max-sm:w-[2rem] h-[3.5rem] max-sm:h-[2rem] flex justify-center items-center rounded-full bg-purple-300`}
                   >
                     <div
-                      className={`flex justify-center items-center w-[2.5rem] h-[2.5rem] rounded-xl bg-purple-100`}
+                      className={`flex justify-center items-center w-[2.5rem] max-sm:w-[1.5rem] h-[2.5rem] max-sm:h-[1.5rem] rounded-xl bg-purple-100`}
                     >
                       <div
-                        className={`flex justify-center items-center rotate-45 w-[1.85rem] h-[1.85rem] rounded-lg bg-purple-300`}
+                        className={`flex justify-center items-center rotate-45 w-[1.85rem] max-sm:w-[0.5rem] h-[1.85rem] max-sm:h-[0.5rem] rounded-lg bg-purple-300`}
                       >
                         <div
-                          className={`flex justify-center items-center rotate-45 w-[1.65rem] h-[1.65rem] rounded-lg bg-purple-100`}
+                          className={`flex justify-center items-center rotate-45 w-[1.65rem] max-sm:w-[0.25rem] h-[1.65rem] max-sm:h-[.25rem] rounded-lg bg-purple-100`}
                         ></div>
                       </div>
                     </div>
                   </div>
-                  <div className={`text-[10px] text-center text-gray-300`}>
+                  <div className={`text-[10px] max-sm:text-[8px] text-center text-gray-300`}>
                     Sign Up <br /> Free
                   </div>
                 </div>
               </div>
               {/* p-2 */}
-              <div className={`flex flex-col h-full w-[40%]  `}>
+              <div className={`flex flex-col h-full w-[40%] max-sm:w-full max-sm:h-auto `}>
                 {/* p1 */}
-                <div className={`flex w-full justify-end gap-6`}>
+                <div className={`flex w-full justify-end max-sm:justify-between gap-6 max-sm:mb-0`}>
                   <p
                     className={`text-xs ${
                       mode ? "text-white" : "text-gray-800"
-                    } transition-all duration-200 text-end`}
+                    } transition-all duration-200 text-end max-sm:text-left`}
                   >
                     Collaborate in real-time <br />
                     and share ideas
@@ -1283,9 +1283,9 @@ const Home = ({ Header }) => {
                   </div>
                 </div>
                 {/* p2 */}
-                <div className={`flex w-full flex-col`}>
+                <div className={`flex w-full flex-col max-sm:scale-[0.8] max-md:scale-[0.6] md:scale-75 lg:scale-100`}>
                   {/* bubble1 */}
-                  <div className={`w-full flex justify-end mt-10`}>
+                  <div className={`w-full flex justify-end mt-10 max-sm:mt-5 max-sm:scale-90`}>
                     <div className="speechbox relative">
                       <div
                         className={`speechboxSpike  flex-col  w-[20rem] border-2 bg-purple-300 rounded-[4rem]`}
@@ -1340,7 +1340,7 @@ const Home = ({ Header }) => {
                     </div>
                   </div>
                   {/* bubble2 */}
-                  <div className={`w-full flex rotateY justify-end mt-10`}>
+                  <div className={`w-full flex rotateY justify-end mt-10 `}>
                     <div className="speechbox relative">
                       <div
                         className={`speechboxSpike2  flex-col  w-[13rem] border-none bg-green-200 rounded-[4rem]`}
@@ -1382,7 +1382,7 @@ const Home = ({ Header }) => {
                   </div>
                 </div>
                 {/* p-3 */}
-                <div className={`flex w-full justify-end `}>
+                <div className={`flex w-full justify-end max-sm:mb-5`}>
                   <p
                     className={`text-xs ${
                       mode ? "text-white" : "text-gray-800"
@@ -1395,18 +1395,18 @@ const Home = ({ Header }) => {
               </div>
             </div>
             {/* part 2 */}
-            <div className={`flex flex-col w-full h-[40%] mt-16`}>
+            <div className={`flex flex-col w-full h-[40%] max-sm:h-auto mt-16 max-sm:mt-10`}>
               <p
                 className={`text-xs ${
                   mode ? "text-white" : "text-gray-800"
-                } transition-all duration-200 `}
+                } transition-all duration-200 max-sm:order-1`}
               >
                 Harmonize Your Potential
               </p>
               {/* text-1 */}
-              <div className={`flex gap-1 mt-2 justify-between items-center`}>
+              <div className={` max-sm:order-3 flex gap-1 max-sm:mt-2 justify-between items-center`}>
                 <div
-                  className={`text-6xl font-bold uppercase ${
+                  className={`xl:text-6xl lg:text-5xl md:text-[3vw] max-md:text-[2vw] max-sm:hidden font-bold uppercase ${
                     mode ? "text-white" : "text-gray-800"
                   } transition-all duration-200 monsterrat`}
                 >
@@ -1416,22 +1416,23 @@ const Home = ({ Header }) => {
                   >
                     the
                   </span>
-                  wave <span className={`inter text-7xl`}>:</span>{" "}
+                  wave <span className={`inter  lg:text-7xl md:text-[5vw]`}>:</span>{" "}
                   <span className={``}>Trending</span>
                 </div>
+                {/* btns */}
                 <div
                   onClick={() => {
                     navigate("/login");
                   }}
-                  className={`flex gap-2 cursor-pointer group`}
+                  className={`flex gap-2 cursor-pointer group max-sm:w-full`}
                 >
                   <div
-                    className={`w-[3rem] h-[3rem] bg-white rounded-full flex justify-center items-center`}
+                    className={`w-[3rem] h-[3rem] bg-white rounded-full flex justify-center items-center max-sm:flex-shrink-0`}
                   >
                     <i className="ri-arrow-right-up-line text-4xl group-hover:scale-90  transition-all"></i>
                   </div>
                   <div
-                    className={`px-4 py-1 h-[3rem] ${
+                    className={`px-4 py-1 h-[3rem] max-sm:w-full ${
                       mode
                         ? "bg-white hover:bg-gray-200  text-black"
                         : "bg-black hover:bg-gray-800 text-white "
@@ -1443,9 +1444,9 @@ const Home = ({ Header }) => {
                 </div>
               </div>
               {/* text-2 */}
-              <div className={`flex gap-1 mt-5  items-center`}>
+              <div className={`max-sm:order-2 flex max-sm:flex-wrap  gap-1 mt-5 max-sm:mt-1 max-sm:mb-2  items-center`}>
                 <div
-                  className={`text-6xl font-bold uppercase ${
+                  className={`xl:text-6xl lg:text-5xl md:text-[4vw] max-md:text-[3vw] max-sm:text-3xl font-bold uppercase ${
                     mode ? "text-white" : " text-black "
                   } transition-all duration-200 monsterrat`}
                 >
@@ -1476,13 +1477,13 @@ const Home = ({ Header }) => {
                   </div>
                 </div>
                 <div
-                  className={`text-6xl font-bold uppercase ${
+                  className={`xl:text-6xl lg:text-5xl md:text-[4vw] max-md:text-[3vw] max-sm:text-5xl font-bold uppercase ${
                     mode ? "text-white" : " text-black "
                   } transition-all duration-200 monsterrat`}
                 >
                   Better{" "}
                   <span
-                    className={`text-purple-400 font-bold uppercase  monsterrat`}
+                    className={`text-purple-400 xl:text-6xl lg:text-4xl max-sm:text-4xl font-bold uppercase  monsterrat`}
                   >
                     connections
                   </span>
