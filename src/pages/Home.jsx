@@ -445,7 +445,7 @@ const Home = ({ Header }) => {
           position:absolute;
           top:50%;
           left:50%;
-          transform:translate(-50%,-80%);
+          transform:translate(-50%,-50%);
           color:#FF1694;
           font-size:0.8rem;
           font-family:konya;
@@ -1099,7 +1099,7 @@ const Home = ({ Header }) => {
                 <p
                   className={`${
                     mode ? "text-white" : "text-black"
-                  } transition-all duration-200  font-bold text-5xl xl:pl-[5rem] md:pl-[4rem] max-md:pl-[3rem] max-sm:pl-[2rem] relative z-30`}
+                  } transition-all duration-200  font-bold text-5xl max-sm:text-[2.5rem] xl:pl-[5rem] md:pl-[4rem] max-md:pl-[3rem] max-sm:pl-[2rem] relative z-30`}
                 >
                   Books & <br />
                   Podcasts <br />
