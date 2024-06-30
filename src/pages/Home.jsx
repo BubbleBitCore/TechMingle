@@ -670,11 +670,11 @@ const Home = ({ Header }) => {
           {/* section1 */}
           <div
             ref={s1ContainerRef}
-            className={`select-none w-full h-full  flex flex-col relative justify-center items-center snap-center`}
+            className={`select-none w-full h-full   flex flex-col relative justify-center items-center snap-center`}
           >
             {/* row 1 */}
             <div
-              className={`flex md:gap-3 max-md:gap-2 relative  z-20 pointer-events-none`}
+              className={`flex md:gap-3 max-md:gap-2 relative max-sm:mt-24 z-20 pointer-events-none`}
             >
               {/* text */}
               <div
@@ -854,7 +854,7 @@ const Home = ({ Header }) => {
               <p
                 className={`${
                   mode ? "text-gray-500" : "text-gray-400"
-                } transition-all duration-200  lg:text-sm md:text-xs max-md:text-xs max-sm:mx-10 max-sm:text-center`}
+                } transition-all duration-200  lg:text-sm md:text-xs max-md:text-xs max-sm:mx-10 max-sm:text-center max-sm:hidden`}
               >
                 Dive into a vibrant community and share groundbreaking ideas
               </p>
@@ -895,7 +895,7 @@ const Home = ({ Header }) => {
             </div>
             {/* row 6 Sponsor */}
             <div
-              className={`flex lg:gap-5 md:gap-4 max-md:gap-4 absolute lg:bottom-10 md:bottom-14 max-md:bottom-14 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center max-sm:scale-[0.8]`}
+              className={`flex lg:gap-5 md:gap-4 max-md:gap-4 absolute lg:bottom-10 md:bottom-14 max-md:bottom-14 max-sm:bottom-5 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center max-sm:scale-[0.8]`}
             >
               <img
                 src={google}
