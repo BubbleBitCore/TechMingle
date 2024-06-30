@@ -320,10 +320,14 @@ const Home = ({ Header }) => {
 
     // handling scrollbar
     const removeScrollBar = () => {
-      mainContainerRef.current.classList.add("hideScrollBar");
+      if (mainContainerRef.current) {
+        mainContainerRef.current.classList.add("hideScrollBar");
+      }
     };
     const addScrollBar = () => {
-      mainContainerRef.current.classList.remove("hideScrollBar");
+      if (mainContainerRef.current) {
+        mainContainerRef.current.classList.remove("hideScrollBar");
+      }
     };
     mainContainerRef.current.addEventListener("scroll", () => {
       clearTimeout(scrollTimer);
@@ -445,11 +449,14 @@ const Home = ({ Header }) => {
           position:absolute;
           top:50%;
           left:50%;
-          transform:translate(-50%,-50%);
+          transform:translate(-50%,-80%);
           color:#FF1694;
           font-size:0.8rem;
           font-family:konya;
 
+        }
+        .heartTextMobile{
+          transform:translate(-50%,-50%);
         }
         /* speechbox */
         .speechboxSpike {
@@ -952,7 +959,9 @@ const Home = ({ Header }) => {
                 <span className={`relative `}>
                   D{/* heart */}
                   <span
-                    className={`absolute heartText  bottom-[30%] -right-3  rotate-[6deg] `}
+                    className={`absolute heartText ${
+                      screenSize === mobileScreen ? "heartTextMobile" : ""
+                    }  bottom-[30%] -right-3  rotate-[6deg] `}
                   >
                     <img
                       src={heart}
@@ -987,7 +996,9 @@ const Home = ({ Header }) => {
                   </p>
                 </div>
               </div>
-              <div className={`flex md:gap-14 max-md:justify-between max-sm:justify-between max-md:mt-3 max-sm:mt-3 `}>
+              <div
+                className={`flex md:gap-14 max-md:justify-between max-sm:justify-between max-md:mt-3 max-sm:mt-3 `}
+              >
                 <div className={`flex flex-col`}>
                   <p className={`text-sm text-[#e86c5c] font-bold  monsterrat`}>
                     95%
@@ -1019,7 +1030,9 @@ const Home = ({ Header }) => {
               className={`flex max-sm:flex-col w-full  h-[35rem] justify-between max-sm:justify-normal items-center mt-12 max-sm:relative`}
             >
               {/* p-1 */}
-              <div className={`relative flex-shrink-0 max-sm:absolute max-sm:-right-32 max-sm:bottom-52 max-sm:h-[10rem] max-sm:scale-[0.35] w-[25rem] max-sm:order-3`}>
+              <div
+                className={`relative flex-shrink-0 max-sm:absolute max-sm:-right-32 max-sm:bottom-52 max-sm:h-[10rem] max-sm:scale-[0.35] w-[25rem] max-sm:order-3`}
+              >
                 {/* ribbon1 */}
                 <div
                   className={`w-[23rem] h-[7rem] overflow-hidden rounded-lg bg-[#56A681] flex justify-between -rotate-90 absolute -bottom-[3rem] -left-[5rem] max-sm:-left-[2rem]`}
@@ -1080,13 +1093,19 @@ const Home = ({ Header }) => {
                 className={`w-full h-full max-sm:h-[14rem] flex justify-center max-sm:order-1 items-center relative `}
               >
                 {/* man img */}
-                <div className={`xl:h-[38rem] md:h-[40rem] absolute md:-top-[14rem] max-sm:-top-[6rem] max-sm:left-[1rem] z-20 lg:block md:hidden`}>
-                  <img src={home3DModel} alt="" className={`w-full h-full aspect-auto object-cover`} />
+                <div
+                  className={`xl:h-[38rem] md:h-[40rem] absolute md:-top-[14rem] max-sm:-top-[6rem] max-sm:left-[1rem] z-20 lg:block md:hidden`}
+                >
+                  <img
+                    src={home3DModel}
+                    alt=""
+                    className={`w-full h-full aspect-auto object-cover`}
+                  />
                 </div>
                 <div
-                  className={`flex absolute items-end w-fit z-10  left-[22rem] bottom-[1rem] konya ${
+                  className={`lg:flex absolute items-end w-fit z-10  left-[22rem] bottom-[1rem] konya ${
                     mode ? "text-pink-300" : "text-pink-500"
-                  } transition-all duration-200  max-sm:bottom-[3rem] max-sm:left-[1rem] max-md:hidden`}
+                  } transition-all duration-200   max-sm:bottom-[3rem] max-sm:left-[1rem] md:hidden max-md:hidden pointer-events-none`}
                 >
                   <p className={`konya text-[6rem] max-sm:text-[2rem]`}>W</p>
                   <p className={`konya text-5xl max-sm:text-[2rem]`}>elcome</p>
@@ -1600,9 +1619,7 @@ const Home = ({ Header }) => {
             </div>
           </div>
           {/* section 5 */}
-          <div
-            className={`h-full w-full  overflow-hidden pt-[1rem] `}
-          >
+          <div className={`h-full w-full  overflow-hidden pt-[1rem] `}>
             <div className={`w-full h-full flex flex-col justify-between`}>
               <div className={`select-none flex flex-col px-[10.5rem]`}>
                 {/* title */}
