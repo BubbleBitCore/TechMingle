@@ -455,7 +455,14 @@ const Home = ({ Header }) => {
           font-family:konya;
 
         }
-        .heartTextMobile{
+        .heartTextMobile::after{
+        content:"lovely";
+          position:absolute;
+          top:50%;
+          left:50%;
+          color:#FF1694;
+          font-size:0.8rem;
+          font-family:konya;
           transform:translate(-50%,-50%);
         }
         /* speechbox */
@@ -959,8 +966,8 @@ const Home = ({ Header }) => {
                 <span className={`relative `}>
                   D{/* heart */}
                   <span
-                    className={`absolute heartText ${
-                      screenSize === mobileScreen ? "heartTextMobile" : ""
+                    className={`absolute  ${
+                      screenSize === mobileScreen ? "heartTextMobile" : "heartText"
                     }  bottom-[30%] -right-3  rotate-[6deg] `}
                   >
                     <img
