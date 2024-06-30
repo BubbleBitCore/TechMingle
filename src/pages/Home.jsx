@@ -342,12 +342,15 @@ const Home = ({ Header }) => {
     });
 
     const deviceOrient = (event) => {
-      if (event.accelerationIncludingGravity.x || event.accelerationIncludingGravity.y) {
+      if (
+        event.accelerationIncludingGravity.x ||
+        event.accelerationIncludingGravity.y
+      ) {
         console.log(event.accelerationIncludingGravity.x);
         console.log(event.accelerationIncludingGravity.y);
         const { x, y } = event.accelerationIncludingGravity;
-        engineRef.current.gravity.x = -x/10;
-        engineRef.current.gravity.y = y/10;
+        engineRef.current.gravity.x = -x / 10;
+        engineRef.current.gravity.y = y / 10;
       }
     };
 
@@ -358,6 +361,7 @@ const Home = ({ Header }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("keydown", handleKeyDowns);
+      window.removeEventListener("devicemotion", deviceOrient);
       if (renderRef.current) {
         Matter.Render.stop(renderRef.current);
         Matter.World.clear(engineRef.current.world);
@@ -392,7 +396,8 @@ const Home = ({ Header }) => {
         -1 * rotated + 75
       }deg)`;
       setRotated((rotated -= 75));
-      setActiveCarouselImage(activeCarouselImage - 1);
+
+      setActiveCarouselImage((prev) => prev - 1);
     }
   };
   const nextButton = () => {
@@ -404,7 +409,7 @@ const Home = ({ Header }) => {
       setTranslated((translated += 31));
       circularTextRef.current.style.transform = `rotate(-${rotated + 75}deg)`;
       setRotated((rotated += 75));
-      setActiveCarouselImage(activeCarouselImage + 1);
+      setActiveCarouselImage((prev) => prev + 1);
     }
   };
   // circular text
