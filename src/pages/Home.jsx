@@ -342,7 +342,7 @@ const Home = ({ Header }) => {
     });
 
     const deviceOrient = (event) => {
-      if (event) {
+      if (event.beta || event.gamma) {
         console.log(event.beta);
         console.log(event.gamma);
         const { beta, gamma } = event;
