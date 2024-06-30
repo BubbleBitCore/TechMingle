@@ -347,7 +347,7 @@ const Home = ({ Header }) => {
         console.log(event.gamma);
         const { beta, gamma } = event;
         engineRef.current.gravity.x = -beta / 90;
-        engineRef.current.gravity.y = gamma / 90;
+        engineRef.current.gravity.y = -gamma / 90;
       }
     };
 
