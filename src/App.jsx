@@ -6,6 +6,7 @@ import "react-profile/themes/dark.min.css";
 import ReactProfile from "react-profile";
 import {
   changeOnlineStatus,
+  changeScreenSize,
   changeSnackBarState,
   setOpenEditor,
   setProfileImage,
@@ -13,6 +14,7 @@ import {
 } from "./slices/commonSlice";
 import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import { checkScreenSize } from "./constants/screenSizeConstants";
 
 const App = () => {
   const tempProfileImage = useSelector(
@@ -20,6 +22,7 @@ const App = () => {
   );
   const openEditor = useSelector((state) => state.common.openEditor);
   const onlineStatus = useSelector((state) => state.common.onlineStatus);
+  const screenSize = useSelector((state) => state.common.screenSize);
   const url = window.location.href;
   const dispatch = useDispatch();
   // Offline and online Navigator
@@ -47,6 +50,11 @@ const App = () => {
       }
     };
 
+    // handle screenSize redux global State
+    window.addEventListener("resize", () => {
+      dispatch(changeScreenSize(checkScreenSize()));
+    });
+
     window.addEventListener("online", handleOnlineStatus);
     window.addEventListener("offline", handleOnlineStatus);
 
@@ -56,11 +64,11 @@ const App = () => {
     };
   }, []);
 
-  useEffect(()=>{
-    if(openEditor){
-      dispatch(setOpenEditor(false))
+  useEffect(() => {
+    if (openEditor) {
+      dispatch(setOpenEditor(false));
     }
-  },[url])
+  }, [url]);
   return (
     <>
       <AppWrapper key={12} />

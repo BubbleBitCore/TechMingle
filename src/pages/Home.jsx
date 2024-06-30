@@ -33,6 +33,7 @@ import facemodel from "../assets/images/facemodel.png";
 import Matter from "matter-js";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "../utils/debounce.js";
+import { mobileScreen } from "../constants/screenSizeConstants.js";
 
 const Home = ({ Header }) => {
   const navigate = useNavigate();
@@ -41,7 +42,10 @@ const Home = ({ Header }) => {
   const s1ContainerRef = useRef(null);
   const mainContainerRef = useRef(null);
   const mode = useSelector((state) => state.common.mode);
+  const screenSize = useSelector((state) => state.common.screenSize);
   // Canvas related Global States
+  const engineRef = useRef(null); // sun moon world canvas
+  const renderRef = useRef(null); // sun moon world canvas
 
   //handling hangingimages section1
   const hangingImagesS1 = () => {
@@ -60,6 +64,17 @@ const Home = ({ Header }) => {
       Events,
     } = Matter;
 
+    // Clear existing renderer if it exists
+    if (renderRef.current) {
+      Matter.Render.stop(renderRef.current);
+      Matter.World.clear(engineRef.current.world);
+      Matter.Engine.clear(engineRef.current);
+      renderRef.current.canvas.remove();
+      renderRef.current.canvas = null;
+      renderRef.current.context = null;
+      renderRef.current.textures = {};
+    }
+
     const runner = Runner.create();
     const engine = Engine.create();
     const world = engine.world;
@@ -73,6 +88,8 @@ const Home = ({ Header }) => {
         wireframes: false,
       },
     });
+    renderRef.current = render;
+    engineRef.current = engine;
 
     // create item
     const createItem1 = ({
@@ -82,14 +99,21 @@ const Home = ({ Header }) => {
       texture = "",
     }) => {
       const group = Body.nextGroup(true);
-      const string = Composites.stack(stringX, stringY, 12, 1, 2, 2, (x, y) =>
-        Bodies.rectangle(x, y, stringLength / 2, 2, {
-          collisionFilter: { group },
-          render: {
-            fillStyle: "#808080",
-            strokeStyle: "#808080",
-          },
-        })
+      const string = Composites.stack(
+        stringX,
+        stringY,
+        screenSize === mobileScreen ? 9 : 12,
+        1,
+        2,
+        2,
+        (x, y) =>
+          Bodies.rectangle(x, y, stringLength / 2, 2, {
+            collisionFilter: { group },
+            render: {
+              fillStyle: "#808080",
+              strokeStyle: "#808080",
+            },
+          })
       );
 
       const firstBody = string.bodies[0];
@@ -97,15 +121,15 @@ const Home = ({ Header }) => {
       const item = Bodies.circle(
         lastBody.position.x,
         lastBody.position.y + 57,
-        50,
+        screenSize === mobileScreen ? 28 : 45,
         {
           collisionFilter: { group },
           label: "sun",
           render: {
             sprite: {
               texture,
-              xScale: 0.5,
-              yScale: 0.5,
+              xScale: screenSize === mobileScreen ? 0.25 : 0.5,
+              yScale: screenSize === mobileScreen ? 0.25 : 0.5,
             },
           },
         }
@@ -160,15 +184,15 @@ const Home = ({ Header }) => {
       const item = Bodies.circle(
         lastBody.position.x,
         lastBody.position.y + 57,
-        50,
+        screenSize === mobileScreen ? 28 : 45,
         {
           collisionFilter: { group },
           label: "moon",
           render: {
             sprite: {
               texture,
-              xScale: 0.5,
-              yScale: 0.5,
+              xScale: screenSize === mobileScreen ? 0.25 : 0.5,
+              yScale: screenSize === mobileScreen ? 0.25 : 0.5,
             },
           },
         }
@@ -281,16 +305,17 @@ const Home = ({ Header }) => {
 
   const [scrollTimer, setScrollTimer] = useState(null);
   useEffect(() => {
-    // hangingImagesS1();
+    hangingImagesS1();
     initCircularText();
 
     // handling screen resize events
     const handleResize = debounce(() => {
-      // section1CanvasRef.current.childNodes[0].width =
-      //   s1ContainerRef.current.clientWidth;
-      // section1CanvasRef.current.childNodes[0].height =
-      //   s1ContainerRef.current.clientHeight;
-      // window.location.reload();
+      section1CanvasRef.current.childNodes[0].width =
+        s1ContainerRef.current.clientWidth;
+      section1CanvasRef.current.childNodes[0].height =
+        s1ContainerRef.current.clientHeight;
+      hangingImagesS1();
+      window.location.reload();
     }, 300);
 
     // handling scrollbar
@@ -318,6 +343,11 @@ const Home = ({ Header }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("keydown", handleKeyDowns);
+      if (renderRef.current) {
+        Matter.Render.stop(renderRef.current);
+        Matter.World.clear(engineRef.current.world);
+        Matter.Engine.clear(engineRef.current);
+      }
     };
   }, []);
 
@@ -2440,7 +2470,7 @@ const FooterCanvas = () => {
   };
 
   useEffect(() => {
-    // pillWorld();
+    pillWorld();
   }, []);
   return (
     <>
