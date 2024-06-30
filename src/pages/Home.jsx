@@ -872,12 +872,12 @@ const Home = ({ Header }) => {
               <img
                 src={sparkleYellow}
                 alt=""
-                className={` absolute scale-[0.13] max-sm:scale-[0.09]  lg:-left-[10rem] md:-left-[7rem] max-md:-left-[7rem]  lg:-top-[3rem] md:-top-[3rem] max-md:-top-[3rem] max-sm:-left-[4.5rem]`}
+                className={` absolute scale-[0.13] max-sm:scale-[0.09]  lg:-left-[10rem] md:-left-[7rem] max-md:-left-[7rem]  lg:-top-[3rem] md:-top-[3rem] max-md:-top-[4rem] max-sm:-left-[2.5rem]`}
               />
               <img
                 src={sparklePink}
                 alt=""
-                className={` absolute scale-[0.13] max-sm:scale-[0.09] lg:-right-[10rem] md:-right-[7rem] max-md:-right-[7rem]  lg:-top-[3rem] md:-top-[3rem] max-md:-top-[3rem] max-sm:-right-[4.5rem]`}
+                className={` absolute scale-[0.13] max-sm:scale-[0.09] lg:-right-[10rem] md:-right-[7rem] max-md:-right-[7rem]  lg:-top-[3rem] md:-top-[3rem] max-md:-top-[4rem] max-sm:-right-[2.5rem]`}
               />
             </div>
             {/* row 5 */}
