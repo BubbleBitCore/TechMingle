@@ -128,8 +128,8 @@ const Home = ({ Header }) => {
           render: {
             sprite: {
               texture,
-              xScale: screenSize === mobileScreen ? 0.25 : 0.5,
-              yScale: screenSize === mobileScreen ? 0.25 : 0.5,
+              xScale: screenSize === mobileScreen ? 0.3 : 0.5,
+              yScale: screenSize === mobileScreen ? 0.3 : 0.5,
             },
           },
         }
