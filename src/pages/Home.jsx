@@ -341,8 +341,19 @@ const Home = ({ Header }) => {
       );
     });
 
+    const deviceOrient = (event) => {
+      if (event) {
+        console.log(event.beta);
+        console.log(event.gamma);
+        const { beta, gamma } = event;
+        engineRef.gravity.x = beta / 90;
+        engineRef.gravity.y = gamma / 90;
+      }
+    };
+
     window.addEventListener("resize", handleResize);
     window.addEventListener("keydown", handleKeyDowns);
+    window.addEventListener("deviceorientation", deviceOrient);
 
     return () => {
       window.removeEventListener("resize", handleResize);
@@ -967,7 +978,9 @@ const Home = ({ Header }) => {
                   D{/* heart */}
                   <span
                     className={`absolute  ${
-                      screenSize === mobileScreen ? "heartTextMobile" : "heartText"
+                      screenSize === mobileScreen
+                        ? "heartTextMobile"
+                        : "heartText"
                     }  bottom-[30%] -right-3  rotate-[6deg] `}
                   >
                     <img
