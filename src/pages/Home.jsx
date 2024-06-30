@@ -33,6 +33,7 @@ import facemodel from "../assets/images/facemodel.png";
 import Matter from "matter-js";
 import { useDispatch, useSelector } from "react-redux";
 import debounce from "../utils/debounce.js";
+import { mobileScreen } from "../constants/screenSizeConstants.js";
 
 const Home = ({ Header }) => {
   const navigate = useNavigate();
@@ -41,7 +42,10 @@ const Home = ({ Header }) => {
   const s1ContainerRef = useRef(null);
   const mainContainerRef = useRef(null);
   const mode = useSelector((state) => state.common.mode);
+  const screenSize = useSelector((state) => state.common.screenSize);
   // Canvas related Global States
+  const engineRef = useRef(null); // sun moon world canvas
+  const renderRef = useRef(null); // sun moon world canvas
 
   //handling hangingimages section1
   const hangingImagesS1 = () => {
@@ -60,6 +64,17 @@ const Home = ({ Header }) => {
       Events,
     } = Matter;
 
+    // Clear existing renderer if it exists
+    if (renderRef.current) {
+      Matter.Render.stop(renderRef.current);
+      Matter.World.clear(engineRef.current.world);
+      Matter.Engine.clear(engineRef.current);
+      renderRef.current.canvas.remove();
+      renderRef.current.canvas = null;
+      renderRef.current.context = null;
+      renderRef.current.textures = {};
+    }
+
     const runner = Runner.create();
     const engine = Engine.create();
     const world = engine.world;
@@ -73,6 +88,8 @@ const Home = ({ Header }) => {
         wireframes: false,
       },
     });
+    renderRef.current = render;
+    engineRef.current = engine;
 
     // create item
     const createItem1 = ({
@@ -82,14 +99,21 @@ const Home = ({ Header }) => {
       texture = "",
     }) => {
       const group = Body.nextGroup(true);
-      const string = Composites.stack(stringX, stringY, 12, 1, 2, 2, (x, y) =>
-        Bodies.rectangle(x, y, stringLength / 2, 2, {
-          collisionFilter: { group },
-          render: {
-            fillStyle: "#808080",
-            strokeStyle: "#808080",
-          },
-        })
+      const string = Composites.stack(
+        stringX,
+        stringY,
+        screenSize === mobileScreen ? 9 : 12,
+        1,
+        2,
+        2,
+        (x, y) =>
+          Bodies.rectangle(x, y, stringLength / 2, 2, {
+            collisionFilter: { group },
+            render: {
+              fillStyle: "#808080",
+              strokeStyle: "#808080",
+            },
+          })
       );
 
       const firstBody = string.bodies[0];
@@ -97,15 +121,15 @@ const Home = ({ Header }) => {
       const item = Bodies.circle(
         lastBody.position.x,
         lastBody.position.y + 57,
-        50,
+        screenSize === mobileScreen ? 28 : 45,
         {
           collisionFilter: { group },
           label: "sun",
           render: {
             sprite: {
               texture,
-              xScale: 0.5,
-              yScale: 0.5,
+              xScale: screenSize === mobileScreen ? 0.25 : 0.5,
+              yScale: screenSize === mobileScreen ? 0.25 : 0.5,
             },
           },
         }
@@ -160,15 +184,15 @@ const Home = ({ Header }) => {
       const item = Bodies.circle(
         lastBody.position.x,
         lastBody.position.y + 57,
-        50,
+        screenSize === mobileScreen ? 28 : 45,
         {
           collisionFilter: { group },
           label: "moon",
           render: {
             sprite: {
               texture,
-              xScale: 0.5,
-              yScale: 0.5,
+              xScale: screenSize === mobileScreen ? 0.25 : 0.5,
+              yScale: screenSize === mobileScreen ? 0.25 : 0.5,
             },
           },
         }
@@ -279,18 +303,39 @@ const Home = ({ Header }) => {
     Render.run(render);
   };
 
+  const [scrollTimer, setScrollTimer] = useState(null);
   useEffect(() => {
-    // hangingImagesS1();
+    hangingImagesS1();
     initCircularText();
 
     // handling screen resize events
     const handleResize = debounce(() => {
-      // section1CanvasRef.current.childNodes[0].width =
-      //   s1ContainerRef.current.clientWidth;
-      // section1CanvasRef.current.childNodes[0].height =
-      //   s1ContainerRef.current.clientHeight;
-      // window.location.reload();
+      section1CanvasRef.current.childNodes[0].width =
+        s1ContainerRef.current.clientWidth;
+      section1CanvasRef.current.childNodes[0].height =
+        s1ContainerRef.current.clientHeight;
+      hangingImagesS1();
+      window.location.reload();
     }, 300);
+
+    // handling scrollbar
+    const removeScrollBar = () => {
+      mainContainerRef.current.classList.add("hideScrollBar");
+    };
+    const addScrollBar = () => {
+      mainContainerRef.current.classList.remove("hideScrollBar");
+    };
+    mainContainerRef.current.addEventListener("scroll", () => {
+      clearTimeout(scrollTimer);
+      addScrollBar();
+    });
+    mainContainerRef.current.addEventListener("scrollend", () => {
+      setScrollTimer(
+        setTimeout(() => {
+          removeScrollBar();
+        }, 2500)
+      );
+    });
 
     window.addEventListener("resize", handleResize);
     window.addEventListener("keydown", handleKeyDowns);
@@ -298,6 +343,11 @@ const Home = ({ Header }) => {
     return () => {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("keydown", handleKeyDowns);
+      if (renderRef.current) {
+        Matter.Render.stop(renderRef.current);
+        Matter.World.clear(engineRef.current.world);
+        Matter.Engine.clear(engineRef.current);
+      }
     };
   }, []);
 
@@ -593,6 +643,21 @@ const Home = ({ Header }) => {
         .carouselContainer-6 img:nth-child(6){
           filter:blur(0px) !important;
         }
+
+        /* Scrollbar */
+        html{
+          scrollbar-transition:smooth;
+        }
+        .scrollTransition::-webkit-scrollbar{
+          width:9px;
+          transition:width 1s ease ;
+        }
+        .hideScrollBar::-webkit-scrollbar{
+          width:0;
+        }
+        .scrollTransition::-webkit-scrollbar-thumb:hover{
+          cursor:pointer;
+        }
         
       `}
       </style>
@@ -600,7 +665,7 @@ const Home = ({ Header }) => {
         {/* <Header urlName="TechMingle" /> */}
         <div
           ref={mainContainerRef}
-          className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto snap-mandatory snap-y"
+          className="mt-1 mb-2 h-full w-full overflow-hidden overflow-y-auto scrollTransition snap-mandatory snap-y"
         >
           {/* section1 */}
           <div
@@ -681,7 +746,7 @@ const Home = ({ Header }) => {
               </div>
               {/* bordered right line */}
               <div
-                className={`absolute rounded-[2rem] lg:-right-[4rem] md:-right-[4.5rem] max-md:-right-[4.5rem] max-sm:-right-[3rem] top-1/2 max-sm:top-1/3  border-l-0 md:h-[4.6rem]  lg:h-[6rem] max-md:h-[4.6rem] max-sm:h-[4rem] border-4 w-[10rem] max-sm:w-[6rem] z-10 ${
+                className={`absolute rounded-[2rem] max-sm:rounded-[1rem] lg:-right-[4rem] md:-right-[4.5rem] max-md:-right-[4.5rem] max-sm:-right-[2.5rem] top-1/2 max-sm:top-1/3  border-l-0 md:h-[4.6rem]  lg:h-[6rem] max-md:h-[4.6rem] max-sm:h-[4rem] border-4 w-[10rem] max-sm:w-[4rem] z-10 ${
                   mode ? "border-white" : "border-gray-800"
                 } transition-all duration-200 border-dashed `}
               ></div>
@@ -742,7 +807,9 @@ const Home = ({ Header }) => {
                 } transition-all duration-200 rounded-[2rem] -top-1/2 max-sm:-top-[46%] lg:left-[6rem] md:left-[4.8rem] max-md:left-[4.8rem] max-sm:left-[1.9rem] mr-10 max-sm:mr-5 `}
               ></div>
               {/* circles */}
-              <div className={`relative w-[5rem]  lg:mr-14 md:mr-8 max-md:mr-8 max-sm:mr-6`}>
+              <div
+                className={`relative w-[5rem]  lg:mr-14 md:mr-8 max-md:mr-8 max-sm:mr-6`}
+              >
                 {/* cicle1 */}
                 <div
                   className={`rounded-full lg:w-[5.5rem] md:w-[4.5rem] max-md:w-[4.5rem] max-sm:w-[3.5rem] lg:h-[5.5rem] md:h-[4.5rem] max-md:h-[4.5rem] max-sm:h-[3.5rem] flex justify-center items-center row3Gradient`}
@@ -827,7 +894,9 @@ const Home = ({ Header }) => {
               Try it for free
             </div>
             {/* row 6 Sponsor */}
-            <div className={`flex lg:gap-5 md:gap-4 max-md:gap-4 absolute lg:bottom-10 md:bottom-14 max-md:bottom-14 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center max-sm:scale-[0.8]`}>
+            <div
+              className={`flex lg:gap-5 md:gap-4 max-md:gap-4 absolute lg:bottom-10 md:bottom-14 max-md:bottom-14 left-1/2 -translate-x-1/2 z-20 pointer-events-none justify-center items-center max-sm:scale-[0.8]`}
+            >
               <img
                 src={google}
                 className={`invert-[20%] ${
@@ -2401,7 +2470,7 @@ const FooterCanvas = () => {
   };
 
   useEffect(() => {
-    // pillWorld();
+    pillWorld();
   }, []);
   return (
     <>

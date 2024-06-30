@@ -1,5 +1,8 @@
 import { createSlice } from "@reduxjs/toolkit";
 import man2 from "../assets/images/man2.png";
+import {
+  checkScreenSize,
+} from "../constants/screenSizeConstants.js";
 
 // This slice contain all app related slices which are common to whole app
 const checkSystemMode = () => {
@@ -28,6 +31,7 @@ const initialState = {
   tempProfileImage: null,
   openEditor: false,
   onlineStatus: false,
+  screenSize: checkScreenSize(), // Current ScreenSize
 };
 
 export const commonSlice = createSlice({
@@ -54,6 +58,9 @@ export const commonSlice = createSlice({
     changeOnlineStatus: (state, action) => {
       state.onlineStatus = action.payload;
     },
+    changeScreenSize: (state, action) => {
+      state.screenSize = action.payload;
+    },
   },
 });
 
@@ -64,6 +71,7 @@ export const {
   setOpenEditor,
   setTempProfileImage,
   changeOnlineStatus,
+  changeScreenSize,
 } = commonSlice.actions;
 
 export default commonSlice.reducer;
