@@ -342,9 +342,9 @@ const Home = ({ Header }) => {
     });
 
     const deviceOrient = (event) => {
-      if (event.accelerationIncludingGravity) {
-        console.log(event.beta);
-        console.log(event.gamma);
+      if (event.accelerationIncludingGravity.x || event.accelerationIncludingGravity.y) {
+        console.log(event.accelerationIncludingGravity.x);
+        console.log(event.accelerationIncludingGravity.y);
         const { x, y } = event.accelerationIncludingGravity;
         engineRef.current.gravity.x = x;
         engineRef.current.gravity.y = y;
