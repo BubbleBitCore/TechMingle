@@ -346,8 +346,8 @@ const Home = ({ Header }) => {
         console.log(event.accelerationIncludingGravity.x);
         console.log(event.accelerationIncludingGravity.y);
         const { x, y } = event.accelerationIncludingGravity;
-        engineRef.current.gravity.x = -x/90;
-        engineRef.current.gravity.y = -y/90;
+        engineRef.current.gravity.x = -x/10;
+        engineRef.current.gravity.y = y/10;
       }
     };
 
