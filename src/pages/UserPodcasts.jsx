@@ -21,15 +21,12 @@ import AddToPlaylistModel from "../components/Podcast/AddToPlaylistModel";
 import EditPodcastModal from "../components/Podcast/EditPodcastModal";
 import { AnimatePresence } from "framer-motion";
 import FlashMsg from "../components/FlashMsg/FlashMsg";
-import {
-  FLASH_WARNING,
-} from "../constants/FlashMsgConstants.js";
+import { FLASH_WARNING } from "../constants/FlashMsgConstants.js";
 import podcastMike from "../assets/images/podcastMike.png";
 import CreatePodcast from "../components/Podcast/CreatePodcast.jsx";
 
 const Podcasts = () => {
-  const [podcastList, setPodcastList] = useState(episodes);
-  const podcastToEdit = useSelector((state) => state.podcast.podcastToEdit);
+  const podcastList = episodes;
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const mode = useSelector((state) => state.common.mode);
@@ -160,7 +157,7 @@ const Podcasts = () => {
                       <img
                         src={item.thumbnail}
                         className="w-full h-full object-cover rounded-xl cursor-pointer"
-                        onDoubleClick={() => {
+                        onClick={() => {
                           dispatch(setNowPlaying(item));
                           dispatch(setIsPlaying(true));
                           navigate("/podcast/1");
@@ -238,9 +235,122 @@ const Podcasts = () => {
 };
 
 const Playlists = () => {
+  const playlistList = episodes;
+  const navigate = useNavigate();
+  const mode = useSelector((state) => state.common.mode);
+  const [moreVisibility, setMoreVisibility] = useState(
+    Array(playlistList.length).fill(false)
+  );
+  const moreList = [
+    {
+      value: "Delete",
+      icon: "ri-delete-bin-2-line",
+      classes: "",
+      function: () => {
+        setMoreVisibility(false);
+        setFlashType(FLASH_WARNING);
+        setFlashTitle("Confirm Deletion");
+        setFlashMsg(
+          "Are you sure you want to delete this playlist? This action cannot be undone."
+        );
+        setFlashVisibility(true);
+      },
+    },
+  ];
+
+  //  Flash messages Are handled here
+  const [flashVisibility, setFlashVisibility] = useState(false);
+  const FLASH_STATE = {
+    flashVisibility,
+    setFlashVisibility,
+  };
+  const [flashType, setFlashType] = useState(null);
+  const [flashTitle, setFlashTitle] = useState("");
+  const [flashMsg, setFlashMsg] = useState("");
+
   return (
     <>
-      <p className="text-white">Playlists</p>
+      <div className="flex justify-center w-full sm:px-4 relative ">
+        <div className="max-sm:flex max-sm:flex-col  max-sm:w-full sm:grid sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-5 ">
+          {/* card design */}
+          {playlistList.map((item, idx) => (
+            <div className="flex flex-col group" key={idx}>
+              <div className="flex flex-col px-8 items-center justify-end">
+                <div
+                  className={`flex bg-zinc-400 w-64 h-[10rem] border-[3px] ${
+                    mode ? "border-[#0B0D10]" : "border-white"
+                  }   rounded-xl z-30 absolute overflow-hidden transition-all duration-500`}
+                onClick={()=>{
+                  navigate("/podcastplaylist/1")
+                }}>
+                  <img
+                    className="flex w-full h-full object-cover cursor-pointer"
+                    src={item.thumbnail}
+                  />
+                </div>
+                <div
+                  className={`flex w-[15.75rem] h-[10.25rem] border-2 ${
+                    mode ? "border-[#0B0D10]" : "border-white"
+                  } rounded-2xl z-20 absolute  opacity-50 ${mode ? "bg-zinc-200" : "bg-zinc-400"} transition-all duration-500`}
+                ></div>
+                <div
+                  className={`flex opacity-30 ${mode ? "bg-zinc-300 " : "bg-zinc-400"} w-[15rem] h-[10.5rem] border-2 ${
+                    mode ? "border-[#0B0D10]" : "border-white"
+                  } rounded-2xl z-10 transition-all duration-500`}
+                ></div>
+              </div>
+              <div className="flex w-full justify-between">
+                <div className="flex flex-col pt-2">
+                  <p className={`${mode ? "text-white" : "text-black"} text-sm`}>{item.title}</p>
+                  <div className={`flex ${mode ? "text-zinc-400" : "text-zinc-700"} text-xs`}>
+                    <p>{item.artist}</p>
+                    <div className="flex justify-center items-center px-2">
+                      <div className="flex w-[3px] h-[3px] bg-gray-400 rounded-full"></div>
+                    </div>
+                    <p>Playlist</p>
+                  </div>
+                </div>
+                <div
+                  className={`text-transparent py-3 text-xl ${
+                    mode
+                      ? `group-hover:text-white ${
+                          moreVisibility[idx] ? "text-white" : ""
+                        }`
+                      : `group-hover:text-black ${
+                          moreVisibility[idx] ? "text-black" : ""
+                        }`
+                  } relative cursor-pointer`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    const newVisibility = Array(playlistList.length).fill(
+                      false
+                    );
+                    newVisibility[idx] = !moreVisibility[idx];
+                    setMoreVisibility(newVisibility);
+                  }}
+                >
+                  <i className="ri-more-2-line" title="More"></i>
+                  <ClickMenu menu={moreList} visibility={moreVisibility[idx]} />
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <AnimatePresence>
+        {flashVisibility && (
+          <FlashMsg
+            key={"FlasMsg"}
+            FLASH_STATE={FLASH_STATE}
+            FLASH_TYPE={flashType}
+            FLASH_TITLE={flashTitle}
+            FLASH_MESSAGE={flashMsg}
+            ONCLICK={() => {}}
+            CANCELCLICK={() => {}}
+            enableCancel={true}
+          />
+        )}
+      </AnimatePresence>
     </>
   );
 };

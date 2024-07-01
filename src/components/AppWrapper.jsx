@@ -27,6 +27,7 @@ import { useRef, useState } from "react";
 import GlobalAudioPlayer from "./Podcast/GlobalAudioPlayer";
 import UserPodcasts from "../pages/UserPodcasts";
 import UserArticles from "../pages/UserArticles";
+import PodcastPlaylist from "../pages/PodcastPlaylist";
 
 const AppWrapper = () => {
   const mode = useSelector((state) => state.common.mode);
@@ -143,6 +144,11 @@ const AppWrapper = () => {
               exact
               path="/podcast/:id"
               element={<Podcast Header={Header} player={player} />}
+            />
+            <Route
+              exact
+              path="/podcastplaylist/:id"
+              element={<PodcastPlaylist Header={Header}/>}
             />
             <Route
               exact
